@@ -1,0 +1,71 @@
+#################################################################
+#                                                               #
+#                            Unifi                              #
+#                                                               #
+#################################################################
+automation:
+  - alias: Unifi Firmware Available Notification
+    id: 4b1f0b626a9049ab892a56f512106af7
+    trigger:
+      platform: state
+      entity_id: sensor.unifi_gateway_firmware_upgradable
+      from: '0'
+    action:
+    - service: notify.mobile_app_john_boiless_iphone_x
+      data_template:
+        message: New Unifi firmware is available.
+    - service: persistent_notification.create
+      data:
+        message: New Unifi firmware is available.
+        title: Update available
+
+  - alias: "New device connected"
+    trigger:
+      - platform: event
+        event_type: device_tracker_new_device
+    action:
+      - service: notify.admins
+        data:
+          title: 'Network Monitor'
+          message: 'There has been a new device detected on the network.'
+
+## Bandwidth Monitoring
+input_number:
+  wan_traffic_delta_in:
+    min: 0
+    max: 4294967295
+  wan_traffic_delta_out:
+    min: 0
+    max: 4294967295
+
+utility_meter:
+  daily_internet_usage_in:
+    source: sensor.internet_mb_downloaded
+    cycle: daily
+  daily_internet_usage_out:
+    source: sensor.internet_mb_uploaded
+    cycle: daily
+  monthly_internet_usage_in:
+    source: sensor.internet_mb_downloaded
+    cycle: monthly
+  monthly_internet_usage_out:
+    source: sensor.internet_mb_uploaded
+    cycle: monthly
+
+sensor:
+  - platform: template
+    sensors:
+      internet_mb_downloaded:
+        friendly_name: "Internet Download"
+        unit_of_measurement: 'MB'
+        value_template: "{{ state_attr('binary_sensor.edgeos_interface_eth0', 'MBytes (Received)') }}"
+      internet_mb_uploaded:
+        value_template: "{{ state_attr('binary_sensor.edgeos_interface_eth0', 'MBytes (Sent)') }}"
+        unit_of_measurement: 'MB'
+
+      internet_usage_in:
+        value_template: "{{ ((state_attr('binary_sensor.edgeos_interface_eth0','MBytes/ps (Received)')  | float)) | round(3) }}"
+        unit_of_measurement: 'MB'
+      internet_usage_out:
+        value_template: "{{ ((state_attr('binary_sensor.edgeos_interface_eth0','MBytes/ps (Sent)')  | float)) | round(3) }}"
+        unit_of_measurement: 'MB'

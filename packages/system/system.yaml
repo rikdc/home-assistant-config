@@ -1,0 +1,257 @@
+#################################################################
+#                                                               #
+#                           Sensors                             #
+#                                                               #
+#################################################################
+
+group:
+  core network:
+    name: Core Network
+    #view: no
+    entities:
+      - binary_sensor.core_router
+
+  internet:
+    name: Internet
+    #view: no
+    entities:
+      - sensor.speedtest_ping
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+
+  resources:
+    name: RPi Resources
+    #view: no
+    entities:
+      - sensor.disk_use
+      - sensor.memory_use_percent
+      - sensor.processor_use
+      - sensor.cpu_temperature
+      - sensor.last_boot
+
+  pi_hole:
+    name: Pi Hole Status
+    entities:
+      # - sensor.pi_hole_status
+      - switch.pi_hole
+      - sensor.pi_hole_ads_blocked_today
+      - sensor.pi_hole_ads_percentage_blocked_today
+      - sensor.pi_hole_dns_queries_cached
+      - sensor.pi_hole_dns_queries_forwarded
+      - sensor.pi_hole_dns_queries_today
+      - sensor.pi_hole_dns_unique_clients
+      - sensor.pi_hole_dns_unique_domains
+      - sensor.pi_hole_domains_blocked
+
+updater:
+  include_used_components: true
+
+# This should be redundant soon, looks like it's deprecated and 
+# configured by the UI only.
+synology_dsm:
+  - host: !secret synology_host
+    username: !secret synology_username
+    password: !secret synology_password
+
+#################################################################
+#                                                               #
+#                           Sensors                             #
+#                                                               #
+#################################################################
+sensor:
+
+#
+# Version
+#
+# @link https://www.home-assistant.io/integrations/version/
+#
+  - platform: version
+
+
+#
+# Friendly version report
+#
+# Useful for HADashboard.
+#
+# @see /appdaemon/dashboards/Status.dash
+#
+  - platform: template
+    sensors:
+      version:
+        friendly_name: Version
+        friendly_name_template: >-
+          {% if states('binary_sensor.updater') == 'on' %}
+            Update Available
+          {% else %}
+            Version Installed
+          {% endif %}
+        icon_template: >-
+          {% if states('binary_sensor.updater') == 'on' %}
+            mdi:update
+          {% else %}
+            mdi:home-assistant
+          {% endif %}
+        value_template: >-
+          {% set update = states('binary_sensor.updater') %}
+          {% set version = state_attr('binary_sensor.updater', 'newest_version') %}
+          {% if update == 'on' and version != None %}
+            {{ version }}
+          {% else %}
+            {{ states('sensor.current_version') }}
+          {% endif %}
+        attribute_templates:
+          current_version: >-
+            {{ states('sensor.current_version') }}
+          newest_version: >-
+            {{ state_attr('binary_sensor.updater', 'newest_version') }}
+          release_notes: >-
+            {{ state_attr('binary_sensor.updater', 'release_notes') }}
+          release_notes_html: >-
+            {% set release_notes = state_attr('binary_sensor.updater', 'release_notes') %}
+            {% if release_notes != None %}
+              <a href="{{ release_notes }}" target="_new" style="color:var(--secondary-text-color);">Release notes</a>
+            {% endif %}
+
+  - platform: command_line
+    name: CPU Temperature
+    command: "cat /sys/class/thermal/thermal_zone0/temp"
+    unit_of_measurement: "°C"
+    value_template: '{{ (value | multiply(0.001)) | round(1) }}'
+
+binary_sensor:
+  - platform: ping
+    host: 8.8.8.8
+    name: WAN
+    scan_interval: 60
+
+  - platform: ping
+    host: 192.168.10.1
+    name: Gateway
+    scan_interval: 60
+
+speedtestdotnet:
+  scan_interval:
+    minutes: 30
+  monitored_conditions:
+    - ping
+    - download
+    - upload
+
+switch:
+  - platform: template
+    switches:
+      pi_hole:
+        value_template: "{{ is_state('binary_sensor.pi_hole_status', 'on') }}"
+        turn_on:
+          service: pi_hole.enable
+        turn_off:
+          service: pi_hole.disable
+          data:
+            duration: 00:00:60
+
+# sensor:
+# # Synology
+#   - platform: synologydsm
+#     # host: !secret sensor_synology_host
+#     # username: !secret sensor_synology_username
+#     # password: !secret sensor_synology_password
+#     monitored_conditions:
+#       - cpu_total_load
+#       - memory_real_usage
+#       - disk_status
+#       - volume_status
+#       - volume_percentage_used
+#       - disk_temp
+#       - volume_disk_temp_max
+
+#################################################################
+#                                                               #
+#                         System Health                         #
+#                                                               #
+################################################################# 
+
+system_health:
+
+input_boolean:
+  homeautomation:
+    name: Home Automation
+    icon: mdi:home-automation
+
+#################################################################
+#                                                               #
+#                            Alerts                             #
+#                                                               #
+#################################################################
+alert:
+  home_automation:
+    name: Home automation is disabled
+    done_message: Home automation enabled
+    entity_id: input_boolean.homeautomation
+    state: 'off'
+    repeat: 30
+    can_acknowledge: True
+    #skip_first: True
+    notifiers:
+      - home_automation
+
+#################################################################
+#                                                               #
+#                          Automations                          #
+#                                                               #
+#################################################################
+automation:
+  - id: update_verify
+    alias: "Update VERIFY"
+    trigger:
+      # When Home Assistant starts.
+      - platform: homeassistant
+        event: start
+      # Every 6 hours.
+      - platform: time_pattern
+        hours: '/6'
+        minutes: 00
+    action:
+      # Wait a while so that everything is ready.
+      - delay: 30
+      # Force a refresh of the updater component.
+      - service: homeassistant.update_entity
+        entity_id: binary_sensor.updater
+
+## Notify if we're running out of disk space on the main home-assistant server.
+  - alias: Disk Use Alarm
+    initial_state: 'on'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.disk_use
+      above: 12
+    action:
+      - service: notify.admins
+        data:
+          title: 'HA HASSIO Server'
+          message: 'Warning - HA Server Disk Use is {{states.sensor.disk_use.state}}Gb'
+
+## Notify of High CPU Usage
+  - alias: CPU Use Alarm
+    initial_state: 'on'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.processor_use
+      above: 85
+    action:
+      - service: notify.admins
+        data:
+          title: 'HA HASSIO Server'
+          message: 'Warning - HA Server Processor {{states.sensor.processor_use.state}}%'
+          
+## Notify if CPU Temperature is High
+  - alias: CPU Temp Alarm
+    initial_state: 'on'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.cpu_temperature
+      above: 85
+    action:
+      - service: notify.admins
+        data:
+          title: 'HA HASSIO Server'
+          message: 'Warning - HA Server CPU Temp is {{states.sensor.cpu_temperature.state}}c'
