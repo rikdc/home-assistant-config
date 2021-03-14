@@ -1,0 +1,25 @@
+sensor.morning_commute:
+  friendly_name: Morning Commute
+
+switch.panic_mode:
+  icon: mdi:alarm-light
+  friendly_name: Panic Mode
+
+light.unit2_loft_light_dimmer:
+  icon: hass:lava-lamp
+
+switch.tree_lights:
+  icon: hass:pine-tree
+  friendly_name: tree lights
+
+light.upstairs_fireside_lamp:
+  icon: hass:lamp
+  friendly_name: fireside lamp
+
+light.unit2_kitchen_pendants_dimmer:
+  icon: hass:ceiling-lamp
+  friendly_name: pendant lights
+
+# Temperature
+sensor.basement_temperature:
+  friendly_name: "Basement"
