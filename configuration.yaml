@@ -15,6 +15,25 @@ homeassistant:
 frontend:
   themes: !include_dir_merge_named themes
 
+panel_iframe:
+  nodered:
+    title: 'NodeRed'
+    url: !secret app_nodered_url
+    icon: mdi:chip
+    require_admin: true
+  esphome:
+    title: 'EspHome'
+    icon: mdi:chip
+    url: !secret app_esphome_url
+  z2m:
+    title: 'ZWave'
+    url: !secret app_zwave_url
+    icon: mdi:home
+  portainer:
+    title: 'Portainer'
+    icon: mdi:docker
+    url: !secret app_portainer_url
+
 browser_mod:
 
 logger:
