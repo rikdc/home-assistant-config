@@ -1,0 +1,9 @@
+alias: Turn off Upstairs Lights
+sequence:
+- service: light.turn_off
+  entity_id: light.uptairs_lights
+- service: light.turn_off
+  entity_id: light.light_staircase
+- service: input_boolean.turn_on
+  entity_id: input_boolean.person3_in_bed
+mode: single

@@ -1,0 +1,5 @@
+alias: Turn off All Lights
+sequence:
+- service: light.turn_off
+  entity_id: light.all_lights
+mode: single

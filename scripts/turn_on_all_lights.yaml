@@ -1,0 +1,5 @@
+alias: Turn on All Lights
+sequence:
+- service: light.turn_on
+  entity_id: light.all_lights
+mode: single

@@ -1,0 +1,229 @@
+###################################################
+#                                                 #
+#                  Lights                         #
+#                                                 #
+###################################################
+
+group:
+  interior_lights:
+      - light.light_switch # light.kitchen_ceiling_light is what this should be, but I can't get it to name forcibly.
+      - light.unit1_light_livingroom_dimmer
+      - light.light_frontroom_ceiling_dimmer
+      - light.porch_light
+      - light.kitchen_pendants
+      - light.kitchen_cabinets
+      - light.kitchen_ceiling_light
+      - light.unit1_hallway_lights
+      - light.unit1_light_frontroom_ceiling_dimmer
+
+  downstairs_lights: &downstairs_lights
+    - light.unit1_light_bedroom_dimmer
+    - light.light_switch # light.kitchen_ceiling_light is what this should be, but I can't get it to name forcibly.
+    - light.unit1_light_livingroom_dimmer
+    - light.light_frontroom_ceiling_dimmer
+    - light.porch_light
+    - light.kitchen_pendants
+    - light.kitchen_cabinets
+    - light.kitchen_ceiling_light
+    - light.unit1_hallway_lights
+    - light.unit1_light_frontroom_ceiling_dimmer
+    - light.person1_nightlight
+    - light.person2_nightlight
+
+  outside_lights:
+    - light.light_outside_front
+    - light.outside_light
+    - light.unit2_deck_lights_dimmer
+
+  upstairs_lights:
+      - light.unit2_loft_light_dimmer
+      - light.loft_fairy_lights
+      - light.unit2_kitchen_pendants_dimmer
+      - light.unit2_kitchen_spotlights_dimmer
+      - light.upstairs_fireside_lamp
+      - light.staircase_lights
+      - light.unit2_sofa_lamp
+      - light.unit2_office
+
+light:
+  - platform: group
+    name: uptairs_lights
+    entities: &upstairs_lights
+    - light.unit2_loft_light_dimmer
+    - light.unit2_loft_fairy_lights
+    - light.unit2_kitchen_pendants_dimmer
+    - light.unit2_kitchen_spotlights_dimmer
+    - light.upstairs_fireside_lamp
+    - light.staircase_lights
+    - light.unit2_sofa_lamp
+    - light.unit2_office
+
+  # Pseudo-lights that are actually switches
+  - platform: switch
+    name: Lower back deck light
+    entity_id: switch.17064550d8f15b165730_1
+
+  - platform: group
+    name: All Lights
+    entities:
+      - light.unit2_loft_light_dimmer
+      - light.unit2_loft_fairy_lights
+      - light.unit2_kitchen_pendants_dimmer
+      - light.unit2_kitchen_spotlights_dimmer
+      - light.unit2_sofa_lamp
+      - light.unit2_office
+      - light.upstairs_fireside_lamp
+      - light.staircase_lights
+      - light.unit1_kitchen_pendants
+      - light.unit1_light_bedroom_dimmer
+      - light.unit1_hallway_lights
+      - light.unit1_light_frontroom_ceiling_dimmer
+      - light.light_switch # light.kitchen_ceiling_light is what this should be, but I can't get it to name forcibly.
+      - light.unit1_light_livingroom_dimmer
+      - light.light_frontroom_ceiling_dimmer
+      - light.porch_light
+      - light.kitchen_pendants
+      - light.kitchen_cabinets
+      - light.kitchen_ceiling_light
+
+  - platform: group
+    name: Outside
+    entities:
+      - light.light_outside_front
+      - light.outside_light
+      - light.unit2_deck_lights_dimmer
+
+  - platform: group
+    name: Loft Lights
+    entities:
+      - light.unit2_loft_fairy_lights
+
+  - platform: mqtt
+    name: "Kitchen Cabinets"
+    unique_id: "light.kitchen_cabinets"
+    state_topic: "stat/kitchen_cabinets/RESULT"  
+    value_template: "{{ value_json.POWER }}"
+    command_topic: "cmnd/kitchen_cabinets/POWER"
+    payload_on: "ON"
+    payload_off: "OFF"
+    availability_topic: "tele/kitchen_cabinets/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    qos: 1
+    retain: false
+
+  - platform: group
+    name: downstairs_lights
+    entities:
+      - light.unit1_kitchen_pendants
+      - light.unit1_light_bedroom_dimmer
+      - light.light_switch # light.kitchen_ceiling_light is what this should be, but I can't get it to name forcibly.
+      - light.unit1_light_livingroom_dimmer
+      - light.light_frontroom_ceiling_dimmer
+      - light.porch_light
+      - light.kitchen_cabinets
+      - light.kitchen_ceiling_light
+      - light.unit1_hallway_lights
+      - light.unit1_light_frontroom_ceiling_dimmer
+      - light.person1_nightlight
+      - light.person2_nightlight
+
+  - platform: switch
+    name: Unit1 Bathroom Vanity Light
+    entity_id: switch.unit1_bathroom_vanity_light
+
+  - platform: switch
+    name: Unit1 Bathroom Shower Light
+    entity_id: switch.unit1_bathroom_shower_light
+
+  - platform: group
+    name: Unit1 Bathroom Lights
+    entities:
+      - light.unit1_bathroom_vanity_light
+      - light.bathroom_shower_light # wtf?
+
+  - platform: group
+    name: Kitchen Lights
+    entities:
+      - light.kitchen_pendants
+      - light.kitchen_cabinets
+      - light.kitchen_ceiling_light
+      - light.unit1_hallway_lights
+
+  - platform: group
+    name: Unit1 Bedroom Lights
+    entities:
+      - light.person1_nightlight
+      - light.person2_nightlight
+      - light.unit1_light_bedroom_dimmer
+
+  - platform: group
+    name: Unit1 Livingroom Lights
+    entities:
+      - light.unit1_light_livingroom_dimmer
+      - light.unit1_livingroom_lamp
+
+  # Pseudo-lights that are actually switches
+  - platform: switch
+    name: Unit1 Livingroom Lamp
+    entity_id: switch.unit2_socket_livingroom_couch
+
+  - platform: switch
+    name: Unit1 Kitchen Ceiling Light
+    entity_id: switch.unit1_kitchen_ceiling_lights_switch
+  
+  - platform: switch
+    name: Person2 Nightlight
+    entity_id: switch.unit1_bedroom_switches_switch_1
+
+  - platform: switch    
+    name: Person1 Nightlight
+    entity_id: switch.unit1_bedroom_switches_switch_2
+
+  - platform: switch  
+    name: Unit1 Kitchen Pendants
+    entity_id: switch.unit1_kitchen_pendants_switch
+
+  - platform: switch
+    name: Unit1 Hallway Lights
+    entity_id: switch.kitchen_hallway_lights
+  
+  - platform: switch
+    name: Mudroom Ceiling Light
+    entity_id: switch.17064550d8f15b165730_2
+
+    #
+    # Upstairs Lights
+    #
+  - platform: group
+    name: Loft Evening Lights
+    entities:
+      - light.unit2_loft_light_dimmer
+      - light.unit2_loft_fairy_lights
+
+  - platform: switch
+    name: "Unit2 Loft Fairy Lights"
+    entity_id: switch.unit2_socket_bedroom
+
+  - platform: switch
+    name: "Office Light"
+    entity_id: switch.unit2_office_switch
+
+  - platform: switch
+    name: "Upstairs Fireside Lamp"
+    entity_id: switch.unit2livingroomsocket
+
+  - platform: switch
+    name: "Staircase Lights"
+    entity_id: switch.staircase_lights
+
+  - platform: switch
+    name: "Unit2 Sofa Lamp"
+    entity_id: switch.unit2_socket_livingroom_couch_2
+
+input_number:
+  unit1_frontroom_lights_off_duration:
+    icon: mdi:clock-start
+    initial: 15
+    min: 1
+    max: 1440
