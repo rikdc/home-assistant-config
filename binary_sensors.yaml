@@ -1,12 +1,12 @@
 - platform: workday
   name: Workday Today
-  country: !secrets country
-  province: !secrets province
+  country: !secret country
+  province: !secret province
 
 - platform: workday
   name: Workday Tomorrow
-  country: !secrets country
-  province: !secrets province
+  country: !secret country
+  province: !secret province
   days_offset: 1
 
 - platform: tod
@@ -18,4 +18,4 @@
 - platform: tod
   name: night
   after: '23:59'
-  before: '05:30' 
+  before: '05:30'
