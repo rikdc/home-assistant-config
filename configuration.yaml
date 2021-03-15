@@ -34,6 +34,12 @@ panel_iframe:
     icon: mdi:docker
     url: !secret app_portainer_url
 
+group: !include groups.yaml
+input_boolean: !include input_boolean.yaml
+binary_sensor: !include binary_sensors.yaml
+
+automation: !include automations.yaml
+
 browser_mod:
 
 logger:
