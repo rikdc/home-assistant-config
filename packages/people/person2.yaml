@@ -1,0 +1,29 @@
+input_select:
+  person2_activity:
+    initial: Unknown
+    options:
+      - Unknown
+      - Empty
+      - Awake
+      - Asleep
+      - Waking Up
+      - At Work
+
+  person2_location:
+    initial: Unknown
+    options:
+      - Unknown
+      - Just Arrived
+      - Home
+      - Just Left
+      - Away
+      - Extended Away
+      - Unit1 Kitchen
+      - Kitchen
+      - Unit1 Livingroom
+      - Unit2 Living Room
+      - Upstairs
+      - Bedroom
+      - Bathroom
+      - Office
+      - Upper Office
