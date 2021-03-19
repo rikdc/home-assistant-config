@@ -1,0 +1,9 @@
+alias: Light Unit1 Mudroom Motion 
+description: ''
+use_blueprint:
+  path: freakshock88/motion_illuminance_activated_entity.yaml
+  input:
+    motion_sensor: binary_sensor.unit_1_mudroom_motion
+    target_entity: light.porch_light
+    illuminance_sensor: sensor.unit_1_mudroom_illuminance
+    no_motion_wait: input_number.unit1_entryway_lights_off_duration

@@ -1,4 +1,4 @@
-alias: Unit1 Bedroom Light Management
+alias: Unit1 Bedroom Motion Light 
 description: ''
 use_blueprint:
   path: freakshock88/motion_illuminance_activated_entity.yaml
