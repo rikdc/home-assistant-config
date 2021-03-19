@@ -1,0 +1,12 @@
+alias: Unit1 Bedroom Motion Light 
+description: ''
+use_blueprint:
+  path: freakshock88/motion_illuminance_activated_entity.yaml
+  input:
+    motion_sensor: binary_sensor.unit_1_bedroom_motion
+    target_entity: light.unit1_bedroom_lights
+    no_motion_wait: input_number.unit1_bedroom_lights_off_duration
+    time_limit_after: input_datetime.unit1_bedroom_lights_on_start
+    time_limit_before: input_datetime.unit1_bedroom_lights_on_stop
+    blocker_entity: binary_sensor.lower_bedroom_occupied
+    turn_off_blocker_entity: binary_sensor.lower_bedroom_occupied
