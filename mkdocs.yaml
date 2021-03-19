@@ -1,0 +1,34 @@
+site_name: My Smart Home
+site_author: rikdc
+site_description: Documentation on how I setup my smarthome.
+
+copyright: 'Copyright &copy; 2021'
+
+repo_url: https://github.com/rikdc
+repo_name: rikdc/home-assistant-config
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  icon:
+    logo: material/home-assistant
+    repo: fontawesome/brands/github
+  palette:
+    scheme: preference
+    primary: cyan
+    accent: cyan
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+
+nav:
+  - Home: index.md
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - attr_list
+  - admonition
+  - pymdownx.tabbed
+  - pymdownx.details
+  - pymdownx.superfences
