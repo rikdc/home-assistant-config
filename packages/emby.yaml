@@ -13,5 +13,23 @@
 # - A list of shows to randomly tag
 # - API access to Emby, needs to be added to secrets.
 # - Check if the Roku is on, and Emby App is activated.
+# - When an NFC Tag is scanned, select a random episode and play it.
 #
-#
+
+# This is a hack, I wanted to use the base URL for the Rest commands, but 
+# secrets can't be used as variables. If this was a more important
+# automation, I would conver this to a component.
+input_text:
+  emby_base_url:
+    initial: !secret emby_base_url
+
+sensor:
+  # Fetch all the episodes from the query, and then find a random episode.
+  - platform: rest
+    name: "Emby - Random Always Sunny Episode"
+    resource_template: "{{ states('input_text.emby_base_url') + '/emby/Shows/21775/Episodes' }}"
+    scan_interval: 4
+    value_template: '{{ value_json.Items[range(0,((value_json.TotalRecordCount | int) -1 ))|random].Id}} '
+    headers:
+      X-Emby-Token: !secret emby_key
+      Content-Type: application/json
