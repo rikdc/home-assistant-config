@@ -8,4 +8,4 @@ trigger:
   - platform: tag
     tag_id: 488f0218-00c6-42a1-8e0e-c40cb540a160
 action:
-- service: script.turn_on_all_lights
+- service: script.turn_off_upstairs_lights
