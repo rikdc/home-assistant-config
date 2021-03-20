@@ -48,25 +48,49 @@ rest:
     Content-Type: application/json
   sensor:
     - name: Emby - Session Upstairs Living Room
-      json_attributes:
-        - LastActivityDate
-        - DeviceId
       value_template: >
          {% set items = value_json | selectattr('DeviceName','eq', 'Roku Streaming Stick') | list | first %}
          {{ items['Id'] }} 
     - name: Emby - Session Downstairs Living Room
-      json_attributes:
-        - LastActivityDate
-        - DeviceId
       value_template: >
          {% set items = value_json | selectattr('DeviceName','eq', 'Downstairs Livingroom') | list | first %}
          {{ items['Id'] }} 
 
 rest_command:
   emby_start_show:
-    url: "{{ states('input_text.emby_base_url') }}/emby/Sessions/{{ session }}/Playing?ItemIds={{ show }}&PlayCommand=PlayNow"
+    url: "{{ states('input_text.emby_base_url') }}/emby/Sessions/{{ states(session) }}/Playing?ItemIds={{ states(show) }}&PlayCommand=PlayNow"
     method: POST
     headers:
       accept: '*/*'
       X-Emby-Token: !secret emby_key
       Content-Type: 'application/json'
+
+script:
+  # If emby is not running, configure the Roku Stick to open the Emby App.
+  - alias: Turn on Emby
+    sequence:
+    - type: turn_on
+      device_id: 0b3641ef9902529c6166b328fbdcfbe7
+      entity_id: remote.roku_streaming_stick
+      domain: remote
+    - service: media_player.select_source
+      data:
+        source: Emby
+      target:
+        device_id: 0b3641ef9902529c6166b328fbdcfbe7
+    mode: single
+
+automation:
+  - alias: Emby - NFC Tag Scanned
+    trigger:
+    - platform: tag
+      tag_id: 488f0218-00c6-42a1-8e0e-c40cb540a160
+    # variables:
+    #   tags:
+    #     488f0218-00c6-42a1-8e0e-c40cb540a160:
+    #       session: "{{ stats('sensor.emby_session_upstairs_living_room') }}"
+    action:
+    - service: rest_command.emby_start_show
+      data_template:
+        show: sensor.emby_random_always_sunny_episode
+        session: sensor.emby_session_upstairs_living_room
