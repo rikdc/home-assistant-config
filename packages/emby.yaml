@@ -66,30 +66,50 @@ rest_command:
       Content-Type: 'application/json'
 
 script:
-  # If emby is not running, configure the Roku Stick to open the Emby App.
-  - alias: Turn on Emby
+  emby_turn_on_livingroom:
     sequence:
     - type: turn_on
       device_id: 0b3641ef9902529c6166b328fbdcfbe7
-      entity_id: remote.roku_streaming_stick
+      entity_id: media_player.roku_streaming_stick_2
       domain: remote
+    mode: single
+
+  emby_open_livingroom:
+    sequence:
     - service: media_player.select_source
       data:
         source: Emby
       target:
-        device_id: 0b3641ef9902529c6166b328fbdcfbe7
+        entity_id: media_player.roku_streaming_stick_2
     mode: single
 
 automation:
   - alias: Emby - NFC Tag Scanned
+    mode: single
     trigger:
-    - platform: tag
-      tag_id: 488f0218-00c6-42a1-8e0e-c40cb540a160
-    # variables:
-    #   tags:
-    #     488f0218-00c6-42a1-8e0e-c40cb540a160:
-    #       session: "{{ stats('sensor.emby_session_upstairs_living_room') }}"
+      - platform: tag
+        tag_id:  6dca970e-7431-4082-be30-39768671197f 
+    variables:
+      tags:
+         6dca970e-7431-4082-be30-39768671197f :
+          tv: Upstairs TV
+          turn_on_emby: script.emby_turn_on_livingroom
+          open_emby: script.emby_open_livingroom
+          media_player: media_player.roku_streaming_stick_2
+  # condition:
+  #   # Test that we support this device and tag
+  #   - "{{ trigger.event.data.tag_id in tags }}"
+  #   - "{{ trigger.event.data.device_id in media_players }}"
     action:
+    # Make sure Emby is open, and if it isn't, start it
+    - service_template: >
+        {% if (is_state( tags[trigger.event.data.tag_id].media_player , "off")) %}
+          {{ tags[trigger.event.data.tag_id].turn_on_emby }}
+        {% else %}
+          {{ tags[trigger.event.data.tag_id].emby_open_livingroom }}
+        {% endif %}
+    - wait_template: "{{ is_state_attr(tags[trigger.event.data.tag_id].media_player, 'source', 'Emby') }}"
+    - delay: 5 #this is annoying, need to be more elegant here.
     - service: rest_command.emby_start_show
       data_template:
         show: sensor.emby_random_always_sunny_episode
