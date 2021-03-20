@@ -1,0 +1,17 @@
+#
+# Emby
+#
+# The purpose of this package is to allow a random TV show to start
+# after an NFC tag is scanned.
+# 
+# This package has largely been inspired by:
+# - https://community.home-assistant.io/t/thought-id-share-my-nfc-tag-emby-media-player-setup/282127
+# - How to get a dynamic input_select: https://community.home-assistant.io/t/fill-input-select/63865/43
+# - 
+#
+# - The Room detemines which Emby instance is enabled.
+# - A list of shows to randomly tag
+# - API access to Emby, needs to be added to secrets.
+# - Check if the Roku is on, and Emby App is activated.
+#
+#
