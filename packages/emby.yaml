@@ -15,7 +15,6 @@
 # - Check if the Roku is on, and Emby App is activated.
 # - When an NFC Tag is scanned, select a random episode and play it.
 #
-# sudo apt  install jq
 
 # This is a hack, I wanted to use the base URL for the Rest commands, but 
 # secrets can't be used as variables. If this was a more important
