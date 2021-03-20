@@ -95,17 +95,13 @@ automation:
           turn_on_emby: script.emby_turn_on_livingroom
           open_emby: script.emby_open_livingroom
           media_player: media_player.roku_streaming_stick_2
-  # condition:
-  #   # Test that we support this device and tag
-  #   - "{{ trigger.event.data.tag_id in tags }}"
-  #   - "{{ trigger.event.data.device_id in media_players }}"
     action:
     # Make sure Emby is open, and if it isn't, start it
     - service_template: >
         {% if (is_state( tags[trigger.event.data.tag_id].media_player , "off")) %}
           {{ tags[trigger.event.data.tag_id].turn_on_emby }}
         {% else %}
-          {{ tags[trigger.event.data.tag_id].emby_open_livingroom }}
+          {{ tags[trigger.event.data.tag_id].open_emby }}
         {% endif %}
     - wait_template: "{{ is_state_attr(tags[trigger.event.data.tag_id].media_player, 'source', 'Emby') }}"
     - delay: 5 #this is annoying, need to be more elegant here.
