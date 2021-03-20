@@ -61,3 +61,12 @@ rest:
       value_template: >
          {% set items = value_json | selectattr('DeviceName','eq', 'Downstairs Livingroom') | list | first %}
          {{ items['Id'] }} 
+
+rest_command:
+  emby_start_show:
+    url: "{{ states('input_text.emby_base_url') }}/emby/Sessions/{{ session }}/Playing?ItemIds={{ show }}&PlayCommand=PlayNow"
+    method: POST
+    headers:
+      accept: '*/*'
+      X-Emby-Token: !secret emby_key
+      Content-Type: 'application/json'
