@@ -146,8 +146,8 @@ automation:
     trigger: 
       platform: state
       entity_id:
-        - sensor.bedroom1_temperature_margin
-        - sensor.bedroom2_temperature_margin
+        - sensor.bedroom1_temperature_status
+        - sensor.bedroom2_temperature_status
       to: "on"
     condition:
       # We only care about this in the bedtime range, 9pm to 6am.
@@ -155,14 +155,10 @@ automation:
       after: "21:00:00"
       before: "06:00:00"
     action:
-      - service: persistent_notification.create
-        data:
-          message: >
-            The bedroom temperature is outside the range for a good night sleep.
       - service: notify.iphone
         data:
           message: >
-            Your bedroom temperature is outside the range for a good night sleep.
+            Your bedroom temperature is {{ state_attr(trigger.entity_id, 'status') }} for a good night sleep.
 
 #
 # Mold Indicators
