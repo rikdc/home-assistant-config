@@ -13,14 +13,138 @@
 # [] - Particulates are rising beyond a given threshold
 # [] - Temperature too low for a decent night sleep
 # [] - Co2 on the rise, stuffiness warning.
-#
+
 # [] - Mold Levels
 # [] - 
-#
+
 # Outdoor:
 # [] - Air Quality low, close windows.
-#
-#
+
+input_select:
+  bedroom_humidity_state:
+    initial: Optimal
+    options:
+      - Too Dry
+      - Optimal
+      - Too Humid
+
+automation:
+  # If the humidity drops too low, we want to want and if possible enable
+  # the humidifier.
+  # Research:
+  #  - https://www.hvac.com/faq/recommended-humidity-level-home/
+    # Outdoor temperature over 50˚F, indoor humidity levels shouldn’t exceed 50%
+    # Outdoor temperature over 20˚F, indoor humidity levels shouldn’t exceed 40%
+    # Outdoor temperature between 10˚F and 20˚F, indoor humidity levels shouldn’t exceed 35%
+    # Outdoor temperature between 0˚F and 10˚F, indoor humidity levels shouldn’t exceed 30%
+    # Outdoor temperature between -10˚F and 0˚F, indoor humidity levels shouldn’t exceed 25%
+    # Outdoor temperature between -20˚F and -10˚F, indoor humidity levels shouldn’t exceed 20%
+    # Outdoor temperature at -20˚F or lower, indoor humidity levels shouldn’t exceed 15%
+  # - https://thecomfortauthority.com/home-humidity-levels-chart/
+  # - https://www.easyac.net/air-conditioning-maintenance-articles/home-humidity-levels-chart-understanding-the-humidity-and-temperature-in-your-home.html
+  # 
+  #Ranges for this automation:
+  # 0-15
+  # 15-20
+  # 20-35: Warning
+  # 35-40: Warning
+  # 40-50; Ideal
+  # 50-60: Meh
+  #60-65: EEps
+  # 65-80: Fuu
+  #80+ Dead.
+  - alias: 'Humidity - Level Acceptable'
+    trigger: 
+      - platform: numeric_state
+        entity_id:
+          - sensor.unit_1_bedroom_humidity
+        above: 35
+        below: 45
+        for:
+          minutes: 10 # Allow 10 minutes, to ensure stability.
+    action:
+      - service: persistent_notification.create
+        data:
+          message: >
+            Humidity has returned to comfortable levels, good job!
+
+  - alias: Humidity - Level Too Dry
+    trigger:
+      - platform: numeric_state
+        entity_id:
+          - sensor.unit_1_bedroom_humidity
+        below: 35.0
+        for:
+          minutes: 5 # Allow 5 minutes, to ensure stability.
+    action:
+      - service: persistent_notification.create
+        data:
+          message: >
+            The humidity in the room is too dry.
+
+  - alias: 'Humidity - Level Too Humid'
+    trigger: 
+      - platform: numeric_state
+        entity_id:
+          - sensor.unit_1_bedroom_humidity
+        above: 50
+        for:
+          minutes: 5 # Allow 5 minutes, to ensure stability.
+    action:
+      - service: persistent_notification.create
+        data:
+          message: >
+            The humidity in the room is too humid :().
+
+  # This is a more personal one, what is your optimal temperature for sleeping,
+  # working, hanging out with friends, and all that?
+  #
+  # Research:
+  #  - https://health.clevelandclinic.org/what-is-the-ideal-sleeping-temperature-for-my-bedroom/
+  #  - Typically it is suggested that the temperature in the bedroom for adults should be between 60 and 67 degrees Fahrenheit for optimal sleep. 
+  #
+  #  - https://www.healthline.com/health/sleep/best-temperature-to-sleep
+  #     - Keeping your sleeping quarters at a temperature near 65°F (18.3°C), give or take a few degrees, is ideal.
+  #
+  #  - https://www.getgreenbewell.com/best-bedroom-temperature-for-sleep/
+  #    - most medical professionals suggest 65 degrees
+  # 
+  # For Sleeping, I'm going to keep the range between 60 and 67.
+  # For Working, 
+  #   - https://technofaq.org/posts/2021/01/how-the-right-room-temperature-will-boost-employee-productivity/
+  #   - https://www.pgi.com/blog/2018/06/what-is-the-ideal-office-temperature-for-productivity/
+  # For everything else... 
+  - alias: 'Temperature - House Outside Margin'
+    trigger: 
+      platform: numeric_state
+      entity_id:
+        - sensor.unit_1_bedroom_temperature
+      above: 71
+      below: 78
+      for:
+        minutes: 5 # Allow 5 minutes, to ensure stability.
+    action:
+      - service: persistent_notification.create
+        data:
+          message: >
+            The house temperature is outside of the comfort
+
+  - alias: 'Temperature - Bedroom Outside Margin'
+    trigger: 
+      platform: state
+      entity_id:
+        - sensor.bedroom_temperature_margin
+      to: "on"
+    condition:
+      # We only care about this in the bedtime range, 9pm to 6am.
+      condition: time
+      after: "21:00:00"
+      before: "06:00:00"
+    action:
+      - service: persistent_notification.create
+        data:
+          message: >
+            The bedroom temperature is outside the range for a good night sleep.
 
 #
 # Mold Indicators
@@ -32,19 +156,32 @@
 # So, given your numbers – 6 outside, 20 inside – a factor of 2 would assume 
 # the window is 13 and base its condensation estimate on that temperature.
 # Source: https://community.home-assistant.io/t/need-help-with-mold-indicator-sensor/152950/5
-  
 
-############################################################
-##                                                        ##
-##                    WAQI TEMPLATE                       ##
-##                                                        ##
-############################################################
 group:
   waqi:
     name: World Air Quality Index
     entities:
       - !secret waqi_primary_sensor
       - !secret waqi_secondary_sensor
+
+binary_sensor:
+  - platform: template
+    sensors:
+      bedroom_temperature_margin:
+        value_template: >
+          {{ state('sensor.unit_1_bedroom_temperature') | int < 60 or state('sensor.unit_1_bedroom_temperature') | int > 67 }}
+        friendly_name: 'Bedroom Temperature'
+        attribute_templates:
+           reason: >-
+            {% if state('sensor.unit_1_bedroom_temperature') | int < 60 %}
+               Too Cold
+            {% elif state('sensor.unit_1_bedroom_temperature') | int > 67 %}
+              Too Warm
+            {% else %}
+               Normal
+            {% endif %}
+        device_class: problem
+        delay_on: 5 # Allow 5 minutes, to ensure stability.
 
 #
 # WAQI: Stations
@@ -340,3 +477,12 @@ sensor:
         {% else %}
           unknown
         {% endif %}
+
+#
+# Mold Sensors
+#
+  # - platform: mold_indicator
+  #   indoor_temp_sensor: sensor.temp
+  #   indoor_humidity_sensor: sensor.humidity
+  #   outdoor_temp_sensor: sensor.weather_temperature
+  #   calibration_factor: 2.0
