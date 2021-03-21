@@ -1,0 +1,108 @@
+#
+# Feed the cat.
+#
+# TODO:
+# - [] Clear old notifications.
+# - [] Fix bug where user is not recognized when the dashboard button is used.
+
+input_datetime:
+  cat_last_fed:
+    name: "cat_last_fed"
+    has_date: true
+    has_time: true
+
+sensor:
+  - platform: template
+    sensors:
+      cat_last_fed:
+        friendly_name: 'Cat last fed'
+        unit_of_measurement: 'hours(s) ago'
+        value_template: >
+          {{ ((now().timestamp() - state_attr('input_datetime.cat_last_fed','timestamp'))/(60*60)) | round(0, 'floor') |int }}
+
+binary_sensor:
+  - platform: template
+    sensors:
+      cat_needs_feeding:
+        friendly_name: "Cat needs feeding"
+        value_template: >
+          {{ states('sensor.cat_last_fed')|int >= 9 and ((now().hour <= 9 and now().hour >= 7) or (now().hour >= 18 and now().hour <= 20)) }}
+
+ios:
+  push:
+    categories:
+      - name: Cat
+        identifier: 'cat_feeding'
+        actions:
+          - identifier: 'HAS_BEEN_FED'
+            title: 'Yes'
+            behavior: 'default'
+          - identifier: 'NOT_BEEN_FED'
+            title: 'No'
+            behavior: 'default'
+
+automation:
+  - id: '1610928666132'
+    alias: Has the cat been fed yet?
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: binary_sensor.cat_needs_feeding
+      to: 'on'
+    condition: []
+    action:
+    - repeat:
+        count: 3
+        sequence:
+        - condition: template
+          value_template: '{{ is_state(''binary_sensor.cat_needs_feeding'', ''on'')}}'
+        - service: notify.android
+          data:
+            title: "Animal Welfare"
+            message: "Have you fed Dipshit?"
+            data:
+              actions:
+              - action: has_been_fed
+                title: 'Yes'
+              - action: not_been_fed
+                title: 'No'
+        - service: notify.iphone
+          data:
+            title: "Animal Welfare"
+            message: "Have you fed Dipshit?"
+            data:
+              push:
+                badge: 5
+                category: "cat_feeding" # Needs to match the top level identifier you used in the ios configuration
+        - wait_for_trigger:
+          - platform: template
+            value_template: '{{ not is_state(''binary_sensor.cat_needs_feeding'', ''on'')}}'
+          timeout: 1800 # 30 Minutes
+    mode: single
+  - id: '1610928766081'
+    alias: Cat has been fed
+    description: Clears alerts when the cat has been fed
+    trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: has_been_fed
+    - platform: event
+      event_type: ios.notification_action_fired
+      event_data:
+        actionName: HAS_BEEN_FED
+    condition: []
+    action:
+    - service: input_datetime.set_datetime
+      data:
+        datetime: '{{ now().isoformat() }}'
+      entity_id: input_datetime.cat_last_fed
+    - service: notify.all
+      data_template:
+        message: >
+          {% if trigger is defined and trigger.event.context is defined %}
+            Dipshit has been fed by {{ state_attr((states.person|selectattr('attributes.user_id','eq',trigger.event.context.user_id)|first or "system").entity_id, "friendly_name") }}
+          {% else %}
+            Dipshit has been fed by {{ context.user_id }}
+          {% endif %}
+    mode: single
