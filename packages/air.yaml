@@ -28,6 +28,19 @@ input_select:
       - Optimal
       - Too Humid
 
+# ios:
+#   push:
+#     categories:
+#       - name: AirQuality
+#         identifier: 'bedroom_temperature'
+#         actions:
+#           - identifier: 'HAS_BEEN_FED'
+#             title: 'Yes'
+#             behavior: 'default'
+#           - identifier: 'NOT_BEEN_FED'
+#             title: 'No'
+#             behavior: 'default'
+
 automation:
   # If the humidity drops too low, we want to want and if possible enable
   # the humidifier.
@@ -133,7 +146,8 @@ automation:
     trigger: 
       platform: state
       entity_id:
-        - sensor.bedroom_temperature_margin
+        - sensor.bedroom1_temperature_margin
+        - sensor.bedroom2_temperature_margin
       to: "on"
     condition:
       # We only care about this in the bedtime range, 9pm to 6am.
@@ -145,6 +159,10 @@ automation:
         data:
           message: >
             The bedroom temperature is outside the range for a good night sleep.
+      - service: notify.iphone
+        data:
+          message: >
+            Your bedroom temperature is outside the range for a good night sleep.
 
 #
 # Mold Indicators
@@ -167,15 +185,31 @@ group:
 binary_sensor:
   - platform: template
     sensors:
-      bedroom_temperature_margin:
+      bedroom1_temperature_status:
         value_template: >
-          {{ state('sensor.unit_1_bedroom_temperature') | int < 60 or state('sensor.unit_1_bedroom_temperature') | int > 67 }}
+          {{ states('sensor.unit_1_bedroom_temperature') | int < 60 or states('sensor.unit_1_bedroom_temperature') | int > 67 }}
         friendly_name: 'Bedroom Temperature'
         attribute_templates:
-           reason: >-
-            {% if state('sensor.unit_1_bedroom_temperature') | int < 60 %}
+           status: >-
+            {% if states('sensor.unit_1_bedroom_temperature') | int < 60 %}
                Too Cold
-            {% elif state('sensor.unit_1_bedroom_temperature') | int > 67 %}
+            {% elif states('sensor.unit_1_bedroom_temperature') | int > 67 %}
+              Too Warm
+            {% else %}
+               Normal
+            {% endif %}
+        device_class: problem
+        delay_on: 5
+
+      bedroom2_temperature_status:
+        value_template: >
+          {{ states('sensor.unit_2_multisensor_bedroom_temperature') | int < 60 or states('sensor.unit_2_multisensor_bedroom_temperature') | int > 67 }}
+        friendly_name: 'Bedroom Temperature'
+        attribute_templates:
+           status: >-
+            {% if states('sensor.unit_2_multisensor_bedroom_temperature') | int < 60 %}
+               Too Cold
+            {% elif states('sensor.unit_2_multisensor_bedroom_temperature') | int > 67 %}
               Too Warm
             {% else %}
                Normal
