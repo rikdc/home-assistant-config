@@ -33,12 +33,7 @@
 # the window is 13 and base its condensation estimate on that temperature.
 # Source: https://community.home-assistant.io/t/need-help-with-mold-indicator-sensor/152950/5
   
-# - platform: waqi
-#   token: !secret waqi_token
-#   locations: !secret waqi_location
-#   stations:  !secret waqi_stations
 
-   
 ############################################################
 ##                                                        ##
 ##                    WAQI TEMPLATE                       ##
@@ -48,13 +43,18 @@ group:
   waqi:
     name: World Air Quality Index
     entities:
-      - sensor.waqi_deering_oaks_portland_maine_usa
-      - sensor.waqi_portland_deering_oaks_maine_usa
+      - !secret waqi_primary_sensor
+      - !secret waqi_secondary_sensor
 
 #
 # WAQI: Stations
 #
 sensor:
+- platform: waqi
+  token: !secret waqi_token
+  locations: !secret waqi_location
+  stations:  !secret waqi_stations
+
 - platform: template
   sensors:
     aqi_stations:
