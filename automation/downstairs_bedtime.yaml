@@ -1,0 +1,9 @@
+alias: Tag Downstairs Bedtime tag is scanned
+description: ''
+trigger:
+- platform: tag
+  tag_id: 7a346207-331a-42ea-8834-ffccf4d1636a
+condition: []
+action:
+- service: script.downstairs_bedtime
+mode: single

@@ -1,0 +1,18 @@
+#
+# Downstairs bedtime.
+# - Turns off all lights
+# - Locks all doors.
+#
+
+alias: Downstairs Bedtime
+sequence:
+  - service: light.turn_off
+    entity_id:
+      - group.interior_lights
+  - service: media_player.turn_off
+    entity_id: media_player.roku_streaming_stick
+  - service: lock.lock
+    entity_id:  group.all_house_locks
+  - service: switch.turn_off
+    entity_id: switch.unti1_livingroom_socket
+mode: single
