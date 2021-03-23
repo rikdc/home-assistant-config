@@ -1,0 +1,121 @@
+# Source: https://blog.swakes.co.uk/home-assistant-system-dashboard/
+
+group:
+  dws_sensor_check:
+    - sensor.check_dws_front_door_no_activity
+    - sensor.check_dws_unit1_front_door_no_activity
+    - sensor.check_dws_unit1_back_door_no_activity
+    - sensor.check_dws_unit1_bathroom_window_no_activity
+    - sensor.check_dws_unit2_back_door_no_activity
+    - sensor.check_dws_unit2_front_door_no_activity
+    - sensor.check_dws_garage_door_no_activity
+
+sensor:
+  
+  - platform: template
+    sensors:
+      ## Door/Windows - Front Door
+      check_dws_garage_door_no_activity:
+        entity_id: sensor.time
+        value_template: >-
+          {% if states.sensor.garagedoor_alarm_access_control.last_changed %}
+            {{ now().timestamp() - as_timestamp(state_attr('sensor.garagedoor_alarm_access_control', 'last_changed')) | int //60 > 780 }}
+          {% else %}
+            false
+          {% endif %}
+
+      check_dws_front_door_no_activity:
+        entity_id: sensor.time
+        value_template: >-
+          {% if states.sensor.unit1_frontdoor_alarm_access_control %}
+            {{ now().timestamp() - as_timestamp(state_attr('sensor.unit1_frontdoor_alarm_access_control', 'last_changed')) | int //60 > 780 }}
+          {% else %}
+            false
+          {% endif %}
+
+      check_dws_unit1_back_door_no_activity:
+        entity_id: sensor.time
+        value_template: >-
+          {% if states.sensor.unit1_backdoor_alarm_access_control.last_changed %}
+            {{ now().timestamp() - as_timestamp(state_attr('sensor.unit1_backdoor_alarm_access_control', 'last_changed')) | int //60 > 780 }}
+          {% else %}
+            false
+          {% endif %}
+
+      check_dws_unit1_front_door_no_activity:
+        entity_id: sensor.unit1_frontdoor_alarm_access_control
+        value_template: >-
+          {% if states.last_changed %}
+            {{ now().timestamp() - as_timestamp(state_attr('sensor.unit1_frontdoor_alarm_access_control', 'last_changed')) | int //60 > 780 }}
+          {% else %}
+            false
+          {% endif %}
+
+      check_dws_unit2_back_door_no_activity:
+        entity_id: sensor.time
+        value_template: >-
+          {% if states.sensor.unit2_backdoor_alarm_access_control.last_changed %}
+            {{ now().timestamp() - as_timestamp(state_attr('sensor.unit2_backdoor_alarm_access_control', 'last_changed')) | int //60 > 780 }}
+          {% else %}
+            false
+          {% endif %}
+
+      check_dws_unit2_front_door_no_activity:
+        entity_id: sensor.time
+        value_template: >-
+          {% if states.sensor.binary_sensor.unit2_frontdoor_door_state.last_changed %}
+            {{ now().timestamp() - as_timestamp(state_attr('sensor.binary_sensor.unit2_frontdoor_door_state', 'last_changed')) | int //60 > 780 }}
+          {% else %}
+            false
+          {% endif %}
+
+      check_dws_unit1_bathroom_window_no_activity:
+        entity_id: sensor.time
+        value_template: >-
+          {% if states.sensor.unit1_bathroom_window_alarm_access_control.last_changed %}
+            {{ now().timestamp() - as_timestamp(state_attr('sensor.unit1_bathroom_window_alarm_access_control', 'last_changed')) | int //60 > 780 }}
+          {% else %}
+            false
+          {% endif %}
+
+      # Check sensors
+      dws_sensor_check_status_array:
+        entity_id:
+          - group.dws_sensor_check
+        value_template: >-
+          [{%- for e in state_attr('group.dws_sensor_check', 'entity_id') %}
+            {% if loop.first %}{% else %},{% endif %}
+            {%- if (states(e)|lower) == 'true' %}0{% else %}1{% endif -%}
+          {%- endfor -%}] 
+      dws_sensor_check_status_on:
+        entity_id:
+          - sensor.dws_sensor_check_status_array
+        icon_template: 'mdi:door-open'
+        unit_of_measurement: count
+        friendly_name: DWS Sensors Online
+        value_template: >-
+          {{ states('sensor.dws_sensor_check_status_array')|from_json|sum }}
+      dws_sensor_check_status_count:
+        entity_id:
+          - sensor.dws_sensor_check_status_array
+        icon_template: 'mdi:door-open'
+        friendly_name: DWS Sensors Count
+        unit_of_measurement: count
+        value_template: >-
+          {{ states('sensor.dws_sensor_check_status_array')|from_json|length }}
+      dws_sensor_check_status_percent:
+        entity_id:
+          - sensor.dws_sensor_check_status_on
+          - sensor.dws_sensor_check_status_count
+        friendly_name: DWS Sensors Online
+        icon_template: 'mdi:door-open'
+        unit_of_measurement: '%'
+        value_template: >-
+          {{ '%0.1f' | format(states('sensor.dws_sensor_check_status_on')|float / states('sensor.dws_sensor_check_status_count')|float * 100.0) }}
+      dws_sensor_check_status:
+        entity_id:
+          - sensor.dws_sensor_check_status_percent
+        friendly_name: DWS Sensors Online
+        icon_template: 'mdi:door-open'
+        value_template: >-
+          {{ states('sensor.dws_sensor_check_status_on') -}}/{{-  states('sensor.dws_sensor_check_status_count') -}}
