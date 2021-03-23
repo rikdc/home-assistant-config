@@ -19,114 +19,25 @@
 
 # Outdoor:
 # [] - Air Quality low, close windows.
-
-input_select:
-  bedroom_humidity_state:
-    initial: Optimal
-    options:
-      - Too Dry
-      - Optimal
-      - Too Humid
-
-# ios:
-#   push:
-#     categories:
-#       - name: AirQuality
-#         identifier: 'bedroom_temperature'
-#         actions:
-#           - identifier: 'HAS_BEEN_FED'
-#             title: 'Yes'
-#             behavior: 'default'
-#           - identifier: 'NOT_BEEN_FED'
-#             title: 'No'
-#             behavior: 'default'
-
-automation:
-  # If the humidity drops too low, we want to want and if possible enable
-  # the humidifier.
-  # Research:
-  #  - https://www.hvac.com/faq/recommended-humidity-level-home/
-    # Outdoor temperature over 50˚F, indoor humidity levels shouldn’t exceed 50%
-    # Outdoor temperature over 20˚F, indoor humidity levels shouldn’t exceed 40%
-    # Outdoor temperature between 10˚F and 20˚F, indoor humidity levels shouldn’t exceed 35%
-    # Outdoor temperature between 0˚F and 10˚F, indoor humidity levels shouldn’t exceed 30%
-    # Outdoor temperature between -10˚F and 0˚F, indoor humidity levels shouldn’t exceed 25%
-    # Outdoor temperature between -20˚F and -10˚F, indoor humidity levels shouldn’t exceed 20%
-    # Outdoor temperature at -20˚F or lower, indoor humidity levels shouldn’t exceed 15%
-  # - https://thecomfortauthority.com/home-humidity-levels-chart/
-  # - https://www.easyac.net/air-conditioning-maintenance-articles/home-humidity-levels-chart-understanding-the-humidity-and-temperature-in-your-home.html
-  # 
-  #Ranges for this automation:
-  # 0-15
-  # 15-20
-  # 20-35: Warning
-  # 35-40: Warning
-  # 40-50; Ideal
-  # 50-60: Meh
-  #60-65: EEps
-  # 65-80: Fuu
-  #80+ Dead.
-  - alias: 'Humidity - Level Acceptable'
-    trigger: 
-      - platform: numeric_state
-        entity_id:
-          - sensor.unit_1_bedroom_humidity
-        above: 35
-        below: 45
-        for:
-          minutes: 10 # Allow 10 minutes, to ensure stability.
-    action:
-      - service: persistent_notification.create
-        data:
-          message: >
-            Humidity has returned to comfortable levels, good job!
-
-  - alias: Humidity - Level Too Dry
+automation:  
+  - alias: Humidity Notifications
     trigger:
-      - platform: numeric_state
+      - platform: state
         entity_id:
-          - sensor.unit_1_bedroom_humidity
-        below: 35.0
-        for:
-          minutes: 5 # Allow 5 minutes, to ensure stability.
+          - binary_sensor.bedroom1_humidity_status
+          - binary_sensor.bedroom2_humidity_status
+          - binary_sensor.livingroom1_humidity_status
+        to: "on"
     action:
       - service: persistent_notification.create
         data:
           message: >
-            The humidity in the room is too dry.
-
-  - alias: 'Humidity - Level Too Humid'
-    trigger: 
-      - platform: numeric_state
-        entity_id:
-          - sensor.unit_1_bedroom_humidity
-        above: 50
-        for:
-          minutes: 5 # Allow 5 minutes, to ensure stability.
-    action:
-      - service: persistent_notification.create
+            The humidity in the {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'status') }}
+      - service: notify.all
         data:
           message: >
-            The humidity in the room is too humid :().
+            The humidity in the {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'status') }}
 
-  # This is a more personal one, what is your optimal temperature for sleeping,
-  # working, hanging out with friends, and all that?
-  #
-  # Research:
-  #  - https://health.clevelandclinic.org/what-is-the-ideal-sleeping-temperature-for-my-bedroom/
-  #  - Typically it is suggested that the temperature in the bedroom for adults should be between 60 and 67 degrees Fahrenheit for optimal sleep. 
-  #
-  #  - https://www.healthline.com/health/sleep/best-temperature-to-sleep
-  #     - Keeping your sleeping quarters at a temperature near 65°F (18.3°C), give or take a few degrees, is ideal.
-  #
-  #  - https://www.getgreenbewell.com/best-bedroom-temperature-for-sleep/
-  #    - most medical professionals suggest 65 degrees
-  # 
-  # For Sleeping, I'm going to keep the range between 60 and 67.
-  # For Working, 
-  #   - https://technofaq.org/posts/2021/01/how-the-right-room-temperature-will-boost-employee-productivity/
-  #   - https://www.pgi.com/blog/2018/06/what-is-the-ideal-office-temperature-for-productivity/
-  # For everything else... 
   - alias: 'Temperature - House Outside Margin'
     trigger: 
       platform: numeric_state
@@ -146,20 +57,20 @@ automation:
     trigger: 
       platform: state
       entity_id:
-        - sensor.bedroom1_temperature_status
-        - sensor.bedroom2_temperature_status
+        - binary_sensor.bedroom1_temperature_status
+        - binary_sensor.bedroom2_temperature_status
       to: "on"
     condition:
-      # We only care about this in the bedtime range, 9pm to 6am.
+      # We only care about this in the bedtime range, 8pm to 6am.
       condition: time
-      after: "21:00:00"
+      after: "20:00:00"
       before: "06:00:00"
     action:
-      - service: notify.iphone
+      - service: notify.all
         data:
           message: >
             Your bedroom temperature is {{ state_attr(trigger.entity_id, 'status') }} for a good night sleep.
-
+  
 #
 # Mold Indicators
 # 
@@ -179,6 +90,24 @@ group:
       - !secret waqi_secondary_sensor
 
 binary_sensor:
+  # This is a more personal one, what is your optimal temperature for sleeping,
+  # working, hanging out with friends, and all that?
+  #
+  # Research:
+  #  - https://health.clevelandclinic.org/what-is-the-ideal-sleeping-temperature-for-my-bedroom/
+  #  - Typically it is suggested that the temperature in the bedroom for adults should be between 60 and 67 degrees Fahrenheit for optimal sleep. 
+  #
+  #  - https://www.healthline.com/health/sleep/best-temperature-to-sleep
+  #     - Keeping your sleeping quarters at a temperature near 65°F (18.3°C), give or take a few degrees, is ideal.
+  #
+  #  - https://www.getgreenbewell.com/best-bedroom-temperature-for-sleep/
+  #    - most medical professionals suggest 65 degrees
+  # 
+  # For Sleeping, I'm going to keep the range between 60 and 67.
+  # For Working, 
+  #   - https://technofaq.org/posts/2021/01/how-the-right-room-temperature-will-boost-employee-productivity/
+  #   - https://www.pgi.com/blog/2018/06/what-is-the-ideal-office-temperature-for-productivity/
+  # For everything else... 
   - platform: template
     sensors:
       bedroom1_temperature_status:
@@ -213,6 +142,116 @@ binary_sensor:
         device_class: problem
         delay_on: 5 # Allow 5 minutes, to ensure stability.
 
+  # If the humidity drops too low, we want to want and if possible enable
+  # the humidifier.
+  # Research:
+  #  - https://www.hvac.com/faq/recommended-humidity-level-home/
+    # Outdoor temperature over 50˚F, indoor humidity levels shouldn’t exceed 50%
+    # Outdoor temperature over 20˚F, indoor humidity levels shouldn’t exceed 40%
+    # Outdoor temperature between 10˚F and 20˚F, indoor humidity levels shouldn’t exceed 35%
+    # Outdoor temperature between 0˚F and 10˚F, indoor humidity levels shouldn’t exceed 30%
+    # Outdoor temperature between -10˚F and 0˚F, indoor humidity levels shouldn’t exceed 25%
+    # Outdoor temperature between -20˚F and -10˚F, indoor humidity levels shouldn’t exceed 20%
+    # Outdoor temperature at -20˚F or lower, indoor humidity levels shouldn’t exceed 15%
+  # - https://thecomfortauthority.com/home-humidity-levels-chart/
+  # - https://www.easyac.net/air-conditioning-maintenance-articles/home-humidity-levels-chart-understanding-the-humidity-and-temperature-in-your-home.html
+  # 
+  #Ranges for this automation:
+  # 0-15
+  # 15-20
+  # 20-35: Warning
+  # 35-40: Warning
+  # 40-50; Ideal
+  # 50-60: Meh
+  #60-65: EEps
+  # 65-80: Fuu
+  #80+ Dead.
+  - platform: template
+    sensors:
+      bedroom1_humidity_status:
+        value_template: >
+          {{ states('sensor.unit_1_bedroom_humidity') | int < 40 or states('sensor.unit_1_bedroom_humidity') | int > 50 }}
+        friendly_name: 'Bedroom Humidity'
+        attribute_templates:
+           room: 'Downstairs Bedroom'
+           status: >-
+            {% set current_state = states('sensor.unit_1_bedroom_humidity')|int %}
+            {% if current_state < 15 %}
+              Way too dry
+            {% elif current_state < 20 %}
+              Too Dry
+            {% elif current_state < 40 %}
+              Dry
+            {% elif current_state < 50 %}
+              Good
+            {% elif current_state < 60 %}
+              Humid
+            {% elif current_state < 65 %}
+              Too Humid
+            {% elif current_state < 80 %}
+              Soaking
+            {% else %}
+              Saturation Point    
+            {% endif %}
+        device_class: problem
+        delay_on: 5
+
+      bedroom2_humidity_status:
+        value_template: >
+          {{ states('sensor.unit_2_multisensor_bedroom_humidity') | int < 40 or states('sensor.unit_2_multisensor_bedroom_humidity') | int > 50 }}
+        friendly_name: 'Bedroom Humidity'
+        attribute_templates:
+           room: 'Upstairs Bedroom'
+           status: >-
+            {% set current_state = states('sensor.unit_2_multisensor_bedroom_humidity')|int %}
+            {% if current_state < 15 %}
+              Way too dry
+            {% elif current_state < 20 %}
+              Too Dry
+            {% elif current_state < 40 %}
+              Dry
+            {% elif current_state < 50 %}
+              Good
+            {% elif current_state < 60 %}
+              Humid
+            {% elif current_state < 65 %}
+              Too Humid
+            {% elif current_state < 80 %}
+              Soaking
+            {% else %}
+              Saturation Point    
+            {% endif %}
+        device_class: problem
+        delay_on: 5
+
+      livingroom1_humidity_status:
+        value_template: >
+          {{ states('sensor.unit_1_frontroom_humidity') | int < 40 or states('sensor.unit_1_frontroom_humidity') | int > 50 }}
+        friendly_name: 'Bedroom Humidity'
+        attribute_templates:
+           room: 'Upstairs Bedroom'
+           status: >-
+            {% set current_state = states('sensor.unit_1_frontroom_humidity')|int %}
+            {% if current_state < 15 %}
+              Way too dry
+            {% elif current_state < 20 %}
+              Too Dry
+            {% elif current_state < 40 %}
+              Dry
+            {% elif current_state < 50 %}
+              Good
+            {% elif current_state < 60 %}
+              Humid
+            {% elif current_state < 65 %}
+              Too Humid
+            {% elif current_state < 80 %}
+              Soaking
+            {% else %}
+              Saturation Point    
+            {% endif %}
+        device_class: problem
+        delay_on: 5
+
 #
 # WAQI: Stations
 #
@@ -221,6 +260,8 @@ sensor:
   token: !secret waqi_token
   locations: !secret waqi_location
   stations:  !secret waqi_stations
+
+- platform: iaqi
 
 - platform: template
   sensors:
