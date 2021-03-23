@@ -227,7 +227,7 @@ binary_sensor:
       livingroom1_humidity_status:
         value_template: >
           {{ states('sensor.unit_1_frontroom_humidity') | int < 40 or states('sensor.unit_1_frontroom_humidity') | int > 50 }}
-        friendly_name: 'Bedroom Humidity'
+        friendly_name: 'Living Room Humidity'
         attribute_templates:
            room: 'Upstairs Bedroom'
            status: >-
