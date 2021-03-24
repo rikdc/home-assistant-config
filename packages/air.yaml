@@ -27,7 +27,6 @@ automation:
           - binary_sensor.bedroom1_humidity_status
           - binary_sensor.bedroom2_humidity_status
           - binary_sensor.livingroom1_humidity_status
-        to: "on"
     action:
       - service: persistent_notification.create
         data:
@@ -69,8 +68,24 @@ automation:
       - service: notify.all
         data:
           message: >
-            Your bedroom temperature is {{ state_attr(trigger.entity_id, 'status') }} for a good night sleep.
-  
+            {{ state_attr(trigger.entity_id, 'room') }} temperature is {{ state_attr(trigger.entity_id, 'status') }} for a good night sleep.
+
+  - alias: 'Temperature - Bedroom Outside Margin'
+    trigger: 
+      platform: state
+      entity_id:
+        - binary_sensor.livingroom1_temperature_status
+      to: "on"
+    condition:
+      # We only care about this in the bedtime range, 8pm to 6am.
+      condition: time
+      after: "20:00:00"
+      before: "06:00:00"
+    action:
+      - service: notify.all
+        data:
+          message: >
+            {{ state_attr(trigger.entity_id, 'room') }} temperature is {{ state_attr(trigger.entity_id, 'status') }} for a good night sleep.
 #
 # Mold Indicators
 # 
@@ -125,6 +140,7 @@ binary_sensor:
             {% endif %}
         device_class: problem
         delay_on: 5
+        delay_off: 5
 
       bedroom2_temperature_status:
         value_template: >
@@ -140,7 +156,25 @@ binary_sensor:
                Normal
             {% endif %}
         device_class: problem
-        delay_on: 5 # Allow 5 minutes, to ensure stability.
+        delay_on: 5
+        delay_off: 5
+
+      livingroom1_temperature_status:
+        value_template: >
+          {{ states('sensor.unit_1_frontroom_temperature') | int < 60 or states('sensor.unit_1_frontroom_temperature') | int > 67 }}
+        friendly_name: 'Livingroom Temperature'
+        attribute_templates:
+           status: >-
+            {% if states('sensor.unit_1_frontroom_temperature') | int < 67 %}
+               Too Cold
+            {% elif states('sensor.unit_1_frontroom_temperature') | int > 75 %}
+              Too Warm
+            {% else %}
+               Normal
+            {% endif %}
+        device_class: problem
+        delay_on: 5
+        delay_off: 5
 
   # If the humidity drops too low, we want to want and if possible enable
   # the humidifier.
@@ -195,6 +229,7 @@ binary_sensor:
             {% endif %}
         device_class: problem
         delay_on: 5
+        delay_off: 5
 
       bedroom2_humidity_status:
         value_template: >
@@ -223,6 +258,7 @@ binary_sensor:
             {% endif %}
         device_class: problem
         delay_on: 5
+        delay_off: 5
 
       livingroom1_humidity_status:
         value_template: >
@@ -251,6 +287,7 @@ binary_sensor:
             {% endif %}
         device_class: problem
         delay_on: 5
+        delay_off: 5
 
 #
 # WAQI: Stations
