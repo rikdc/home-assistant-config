@@ -44,7 +44,7 @@ sensor:
     name: Main Pump Running
     entity_id: binary_sensor.main_pump_status
     state: 'on'
-    type: time
+    type: count
     start: '{{ now().replace(hour=0, minute=0, second=0) }}'
     end: '{{ now() }}'
 
