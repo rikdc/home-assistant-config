@@ -15,8 +15,6 @@ homeassistant:
 frontend:
   themes: !include_dir_merge_named themes
 
-<<<<<<< Updated upstream
-=======
 lovelace:
   mode: storage
   dashboards:
@@ -34,7 +32,6 @@ lovelace:
       show_in_sidebar: true
       require_admin: false
 
->>>>>>> Stashed changes
 panel_iframe:
   nodered:
     title: 'NodeRed'
@@ -76,6 +73,13 @@ recorder:
   db_url: !secret db_url
   purge_keep_days: 3
   auto_purge: true
+  exclude:
+    entities:
+      - sun.sun
+      - sensor.date
+    entity_globs:
+      - media_player.*
+      - sensor.emby*
 
 influxdb:
   host: influxdb
@@ -104,11 +108,11 @@ notify:
     platform: group
     services:
       - service: !secret person1_mobile
-      - service: !secret person2_mobile
 
   - name: iphone
     platform: group
     services:
+      - service: !secret person2_mobile
       - service: !secret person3_mobile
 
   - name: home_automation
