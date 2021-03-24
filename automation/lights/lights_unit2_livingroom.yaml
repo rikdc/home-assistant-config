@@ -1,5 +1,4 @@
 alias: Light Unit2 Livingroom Motion
-description: 'Turn on Unit2 Livingroom Lights if there's motion'
 use_blueprint:
   path: freakshock88/motion_illuminance_activated_entity.yaml
   input:
