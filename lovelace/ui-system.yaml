@@ -1,0 +1,31 @@
+title: System
+
+custom_header:
+  !include custom_header.yaml
+
+# Button card templates  
+decluttering_templates:
+  !include_dir_merge_named decluttering_templates/
+
+button_card_templates:
+  !include_dir_merge_named button_card_templates/
+   
+background: var(--background-image)    
+views:
+
+    # Hassio Tab        
+    - !include views/view_homeassistant.yaml
+    
+    # Hassio Tab        
+    - !include views/view_lights.yaml
+
+    # Automation
+    - !include views/view_environment.yaml
+    # # Devices Tab
+    # - !include /config/lovelace/views/view_ha_devices.yaml
+    # # Wall Panel
+    # - !include /config/lovelace/views/view_wallpanel.yaml
+    # # Sysytem Tab        
+    # - !include /config/lovelace/views/view_system.yaml
+    # # Batteries
+    # - !include /config/lovelace/views/view_batteries.yaml
