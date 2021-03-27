@@ -3,16 +3,15 @@ path: raspberry
 icon: 'mdi:developer-board'
 panel: true
 badges: []
+
 cards:
   - type: 'custom:layout-card'
     column_width:
-      - 600
-      - 600
-    layout: vertical
+      - 450
+      - 975
+    view_layout: vertical-layout
     cards:
       - type: 'custom:homekit-card'
-        title: Media
-        titleColor: '#000'
         horizontalScroll: true
         statePositionTop: true
         useBrightness: false
@@ -216,10 +215,8 @@ cards:
                         wider: true
                         widerSize: 2
                     title: Raspberry Status
-      - type: 'custom:layout-break'
+      
       - type: 'custom:homekit-card'
-        title: Media
-        titleColor: '#000'
         horizontalScroll: true
         statePositionTop: true
         useBrightness: false

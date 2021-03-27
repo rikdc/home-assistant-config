@@ -1,19 +1,16 @@
 title: Sensors
 path: sensors
-icon: 'mdi:eye-circle-outline'
 panel: true
+icon: 'mdi:eye-circle-outline'
 badges: []
 cards:
   - type: 'custom:layout-card'
     column_width:
-      - 575
-      - 575
-      - 575
+      - 450
+      - 975
     layout: vertical
     cards:
       - type: 'custom:homekit-card'
-        title: Media
-        titleColor: '#000'
         horizontalScroll: true
         statePositionTop: true
         useBrightness: false
@@ -89,26 +86,12 @@ cards:
                         wider: true
                         widerSize: 4
 
-                      - card: glance
-                        cardOptions:
-                          entities:
-                            - entity: sensor.dws_sensor_check_status
-                            - entity: sensor.dws_sensor_check_status_count
-                            - entity: sensor.dws_sensor_check_status_percent
-                          title: Door/Window Sensor Check
-
                       - card: 'custom:mini-graph-card'
                         cardOptions:
                           entities:
-                            - entity: binary_sensor.main_door
+                            - entity: binary_sensor.main_entrance_door_state
                               name: Main Door
                               color: red
-                            - entity: binary_sensor.front_balcony_door
-                              name: Front Balcony
-                              color: green
-                            - entity: binary_sensor.back_balcony_door
-                              name: Back Balcony
-                              color: blue
                             - entity: binary_sensor.night
                               color: 'rgba(100,100,100,.75)'
                               y_axis: secondary
@@ -135,8 +118,8 @@ cards:
                         wider: true
                         widerSize: 4
                     title: Security Status
-      - type: 'custom:layout-break'
-      - type: 'custom:homekit-card'
+      - type: custom:layout-break
+      - type: custom:homekit-card
         title: Media
         titleColor: '#000'
         horizontalScroll: true
@@ -312,182 +295,6 @@ cards:
                       - card: 'custom:mini-graph-card'
                         cardOptions:
                           entities:
-                            - entity: sensor.xiaomi_airpurifier_temp
-                          show: ''
-                          labels: false
-                          color_thresholds:
-                            - value: -20
-                              color: '#008bff'
-                            - value: -10
-                              color: '#62d9ff'
-                            - value: -5
-                              color: '#a4f5ff'
-                            - value: 0
-                              color: '#f1ffff'
-                            - value: 5
-                              color: '#ffff88'
-                            - value: 10
-                              color: '#ffe359'
-                            - value: 15
-                              color: '#ffb92c'
-                            - value: 20
-                              color: '#ff9d20'
-                            - value: 25
-                              color: '#ff7d1d'
-                            - value: 30
-                              color: '#ff5d11'
-                            - value: 35
-                              color: '#ff3609'
-                            - value: 40
-                              color: '#a61e00'
-                          animate: true
-                          hours_to_show: 24
-                          points_per_hour: 1
-                          update_interval: 1
-                          line_color: var(--accent-color)
-                          line_width: 8
-                          font_size: 50
-                          aggregate_func: max
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 2
-                      - card: 'custom:mini-graph-card'
-                        cardOptions:
-                          entities:
-                            - entity: sensor.saloon_temp
-                          show: ''
-                          labels: false
-                          color_thresholds:
-                            - value: -20
-                              color: '#008bff'
-                            - value: -10
-                              color: '#62d9ff'
-                            - value: -5
-                              color: '#a4f5ff'
-                            - value: 0
-                              color: '#f1ffff'
-                            - value: 5
-                              color: '#ffff88'
-                            - value: 10
-                              color: '#ffe359'
-                            - value: 15
-                              color: '#ffb92c'
-                            - value: 20
-                              color: '#ff9d20'
-                            - value: 25
-                              color: '#ff7d1d'
-                            - value: 30
-                              color: '#ff5d11'
-                            - value: 35
-                              color: '#ff3609'
-                            - value: 40
-                              color: '#a61e00'
-                          animate: true
-                          hours_to_show: 24
-                          points_per_hour: 1
-                          update_interval: 1
-                          line_color: var(--accent-color)
-                          line_width: 8
-                          font_size: 50
-                          aggregate_func: max
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 2
-                      - card: 'custom:mini-graph-card'
-                        cardOptions:
-                          entities:
-                            - entity: sensor.front_balcony_temp
-                          show: ''
-                          labels: false
-                          color_thresholds:
-                            - value: -20
-                              color: '#008bff'
-                            - value: -10
-                              color: '#62d9ff'
-                            - value: -5
-                              color: '#a4f5ff'
-                            - value: 0
-                              color: '#f1ffff'
-                            - value: 5
-                              color: '#ffff88'
-                            - value: 10
-                              color: '#ffe359'
-                            - value: 15
-                              color: '#ffb92c'
-                            - value: 20
-                              color: '#ff9d20'
-                            - value: 25
-                              color: '#ff7d1d'
-                            - value: 30
-                              color: '#ff5d11'
-                            - value: 35
-                              color: '#ff3609'
-                            - value: 40
-                              color: '#a61e00'
-                          animate: true
-                          hours_to_show: 24
-                          points_per_hour: 1
-                          update_interval: 1
-                          line_color: var(--accent-color)
-                          line_width: 8
-                          font_size: 50
-                          aggregate_func: max
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 2
-                      - card: 'custom:mini-graph-card'
-                        cardOptions:
-                          entities:
-                            - entity: sensor.back_balcony_temp
-                          show: ''
-                          labels: false
-                          color_thresholds:
-                            - value: -20
-                              color: '#008bff'
-                            - value: -10
-                              color: '#62d9ff'
-                            - value: -5
-                              color: '#a4f5ff'
-                            - value: 0
-                              color: '#f1ffff'
-                            - value: 5
-                              color: '#ffff88'
-                            - value: 10
-                              color: '#ffe359'
-                            - value: 15
-                              color: '#ffb92c'
-                            - value: 20
-                              color: '#ff9d20'
-                            - value: 25
-                              color: '#ff7d1d'
-                            - value: 30
-                              color: '#ff5d11'
-                            - value: 35
-                              color: '#ff3609'
-                            - value: 40
-                              color: '#a61e00'
-                          animate: true
-                          hours_to_show: 24
-                          points_per_hour: 1
-                          update_interval: 1
-                          line_color: var(--accent-color)
-                          line_width: 8
-                          font_size: 50
-                          aggregate_func: max
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 2
-                      - card: 'custom:mini-graph-card'
-                        cardOptions:
-                          entities:
                             - entity: sensor.basement_temperature
                           show: ''
                           labels: false
@@ -530,8 +337,9 @@ cards:
                         wider: true
                         widerSize: 2
                     title: Temperature & AQI Status
-      - type: 'custom:layout-break'
-      - type: 'custom:homekit-card'
+      - type: custom:layout-break
+      
+      - type: custom:homekit-card
         title: Media
         titleColor: '#000'
         horizontalScroll: true

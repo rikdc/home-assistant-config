@@ -235,29 +235,7 @@ cards:
                         name: First Floor Occupied
                         icon: 'mdi:door-open'
                         offIcon: 'mdi:door-closed'
-                    title: Security
-      # - type: 'custom:button-card'
-      #   large: true
-      #   entity: binary_sensor.main_door_motion
-      #   title: Motion Detected
-      #   subtitle: Movement detected at Main Door!
-      #   background_color: '#A81419'
-      #   font_color: '#fff'
-      #   icon: 'mdi:run'
-      #   hide_condition: |
-      #     [[[ return entity.state === "off" ]]] 
-      # - type: 'custom:button-card'
-      #   large: true
-      #   entity: binary_sensor.main_door
-      #   title: Door Open
-      #   subtitle: Main Door open now!
-      #   background_color: '#A81419'
-      #   font_color: '#fff'
-      #   icon: 'mdi:door-open'
-      #   hide_condition: |
-      #     [[[ return entity.state === "off" ]]]                 
-                    
-                    
+                    title: Security                    
       - type: 'custom:homekit-card'
         horizontalScroll: true
         statePositionTop: true
@@ -721,20 +699,6 @@ cards:
                           [[[
                             return entity.state == 'off'
                           ]]]
-  # type: conditional
-  # conditions:
-  #   - entity: binary_sensor.evening
-  #     state: 'on'
-  # card:
-  #   entity: switch.bedtime
-  #   hold_action:
-  #     action: more-info
-  #   show_icon: true
-  #   show_name: true
-  #   tap_action:
-  #     action: toggle
-  #   type: entity-button
-
                       - entity: media_player.book_room_speaker
                         name: Book Room
                       - entity: media_player.bedroom_speaker

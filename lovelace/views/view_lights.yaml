@@ -1,43 +1,1290 @@
 title: Lights
-icon: mdi:lightbulb
+type: custom:vertical-layout
 path: lights
-visible: true
 panel: true
-  
+icon: 'mdi:lightbulb-group'
+badges: []
 cards:
-
-    - type: vertical-stack
-      cards:
-
-        - type: custom:decluttering-card
-          template: view_title
-          variables:
-            - title: Lights
- 
-        - type: horizontal-stack
-          cards:
-
-            - type: custom:button-card
-              template: shoulder_blank_card
-                
-            - type: custom:layout-card
-              min_columns: 1
-              max_columns: 3
-              cards:
-
-                - !include ../cards/lights/lights_livingroom_view.yaml
-
-                # - !include lights/card_lights_kitchen_lightsview.yaml
-
-                - !include ../cards/lights/lights_bedroom_view.yaml
-
-                # - !include lights/card_lights_other_rooms.yaml
-
-                # - !include lights/card_lights_scripts.yaml
-
-                #- !include /config/lovelace/styles/view_bottom_gap.yaml
-
-            - type: custom:button-card
-              template: shoulder_blank_card
-
-#        - !include /config/lovelace/styles/separator_card.yaml
+  - type: 'custom:layout-card'
+    column_width:
+      - 575
+      - 575
+      - 575
+    layout: vertical
+    cards:
+      - type: 'custom:homekit-card'
+        horizontalScroll: true
+        statePositionTop: true
+        useBrightness: false
+        useTemperature: false
+        enableColumns: true
+        tileHoldAnimation: true
+        panel: true
+        home: false
+        style: |
+          :host {
+            --tile-background: rgba(230, 230, 228, 0.5);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            --tile-name-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            --tile-state-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+            --tile-value-text-color: rgba(0, 0, 0, 1);
+            --tile-value-text-font-size: 12px;
+            --tile-icon-color: rgba(0, 0, 0, 0.25);
+            --tile-on-icon-color: #f7d959;
+            --tile-width-mobile: 90px;
+            --tile-height-mobile: 90px;
+            --min-header-height: 150px;
+            --tile-icon-size: 36px;
+            --tile-image-radius: 0%
+          }  
+        rows:
+          - row: 1
+            columns:
+              - column: 1
+                entities:
+                  - entities:
+                      - entity: light.unit1_livingroom_lights
+                        icon: 'mdi:lightbulb-group'
+                        name: ALL
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFDABB'
+                              name: Bright
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.living_bright_lights
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.living_classic_lights
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.living_soft_lights
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.living_relax_lights
+                      - entity: light.unit1_light_livingroom_dimmer
+                        name: Ceiling
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          # actions:
+                          #   - color: '#FFC18D'
+                          #     name: Classic
+                          #     service: light.turn_on
+                          #     service_data:
+                          #       brightness: 217
+                          #       entity_id: light.living_top_light_a
+                          #       kelvin: 3500
+                          #   - color: '#FFAA5F'
+                          #     name: Soft
+                          #     service: light.turn_on
+                          #     service_data:
+                          #       brightness: 128
+                          #       entity_id: light.living_top_light_a
+                          #       kelvin: 2800
+                          #   - color: '#FF9B3D'
+                          #     name: Relax
+                          #     service: light.turn_on
+                          #     service_data:
+                          #       brightness: 64
+                          #       entity_id: light.living_top_light_a
+                          #       kelvin: 2400
+                          #   - color: '#FF9B3D'
+                          #     name: Night
+                          #     service: light.turn_on
+                          #     service_data:
+                          #       brightness: 3
+                          #       entity_id: light.living_top_light_a
+                          #       kelvin: 1700
+                      - entity: light.unit1_livingroom_lamp
+                        name: Tree
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.living_top_light_b
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.living_top_light_b
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.living_top_light_b
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.living_top_light_b
+                                kelvin: 1700
+                      - entity: light.kitchen_ceiling_light
+                        name: Ceiling
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.living_top_light_c
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.living_top_light_c
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.living_top_light_c
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.living_top_light_c
+                                kelvin: 1700
+                    popup:
+                      type: custom:light-popup-card
+                      actionsInARow: 2
+                      scenesInARow: 2
+                      brightnessWidth: 130px
+                      brightnessHeight: 360px
+                      borderRadius: 1.75em
+                      switchWidth: 130px
+                      switchHeight: 360px
+                      sliderColor: '#eee'
+                      sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+                      sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+                      settings: true
+                    title: Living Room Lights
+                tileOnRow: 4
+      - type: 'custom:homekit-card'
+        horizontalScroll: true
+        statePositionTop: true
+        useBrightness: false
+        useTemperature: false
+        enableColumns: true
+        tileHoldAnimation: false
+        panel: true
+        home: false
+        style: |
+          :host {
+            --tile-background: rgba(230, 230, 228, 0.5);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            --tile-name-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            --tile-state-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+            --tile-value-text-color: rgba(0, 0, 0, 1);
+            --tile-value-text-font-size: 12px;
+            --tile-icon-color: rgba(0, 0, 0, 0.25);
+            --tile-on-icon-color: #f7d959;
+            --tile-width-mobile: 90px;
+            --tile-height-mobile: 90px;
+            --min-header-height: 150px;
+            --tile-icon-size: 36px;
+            --tile-image-radius: 0%
+          }  
+        rows:
+          - row: 2
+            columns:
+              - column: 1
+                entities:
+                  - entities:
+                      - entity: light.unit1_bedroom_lights
+                        icon: 'mdi:lightbulb-group'
+                        name: ALL
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: false
+                              white_value: true
+                              color_temp: true
+                          actions:
+                            - color: '#FFDABB'
+                              name: Bright
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.pc_bright_lights
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.pc_classic_lights
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.pc_soft_lights
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.pc_relax_lights
+                      - entity: light.person1_nightlight
+                        name: Stefanies Light
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.pc_top_light
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.pc_top_light
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.pc_top_light
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.pc_top_light
+                                kelvin: 1700
+                      - entity: light.person2_nightlight
+                        name: Richards Light
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.pc_first_light
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.pc_first_light
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.pc_first_light
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.pc_first_light
+                                kelvin: 1700
+                      - entity: light.unit1_light_bedroom_dimmer
+                        name: Top Light
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.pc_second_light
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.pc_second_light
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.pc_second_light
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.pc_second_light
+                                kelvin: 1700
+                    popup:
+                      type: 'custom:light-popup-card'
+                      actionsInARow: 2
+                      scenesInARow: 2
+                      brightnessWidth: 130px
+                      brightnessHeight: 360px
+                      borderRadius: 1.75em
+                      switchWidth: 130px
+                      switchHeight: 360px
+                      sliderColor: '#eee'
+                      sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+                      sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+                      settings: true
+                    title: Bedroom Lights
+                tileOnRow: 4
+      - type: 'custom:layout-break'
+      - type: 'custom:homekit-card'
+        horizontalScroll: true
+        statePositionTop: true
+        useBrightness: false
+        useTemperature: false
+        enableColumns: true
+        tileHoldAnimation: false
+        panel: true
+        home: false
+        style: |
+          :host {
+            --tile-background: rgba(230, 230, 228, 0.5);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            --tile-name-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            --tile-state-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+            --tile-value-text-color: rgba(0, 0, 0, 1);
+            --tile-value-text-font-size: 12px;
+            --tile-icon-color: rgba(0, 0, 0, 0.25);
+            --tile-on-icon-color: #f7d959;
+            --tile-width-mobile: 90px;
+            --tile-height-mobile: 90px;
+            --min-header-height: 150px;
+            --tile-icon-size: 36px;
+            --tile-image-radius: 0%
+          }  
+        rows:
+          - row: 1
+            columns:
+              - column: 2
+                entities:
+                  - entities:
+                      - entity: light.book_room
+                        icon: 'mdi:lightbulb-group'
+                        name: ALL
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFDABB'
+                              name: Bright
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.book_bright_lights
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.book_classic_lights
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.book_soft_lights
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.book_relax_lights
+                      - entity: light.book_top_light_a
+                        name: Top Light A
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.book_top_light_a
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.book_top_light_a
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.book_top_light_a
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.book_top_light_a
+                                kelvin: 1700
+                      - entity: light.book_top_light_b
+                        name: Top Light B
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.book_top_light_b
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.book_top_light_b
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.book_top_light_b
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.book_top_light_b
+                                kelvin: 1700
+                      - entity: light.book_top_light_c
+                        name: Top Light C
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.book_top_light_c
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.book_top_light_c
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.book_top_light_c
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.book_top_light_c
+                                kelvin: 1700
+                      - entity: light.book_first_light
+                        name: First Light
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.book_first_light
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.book_first_light
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.book_first_light
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.book_first_light
+                                kelvin: 1700
+                      - entity: light.book_second_light
+                        name: Second Light
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.book_second_light
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.book_second_light
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.book_second_light
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.book_second_light
+                                kelvin: 1700
+                      - entity: light.hue_go
+                        name: Hue Go
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.hue_go
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.hue_go
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.hue_go
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.hue_go
+                                kelvin: 1700
+                      - entity: light.cat_light
+                        name: Cat Light
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.cat_light
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.cat_light
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.cat_light
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.cat_light
+                                kelvin: 1700
+                    popup:
+                      type: 'custom:light-popup-card'
+                      actionsInARow: 2
+                      scenesInARow: 2
+                      brightnessWidth: 130px
+                      brightnessHeight: 360px
+                      borderRadius: 1.75em
+                      switchWidth: 130px
+                      switchHeight: 360px
+                      sliderColor: '#eee'
+                      sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+                      sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+                      settings: true
+                    title: Book Room Lights
+                tileOnRow: 4
+      - type: 'custom:homekit-card'
+        horizontalScroll: true
+        statePositionTop: true
+        useBrightness: false
+        useTemperature: false
+        enableColumns: true
+        tileHoldAnimation: false
+        panel: true
+        home: false
+        style: |
+          :host {
+            --tile-background: rgba(230, 230, 228, 0.5);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            --tile-name-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            --tile-state-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+            --tile-value-text-color: rgba(0, 0, 0, 1);
+            --tile-value-text-font-size: 12px;
+            --tile-icon-color: rgba(0, 0, 0, 0.25);
+            --tile-on-icon-color: #f7d959;
+            --tile-width-mobile: 90px;
+            --tile-height-mobile: 90px;
+            --min-header-height: 150px;
+            --tile-icon-size: 36px;
+            --tile-image-radius: 0%
+          }  
+        rows:
+          - row: 2
+            columns:
+              - column: 2
+                entities:
+                  - entities:
+                      - entity: light.bedroom
+                        icon: 'mdi:lightbulb-group'
+                        name: ALL
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFDABB'
+                              name: Bright
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.bed_bright_lights
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.bed_classic_lights
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.bed_soft_lights
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.bed_relax_lights
+                      - entity: light.stefanies_night_lamp_2
+                        name: Top Light A
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.bed_top_light_a
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.bed_top_light_a
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.bed_top_light_a
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.bed_top_light_a
+                                kelvin: 1700
+                      - entity: light.bed_top_light_b
+                        name: Top Light B
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.bed_top_light_b
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.bed_top_light_b
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.bed_top_light_b
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.bed_top_light_b
+                                kelvin: 1700
+                      - entity: light.bed_top_light_c
+                        name: Top Light C
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.bed_top_light_c
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.bed_top_light_c
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.bed_top_light_c
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.bed_top_light_c
+                                kelvin: 1700
+                      - entity: light.bed_first_light
+                        name: First Light
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.bed_first_light
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.bed_first_light
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.bed_first_light
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.bed_first_light
+                                kelvin: 1700
+                      - entity: light.bed_second_light
+                        name: Second Light
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.bed_second_light
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.bed_second_light
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.bed_second_light
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.bed_second_light
+                                kelvin: 1700
+                    popup:
+                      type: 'custom:light-popup-card'
+                      actionsInARow: 2
+                      scenesInARow: 2
+                      brightnessWidth: 130px
+                      brightnessHeight: 360px
+                      borderRadius: 1.75em
+                      switchWidth: 130px
+                      switchHeight: 360px
+                      sliderColor: '#eee'
+                      sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+                      sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+                      settings: true
+                    title: Bedroom Lights
+                tileOnRow: 4
+      - type: 'custom:layout-break'
+      - type: 'custom:homekit-card'
+        horizontalScroll: true
+        statePositionTop: true
+        useBrightness: false
+        useTemperature: false
+        enableColumns: true
+        tileHoldAnimation: false
+        panel: true
+        home: false
+        style: |
+          :host {
+            --tile-background: rgba(230, 230, 228, 0.5);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            --tile-name-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            --tile-state-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+            --tile-value-text-color: rgba(0, 0, 0, 1);
+            --tile-value-text-font-size: 12px;
+            --tile-icon-color: rgba(0, 0, 0, 0.25);
+            --tile-on-icon-color: #f7d959;
+            --tile-width-mobile: 90px;
+            --tile-height-mobile: 90px;
+            --min-header-height: 150px;
+            --tile-icon-size: 36px;
+            --tile-image-radius: 0%
+          }  
+        rows:
+          - row: 1
+            columns:
+              - column: 4
+                entities:
+                  - entities:
+                      - entity: light.kitchen_lights
+                        icon: 'mdi:lightbulb-group'
+                        name: ALL
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFDABB'
+                              name: Bright
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.lobby_bright_lights
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.lobby_classic_lights
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.lobby_soft_lights
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: scene.turn_on
+                              service_data:
+                                entity_id: scene.lobby_relax_lights
+                      - entity: light.kitchen_pendants
+                        name: Pendant Lights
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.lobby_top_light_a
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.lobby_top_light_a
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.lobby_top_light_a
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.lobby_top_light_a
+                                kelvin: 1700
+                      - entity: light.kitchen_cabinets
+                        name: Top Light B
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.lobby_top_light_b
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.lobby_top_light_b
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.lobby_top_light_b
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.lobby_top_light_b
+                                kelvin: 1700
+                      - entity: light.kitchen_ceiling_light
+                        name: First Light
+                        popupExtend:
+                          settingsCard:
+                            type: 'custom:light-entity-card'
+                            cardOptions:
+                              entity: this
+                              persist_features: true
+                              smooth_color_wheel: true
+                              child_card: true
+                              consolidate_entities: true
+                          actions:
+                            - color: '#FFC18D'
+                              name: Classic
+                              service: light.turn_on
+                              service_data:
+                                brightness: 217
+                                entity_id: light.lobby_first_light
+                                kelvin: 3500
+                            - color: '#FFAA5F'
+                              name: Soft
+                              service: light.turn_on
+                              service_data:
+                                brightness: 128
+                                entity_id: light.lobby_first_light
+                                kelvin: 2800
+                            - color: '#FF9B3D'
+                              name: Relax
+                              service: light.turn_on
+                              service_data:
+                                brightness: 64
+                                entity_id: light.lobby_first_light
+                                kelvin: 2400
+                            - color: '#FF9B3D'
+                              name: Night
+                              service: light.turn_on
+                              service_data:
+                                brightness: 3
+                                entity_id: light.lobby_first_light
+                                kelvin: 1700
+                      - entity: light.unit1_hallway_lights
+                        name: Hallway Light
+                    popup:
+                      type: 'custom:light-popup-card'
+                      actionsInARow: 2
+                      scenesInARow: 2
+                      brightnessWidth: 130px
+                      brightnessHeight: 360px
+                      borderRadius: 1.75em
+                      switchWidth: 130px
+                      switchHeight: 360px
+                      sliderColor: '#eee'
+                      sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+                      sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+                      settings: true
+                    title: Kitchen Lights
+                tileOnRow: 4
