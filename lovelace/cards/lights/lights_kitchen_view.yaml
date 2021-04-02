@@ -20,37 +20,38 @@ cards:
 #   Lights                                                                 #
 #                                                                          #
 ############################################################################
-  - type: vertical-stack
+  - type: 'custom:layout-card'
+    column_width:
+      - 450
+      - 975
+    layout: vertical
     cards:
-      - type: horizontal-stack
-        cards: 
+        - type: custom:decluttering-card
+          template: light_button
+          variables:
+            - entity: light.kitchen_lights
+            - name: All
 
-          - type: custom:decluttering-card
-            template: light_button
-            variables:
-              - entity: light.kitchen_lights
-              - name: All
+        - type: custom:decluttering-card
+          template: light_button
+          variables:
+            - entity: light.kitchen_ceiling_light
+            - name: Main Light
 
-          - type: custom:decluttering-card
-            template: light_button
-            variables:
-              - entity: light.kitchen_ceiling_light
-              - name: Main Light
+        - type: custom:decluttering-card
+          template: light_button
+          variables:
+            - entity: light.kitchen_pendants
+            - name: Lamp Light
 
-          - type: custom:decluttering-card
-            template: light_button
-            variables:
-              - entity: light.kitchen_pendants
-              - name: Lamp Light
+        - type: custom:decluttering-card
+          template: light_button
+          variables:
+            - entity: light.kitchen_cabinets
+            - name: Lamp Light
 
-          - type: custom:decluttering-card
-            template: light_button
-            variables:
-              - entity: light.kitchen_cabinets
-              - name: Lamp Light
-
-          - type: custom:decluttering-card
-            template: light_button
-            variables:
-              - entity: light.unit1_hallway_lights
-              - name: Lamp Light
+        - type: custom:decluttering-card
+          template: light_button
+          variables:
+            - entity: light.unit1_hallway_lights
+            - name: Lamp Light
