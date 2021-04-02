@@ -27,9 +27,29 @@ cards:
             - type: custom:button-card
               template: shoulder_blank_card
 
-        - type: custom:decluttering-card # Bottom space
-          template: blank_card
+        # - type: custom:decluttering-card # Bottom space
+        #   template: blank_card
 
+    - type: vertical-stack
+      cards:
+ 
+        - type: horizontal-stack
+          cards:
+
+            - type: custom:button-card
+              template: shoulder_blank_card
+                
+            - type: custom:decluttering-card # Bathroom Motion Sensor
+              template: motion_sensor
+              variables:
+                - entity: binary_sensor.unit1_bathroom_motion_sensor_status
+                - name: Bathroom
+
+            - type: custom:button-card
+              template: shoulder_blank_card
+
+        # - type: custom:decluttering-card # Bottom space
+        #   template: blank_card
 # badges: []
 # cards:
 #   - type: 'custom:layout-card'
