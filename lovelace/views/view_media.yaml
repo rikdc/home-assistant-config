@@ -1,4 +1,5 @@
 title: Media
+type: custom:layout-card
 path: media
 icon: 'mdi:play-circle'
 panel: true
@@ -7,703 +8,637 @@ cards:
   - type: 'custom:layout-card'
     column_width:
       - 450
-      - 725
-    layout: vertical
+      - 975
+    layout_type: custom:vertical-layout
+    layout:
+      width: 300
+      max_cols: 10
     cards:
-      - type: 'custom:homekit-card'
-        title: Media
-        titleColor: '#000'
-        horizontalScroll: true
-        statePositionTop: true
-        useBrightness: false
-        useTemperature: false
-        enableColumns: true
-        tileHoldAnimation: false
-        panel: true
-        home: false
-        style: |
-          :host {
-            --tile-background: rgba(230, 230, 228, 0.5);
-            --tile-border-radius: 12px;
-            --tile-width: 100px;
-            --tile-height: 100px;
-            --tile-on-background: rgba(255, 255, 255, 1);
-            --tile-name-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-name-text-color: rgba(0, 0, 0, 1);
-            --tile-state-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-state-text-color: rgba(0, 0, 0, 1);
-            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-            --tile-value-text-color: rgba(0, 0, 0, 1);
-            --tile-value-text-font-size: 12px;
-            --tile-icon-color: rgba(0, 0, 0, 0.25);
-            --tile-on-icon-color: #f7d959;
-            --tile-width-mobile: 90px;
-            --tile-height-mobile: 90px;
-            --min-header-height: 150px;
-            --tile-icon-size: 36px;
-            --tile-image-radius: 0%
-          }
-        rows:
-          - row: 1
-            columns:
-              - column: 1
-                entities:
-                  - entities:
-                      - entity: media_player.roku_streaming_stick_2
-                        name: Downstairs TV
-                        icon: 'mdi:television'
-                        popup:
-                          actionsInARow: 3
-                          scenesInARow: 3
-                          brightnessWidth: 130px
-                          brightnessHeight: 360px
-                          borderRadius: 1.75em
-                          switchWidth: 130px
-                          switchHeight: 360px
-                          sliderColor: '#eee'
-                          sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
-                          sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
-                          type: 'custom:media_player-popup-card'
-                          actions:
-                            - service: media_player.media_previous_track
-                              service_data:
-                                entity_id: this
-                              name: previous
-                              icon: 'mdi:skip-previous'
-                            - service: media_player.media_play_pause
-                              service_data:
-                                entity_id: this
-                              name: play/pause
-                              icon: 'mdi:play-pause'
-                            - service: media_player.media_next_track
-                              service_data:
-                                entity_id: this
-                              name: next
-                              icon: 'mdi:skip-next'
-                      - card: 'custom:mini-media-player'
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 2
-                        double_tap_action:
-                          action: popup
-                          entity: media_player.roku_streaming_stick_2
-                        cardStyle: |
-                          ha-card {
-                            height: 100%;
+      - type: entities
+        title: Screens
+        entities:
+            - entity: media_player.roku_streaming_stick_2
+              name: Upstairs TV
+              icon: 'mdi:television'
 
-                            box-shadow: none !important;
-                            position: relative;
-                            font-size: 0.65vw !important;
-                            image
-                          }
-                          ha-card{
-                          overflow: hidden !important;
-                          }
-                          :host #primaryProgress{
-                          background: #474A52 !important; 
-                          display: flex !important;
-                          height: 100%;
-                          }
-                        cardOptions:
-                          artwork: full-cover
-                          entity: media_player.roku_streaming_stick_2
-                          hide:
-                            power: true
-                            progress: false
-                            runtime: true
-                            icon: true
-                            name: true
-                            source: true
-                            volume: true
-                            controls: false
-                      - entity: media_player.roku_streaming_stick
-                        name: Upstairs TV
-                        popup:
-                          actionsInARow: 3
-                          scenesInARow: 3
-                          brightnessWidth: 130px
-                          brightnessHeight: 360px
-                          borderRadius: 1.75em
-                          switchWidth: 130px
-                          switchHeight: 360px
-                          sliderColor: '#eee'
-                          sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
-                          sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
-                          type: 'custom:media_player-popup-card'
-                          actions:
-                            - service: media_player.media_previous_track
-                              service_data:
-                                entity_id: this
-                              name: previous
-                              icon: 'mdi:skip-previous'
-                            - service: media_player.media_play_pause
-                              service_data:
-                                entity_id: this
-                              name: play/pause
-                              icon: 'mdi:play-pause'
-                            - service: media_player.media_next_track
-                              service_data:
-                                entity_id: this
-                              name: next
-                              icon: 'mdi:skip-next'
-                      - card: 'custom:mini-media-player'
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 2
-                        double_tap_action:
-                          action: popup
-                          entity: media_player.roku_streaming_stick
-                        cardStyle: |
-                          ha-card {
-                            height: 88%;
-                            background: none  !important;
-                            box-shadow: none !important;
-                            position: relative;
-                            font-size: 0.65vw !important;
-                            image
-                          }
-                          ha-card{
-                          overflow: hidden !important;
-                          }
-                          :host #primaryProgress{
-                          background: #474A52 !important; 
-                          display: flex !important;
-                          height: 100%;
-                          }
-                        cardOptions:
-                          artwork: full-cover
-                          entity: media_player.roku_streaming_stick
-                          hide:
-                            power: true
-                            progress: false
-                            runtime: true
-                            icon: true
-                            name: true
-                            source: true
-                            volume: true
-                            controls: false
-                      - entity: media_player.shield_android_tv
-                        name: Nvidia Shield
-                        popup:
-                          actionsInARow: 3
-                          scenesInARow: 3
-                          brightnessWidth: 130px
-                          brightnessHeight: 360px
-                          borderRadius: 1.75em
-                          switchWidth: 130px
-                          switchHeight: 360px
-                          sliderColor: '#eee'
-                          sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
-                          sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
-                          type: 'custom:media_player-popup-card'
-                          actions:
-                            - service: media_player.media_previous_track
-                              service_data:
-                                entity_id: this
-                              name: previous
-                              icon: 'mdi:skip-previous'
-                            - service: media_player.media_play_pause
-                              service_data:
-                                entity_id: this
-                              name: play/pause
-                              icon: 'mdi:play-pause'
-                            - service: media_player.media_next_track
-                              service_data:
-                                entity_id: this
-                              name: next
-                              icon: 'mdi:skip-next'
-                      - card: 'custom:mini-media-player'
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 2
-                        double_tap_action:
-                          action: popup
-                          entity: media_player.shield_android_tv
-                        cardStyle: |
-                          ha-card {
-                            height: 100%;
+      - type: custom:layout-break
 
-                            box-shadow: none !important;
-                            position: relative;
-                            font-size: 0.65vw !important;
-                            image
-                          }
-                          ha-card{
-                          overflow: hidden !important;
-                          }
-                          :host #primaryProgress{
-                          background: #474A52 !important; 
-                          display: flex !important;
-                          height: 100%;
-                          }
-                        cardOptions:
-                          artwork: full-cover
-                          entity: media_player.shield_android_tv
-                          hide:
-                            power: true
-                            progress: false
-                            runtime: true
-                            icon: true
-                            name: true
-                            source: true
-                            volume: true
-                            controls: false
-                      - entity: media_player.chromecast
-                        name: Chromecast
-                        popup:
-                          actionsInARow: 3
-                          scenesInARow: 3
-                          brightnessWidth: 130px
-                          brightnessHeight: 360px
-                          borderRadius: 1.75em
-                          switchWidth: 130px
-                          switchHeight: 360px
-                          sliderColor: '#eee'
-                          sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
-                          sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
-                          type: 'custom:media_player-popup-card'
-                          actions:
-                            - service: media_player.media_previous_track
-                              service_data:
-                                entity_id: this
-                              name: previous
-                              icon: 'mdi:skip-previous'
-                            - service: media_player.media_play_pause
-                              service_data:
-                                entity_id: this
-                              name: play/pause
-                              icon: 'mdi:play-pause'
-                            - service: media_player.media_next_track
-                              service_data:
-                                entity_id: this
-                              name: next
-                              icon: 'mdi:skip-next'
-                      - card: 'custom:mini-media-player'
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 2
-                        double_tap_action:
-                          action: popup
-                          entity: media_player.chromecast
-                        cardStyle: |
-                          ha-card {
-                            height: 88%;
-                            background: none  !important;
-                            box-shadow: none !important;
-                            position: relative;
-                            font-size: 0.65vw !important;
-                            image
-                          }
-                          ha-card{
-                          overflow: hidden !important;
-                          }
-                          :host #primaryProgress{
-                          background: #474A52 !important; 
-                          display: flex !important;
-                          height: 100%;
-                          }
-                        cardOptions:
-                          artwork: full-cover
-                          entity: media_player.chromecast
-                          hide:
-                            power: true
-                            progress: false
-                            runtime: true
-                            icon: true
-                            name: true
-                            source: true
-                            volume: true
-                            controls: false
-                    title: Screens
-                tileOnRow: 3
-      - type: 'custom:layout-break'
-      - type: 'custom:homekit-card'
-        title: Media
-        titleColor: '#000'
-        horizontalScroll: true
-        statePositionTop: true
-        useBrightness: false
-        useTemperature: false
-        enableColumns: true
-        tileHoldAnimation: false
-        panel: true
-        home: false
-        style: |
-          :host {
-            --tile-background: rgba(230, 230, 228, 0.5);
-            --tile-border-radius: 12px;
-            --tile-width: 100px;
-            --tile-height: 100px;
-            --tile-on-background: rgba(255, 255, 255, 1);
-            --tile-name-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-name-text-color: rgba(0, 0, 0, 1);
-            --tile-state-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-state-text-color: rgba(0, 0, 0, 1);
-            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-            --tile-value-text-color: rgba(0, 0, 0, 1);
-            --tile-value-text-font-size: 12px;
-            --tile-icon-color: rgba(0, 0, 0, 0.25);
-            --tile-on-icon-color: #f7d959;
-            --tile-width-mobile: 90px;
-            --tile-height-mobile: 90px;
-            --min-header-height: 150px;
-            --tile-icon-size: 36px;
-            --tile-image-radius: 0%
-          }
-        rows:
-          - row: 1
-            columns:
-              - column: 1
-                entities:
-                  - entities:
-                      - entity: media_player.home_group
-                        name: Home Group
-                        popup:
-                          actionsInARow: 3
-                          scenesInARow: 3
-                          brightnessWidth: 130px
-                          brightnessHeight: 360px
-                          borderRadius: 1.75em
-                          switchWidth: 130px
-                          switchHeight: 360px
-                          sliderColor: '#eee'
-                          sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
-                          sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
-                          type: 'custom:media_player-popup-card'
-                          actions:
-                            - service: media_player.media_previous_track
-                              service_data:
-                                entity_id: this
-                              name: previous
-                              icon: 'mdi:skip-previous'
-                            - service: media_player.media_play_pause
-                              service_data:
-                                entity_id: this
-                              name: play/pause
-                              icon: 'mdi:play-pause'
-                            - service: media_player.media_next_track
-                              service_data:
-                                entity_id: this
-                              name: next
-                              icon: 'mdi:skip-next'
-                      - entity: media_player.living_room_speaker
-                        name: Living Room
-                        popup:
-                          actionsInARow: 3
-                          scenesInARow: 3
-                          brightnessWidth: 130px
-                          brightnessHeight: 360px
-                          borderRadius: 1.75em
-                          switchWidth: 130px
-                          switchHeight: 360px
-                          sliderColor: '#eee'
-                          sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
-                          sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
-                          type: 'custom:media_player-popup-card'
-                          actions:
-                            - service: media_player.media_previous_track
-                              service_data:
-                                entity_id: this
-                              name: previous
-                              icon: 'mdi:skip-previous'
-                            - service: media_player.media_play_pause
-                              service_data:
-                                entity_id: this
-                              name: play/pause
-                              icon: 'mdi:play-pause'
-                            - service: media_player.media_next_track
-                              service_data:
-                                entity_id: this
-                              name: next
-                              icon: 'mdi:skip-next'
-                      - entity: media_player.pc_room_speaker
-                        name: PC Room
-                        popup:
-                          actionsInARow: 3
-                          scenesInARow: 3
-                          brightnessWidth: 130px
-                          brightnessHeight: 360px
-                          borderRadius: 1.75em
-                          switchWidth: 130px
-                          switchHeight: 360px
-                          sliderColor: '#eee'
-                          sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
-                          sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
-                          type: 'custom:media_player-popup-card'
-                          actions:
-                            - service: media_player.media_previous_track
-                              service_data:
-                                entity_id: this
-                              name: previous
-                              icon: 'mdi:skip-previous'
-                            - service: media_player.media_play_pause
-                              service_data:
-                                entity_id: this
-                              name: play/pause
-                              icon: 'mdi:play-pause'
-                            - service: media_player.media_next_track
-                              service_data:
-                                entity_id: this
-                              name: next
-                              icon: 'mdi:skip-next'
-                      - entity: media_player.book_room_speaker
-                        name: Book Room
-                        popup:
-                          actionsInARow: 3
-                          scenesInARow: 3
-                          brightnessWidth: 130px
-                          brightnessHeight: 360px
-                          borderRadius: 1.75em
-                          switchWidth: 130px
-                          switchHeight: 360px
-                          sliderColor: '#eee'
-                          sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
-                          sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
-                          type: 'custom:media_player-popup-card'
-                          actions:
-                            - service: media_player.media_previous_track
-                              service_data:
-                                entity_id: this
-                              name: previous
-                              icon: 'mdi:skip-previous'
-                            - service: media_player.media_play_pause
-                              service_data:
-                                entity_id: this
-                              name: play/pause
-                              icon: 'mdi:play-pause'
-                            - service: media_player.media_next_track
-                              service_data:
-                                entity_id: this
-                              name: next
-                              icon: 'mdi:skip-next'
-                      - entity: media_player.bedroom_speaker
-                        name: Bedroom
-                        popup:
-                          actionsInARow: 3
-                          scenesInARow: 3
-                          brightnessWidth: 130px
-                          brightnessHeight: 360px
-                          borderRadius: 1.75em
-                          switchWidth: 130px
-                          switchHeight: 360px
-                          sliderColor: '#eee'
-                          sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
-                          sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
-                          type: 'custom:media_player-popup-card'
-                          actions:
-                            - service: media_player.media_previous_track
-                              service_data:
-                                entity_id: this
-                              name: previous
-                              icon: 'mdi:skip-previous'
-                            - service: media_player.media_play_pause
-                              service_data:
-                                entity_id: this
-                              name: play/pause
-                              icon: 'mdi:play-pause'
-                            - service: media_player.media_next_track
-                              service_data:
-                                entity_id: this
-                              name: next
-                              icon: 'mdi:skip-next'
-                      - card: 'custom:mini-media-player'
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 1
-                        double_tap_action:
-                          action: popup
-                          entity: media_player.home_group
-                        cardStyle: |
-                          ha-card {
-                            height: 100%;
-                            background: none  !important;
-                            box-shadow: none !important;
-                            position: relative;
-                            font-size: 0.65vw !important;
-                            image
-                          }
-                          ha-card{
-                          overflow: hidden !important;
-                          }
-                          :host #primaryProgress{
-                          background: #474A52 !important; 
-                          display: flex !important;
-                          height: 100%;
-                          }
-                        cardOptions:
-                          artwork: full-cover
-                          entity: media_player.living_room_speaker
-                          hide:
-                            power: true
-                            progress: false
-                            runtime: true
-                            icon: true
-                            name: true
-                            source: true
-                            volume: true
-                            controls: false
-                      - card: 'custom:mini-media-player'
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 1
-                        double_tap_action:
-                          action: popup
-                          entity: media_player.living_room_speaker
-                        cardStyle: |
-                          ha-card {
-                            height: 100%;
-                            background: none  !important;
-                            box-shadow: none !important;
-                            position: relative;
-                            font-size: 0.65vw !important;
-                            image
-                          }
-                          ha-card{
-                          overflow: hidden !important;
-                          }
-                          :host #primaryProgress{
-                          background: #474A52 !important; 
-                          display: flex !important;
-                          height: 100%;
-                          }
-                        cardOptions:
-                          artwork: full-cover
-                          entity: media_player.living_room_speaker
-                          hide:
-                            power: true
-                            progress: false
-                            runtime: true
-                            icon: true
-                            name: true
-                            source: true
-                            volume: true
-                            controls: false
-                      - card: 'custom:mini-media-player'
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 1
-                        double_tap_action:
-                          action: popup
-                          entity: media_player.pc_room_speaker
-                        cardStyle: |
-                          ha-card {
-                            height: 100%;
-                            background: none  !important;
-                            box-shadow: none !important;
-                            position: relative;
-                            font-size: 0.65vw !important;
-                            image
-                          }
-                          ha-card{
-                          overflow: hidden !important;
-                          }
-                          :host #primaryProgress{
-                          background: #474A52 !important; 
-                          display: flex !important;
-                          height: 100%;
-                          }
-                        cardOptions:
-                          artwork: full-cover
-                          entity: media_player.pc_room_speaker
-                          hide:
-                            power: true
-                            progress: false
-                            runtime: true
-                            icon: true
-                            name: true
-                            source: true
-                            volume: true
-                            controls: false
-                      - card: 'custom:mini-media-player'
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 1
-                        double_tap_action:
-                          action: popup
-                          entity: media_player.book_room_speaker
-                        cardStyle: |
-                          ha-card {
-                            height: 100%;
-                            background: none  !important;
-                            box-shadow: none !important;
-                            position: relative;
-                            font-size: 0.65vw !important;
-                            image
-                          }
-                          ha-card{
-                          overflow: hidden !important;
-                          }
-                          :host #primaryProgress{
-                          background: #474A52 !important; 
-                          display: flex !important;
-                          height: 100%;
-                          }
-                        cardOptions:
-                          artwork: full-cover
-                          entity: media_player.book_room_speaker
-                          hide:
-                            power: true
-                            progress: false
-                            runtime: true
-                            icon: true
-                            name: true
-                            source: true
-                            volume: true
-                            controls: false
-                      - card: 'custom:mini-media-player'
-                        noPadding: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 1
-                        double_tap_action:
-                          action: popup
-                          entity: media_player.bedroom_speaker
-                        cardStyle: |
-                          ha-card {
-                            height: 100%;
-                            background: none  !important;
-                            box-shadow: none !important;
-                            position: relative;
-                            font-size: 0.65vw !important;
-                            image
-                          }
-                          ha-card{
-                          overflow: hidden !important;
-                          }
-                          :host #primaryProgress{
-                          background: #474A52 !important; 
-                          display: flex !important;
-                          height: 100%;
-                          }
-                        cardOptions:
-                          artwork: full-cover
-                          entity: media_player.bedroom_speaker
-                          hide:
-                            power: true
-                            progress: false
-                            runtime: true
-                            icon: true
-                            name: true
-                            source: true
-                            volume: true
-                            controls: false
-                    title: Speakers
+      - type: entities
+        entities:
+            - entity: media_player.roku_streaming_stick
+              name: Downstairs TV
+              popup:
+                actionsInARow: 3
+                scenesInARow: 3
+                brightnessWidth: 130px
+                brightnessHeight: 360px
+                borderRadius: 1.75em
+                switchWidth: 130px
+                switchHeight: 360px
+                sliderColor: '#eee'
+                sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+                sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+                type: 'custom:media_player-popup-card'
+                actions:
+                  - service: media_player.media_previous_track
+                    service_data:
+                      entity_id: this
+                    name: previous
+                    icon: 'mdi:skip-previous'
+                  - service: media_player.media_play_pause
+                    service_data:
+                      entity_id: this
+                    name: play/pause
+                    icon: 'mdi:play-pause'
+                  - service: media_player.media_next_track
+                    service_data:
+                      entity_id: this
+                    name: next
+                    icon: 'mdi:skip-next'
+        # - card: 'custom:mini-media-player'
+        #   noPadding: true
+        #   higher: true
+        #   higherSize: 1
+        #   wider: true
+        #   widerSize: 2
+        #   double_tap_action:
+        #     action: popup
+        #     entity: media_player.roku_streaming_stick_2
+        #   cardStyle: |
+        #     ha-card {
+        #       height: 100%;
+
+        #       box-shadow: none !important;
+        #       position: relative;
+        #       font-size: 0.65vw !important;
+        #       image
+        #     }
+        #     ha-card{
+        #     overflow: hidden !important;
+        #     }
+        #     :host #primaryProgress{
+        #     background: #474A52 !important; 
+        #     display: flex !important;
+        #     height: 100%;
+        #     }
+        #   cardOptions:
+        #     artwork: full-cover
+        #     entity: media_player.roku_streaming_stick_2
+        #     hide:
+        #       power: true
+        #       progress: false
+        #       runtime: true
+        #       icon: true
+        #       name: true
+        #       source: true
+        #       volume: true
+        #       controls: false
+        # - entity: media_player.roku_streaming_stick
+        #   name: Upstairs TV
+        #   popup:
+        #     actionsInARow: 3
+        #     scenesInARow: 3
+        #     brightnessWidth: 130px
+        #     brightnessHeight: 360px
+        #     borderRadius: 1.75em
+        #     switchWidth: 130px
+        #     switchHeight: 360px
+        #     sliderColor: '#eee'
+        #     sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+        #     sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+        #     type: 'custom:media_player-popup-card'
+        #     actions:
+        #       - service: media_player.media_previous_track
+        #         service_data:
+        #           entity_id: this
+        #         name: previous
+        #         icon: 'mdi:skip-previous'
+        #       - service: media_player.media_play_pause
+        #         service_data:
+        #           entity_id: this
+        #         name: play/pause
+        #         icon: 'mdi:play-pause'
+        #       - service: media_player.media_next_track
+        #         service_data:
+        #           entity_id: this
+        #         name: next
+        #         icon: 'mdi:skip-next'
+        # - card: 'custom:mini-media-player'
+        #   noPadding: true
+        #   higher: true
+        #   higherSize: 1
+        #   wider: true
+        #   widerSize: 2
+        #   double_tap_action:
+        #     action: popup
+        #     entity: media_player.roku_streaming_stick
+        #   cardStyle: |
+        #     ha-card {
+        #       height: 88%;
+        #       background: none  !important;
+        #       box-shadow: none !important;
+        #       position: relative;
+        #       font-size: 0.65vw !important;
+        #       image
+        #     }
+        #     ha-card{
+        #     overflow: hidden !important;
+        #     }
+        #     :host #primaryProgress{
+        #     background: #474A52 !important; 
+        #     display: flex !important;
+        #     height: 100%;
+        #     }
+        #   cardOptions:
+        #     artwork: full-cover
+        #     entity: media_player.roku_streaming_stick
+        #     hide:
+        #       power: true
+        #       progress: false
+        #       runtime: true
+        #       icon: true
+        #       name: true
+        #       source: true
+        #       volume: true
+        #       controls: false
+        # - entity: media_player.shield_android_tv
+        #   name: Nvidia Shield
+        #   popup:
+        #     actionsInARow: 3
+        #     scenesInARow: 3
+        #     brightnessWidth: 130px
+        #     brightnessHeight: 360px
+        #     borderRadius: 1.75em
+        #     switchWidth: 130px
+        #     switchHeight: 360px
+        #     sliderColor: '#eee'
+        #     sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+        #     sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+        #     type: 'custom:media_player-popup-card'
+        #     actions:
+        #       - service: media_player.media_previous_track
+        #         service_data:
+        #           entity_id: this
+        #         name: previous
+        #         icon: 'mdi:skip-previous'
+        #       - service: media_player.media_play_pause
+        #         service_data:
+        #           entity_id: this
+        #         name: play/pause
+        #         icon: 'mdi:play-pause'
+        #       - service: media_player.media_next_track
+        #         service_data:
+        #           entity_id: this
+        #         name: next
+        #         icon: 'mdi:skip-next'
+        # - card: 'custom:mini-media-player'
+        #   noPadding: true
+        #   higher: true
+        #   higherSize: 1
+        #   wider: true
+        #   widerSize: 2
+        #   double_tap_action:
+        #     action: popup
+        #     entity: media_player.shield_android_tv
+        #   cardStyle: |
+        #     ha-card {
+        #       height: 100%;
+
+        #       box-shadow: none !important;
+        #       position: relative;
+        #       font-size: 0.65vw !important;
+        #       image
+        #     }
+        #     ha-card{
+        #     overflow: hidden !important;
+        #     }
+        #     :host #primaryProgress{
+        #     background: #474A52 !important; 
+        #     display: flex !important;
+        #     height: 100%;
+        #     }
+        #   cardOptions:
+        #     artwork: full-cover
+        #     entity: media_player.shield_android_tv
+        #     hide:
+        #       power: true
+        #       progress: false
+        #       runtime: true
+        #       icon: true
+        #       name: true
+        #       source: true
+        #       volume: true
+        #       controls: false
+        # - entity: media_player.chromecast
+        #   name: Chromecast
+        #   popup:
+        #     actionsInARow: 3
+        #     scenesInARow: 3
+        #     brightnessWidth: 130px
+        #     brightnessHeight: 360px
+        #     borderRadius: 1.75em
+        #     switchWidth: 130px
+        #     switchHeight: 360px
+        #     sliderColor: '#eee'
+        #     sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+        #     sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+        #     type: 'custom:media_player-popup-card'
+        #     actions:
+        #       - service: media_player.media_previous_track
+        #         service_data:
+        #           entity_id: this
+        #         name: previous
+        #         icon: 'mdi:skip-previous'
+        #       - service: media_player.media_play_pause
+        #         service_data:
+        #           entity_id: this
+        #         name: play/pause
+        #         icon: 'mdi:play-pause'
+        #       - service: media_player.media_next_track
+        #         service_data:
+        #           entity_id: this
+        #         name: next
+        #         icon: 'mdi:skip-next'
+        # - card: 'custom:mini-media-player'
+        #   noPadding: true
+        #   higher: true
+        #   higherSize: 1
+        #   wider: true
+        #   widerSize: 2
+        #   double_tap_action:
+        #     action: popup
+        #     entity: media_player.chromecast
+        #   cardStyle: |
+        #     ha-card {
+        #       height: 88%;
+        #       background: none  !important;
+        #       box-shadow: none !important;
+        #       position: relative;
+        #       font-size: 0.65vw !important;
+        #       image
+        #     }
+        #     ha-card{
+        #     overflow: hidden !important;
+        #     }
+        #     :host #primaryProgress{
+        #     background: #474A52 !important; 
+        #     display: flex !important;
+        #     height: 100%;
+        #     }
+        #   cardOptions:
+        #     artwork: full-cover
+        #     entity: media_player.chromecast
+        #     hide:
+        #       power: true
+        #       progress: false
+        #       runtime: true
+        #       icon: true
+        #       name: true
+        #       source: true
+        #       volume: true
+        #       controls: false
+
+
+            # entities:
+            #   - entities:
+            #       - entity: media_player.home_group
+            #         name: Home Group
+            #         popup:
+            #           actionsInARow: 3
+            #           scenesInARow: 3
+            #           brightnessWidth: 130px
+            #           brightnessHeight: 360px
+            #           borderRadius: 1.75em
+            #           switchWidth: 130px
+            #           switchHeight: 360px
+            #           sliderColor: '#eee'
+            #           sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+            #           sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+            #           type: 'custom:media_player-popup-card'
+            #           actions:
+            #             - service: media_player.media_previous_track
+            #               service_data:
+            #                 entity_id: this
+            #               name: previous
+            #               icon: 'mdi:skip-previous'
+            #             - service: media_player.media_play_pause
+            #               service_data:
+            #                 entity_id: this
+            #               name: play/pause
+            #               icon: 'mdi:play-pause'
+            #             - service: media_player.media_next_track
+            #               service_data:
+            #                 entity_id: this
+            #               name: next
+            #               icon: 'mdi:skip-next'
+            #       - entity: media_player.living_room_speaker
+            #         name: Living Room
+            #         popup:
+            #           actionsInARow: 3
+            #           scenesInARow: 3
+            #           brightnessWidth: 130px
+            #           brightnessHeight: 360px
+            #           borderRadius: 1.75em
+            #           switchWidth: 130px
+            #           switchHeight: 360px
+            #           sliderColor: '#eee'
+            #           sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+            #           sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+            #           type: 'custom:media_player-popup-card'
+            #           actions:
+            #             - service: media_player.media_previous_track
+            #               service_data:
+            #                 entity_id: this
+            #               name: previous
+            #               icon: 'mdi:skip-previous'
+            #             - service: media_player.media_play_pause
+            #               service_data:
+            #                 entity_id: this
+            #               name: play/pause
+            #               icon: 'mdi:play-pause'
+            #             - service: media_player.media_next_track
+            #               service_data:
+            #                 entity_id: this
+            #               name: next
+            #               icon: 'mdi:skip-next'
+            #       - entity: media_player.pc_room_speaker
+            #         name: PC Room
+            #         popup:
+            #           actionsInARow: 3
+            #           scenesInARow: 3
+            #           brightnessWidth: 130px
+            #           brightnessHeight: 360px
+            #           borderRadius: 1.75em
+            #           switchWidth: 130px
+            #           switchHeight: 360px
+            #           sliderColor: '#eee'
+            #           sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+            #           sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+            #           type: 'custom:media_player-popup-card'
+            #           actions:
+            #             - service: media_player.media_previous_track
+            #               service_data:
+            #                 entity_id: this
+            #               name: previous
+            #               icon: 'mdi:skip-previous'
+            #             - service: media_player.media_play_pause
+            #               service_data:
+            #                 entity_id: this
+            #               name: play/pause
+            #               icon: 'mdi:play-pause'
+            #             - service: media_player.media_next_track
+            #               service_data:
+            #                 entity_id: this
+            #               name: next
+            #               icon: 'mdi:skip-next'
+            #       - entity: media_player.book_room_speaker
+            #         name: Book Room
+            #         popup:
+            #           actionsInARow: 3
+            #           scenesInARow: 3
+            #           brightnessWidth: 130px
+            #           brightnessHeight: 360px
+            #           borderRadius: 1.75em
+            #           switchWidth: 130px
+            #           switchHeight: 360px
+            #           sliderColor: '#eee'
+            #           sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+            #           sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+            #           type: 'custom:media_player-popup-card'
+            #           actions:
+            #             - service: media_player.media_previous_track
+            #               service_data:
+            #                 entity_id: this
+            #               name: previous
+            #               icon: 'mdi:skip-previous'
+            #             - service: media_player.media_play_pause
+            #               service_data:
+            #                 entity_id: this
+            #               name: play/pause
+            #               icon: 'mdi:play-pause'
+            #             - service: media_player.media_next_track
+            #               service_data:
+            #                 entity_id: this
+            #               name: next
+            #               icon: 'mdi:skip-next'
+            #       - entity: media_player.bedroom_speaker
+            #         name: Bedroom
+            #         popup:
+            #           actionsInARow: 3
+            #           scenesInARow: 3
+            #           brightnessWidth: 130px
+            #           brightnessHeight: 360px
+            #           borderRadius: 1.75em
+            #           switchWidth: 130px
+            #           switchHeight: 360px
+            #           sliderColor: '#eee'
+            #           sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
+            #           sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+            #           type: 'custom:media_player-popup-card'
+            #           actions:
+            #             - service: media_player.media_previous_track
+            #               service_data:
+            #                 entity_id: this
+            #               name: previous
+            #               icon: 'mdi:skip-previous'
+            #             - service: media_player.media_play_pause
+            #               service_data:
+            #                 entity_id: this
+            #               name: play/pause
+            #               icon: 'mdi:play-pause'
+            #             - service: media_player.media_next_track
+            #               service_data:
+            #                 entity_id: this
+            #               name: next
+            #               icon: 'mdi:skip-next'
+            #       - card: 'custom:mini-media-player'
+            #         noPadding: true
+            #         higher: true
+            #         higherSize: 1
+            #         wider: true
+            #         widerSize: 1
+            #         double_tap_action:
+            #           action: popup
+            #           entity: media_player.home_group
+            #         cardStyle: |
+            #           ha-card {
+            #             height: 100%;
+            #             background: none  !important;
+            #             box-shadow: none !important;
+            #             position: relative;
+            #             font-size: 0.65vw !important;
+            #             image
+            #           }
+            #           ha-card{
+            #           overflow: hidden !important;
+            #           }
+            #           :host #primaryProgress{
+            #           background: #474A52 !important; 
+            #           display: flex !important;
+            #           height: 100%;
+            #           }
+            #         cardOptions:
+            #           artwork: full-cover
+            #           entity: media_player.living_room_speaker
+            #           hide:
+            #             power: true
+            #             progress: false
+            #             runtime: true
+            #             icon: true
+            #             name: true
+            #             source: true
+            #             volume: true
+            #             controls: false
+            #       - card: 'custom:mini-media-player'
+            #         noPadding: true
+            #         higher: true
+            #         higherSize: 1
+            #         wider: true
+            #         widerSize: 1
+            #         double_tap_action:
+            #           action: popup
+            #           entity: media_player.living_room_speaker
+            #         cardStyle: |
+            #           ha-card {
+            #             height: 100%;
+            #             background: none  !important;
+            #             box-shadow: none !important;
+            #             position: relative;
+            #             font-size: 0.65vw !important;
+            #             image
+            #           }
+            #           ha-card{
+            #           overflow: hidden !important;
+            #           }
+            #           :host #primaryProgress{
+            #           background: #474A52 !important; 
+            #           display: flex !important;
+            #           height: 100%;
+            #           }
+            #         cardOptions:
+            #           artwork: full-cover
+            #           entity: media_player.living_room_speaker
+            #           hide:
+            #             power: true
+            #             progress: false
+            #             runtime: true
+            #             icon: true
+            #             name: true
+            #             source: true
+            #             volume: true
+            #             controls: false
+            #       - card: 'custom:mini-media-player'
+            #         noPadding: true
+            #         higher: true
+            #         higherSize: 1
+            #         wider: true
+            #         widerSize: 1
+            #         double_tap_action:
+            #           action: popup
+            #           entity: media_player.pc_room_speaker
+            #         cardStyle: |
+            #           ha-card {
+            #             height: 100%;
+            #             background: none  !important;
+            #             box-shadow: none !important;
+            #             position: relative;
+            #             font-size: 0.65vw !important;
+            #             image
+            #           }
+            #           ha-card{
+            #           overflow: hidden !important;
+            #           }
+            #           :host #primaryProgress{
+            #           background: #474A52 !important; 
+            #           display: flex !important;
+            #           height: 100%;
+            #           }
+            #         cardOptions:
+            #           artwork: full-cover
+            #           entity: media_player.pc_room_speaker
+            #           hide:
+            #             power: true
+            #             progress: false
+            #             runtime: true
+            #             icon: true
+            #             name: true
+            #             source: true
+            #             volume: true
+            #             controls: false
+            #       - card: 'custom:mini-media-player'
+            #         noPadding: true
+            #         higher: true
+            #         higherSize: 1
+            #         wider: true
+            #         widerSize: 1
+            #         double_tap_action:
+            #           action: popup
+            #           entity: media_player.book_room_speaker
+            #         cardStyle: |
+            #           ha-card {
+            #             height: 100%;
+            #             background: none  !important;
+            #             box-shadow: none !important;
+            #             position: relative;
+            #             font-size: 0.65vw !important;
+            #             image
+            #           }
+            #           ha-card{
+            #           overflow: hidden !important;
+            #           }
+            #           :host #primaryProgress{
+            #           background: #474A52 !important; 
+            #           display: flex !important;
+            #           height: 100%;
+            #           }
+            #         cardOptions:
+            #           artwork: full-cover
+            #           entity: media_player.book_room_speaker
+            #           hide:
+            #             power: true
+            #             progress: false
+            #             runtime: true
+            #             icon: true
+            #             name: true
+            #             source: true
+            #             volume: true
+            #             controls: false
+            #       - card: 'custom:mini-media-player'
+            #         noPadding: true
+            #         higher: true
+            #         higherSize: 1
+            #         wider: true
+            #         widerSize: 1
+            #         double_tap_action:
+            #           action: popup
+            #           entity: media_player.bedroom_speaker
+            #         cardStyle: |
+            #           ha-card {
+            #             height: 100%;
+            #             background: none  !important;
+            #             box-shadow: none !important;
+            #             position: relative;
+            #             font-size: 0.65vw !important;
+            #             image
+            #           }
+            #           ha-card{
+            #           overflow: hidden !important;
+            #           }
+            #           :host #primaryProgress{
+            #           background: #474A52 !important; 
+            #           display: flex !important;
+            #           height: 100%;
+            #           }
+            #         cardOptions:
+            #           artwork: full-cover
+            #           entity: media_player.bedroom_speaker
+            #           hide:
+            #             power: true
+            #             progress: false
+            #             runtime: true
+            #             icon: true
+            #             name: true
+            #             source: true
+            #             volume: true
+            #             controls: false
+            #     title: Speakers
