@@ -574,29 +574,12 @@ cards:
               - column: 2
                 entities:
                   - entities:
-                      - entity: media_player.roku_streaming_stick
-                        name: LG TV-49
-                        icon: 'mdi:television'
-                      - entity: media_player.roku_streaming_stick_2
-                        name: LG TV-43
-                      - entity: light.loft_lights
-                        name: Loft Lights
                       - entity: binary_sensor.cat_needs_feeding
                         name: Feed Cat
                         hide: >
                           [[[
                             return entity.state == 'off'
                           ]]]
-                      - entity: media_player.book_room_speaker
-                        name: Book Room
-                      - entity: media_player.bedroom_speaker
-                        name: Bedroom
-                      - entity: media_player.home_group
-                        name: Home Group
-                      - entity: media_player.shield_android_tv
-                        name: Nvidia Shield
-                      - entity: media_player.chromecast
-                        name: Chromecast
                     title: Media
       - type: 'custom:homekit-card'
         horizontalScroll: true

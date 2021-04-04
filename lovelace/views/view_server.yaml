@@ -9,7 +9,7 @@ cards:
     column_width:
       - 450
       - 975
-    view_layout: vertical-layout
+    layout_type: custom:vertical-layout
     cards:
       - type: 'custom:homekit-card'
         horizontalScroll: true
@@ -215,7 +215,7 @@ cards:
                         wider: true
                         widerSize: 2
                     title: Raspberry Status
-      
+      - type: custom:layout-break
       - type: 'custom:homekit-card'
         horizontalScroll: true
         statePositionTop: true
