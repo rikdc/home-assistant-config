@@ -21,16 +21,10 @@ lovelace:
     lovelace-yaml:
       mode: yaml
       title: Home
-      icon: mdi:script
-      show_in_sidebar: true
-      filename: lovelace/tablet.yaml
-    lovelace-system:
-      mode: yaml
-      filename: lovelace/ui-system.yaml
-      title: "System"
       icon: mdi:view-dashboard
       show_in_sidebar: true
       require_admin: false
+      filename: lovelace/tablet.yaml
 
 panel_iframe:
   nodered:

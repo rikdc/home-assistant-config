@@ -1,0 +1,64 @@
+title: Lights
+icon: mdi:lightbulb
+path: lights
+visible: true
+panel: true
+cards:
+  - type: 'custom:layout-card'
+    column_width:
+      - 450
+      - 975
+    layout_type: custom:vertical-layout
+    layout:
+      width: 300
+      max_cols: 10
+    cards:
+      - type: vertical-stack
+        cards:
+
+          - type: horizontal-stack
+            cards:
+
+              - type: custom:button-card
+                template: shoulder_blank_card
+                  
+              - type: custom:layout-card
+                min_columns: 1
+                max_columns: 3
+                cards:
+
+                  - !include ../cards/lights/lights_livingroom_view.yaml
+
+                  - !include ../cards/lights/lights_kitchen_view.yaml
+
+                  - !include ../cards/lights/lights_bedroom_view.yaml
+
+              - type: custom:button-card
+                template: shoulder_blank_card
+
+      - type: 'custom:layout-break'
+
+      - type: vertical-stack
+        cards:
+        
+          - type: horizontal-stack
+            cards:
+
+              - type: custom:button-card
+                template: shoulder_blank_card
+                  
+              - type: custom:layout-card
+                min_columns: 1
+                max_columns: 3
+                cards:
+
+                  - !include ../cards/lights/lights_livingroom_view.yaml
+
+                  - !include ../cards/lights/lights_kitchen_view.yaml
+
+                  - !include ../cards/lights/lights_bedroom_view.yaml
+
+              - type: custom:button-card
+                template: shoulder_blank_card
+
+          - !include /config/lovelace/styles/separator_card.yaml

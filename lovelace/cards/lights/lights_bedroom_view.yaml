@@ -1,0 +1,65 @@
+type: vertical-stack
+cards:
+
+
+############################################################################
+#                                                                          #
+#   Title                                                                  #
+#                                                                          #
+############################################################################
+
+  - type: horizontal-stack
+    cards:
+      
+      - type: custom:decluttering-card
+        template: title_button_card
+        variables:
+          - name: Bedroom  
+
+
+############################################################################
+#                                                                          #
+#   Lights                                                                 #
+#                                                                          #
+############################################################################
+
+  - type: vertical-stack
+    cards:
+   
+      - type: horizontal-stack
+        cards:
+          
+          - type: custom:decluttering-card # Bedroom
+            template: light_button
+            variables:
+              - entity: light.unit1_bedroom_lights
+              - name: Main Light
+
+          - type: custom:decluttering-card # Bedside Person1
+            template: light_button
+            variables:
+              - entity: light.person1_nightlight
+              - name: !secret person1_name
+              - icon: mdi:lamp
+
+          - type: custom:decluttering-card # Bedside Person2
+            template: light_button
+            variables:
+              - entity: light.person2_nightlight
+              - name: !secret person2_name
+              - icon: mdi:lamp
+
+          - type: custom:decluttering-card # Bedside Normal
+            template: button
+            variables:
+              - entity: light.unit1_light_bedroom_dimmer
+              - name: Ceiling
+              - icon: mdi:lightbulb-on
+              - cust_1_field: "[[[ return entity.state ]]]"
+              - cust_2_field: "Bedside"
+              - tap_action: 
+                  action: toggle
+              - hold_action:
+                  action: more-info
+
+  - !include /config/lovelace/styles/separator_card.yaml

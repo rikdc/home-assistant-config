@@ -1,0 +1,70 @@
+title: Environment
+icon: mdi:flower
+path: environment
+visible: true
+panel: true
+cards:
+  - type: 'custom:layout-card'
+    column_width:
+      - 450
+      - 975
+    layout_type: custom:vertical-layout
+    layout:
+      width: 300
+      max_cols: 10
+    cards:
+      - type: grid
+        columns: 3
+        cards:
+          - type: custom:decluttering-card
+            template: temp_sensor_button
+            variables:
+              - title: Basement
+              - entity: sensor.basement_temperature
+
+          - type: custom:decluttering-card
+            template: temp_sensor_button
+            variables:
+              - title: Bedroom 1
+              - entity: sensor.bedroom1_multisensor_temperature
+
+          - type: custom:decluttering-card
+            template: temp_sensor_button
+            variables:
+              - title: Living Room
+              - entity: sensor.unit_1_frontroom_temperature
+
+          - type: custom:decluttering-card
+            template: temp_sensor_button
+            variables:
+              - title: Living Room
+              - entity: sensor.unit_1_frontroom_temperature
+
+      - type: custom:layout-break
+
+      - type: grid
+        columns: 3
+        cards:
+          - type: custom:decluttering-card
+            template: temp_sensor_button
+            variables:
+              - title: Basement
+              - entity: sensor.basement_humidity
+
+          - type: custom:decluttering-card
+            template: temp_sensor_button
+            variables:
+              - title: Bedroom 1
+              - entity: sensor.bedroom1_multisensor_humidity
+
+          - type: custom:decluttering-card
+            template: temp_sensor_button
+            variables:
+              - title: Living Room
+              - entity: sensor.unit_1_frontroom_humidity
+
+          - type: custom:decluttering-card
+            template: temp_sensor_button
+            variables:
+              - title: Living Room
+              - entity: sensor.unit_1_frontroom_humidity

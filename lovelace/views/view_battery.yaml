@@ -1,0 +1,562 @@
+title: Batteries
+path: batteries
+icon: 'mdi:battery-outline'
+panel: true
+badges: []
+cards:
+  - type: 'custom:layout-card'
+    column_width:
+      - 350
+      - 850
+    layout: vertical
+    cards:
+      - type: 'custom:homekit-card'
+        title: Media
+        titleColor: '#000'
+        horizontalScroll: true
+        statePositionTop: true
+        useBrightness: false
+        useTemperature: false
+        enableColumns: true
+        tileHoldAnimation: false
+        panel: true
+        home: false
+        style: |
+          :host {
+            --tile-background: rgba(230, 230, 228, 0.5);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            --tile-name-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            --tile-state-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+            --tile-value-text-color: rgba(0, 0, 0, 1);
+            --tile-value-text-font-size: 12px;
+            --tile-icon-color: rgba(0, 0, 0, 0.25);
+            --tile-on-icon-color: #f7d959;
+            --tile-width-mobile: 90px;
+            --tile-height-mobile: 90px;
+            --min-header-height: 150px;
+            --tile-icon-size: 36px;
+            --tile-image-radius: 0%
+          }
+        rows:
+          - row: 1
+            columns:
+              - column: 1
+                entities:
+                  - entities:
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.phone1_battery_level
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: 100
+                              color: '#008000'
+                            - value: 80
+                              color: '#3CB371'
+                            - value: 60
+                              color: '#FFD700'
+                            - value: 40
+                              color: '#FFA500'
+                            - value: 20
+                              color: '#FF7F50'
+                            - value: 0
+                              color: '#FF4500'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 2
+                          update_interval: 300
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.phone2_battery_level
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: 100
+                              color: '#008000'
+                            - value: 80
+                              color: '#3CB371'
+                            - value: 60
+                              color: '#FFD700'
+                            - value: 40
+                              color: '#FFA500'
+                            - value: 20
+                              color: '#FF7F50'
+                            - value: 0
+                              color: '#FF4500'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 2
+                          update_interval: 300
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                    title: Phone Battery Status
+      - type: 'custom:layout-break'
+      - type: 'custom:homekit-card'
+        title: Media
+        titleColor: '#000'
+        horizontalScroll: true
+        statePositionTop: true
+        useBrightness: false
+        useTemperature: false
+        enableColumns: true
+        tileHoldAnimation: false
+        panel: true
+        home: false
+        style: |
+          :host {
+            --tile-background: rgba(230, 230, 228, 0.5);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            --tile-name-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            --tile-state-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+            --tile-value-text-color: rgba(0, 0, 0, 1);
+            --tile-value-text-font-size: 12px;
+            --tile-icon-color: rgba(0, 0, 0, 0.25);
+            --tile-on-icon-color: #f7d959;
+            --tile-width-mobile: 90px;
+            --tile-height-mobile: 90px;
+            --min-header-height: 150px;
+            --tile-icon-size: 36px;
+            --tile-image-radius: 0%
+          }
+        rows:
+          - row: 2
+            columns:
+              - column: 1
+                entities:
+                  - entities:
+                      #type: custom:auto-entities 
+                        # collapse: 3
+                        # filter:
+                        #   include:
+                        #     - name: entity_id
+                        #       value: '*_battery_level'
+                        #   exclude:
+                        #     - name: state
+                        #       value: 99
+                        #       operator: '>'
+                        #     - name: entity_id
+                        #       value: '*_battery_state'
+                        #     - name: attributes.device_class
+                        #       value: lock
+                        # sort_by_level: asc
+                        # title: Battery Warnings
+                        # type: 'custom:battery-state-card'
+
+                      # - card: 'custom:mini-graph-card'
+                      #   cardOptions:
+                      #     entities:
+                      #       - entity: sensor.main_door_motion_battery
+                      #     show: ''
+                      #     labels: false
+                      #     color_thresholds:
+                      #       - value: 100
+                      #         color: '#008000'
+                      #       - value: 80
+                      #         color: '#3CB371'
+                      #       - value: 60
+                      #         color: '#FFD700'
+                      #       - value: 40
+                      #         color: '#FFA500'
+                      #       - value: 20
+                      #         color: '#FF7F50'
+                      #       - value: 0
+                      #         color: '#FF4500'
+                      #     animate: true
+                      #     hours_to_show: 168
+                      #     points_per_hour: 0.25
+                      #     update_interval: 300
+                      #     line_color: var(--accent-color)
+                      #     line_width: 8
+                      #     font_size: 50
+                      #     aggregate_func: max
+                      #   noPadding: true
+                      #   higher: true
+                      #   higherSize: 1
+                      #   wider: true
+                      #   widerSize: 2
+                      # - card: 'custom:mini-graph-card'
+                      #   cardOptions:
+                      #     entities:
+                      #       - entity: sensor.main_door_battery
+                      #     show: ''
+                      #     labels: false
+                      #     color_thresholds:
+                      #       - value: 100
+                      #         color: '#008000'
+                      #       - value: 80
+                      #         color: '#3CB371'
+                      #       - value: 60
+                      #         color: '#FFD700'
+                      #       - value: 40
+                      #         color: '#FFA500'
+                      #       - value: 20
+                      #         color: '#FF7F50'
+                      #       - value: 0
+                      #         color: '#FF4500'
+                      #     animate: true
+                      #     hours_to_show: 168
+                      #     points_per_hour: 0.25
+                      #     update_interval: 3600
+                      #     line_color: var(--accent-color)
+                      #     line_width: 8
+                      #     font_size: 50
+                      #     aggregate_func: max
+                      #   noPadding: true
+                      #   higher: true
+                      #   higherSize: 1
+                      #   wider: true
+                      #   widerSize: 2
+                      # - card: 'custom:mini-graph-card'
+                      #   cardOptions:
+                      #     entities:
+                      #       - entity: sensor.living_room_motion_battery
+                      #     show: ''
+                      #     labels: false
+                      #     color_thresholds:
+                      #       - value: 100
+                      #         color: '#008000'
+                      #       - value: 80
+                      #         color: '#3CB371'
+                      #       - value: 60
+                      #         color: '#FFD700'
+                      #       - value: 40
+                      #         color: '#FFA500'
+                      #       - value: 20
+                      #         color: '#FF7F50'
+                      #       - value: 0
+                      #         color: '#FF4500'
+                      #     animate: true
+                      #     hours_to_show: 168
+                      #     points_per_hour: 0.25
+                      #     update_interval: 3600
+                      #     line_color: var(--accent-color)
+                      #     line_width: 8
+                      #     font_size: 50
+                      #     aggregate_func: max
+                      #   noPadding: true
+                      #   higher: true
+                      #   higherSize: 1
+                      #   wider: true
+                      #   widerSize: 2
+                      # - card: 'custom:mini-graph-card'
+                      #   cardOptions:
+                      #     entities:
+                      #       - entity: sensor.front_balcony_door_battery
+                      #     show: ''
+                      #     labels: false
+                      #     color_thresholds:
+                      #       - value: 100
+                      #         color: '#008000'
+                      #       - value: 80
+                      #         color: '#3CB371'
+                      #       - value: 60
+                      #         color: '#FFD700'
+                      #       - value: 40
+                      #         color: '#FFA500'
+                      #       - value: 20
+                      #         color: '#FF7F50'
+                      #       - value: 0
+                      #         color: '#FF4500'
+                      #     animate: true
+                      #     hours_to_show: 168
+                      #     points_per_hour: 0.25
+                      #     update_interval: 3600
+                      #     line_color: var(--accent-color)
+                      #     line_width: 8
+                      #     font_size: 50
+                      #     aggregate_func: max
+                      #   noPadding: true
+                      #   higher: true
+                      #   higherSize: 1
+                      #   wider: true
+                      #   widerSize: 2
+                      # - card: 'custom:mini-graph-card'
+                      #   cardOptions:
+                      #     entities:
+                      #       - entity: sensor.book_room_motion_battery
+                      #     show: ''
+                      #     labels: false
+                      #     color_thresholds:
+                      #       - value: 100
+                      #         color: '#008000'
+                      #       - value: 80
+                      #         color: '#3CB371'
+                      #       - value: 60
+                      #         color: '#FFD700'
+                      #       - value: 40
+                      #         color: '#FFA500'
+                      #       - value: 20
+                      #         color: '#FF7F50'
+                      #       - value: 0
+                      #         color: '#FF4500'
+                      #     animate: true
+                      #     hours_to_show: 168
+                      #     points_per_hour: 0.25
+                      #     update_interval: 3600
+                      #     line_color: var(--accent-color)
+                      #     line_width: 8
+                      #     font_size: 50
+                      #     aggregate_func: max
+                      #   noPadding: true
+                      #   higher: true
+                      #   higherSize: 1
+                      #   wider: true
+                      #   widerSize: 2
+                      # - card: 'custom:mini-graph-card'
+                      #   cardOptions:
+                      #     entities:
+                      #       - entity: sensor.back_balcony_door_battery
+                      #     show: ''
+                      #     labels: false
+                      #     color_thresholds:
+                      #       - value: 100
+                      #         color: '#008000'
+                      #       - value: 80
+                      #         color: '#3CB371'
+                      #       - value: 60
+                      #         color: '#FFD700'
+                      #       - value: 40
+                      #         color: '#FFA500'
+                      #       - value: 20
+                      #         color: '#FF7F50'
+                      #       - value: 0
+                      #         color: '#FF4500'
+                      #     animate: true
+                      #     hours_to_show: 168
+                      #     points_per_hour: 0.25
+                      #     update_interval: 3600
+                      #     line_color: var(--accent-color)
+                      #     line_width: 8
+                      #     font_size: 50
+                      #     aggregate_func: max
+                      #   noPadding: true
+                      #   higher: true
+                      #   higherSize: 1
+                      #   wider: true
+                      #   widerSize: 2
+                      # - card: 'custom:mini-graph-card'
+                      #   cardOptions:
+                      #     entities:
+                      #       - entity: sensor.living_room_temp_battery
+                      #     show: ''
+                      #     labels: false
+                      #     color_thresholds:
+                      #       - value: 100
+                      #         color: '#008000'
+                      #       - value: 80
+                      #         color: '#3CB371'
+                      #       - value: 60
+                      #         color: '#FFD700'
+                      #       - value: 40
+                      #         color: '#FFA500'
+                      #       - value: 20
+                      #         color: '#FF7F50'
+                      #       - value: 0
+                      #         color: '#FF4500'
+                      #     animate: true
+                      #     hours_to_show: 168
+                      #     points_per_hour: 0.25
+                      #     update_interval: 3600
+                      #     line_color: var(--accent-color)
+                      #     line_width: 8
+                      #     font_size: 50
+                      #     aggregate_func: max
+                      #   noPadding: true
+                      #   higher: true
+                      #   higherSize: 1
+                      #   wider: true
+                      #   widerSize: 2
+                      # - card: 'custom:mini-graph-card'
+                      #   cardOptions:
+                      #     entities:
+                      #       - entity: sensor.pc_room_temp_battery
+                      #     show: ''
+                      #     labels: false
+                      #     color_thresholds:
+                      #       - value: 100
+                      #         color: '#008000'
+                      #       - value: 80
+                      #         color: '#3CB371'
+                      #       - value: 60
+                      #         color: '#FFD700'
+                      #       - value: 40
+                      #         color: '#FFA500'
+                      #       - value: 20
+                      #         color: '#FF7F50'
+                      #       - value: 0
+                      #         color: '#FF4500'
+                      #     animate: true
+                      #     hours_to_show: 168
+                      #     points_per_hour: 0.25
+                      #     update_interval: 3600
+                      #     line_color: var(--accent-color)
+                      #     line_width: 8
+                      #     font_size: 50
+                      #     aggregate_func: max
+                      #   noPadding: true
+                      #   higher: true
+                      #   higherSize: 1
+                      #   wider: true
+                      #   widerSize: 2
+                      # - card: 'custom:mini-graph-card'
+                      #   cardOptions:
+                      #     entities:
+                      #       - entity: sensor.book_room_temp_battery
+                      #     show: ''
+                      #     labels: false
+                      #     color_thresholds:
+                      #       - value: 100
+                      #         color: '#008000'
+                      #       - value: 80
+                      #         color: '#3CB371'
+                      #       - value: 60
+                      #         color: '#FFD700'
+                      #       - value: 40
+                      #         color: '#FFA500'
+                      #       - value: 20
+                      #         color: '#FF7F50'
+                      #       - value: 0
+                      #         color: '#FF4500'
+                      #     animate: true
+                      #     hours_to_show: 168
+                      #     points_per_hour: 0.25
+                      #     update_interval: 3600
+                      #     line_color: var(--accent-color)
+                      #     line_width: 8
+                      #     font_size: 50
+                      #     aggregate_func: max
+                      #   noPadding: true
+                      #   higher: true
+                      #   higherSize: 1
+                      #   wider: true
+                      #   widerSize: 2
+                      # - card: 'custom:mini-graph-card'
+                      #   cardOptions:
+                      #     entities:
+                      #       - entity: sensor.saloon_temp_battery
+                      #     show: ''
+                      #     labels: false
+                      #     color_thresholds:
+                      #       - value: 100
+                      #         color: '#008000'
+                      #       - value: 80
+                      #         color: '#3CB371'
+                      #       - value: 60
+                      #         color: '#FFD700'
+                      #       - value: 40
+                      #         color: '#FFA500'
+                      #       - value: 20
+                      #         color: '#FF7F50'
+                      #       - value: 0
+                      #         color: '#FF4500'
+                      #     animate: true
+                      #     hours_to_show: 168
+                      #     points_per_hour: 0.25
+                      #     update_interval: 3600
+                      #     line_color: var(--accent-color)
+                      #     line_width: 8
+                      #     font_size: 50
+                      #     aggregate_func: max
+                      #   noPadding: true
+                      #   higher: true
+                      #   higherSize: 1
+                      #   wider: true
+                      #   widerSize: 2
+                      # - card: 'custom:mini-graph-card'
+                      #   cardOptions:
+                      #     entities:
+                      #       - entity: sensor.front_balcony_temp_battery
+                      #     show: ''
+                      #     labels: false
+                      #     color_thresholds:
+                      #       - value: 100
+                      #         color: '#008000'
+                      #       - value: 80
+                      #         color: '#3CB371'
+                      #       - value: 60
+                      #         color: '#FFD700'
+                      #       - value: 40
+                      #         color: '#FFA500'
+                      #       - value: 20
+                      #         color: '#FF7F50'
+                      #       - value: 0
+                      #         color: '#FF4500'
+                      #     animate: true
+                      #     hours_to_show: 168
+                      #     points_per_hour: 0.25
+                      #     update_interval: 3600
+                      #     line_color: var(--accent-color)
+                      #     line_width: 8
+                      #     font_size: 50
+                      #     aggregate_func: max
+                      #   noPadding: true
+                      #   higher: true
+                      #   higherSize: 1
+                      #   wider: true
+                      #   widerSize: 2
+                      # - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.back_balcony_temp_battery
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: 100
+                              color: '#008000'
+                            - value: 80
+                              color: '#3CB371'
+                            - value: 60
+                              color: '#FFD700'
+                            - value: 40
+                              color: '#FFA500'
+                            - value: 20
+                              color: '#FF7F50'
+                            - value: 0
+                              color: '#FF4500'
+                          animate: true
+                          hours_to_show: 168
+                          points_per_hour: 0.25
+                          update_interval: 3600
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                        halfheight: false
+                    title: Sensor Battery Status
