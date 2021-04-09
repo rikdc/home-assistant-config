@@ -4,5 +4,5 @@ use_blueprint:
   path: freakshock88/motion_illuminance_activated_entity.yaml
   input:
     motion_sensor: binary_sensor.unit_1_frontroom_motion
-    target_entity: light.unit1_light_frontroom_ceiling_dimmer
+    target_entity: light.light_frontroom_ceiling
     no_motion_wait: input_number.unit1_frontroom_lights_off_duration
