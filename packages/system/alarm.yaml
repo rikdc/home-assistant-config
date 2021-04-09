@@ -26,8 +26,8 @@ group:
     - binary_sensor.unit1_bathroom_window_door_state #sensor.unit1_bathroom_window_alarm_access_control
 
   all_house_locks:
-    - lock.frontdoor_lock
-    - lock.backdoor_lock
+    - lock.backdoor_lock_2
+    - lock.frontdoor
 
 input_boolean:
   panic_mode:

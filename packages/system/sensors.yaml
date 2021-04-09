@@ -27,8 +27,8 @@ sensor:
       check_dws_front_door_no_activity:
         entity_id: sensor.time
         value_template: >-
-          {% if states.sensor.unit1_frontdoor_alarm_access_control %}
-            {{ now().timestamp() - as_timestamp(state_attr('sensor.unit1_frontdoor_alarm_access_control', 'last_changed')) | int //60 > 780 }}
+          {% if states.binary_sensor.frontdoor_access_control_window_door_is_open %}
+            {{ now().timestamp() - as_timestamp(state_attr('binary_sensor.frontdoor_access_control_window_door_is_open', 'last_changed')) | int //60 > 780 }}
           {% else %}
             false
           {% endif %}
@@ -63,8 +63,8 @@ sensor:
       check_dws_unit2_back_door_no_activity:
         entity_id: sensor.time
         value_template: >-
-          {% if states.sensor.unit2_backdoor_alarm_access_control.last_changed %}
-            {{ now().timestamp() - as_timestamp(state_attr('sensor.unit2_backdoor_alarm_access_control', 'last_changed')) | int //60 > 780 }}
+          {% if states.binary_sensor.backdoor_access_control_window_door_is_open.last_changed %}
+            {{ now().timestamp() - as_timestamp(state_attr('binary_sensor.backdoor_access_control_window_door_is_open', 'last_changed')) | int //60 > 780 }}
           {% else %}
             false
           {% endif %}
@@ -81,8 +81,8 @@ sensor:
       check_dws_unit1_bathroom_window_no_activity:
         entity_id: sensor.time
         value_template: >-
-          {% if states.sensor.unit1_bathroom_window_alarm_access_control.last_changed %}
-            {{ now().timestamp() - as_timestamp(state_attr('sensor.unit1_bathroom_window_alarm_access_control', 'last_changed')) | int //60 > 780 }}
+          {% if states.binary_sensor.bathroom_window_access_control_window_door_is_open.last_changed %}
+            {{ now().timestamp() - as_timestamp(state_attr('binary_sensor.bathroom_window_access_control_window_door_is_open', 'last_changed')) | int //60 > 780 }}
           {% else %}
             false
           {% endif %}

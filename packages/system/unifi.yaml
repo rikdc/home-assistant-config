@@ -4,21 +4,6 @@
 #                                                               #
 #################################################################
 automation:
-  - alias: Unifi Firmware Available Notification
-    id: 4b1f0b626a9049ab892a56f512106af7
-    trigger:
-      platform: state
-      entity_id: sensor.unifi_gateway_firmware_upgradable
-      from: '0'
-    action:
-    - service: notify.mobile_app_john_boiless_iphone_x
-      data_template:
-        message: New Unifi firmware is available.
-    - service: persistent_notification.create
-      data:
-        message: New Unifi firmware is available.
-        title: Update available
-
   - alias: "New device connected"
     trigger:
       - platform: event
@@ -28,6 +13,47 @@ automation:
         data:
           title: 'Network Monitor'
           message: 'There has been a new device detected on the network.'
+
+  - alias: Network - WAN Down Notification
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.wan
+        to: 'off'
+        for:
+          hours: 0
+          minutes: 1
+          seconds: 0
+    # condition:
+    #   - condition: state
+    #     entity_id: input_boolean.disable_notifications
+    #     state: 'off'
+    action:
+      - service: persistent_notification.create
+        data:
+          message: "Internet Down"
+          title: "WAN"
+          notification_id: "1"
+
+  - alias: Network - WAN Up Notification
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.wan
+        from: 'off'
+        to: 'on'
+        for:
+          hours: 0
+          minutes: 1
+          seconds: 0
+    condition:
+      - condition: state
+        entity_id: input_boolean.disable_notifications
+        state: 'off'
+    action:
+      - service: persistent_notification.create
+        data:
+          message: "Internet Up"
+          title: "WAN"
+          notification_id: "1"
 
 ## Bandwidth Monitoring
 input_number:
