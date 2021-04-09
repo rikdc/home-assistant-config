@@ -1,0 +1,36 @@
+#################################################################
+#                                                               #
+#                           Z-Wave                              #
+#                                                               #
+#################################################################
+
+sensor:
+- platform: mqtt
+  name: zwave_network_status
+  state_topic: homeassistant/1/status
+  value_template: >
+      {{ "on" if value_json.status in ["Alive"] else "off" }}
+  json_attributes_topic: homeassistant/1/status
+
+automation:
+  - alias: zwave_network_down
+    initial_state: true
+    trigger:
+      - platform: state
+        entity_id: sensor.zwave_network_status
+        to: "off"
+    action:
+      - service: homeassistant.turn_off
+        entity_id: input_boolean.allow_automation_execution
+
+  - alias: zwave_network_up
+    initial_state: true
+    trigger:
+      - platform: homeassistant
+        event: start
+      - platform: state
+        entity_id: sensor.zwave_network_status
+        to: "on"
+    action:
+      - service: homeassistant.turn_on
+        entity_id: input_boolean.allow_automation_execution
