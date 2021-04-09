@@ -7,8 +7,8 @@
 group:
   interior_lights:
       - light.light_switch # light.kitchen_ceiling_light is what this should be, but I can't get it to name forcibly.
-      - light.unit1_light_livingroom_dimmer
-      - light.light_frontroom_ceiling_dimmer
+      - light.light_livingroom
+      - light.light_frontroom_ceiling
       - light.porch_light
       - light.kitchen_pendants
       - light.kitchen_cabinets
@@ -82,7 +82,7 @@ light:
       - light.unit1_light_livingroom_dimmer
       - light.light_frontroom_ceiling_dimmer
       - light.porch_light
-      - light.kitchen_pendants
+      - switch.kitchen_pendants
       - light.kitchen_cabinets
       - light.kitchen_ceiling_light
 
@@ -170,7 +170,7 @@ light:
 
   - platform: switch
     name: Unit1 Kitchen Ceiling Light
-    entity_id: switch.unit1_kitchen_ceiling_lights_switch
+    entity_id: switch.kitchen_ceiling_lights
   
   - platform: switch
     name: Person2 Nightlight
@@ -225,5 +225,9 @@ input_number:
   unit1_frontroom_lights_off_duration:
     icon: mdi:clock-start
     initial: 15
+    min: 1
+    max: 1440
+
+  room_light_level:
     min: 1
     max: 1440
