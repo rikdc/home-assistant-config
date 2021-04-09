@@ -80,7 +80,6 @@ light:
       - light.light_switch # light.kitchen_ceiling_light is what this should be, but I can't get it to name forcibly.
       - light.unit1_light_livingroom_dimmer
       - light.porch_light
-      - switch.kitchen_pendants
       - light.kitchen_cabinets
       - light.kitchen_ceiling_light
 
@@ -171,15 +170,15 @@ light:
   
   - platform: switch
     name: Person2 Nightlight
-    entity_id: switch.unit1_bedroom_switches_switch_1
+    entity_id: switch.bedroom_switches_2 # switch.unit1_bedroom_switches_switch_1
 
   - platform: switch    
     name: Person1 Nightlight
-    entity_id: switch.unit1_bedroom_switches_switch_2
+    entity_id: switch.bedroom_switches_3 # switch.unit1_bedroom_switches_switch_2
 
   - platform: switch  
     name: Unit1 Kitchen Pendants
-    entity_id: switch.unit1_kitchen_pendants_switch
+    entity_id: switch.kitchen_pendants
 
   - platform: switch
     name: Unit1 Hallway Lights
