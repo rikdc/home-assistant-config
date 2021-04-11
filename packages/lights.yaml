@@ -95,20 +95,6 @@ light:
     entities:
       - light.unit2_loft_fairy_lights
 
-  - platform: mqtt
-    name: "Kitchen Cabinets"
-    unique_id: "light.kitchen_cabinets"
-    state_topic: "stat/kitchen_cabinets/RESULT"  
-    value_template: "{{ value_json.POWER }}"
-    command_topic: "cmnd/kitchen_cabinets/POWER"
-    payload_on: "ON"
-    payload_off: "OFF"
-    availability_topic: "tele/kitchen_cabinets/LWT"
-    payload_available: "Online"
-    payload_not_available: "Offline"
-    qos: 1
-    retain: false
-
   - platform: group
     name: downstairs_lights
     entities:
@@ -170,11 +156,11 @@ light:
   
   - platform: switch
     name: Person2 Nightlight
-    entity_id: switch.bedroom_switches_2 # switch.unit1_bedroom_switches_switch_1
+    entity_id: switch.person2_nightlight
 
   - platform: switch    
     name: Person1 Nightlight
-    entity_id: switch.bedroom_switches_3 # switch.unit1_bedroom_switches_switch_2
+    entity_id: switch.person1_nightlight
 
   - platform: switch  
     name: Unit1 Kitchen Pendants
