@@ -11,6 +11,55 @@ cards:
       - 975
     layout_type: custom:vertical-layout
     cards:
+      ###
+      - type: custom:decluttering-card
+        template: view_title
+        variables:
+          - title: Home Lab
+
+      - type: glance
+        columns: 3
+        entities:
+          - entity: device_tracker.unit_1_ap
+            name: AP1
+            image: local/unifi_ap.png
+          - entity: device_tracker.unit_2_ap
+            name: AP2
+            image: local/unifi_ap.png
+          - entity: device_tracker.us8p60
+            name: Switch
+            image: local/unifi_switch.png
+        show_icon: true
+        show_name: true
+        show_state: true
+        title: false
+        
+      - type: 'custom:decluttering-card'
+        template: graph
+        variables:
+            - entity: sensor.office_power_electric_consumed_kwh
+            - name: Work Room
+            - show_icon: false
+            - show_state: false
+            - show_name: true
+            - show_fill: false
+
+      - type: 'custom:mini-graph-card'
+        show: null
+        name: Internet Usage
+        group_by: date
+        hours_to_show: 168
+        aggregate_func: max
+        entities:
+          - entity: sensor.daily_internet_usage_in
+            index: 0
+            show_state: true
+          - entity: sensor.daily_internet_usage_out
+            index: 0
+            show_state: true
+
+      - type: custom:layout-break
+      ####
       - type: 'custom:homekit-card'
         horizontalScroll: true
         statePositionTop: true
