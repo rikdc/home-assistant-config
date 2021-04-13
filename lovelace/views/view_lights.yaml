@@ -52,11 +52,7 @@ cards:
                 max_columns: 3
                 cards:
 
-                  - !include ../cards/lights/lights_livingroom_view.yaml
-
-                  - !include ../cards/lights/lights_kitchen_view.yaml
-
-                  - !include ../cards/lights/lights_bedroom_view.yaml
+                  - !include ../cards/lights/lights_upstairs_view.yaml
 
               - type: custom:button-card
                 template: shoulder_blank_card
