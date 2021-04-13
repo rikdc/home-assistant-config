@@ -21,10 +21,11 @@ group:
     - light.unit1_light_livingroom_dimmer
     - light.livingroom_ceiling
     - light.porch_light
-    - light.kitchen_pendants
-    - light.kitchen_cabinets
-    - light.kitchen_ceiling_light
+    - light.unit1_kitchen_pendants
+    - light.unit1_kitchen_ceiling_light
     - light.unit1_hallway_lights
+    - light.kitchen_cabinets
+ 
     - light.livingroom_ceiling
     - light.person1_nightlight
     - light.person2_nightlight
