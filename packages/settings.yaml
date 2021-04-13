@@ -1,0 +1,62 @@
+
+#
+# Light Automation Inputs
+#
+
+## Floor 1
+input_number:
+  unit1_bathroom_lights_off_duration:
+    icon: mdi:clock-start
+    initial: 15
+    min: 1
+    max: 1440
+
+  unit1_bedroom_lights_off_duration:
+    icon: mdi:clock-start
+    initial: 15
+    min: 1
+    max: 1440
+
+  unit1_entryway_lights_off_duration:
+    icon: mdi:clock-start
+    initial: 5
+    min: 1
+    max: 1440
+
+  unit2_livingroom_lights_off_duration:
+    icon: mdi:clock-start
+    initial: 15
+    min: 1
+    max: 1440
+
+input_datetime:
+  unit1_bathroom_lights_on_start:
+    name: "unit1_bathroom_lights_on_start"
+    has_date: false
+    has_time: true
+
+  unit1_bathroom_lights_on_stop:
+    name: "unit1_bathroom_lights_on_stop"
+    has_date: false
+    has_time: true
+
+  unit1_bedroom_lights_on_start:
+    name: "unit1_bedroom_lights_on_start"
+    has_date: false
+    has_time: true
+
+  unit1_bedroom_lights_on_stop:
+    name: "unit1_bedroom_lights_on_stop"
+    has_date: false
+    has_time: true
+
+## Floor 2
+  unit2_livingroom_lights_on_start:
+    name: "unit2_livingroom_lights_on_start"
+    has_date: false
+    has_time: true
+
+  unit2_livingroom_lights_on_stop:
+    name: "unit2_livingroom_lights_on_stop"
+    has_date: false
+    has_time: true
