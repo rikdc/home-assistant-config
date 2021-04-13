@@ -1,0 +1,66 @@
+#################################################################
+#                                                               #
+#                             UPS                               #
+#                                                               #
+#################################################################
+
+automations:
+  - alias: "UPS Discharging"
+    trigger:
+      - platform: state
+        entity_id: sensor.cyberpower_status
+        to: 'OB DISCHRG'
+        from: 'OL'
+    action:
+      - service: notify.admins
+        data:
+          title: Home Assistant
+          message: "System on battery."
+
+# # - alias: 'UPS Discharging - Conserve power'
+# #   trigger:
+# #     - platform: state
+# #       entity_id: sensor.myups_satus
+# #       to: 'OB DISCHRG'
+# #       for:
+# #         minutes: 5
+# #   action:
+# #     - service: notify.tbot
+# #       data:
+# #         title: Home Assistant
+# #         message: "System on battery.  Sleeping main server"
+# #     - service: switch.turn_off
+# #       entity_id: switch.omv_nas
+
+# # - alias: 'UPS Charging'
+# #   trigger:
+# #     - platform: state
+# #       entity_id: sensor.myups_satus
+# #       to: 'OL CHRG'
+# #       for:
+# #         minutes: 2
+# #   action:
+# #     - service: notify.tbot
+# #       data:
+# #         title: Home Assistant
+# #         message: "System charging .  Turning server back on"
+# #     - service: switch.turn_on
+# #       entity_id: switch.omv_nas
+
+# # - alias: 'UPS Discharging - Critical'
+# #   trigger:
+# #     - platform: state
+# #       entity_id: sensor.myups_battery_runtime
+# #   condition:
+# #     - condition: template
+# #       value_template: "{{states('sensor.myups_battery_runtime')|int < 300}}"
+# #   action:
+# #     - service: notify.tbot
+# #       data:
+# #         title: Home Assistant
+# #         message: "System battery critical. Safely shutting everything down"
+# #     - service: switch.turn_on
+# #       entity_id: switch.omv_nas
+# #     - delay: '00:00:30'
+# #     - service: shell_command.shutdown_omv
+# #     - service: hassio.host_shutdown
