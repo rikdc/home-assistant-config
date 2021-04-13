@@ -41,3 +41,13 @@ sensor.status_volume_1:
   friendly_name: Volume 1 Status
 sensor.status_volume_3:
   friendly_name: Volume 3 Status
+
+# Light Sensors
+sensor.unit_2_multisensor_bedroom_illuminance:
+  device_class: illuminance
+
+sensor.unit_1_frontroom_illuminance:
+  device_class: illuminance
+
+sensor.illuminance:
+  device_class: illuminance
