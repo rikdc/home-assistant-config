@@ -58,6 +58,20 @@ cards:
             index: 0
             show_state: true
 
+      - type: glance
+        entities:
+          - entity: sensor.cyberpower_status
+          - entity: sensor.cyberpower_battery_voltage
+          - entity: sensor.cyberpower_battery_charge
+          - entity: sensor.cyberpower_load
+        title: UPS
+        columns: 4
+        show_state: true
+        show_icon: true
+        show_name: true
+        state_color: false
+
+
       - type: custom:layout-break
       ####
       - type: 'custom:homekit-card'
