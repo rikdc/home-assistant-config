@@ -15,46 +15,28 @@ cards:
     cards:
       - type: vertical-stack
         cards:
-
-          - type: horizontal-stack
-            cards:
-
-              - type: custom:button-card
-                template: shoulder_blank_card
-                  
-              - type: custom:layout-card
-                min_columns: 1
-                max_columns: 3
-                cards:
-
-                  - !include ../cards/lights/lights_livingroom_view.yaml
-
-                  - !include ../cards/lights/lights_kitchen_view.yaml
-
-                  - !include ../cards/lights/lights_bedroom_view.yaml
-
-              - type: custom:button-card
-                template: shoulder_blank_card
+          - type: custom:auto-entities
+            filter:
+              include:
+                - group: group.downstairs_lights
+            card:
+              type: custom:fold-entity-row
+              head:
+                type: section
+                label: Downstairs Lights
 
       - type: 'custom:layout-break'
 
       - type: vertical-stack
         cards:
-        
-          - type: horizontal-stack
-            cards:
-
-              - type: custom:button-card
-                template: shoulder_blank_card
-                  
-              - type: custom:layout-card
-                min_columns: 1
-                max_columns: 3
-                cards:
-
-                  - !include ../cards/lights/lights_upstairs_view.yaml
-
-              - type: custom:button-card
-                template: shoulder_blank_card
+          - type: custom:auto-entities
+            filter:
+              include:
+                - group: group.upstairs_lights
+            card:
+              type: custom:fold-entity-row
+              head:
+                type: section
+                label: Upstairs Lights
 
           - !include /config/lovelace/styles/separator_card.yaml
