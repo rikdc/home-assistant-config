@@ -23,7 +23,7 @@ group:
     - binary_sensor.unit2_nodeid_76_door_state
     - sensor.unit1_frontdoor_notification_access_control_door_state
     - binary_sensor.main_entrance_door_state
-    - binary_sensor.unit1_bathroom_window_door_state #sensor.unit1_bathroom_window_alarm_access_control
+    - binary_sensor.motion_bathroom_home_security_motion_detection
 
   all_house_locks:
     - lock.backdoor_lock_2
