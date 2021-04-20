@@ -39,7 +39,9 @@ utility_meter:
     cycle: monthly
 
 sensor:
-    energy_total_usage:
-      friendly_name: Total Energy Usage
-      unit_of_measurement: kWh
-      value_template: "{{ (states('sensor.dehumidifer_energy')|float + states('sensor.office_power_electricity_w_meter')|float)|round(1) }}"
+  - platform: template
+    sensors:
+      energy_total_usage:
+        friendly_name: Total Energy Usage
+        unit_of_measurement: kWh
+        value_template: "{{ (states('sensor.dehumidifer_energy')|float + states('sensor.office_power_electricity_w_meter')|float)|round(1) }}"
