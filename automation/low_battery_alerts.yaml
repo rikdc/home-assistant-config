@@ -1,0 +1,12 @@
+id: '1613249907546'
+alias: Low battery level detection & notification for all battery sensors
+description: ''
+use_blueprint:
+  path: sbyx/low-battery-level-detection-notification-for-all-battery-sensors.yaml
+  input:
+    day: '0'
+    actions:
+    - service: notify.admins
+      data:
+        message: The battery of the sensor(s) {{sensors}} is low.
+        title: Low battery
