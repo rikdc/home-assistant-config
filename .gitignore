@@ -43,6 +43,7 @@ www/*.jpg
 www/community/*
 custom_components/*
 tts/*
+ssl/*
 
 *.pickle
 
