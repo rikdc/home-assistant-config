@@ -9,6 +9,7 @@ repo_name: rikdc/home-assistant-config
 
 theme:
   name: material
+  custom_dir: mkdocs-material/material
   icon:
     logo: material/home-assistant
     repo: fontawesome/brands/github
