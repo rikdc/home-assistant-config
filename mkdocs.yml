@@ -5,7 +5,7 @@ site_description: Documentation on how I setup my smarthome.
 copyright: "Copyright &copy; 2021"
 
 repo_url: https://github.com/rikdc/home-assistant-config
-repo_name: rikdc/home-assistant-config
+docs_dir: docs/
 
 theme:
   name: material
