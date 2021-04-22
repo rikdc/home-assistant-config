@@ -26,8 +26,12 @@ theme:
 nav:
   - Home: index.md
   - Home Assistant:
-      - Introduction: home-assistant/introduction.md
-      - Cookbook: home-assistant/cookbook.md
+      - Introduction: home-assistant/about-home-assistant.md
+      - Dashboards: home-assistant/dashboards.md
+      - Extensions: home-assistant/extensions.md
+      - Cookbook:
+          - About: home-assistant/cookbook/about-cookbook.md
+          - Sensors: home-assistant/cookbook/sensors.md
   - Hardware: hardware.md
 
 markdown_extensions:
