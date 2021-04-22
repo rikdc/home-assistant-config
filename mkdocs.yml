@@ -2,7 +2,7 @@ site_name: My Smart Home
 site_author: rikdc
 site_description: Documentation on how I setup my smarthome.
 
-copyright: 'Copyright &copy; 2021'
+copyright: "Copyright &copy; 2021"
 
 repo_url: https://github.com/rikdc/home-assistant-config
 repo_name: rikdc/home-assistant-config
@@ -19,9 +19,16 @@ theme:
   features:
     - navigation.tabs
     - navigation.tabs.sticky
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.instant
 
 nav:
   - Home: index.md
+  - Home Assistant:
+      - Introduction: home-assistant/introduction.md
+      - Cookbook: home-assistant/cookbook.md
+  - Hardware: hardware.md
 
 markdown_extensions:
   - toc:
