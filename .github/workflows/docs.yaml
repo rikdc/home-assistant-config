@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - docs_draft
 
 env:
   PYTHON_VERSION: 3.x
@@ -12,10 +13,9 @@ jobs:
     name: Build documentation
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-python@v2
-          with:
-            python-version: 3.x
-        - run: pip install mkdocs-material mkdocs-minify-plugin
-        - run: mkdocs build
-        - run: mkdocs gh-deploy --force
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - run: pip install mkdocs-material mkdocs-minify-plugin
+      - run: mkdocs gh-deploy --verbose --force
