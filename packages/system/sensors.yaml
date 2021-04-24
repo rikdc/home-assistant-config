@@ -1,4 +1,9 @@
-# Source: https://blog.swakes.co.uk/home-assistant-system-dashboard/
+#################################################################
+#                                                               #
+#                        Sensor Checks                          #
+#                                                               #
+#################################################################
+# Inspired by: https://blog.swakes.co.uk/home-assistant-system-dashboard/
 
 group:
   dws_sensors:
@@ -24,10 +29,8 @@ sensor:
       dws_sensors_online:
         value_template: >-
           {% set t = strptime(((now().timestamp() - 780) | timestamp_utc) ~ '+00:00', '%Y-%m-%d %H:%M:%S%z') %}
-          {% set sensors = expand('group.dws_sensors') %}
-          {% set total = sensors | list | count %}
           {{
-            sensors
+            expand('group.dws_sensors')
             | selectattr('last_changed', '<=' , t)
             | map(attribute='name')
             | list
@@ -35,8 +38,6 @@ sensor:
           }}
 
       dws_sensor_check_status_count:
-        entity_id:
-          - sensor.dws_sensor_check_status_array
         icon_template: 'mdi:door-open'
         friendly_name: DWS Sensors Count
         unit_of_measurement: count
@@ -52,6 +53,7 @@ sensor:
         unit_of_measurement: '%'
         value_template: >-
           {{ '%0.1f' | format(states('sensor.dws_sensors_online')|float / states('sensor.dws_sensor_check_status_count')|float * 100.0) }}
+      
       dws_sensor_check_status:
         entity_id:
           - sensor.dws_sensor_check_status_percent
