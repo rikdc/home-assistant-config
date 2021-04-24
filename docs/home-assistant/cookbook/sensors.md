@@ -50,3 +50,17 @@ Then the group of sensors created earlier can be expanded and filtered by passin
 For more eye candy on the dashboards, it would be nice to view the availability as a percentage and as a 'x of y' label.
 
 The full code is available here:
+
+## Database
+
+Keep an eye on your database size with this template sensor:
+
+```
+  - platform: sql
+    db_url: !secret db_url
+    queries:
+      - name: HASS DB size
+        query: 'SELECT table_schema "database", ROUND(SUM(data_length + index_length) / 1048576, 2) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;'
+        column: 'value'
+        unit_of_measurement: MB
+```
