@@ -10,7 +10,7 @@ history:
 
 homeassistant:
   packages: !include_dir_named packages
-  customize: !include customize.yaml 
+  customize: !include customize.yaml
 
 http:
   base_url: !secret base_url
@@ -19,8 +19,6 @@ http:
 
 frontend:
   themes: !include_dir_merge_named themes
-
-lovelace_gen:
 
 lovelace:
   mode: storage
@@ -35,20 +33,20 @@ lovelace:
 
 panel_iframe:
   nodered:
-    title: 'NodeRed'
+    title: "NodeRed"
     url: !secret app_nodered_url
     icon: mdi:chip
     require_admin: true
   esphome:
-    title: 'EspHome'
+    title: "EspHome"
     icon: mdi:chip
     url: !secret app_esphome_url
   z2m:
-    title: 'ZWave'
+    title: "ZWave"
     url: !secret app_zwave_url
     icon: mdi:home
   portainer:
-    title: 'Portainer'
+    title: "Portainer"
     icon: mdi:docker
     url: !secret app_portainer_url
 
@@ -57,7 +55,6 @@ binary_sensor: !include binary_sensors.yaml
 
 group: !include_dir_merge_named group/
 script: !include_dir_named scripts/
-scene: !include scenes.yaml
 automation ui: !include automations.yaml
 automation manual: !include_dir_list automation/
 
@@ -98,7 +95,7 @@ notify:
     server: !secret email_host
     port: 465
     encryption: tls
-  
+
   - name: ALL
     platform: group
     services:
@@ -122,7 +119,7 @@ notify:
     services:
       - service: !secret person2_mobile
         data:
-          title: 'Enable Home automation?'
+          title: "Enable Home automation?"
           data:
             push:
               badge: 0
