@@ -1,0 +1,130 @@
+- id: "1606409704850"
+  name: Unit 1 Watching TV
+  entities:
+    switch.light_kitchen_cabinets:
+      friendly_name: Light Kitchen Cabinets
+      state: "on"
+    switch.unit1_hallway_lights_restart:
+      friendly_name: unit1_hallway_lights Restart
+      icon: mdi:restart
+      state: "off"
+    switch.kitchen_hallway_lights:
+      friendly_name: Kitchen Hallway Lights
+      icon: mdi:chart-multiline
+      state: "off"
+    switch.tasmota:
+      friendly_name: Tasmota
+      state: unavailable
+    switch.tasmota2:
+      friendly_name: Tasmota2
+      state: unavailable
+    switch.unit1_kitchen_ceiling_lights_switch:
+      friendly_name: Unit1-Kitchen_Ceiling_Lights_switch
+      state: "off"
+    light.unit1_light_livingroom_dimmer:
+      brightness: 106
+      friendly_name: Unit1-Light_Livingroom_dimmer
+      supported_features: 41
+      state: "on"
+- id: "1607914372221"
+  name: Kitchen Nightlight
+  entities:
+    switch.lights_kitchen_ceiling_switch:
+      friendly_name: Lights_Kitchen_Ceiling_switch
+      state: "off"
+    light.unit1_light_livingroom_dimmer:
+      brightness: 5
+      friendly_name: Light_Livingroom_dimmer
+      supported_features: 41
+      state: "on"
+    light.kitchen_pendants:
+      friendly_name: Kitchen Pendants
+      supported_features: 0
+      state: "off"
+    light.kitchen_cabinets:
+      friendly_name: Kitchen Cabinets
+      supported_features: 0
+      state: "off"
+- id: "1607914372226"
+  name: Kitchen Evening
+  entities:
+    switch.lights_kitchen_ceiling_switch:
+      friendly_name: Lights_Kitchen_Ceiling_switch
+      state: "off"
+    light.unit1_light_livingroom_dimmer:
+      brightness: 5
+      friendly_name: Light_Livingroom_dimmer
+      supported_features: 41
+      state: "on"
+    light.kitchen_pendants:
+      friendly_name: Kitchen Pendants
+      supported_features: 0
+      state: "on"
+    light.kitchen_cabinets:
+      friendly_name: Kitchen Cabinets
+      supported_features: 0
+      state: "off"
+- id: "1612729281042"
+  name: Unit2 Watching TV
+  entities:
+    light.unit2_kitchen_pendants_dimmer:
+      friendly_name: pendant lights
+      supported_features: 1
+      icon: hass:ceiling-lamp
+      state: "off"
+    switch.unit2livingroomsocket:
+      friendly_name: Unit2LivingroomSocket
+      state: "on"
+    light.unit2_kitchen_spotlights_dimmer:
+      brightness: 36
+      friendly_name: Unit2-Kitchen_Spotlights_dimmer
+      supported_features: 1
+      state: "on"
+    switch.unit2_socket_livingroom_couch_2:
+      friendly_name: Unit2 Socket Livingroom Couch
+      icon: ""
+      state: "on"
+    switch.tree_lights:
+      friendly_name: tree lights
+      icon: hass:pine-tree
+      state: "on"
+- id: "1616964129461"
+  name: Downstairs Cooking
+  entities:
+    switch.kitchen_pendants:
+      friendly_name: Kitchen_Pendants
+      state: "on"
+    light.light_livingroom:
+      supported_color_modes:
+        - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Light_Livingroom
+      supported_features: 33
+      state: "on"
+    switch.hallway_lights:
+      friendly_name: Hallway Lights
+      state: "on"
+    switch.cabinet_lights:
+      friendly_name: Cabinet Lights
+      state: "on"
+  icon: mdi:table-chair
+- id: "1619276369881"
+  name: Everyone is out
+  entities:
+    lock.frontdoor:
+      friendly_name: Frontdoor
+      state: locked
+    lock.backdoor_lock:
+      friendly_name: Backdoor_Lock
+      state: locked
+    alarm_control_panel.home_alarm:
+      code_format:
+      changed_by:
+      code_arm_required: true
+      previous_state: disarmed
+      next_state: armed_away
+      friendly_name: Home Alarm
+      supported_features: 31
+      state: armed_away
+  icon: mdi:lock

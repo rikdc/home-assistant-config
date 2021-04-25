@@ -1,34 +1,41 @@
+---
 ###################################################
 #                                                 #
 #                  Lights                         #
 #                                                 #
 ###################################################
 
+homeassistant:
+  customize:
+    package.lighting:
+      downstairs_lights: &downstairs_lights
+        entities:
+          - light.bedroom1
+
+          - light.unit1_hallway_lights
+          - light.unit1_kitchen_ceiling_light
+          - light.unit1_kitchen_cabinets
+
+          - light.light_livingroom
+          - light.unit1_livingroom_lamp
+          - light.frontroom_ceiling
+
+          - light.switches_bathroom1
+          - light.unit1_bathroom_ceiling
+
+          - light.dimmer_dry_contact_relay # Mudroom
+          - light.lower_back_deck_light
+
 group:
   interior_lights:
-      - light.light_switch
-      - light.light_livingroom
-      - light.livingroom_ceiling
-      - light.porch_light
-      - light.kitchen_pendants
-      - light.kitchen_cabinets
-      - light.kitchen_ceiling_light
-      - light.unit1_hallway_lights
-
-  downstairs_lights: &downstairs_lights
-    - light.unit1_light_bedroom_dimmer
     - light.light_switch
-    - light.unit1_light_livingroom_dimmer
+    - light.light_livingroom
     - light.livingroom_ceiling
     - light.porch_light
-    - light.unit1_kitchen_pendants
-    - light.unit1_kitchen_ceiling_light
-    - light.unit1_hallway_lights
+    - light.kitchen_pendants
     - light.kitchen_cabinets
- 
-    - light.livingroom_ceiling
-    - light.person1_nightlight
-    - light.person2_nightlight
+    - light.kitchen_ceiling_light
+    - light.unit1_hallway_lights
 
   outside_lights:
     - light.light_outside_front
@@ -36,21 +43,8 @@ group:
     - light.unit2_deck_lights_dimmer
 
   upstairs_lights:
-      - light.unit2_loft_light_dimmer
-      - light.loft_fairy_lights
-      - light.unit2_kitchen_pendants_dimmer
-      - light.unit2_kitchen_spotlights_dimmer
-      - light.upstairs_fireside_lamp
-      - light.staircase_lights
-      - light.unit2_sofa_lamp
-      - light.unit2_office
-
-light:
-  - platform: group
-    name: uptairs_lights
-    entities: &upstairs_lights
     - light.unit2_loft_light_dimmer
-    - light.unit2_loft_fairy_lights
+    - light.loft_fairy_lights
     - light.unit2_kitchen_pendants_dimmer
     - light.unit2_kitchen_spotlights_dimmer
     - light.upstairs_fireside_lamp
@@ -58,10 +52,18 @@ light:
     - light.unit2_sofa_lamp
     - light.unit2_office
 
-  # Pseudo-lights that are actually switches
-  - platform: switch
-    name: Lower back deck light
-    entity_id: switch.17064550d8f15b165730_1
+light:
+  - platform: group
+    name: uptairs_lights
+    entities: &upstairs_lights
+      - light.unit2_loft_light_dimmer
+      - light.unit2_loft_fairy_lights
+      - light.unit2_kitchen_pendants_dimmer
+      - light.unit2_kitchen_spotlights_dimmer
+      - light.upstairs_fireside_lamp
+      - light.staircase_lights
+      - light.unit2_sofa_lamp
+      - light.unit2_office
 
   - platform: group
     name: All Lights
@@ -98,18 +100,19 @@ light:
 
   - platform: group
     name: downstairs_lights
-    entities:
-      - light.unit1_kitchen_pendants
-      - light.unit1_light_bedroom_dimmer
-      - light.light_switch # light.kitchen_ceiling_light is what this should be, but I can't get it to name forcibly.
-      - light.unit1_light_livingroom_dimmer
-      - light.porch_light
-      - light.kitchen_cabinets
-      - light.kitchen_ceiling_light
-      - light.unit1_hallway_lights
-      - light.livingroom_ceiling
-      - light.person1_nightlight
-      - light.person2_nightlight
+    <<:
+      *downstairs_lights
+      # - light.unit1_kitchen_pendants
+      # - light.unit1_light_bedroom_dimmer
+      # - light.light_switch # light.kitchen_ceiling_light is what this should be, but I can't get it to name forcibly.
+      # - light.unit1_light_livingroom_dimmer
+      # - light.porch_light
+      # - light.kitchen_cabinets
+      # - light.kitchen_ceiling_light
+      # - light.unit1_hallway_lights
+      # - light.livingroom_ceiling
+      # - light.person1_nightlight
+      # - light.person2_nightlight
 
   - platform: switch
     name: Unit1 Bathroom Vanity Light
@@ -146,38 +149,44 @@ light:
       - light.unit1_light_livingroom_dimmer
       - light.unit1_livingroom_lamp
 
+  #
   # Pseudo-lights that are actually switches
-  - platform: switch
-    name: Unit1 Livingroom Lamp
-    entity_id: switch.unit2_socket_livingroom_couch
-
-  - platform: switch
-    name: Unit1 Kitchen Ceiling Light
-    entity_id: switch.kitchen_ceiling_lights
-  
+  #
   - platform: switch
     name: Person2 Nightlight
     entity_id: switch.bedroom_switches_2_2
 
-  - platform: switch    
+  - platform: switch
     name: Person1 Nightlight
     entity_id: switch.bedroom_switches_2
 
-  - platform: switch  
+  - platform: switch
+    name: Unit1 Livingroom Lamp
+    entity_id: switch.light_end_table
+
+  - platform: switch
+    name: Unit1 Kitchen Ceiling Light
+    entity_id: switch.kitchen_ceiling_lights
+
+  - platform: switch
     name: Unit1 Kitchen Pendants
     entity_id: switch.kitchen_pendants
 
   - platform: switch
+    name: Unit1 Kitchen Cabinets
+    entity_id: switch.cabinet_lights
+
+  - platform: switch
     name: Unit1 Hallway Lights
-    entity_id: switch.z_wave_plus_700_series_on_off_switch #switch.kitchen_hallway_lights
-  
+    entity_id: switch.hallway_lights
+
   - platform: switch
-    name: Mudroom Ceiling Light
-    entity_id: switch.17064550d8f15b165730_2
-  
+    name: Unit1 Bathroom Ceiling
+    entity_id: switch.switches_bathroom1
+
   - platform: switch
-    name: Bathroom2 Lights
-    entity_id: switch.light_bathroom2
+    name: Lower back deck light
+    entity_id: switch.dimmer_dry_contact_relay
 
     #
     # Upstairs Lights
