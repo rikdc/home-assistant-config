@@ -34,7 +34,7 @@ homeassistant:
         entities:
           - light.unit2_loft_light_dimmer
           - light.unit2_loft_fairy_lights
-          - light.unit2_kitchen_pendants_dimmer
+          - light.kitchen_pendants_2
           - light.unit2_kitchen_spotlights_dimmer
           - light.upstairs_fireside_lamp
           - light.staircase_lights
