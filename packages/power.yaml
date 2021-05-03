@@ -11,7 +11,7 @@ utility_meter:
   weekly_total:
     source: sensor.energy_total_usage
     cycle: weekly
-    
+
   monthly_total:
     source: sensor.energy_total_usage
     cycle: monthly
@@ -20,16 +20,16 @@ utility_meter:
     source: sensor.energy_total_usage
     cycle: monthly
 
-# Basement
+  # Basement
   daily_dehumidifier:
-    source: sensor.dehumidifer_energy
+    source: sensor.dehumidifier_energy
     cycle: daily
 
   monthly_dehumidifier:
-    source: sensor.dehumidifer_energy
+    source: sensor.dehumidifier_energy
     cycle: monthly
 
-# HomeLab
+  # HomeLab
   daily_office:
     source: sensor.office_power_electricity_w_meter
     cycle: daily
@@ -44,4 +44,4 @@ sensor:
       energy_total_usage:
         friendly_name: Total Energy Usage
         unit_of_measurement: kWh
-        value_template: "{{ (states('sensor.dehumidifer_energy')|float + states('sensor.office_power_electricity_w_meter')|float)|round(1) }}"
+        value_template: "{{ (states('sensor.dehumidifier_energy')|float + states('sensor.office_power_electricity_w_meter')|float)|round(1) }}"
