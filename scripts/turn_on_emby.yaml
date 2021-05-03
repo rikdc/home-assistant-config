@@ -1,0 +1,11 @@
+alias: Turn on Emby
+sequence:
+  - type: turn_on
+    device_id: 0b3641ef9902529c6166b328fbdcfbe7
+    entity_id: media_player.roku_streaming_stick_2
+    domain: remote
+  - service: media_player.select_source
+    data:
+      source: Emby
+    target:
+      entity_id: media_player.roku_streaming_stick_2
