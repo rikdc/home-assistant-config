@@ -8,45 +8,45 @@ binary_sensor:
     sensors:
       # When the Sump is running the power will spike above 5.
       main_pump_status:
-        friendly_name: 'Main Pump Status'
+        friendly_name: "Main Pump Status"
         value_template: >
-          {{ states('sensor.dehumidifer_power')|float > 5 }}
+          {{ states('sensor.sumppump_power')|float > 5 }}
 
 sensor:
   - platform: history_stats
     name: Main Pump 3day Cycles
     entity_id: binary_sensor.main_pump_status
-    state: 'on'
+    state: "on"
     type: count
-    end: '{{ now() }}'
+    end: "{{ now() }}"
     duration:
       days: 3
-  
+
   - platform: history_stats
     name: Main Pump 30day Cycles
     entity_id: binary_sensor.main_pump_status
-    state: 'on'
+    state: "on"
     type: count
-    end: '{{ now().replace(minute=0).replace(second=0) }}'
+    end: "{{ now().replace(minute=0).replace(second=0) }}"
     duration:
       days: 30
-  
+
   - platform: history_stats
     name: Backup Pump 1day Cycles
     entity_id: binary_sensor.backup_pump_status
-    state: 'on'
+    state: "on"
     type: count
-    end: '{{ now().replace(minute=0).replace(second=0) }}'
+    end: "{{ now().replace(minute=0).replace(second=0) }}"
     duration:
       days: 1
 
   - platform: history_stats
     name: Main Pump Running
     entity_id: binary_sensor.main_pump_status
-    state: 'on'
+    state: "on"
     type: count
-    start: '{{ now().replace(hour=0, minute=0, second=0) }}'
-    end: '{{ now() }}'
+    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+    end: "{{ now() }}"
 
 # https://en.wikipedia.org/wiki/Total_dynamic_head
 # Performance Curve
@@ -58,16 +58,16 @@ sensor:
 #
 # https://www.zoellerpumps.com/en-ea/products/sump-effluent-pumps/residential/50-series#technical-data
 # 10^3/hr
-# 
+#
 #
 # Sump Volume
-# float sumpvolumeg = 17.17;  // (Pi*sumpPitRadius*sumpPitRadius*sumpPitHeightDraw)/ 0.000264172 
+# float sumpvolumeg = 17.17;  // (Pi*sumpPitRadius*sumpPitRadius*sumpPitHeightDraw)/ 0.000264172
 
-        # if (cycletime > 1) {
-        #         addvolume = (sumpvolumeg / cycletime) * runseconds;  // how much water is being added per second
-        #       } 
-        #       totalgalpumped = addvolume + sumpvolumeg;
-        #       pamps = x; // assign ct_clamp amp reading
+# if (cycletime > 1) {
+#         addvolume = (sumpvolumeg / cycletime) * runseconds;  // how much water is being added per second
+#       }
+#       totalgalpumped = addvolume + sumpvolumeg;
+#       pamps = x; // assign ct_clamp amp reading
 
 automation:
   - alias: Sump may not be working
@@ -90,14 +90,14 @@ automation:
     description: If the sump pump power switch is off, turn it back on.
     trigger:
       platform: state
-      entity_id: switch.dehumidifer
-      to: 'off'
+      entity_id: switch.sumppump
+      to: "off"
       for:
         minutes: 15
     action:
       - service: script.turn_on
         entity_id:
-          - switch.dehumidifer
-      - wait_template: "{{ is_state('switch.dehumidifer', 'on') }}"
-        timeout: '00:01:00'
+          - switch.sumppump
+      - wait_template: "{{ is_state('switch.sumppump', 'on') }}"
+        timeout: "00:01:00"
     mode: single
