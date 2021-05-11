@@ -46,7 +46,7 @@ views:
               type: horizontal-stack
               cards:
                 - type: "custom:button-card"
-                  entity: alarm_control_panel.abode_alarm
+                  entity: alarm_control_panel.home_alarm
                   name: Alarm
                   icon: "mdi:shield-home-outline"
                   show_state: true
@@ -57,23 +57,23 @@ views:
                     action: call-service
                     service: |
                       [[[
-                        if (states['alarm_control_panel.abode_alarm'].state == "disarmed")
+                        if (states['alarm_control_panel.home_alarm'].state == "disarmed")
                           return "alarm_control_panel.alarm_arm_home";
                         return "alarm_control_panel.alarm_disarm";
                       ]]]
                     service_data:
-                      entity_id: alarm_control_panel.abode_alarm
+                      entity_id: alarm_control_panel.home_alarm
                       code: 1914
                   hold_action:
                     action: call-service
                     service: |
                       [[[
-                        if (states['alarm_control_panel.abode_alarm'].state == "disarmed")
+                        if (states['alarm_control_panel.home_alarm'].state == "disarmed")
                           return "alarm_control_panel.alarm_arm_away";
                         return "alarm_control_panel.alarm_disarm";
                       ]]]
                     service_data:
-                      entity_id: alarm_control_panel.abode_alarm
+                      entity_id: alarm_control_panel.home_alarm
                       code: XXXX
                   styles:
                     icon:
@@ -81,14 +81,14 @@ views:
                       - top: "-25px"
                       - color: |
                           [[[
-                            if (states['alarm_control_panel.abode_alarm'].state == "disarmed")
+                            if (states['alarm_control_panel.home_alarm'].state == "disarmed")
                               return "rgba(24, 199, 71,1)";
                             return "rgba(230, 0, 0,0.7)";
                           ]]]
                     card:
                       - background: |
                           [[[
-                            if (states['alarm_control_panel.abode_alarm'].state == "disarmed") 
+                            if (states['alarm_control_panel.home_alarm'].state == "disarmed") 
                               return "rgba(255,255,255,0.1)";
                             return "rgba(255,255,255,0.7)";
                           ]]]
@@ -108,7 +108,7 @@ views:
                       - margin-top: "-65px"
                       - color: |
                           [[[
-                            if (states['alarm_control_panel.abode_alarm'].state == "disarmed")
+                            if (states['alarm_control_panel.home_alarm'].state == "disarmed")
                               return "white";
                             return "black";
                           ]]]
@@ -118,12 +118,12 @@ views:
                       - margin-top: "-32px"
                       - color: |
                           [[[
-                            if (states['alarm_control_panel.abode_alarm'].state == "disarmed")
+                            if (states['alarm_control_panel.home_alarm'].state == "disarmed")
                               return "white";
                             return "black";
                           ]]]
                 - type: "custom:button-card"
-                  entity: lock.front_door_lock
+                  entity: lock.frontdoor
                   name: Front Door
                   show_state: true
                   aspect_ratio: 1/1
@@ -133,26 +133,26 @@ views:
                     action: call-service
                     service: |
                       [[[
-                        if (states['lock.front_door_lock'].state == "locked")
+                        if (states['lock.frontdoor'].state == "locked")
                           return "lock.unlock";
                         return "lock.lock";
                       ]]]
                     service_data:
-                      entity_id: lock.front_door_lock
+                      entity_id: lock.frontdoor
                   styles:
                     icon:
                       - left: 15px
                       - top: "-25px"
                       - color: |
                           [[[
-                            if (states['lock.front_door_lock'].state == "unlocked")
+                            if (states['lock.frontdoor'].state == "unlocked")
                               return "rgba(230, 0, 0,0.7)";
                             return "white";
                           ]]]
                     card:
                       - background: |
                           [[[
-                            if (states['lock.front_door_lock'].state == "locked") 
+                            if (states['lock.frontdoor'].state == "locked") 
                               return "rgba(255,255,255,0.1)";
                             return "rgba(255,255,255,0.7)";
                           ]]]
@@ -172,7 +172,7 @@ views:
                       - margin-top: "-65px"
                       - color: |
                           [[[
-                            if (states['lock.front_door_lock'].state == "unlocked")
+                            if (states['lock.frontdoor'].state == "unlocked")
                               return "black";
                             return "white";
                           ]]]
@@ -182,12 +182,12 @@ views:
                       - margin-top: "-32px"
                       - color: |
                           [[[
-                            if (states['lock.front_door_lock'].state == "unlocked")
+                            if (states['lock.frontdoor'].state == "unlocked")
                               return "black";
                             return "white";
                           ]]]
                 - type: "custom:button-card"
-                  entity: lock.rear_door_lock
+                  entity: lock.backdoor_lock
                   name: Rear Door
                   show_state: true
                   aspect_ratio: 1/1
@@ -197,26 +197,26 @@ views:
                     action: call-service
                     service: |
                       [[[
-                        if (states['lock.rear_door_lock'].state == "locked")
+                        if (states['lock.backdoor_lock'].state == "locked")
                           return "lock.unlock";
                         return "lock.lock";
                       ]]]
                     service_data:
-                      entity_id: lock.rear_door_lock
+                      entity_id: lock.backdoor_lock
                   styles:
                     icon:
                       - left: 15px
                       - top: "-25px"
                       - color: |
                           [[[
-                            if (states['lock.rear_door_lock'].state == "unlocked")
+                            if (states['lock.backdoor_lock'].state == "unlocked")
                               return "rgba(230, 0, 0,0.7)";
                             return "white";
                           ]]]
                     card:
                       - background: |
                           [[[
-                            if (states['lock.rear_door_lock'].state == "locked") 
+                            if (states['lock.backdoor_lock'].state == "locked") 
                               return "rgba(255,255,255,0.1)";
                             return "rgba(255,255,255,0.7)";
                           ]]]
@@ -236,7 +236,7 @@ views:
                       - margin-top: "-65px"
                       - color: |
                           [[[
-                            if (states['lock.rear_door_lock'].state == "unlocked")
+                            if (states['lock.backdoor_lock'].state == "unlocked")
                               return "black";
                             return "white";
                           ]]]
@@ -246,7 +246,7 @@ views:
                       - margin-top: "-32px"
                       - color: |
                           [[[
-                            if (states['lock.rear_door_lock'].state == "unlocked")
+                            if (states['lock.backdoor_lock'].state == "unlocked")
                               return "black";
                             return "white";
                           ]]]
@@ -262,23 +262,10 @@ views:
                   margin-bottom: -12px;
                   left: 5px;
                 }
-          - type: entities
-            entities:
-              - entity: binary_sensor.entry_front
-              - entity: binary_sensor.entry_garage
-              - entity: binary_sensor.entry_rear
-              - entity: binary_sensor.motion_family_rm
-              - entity: binary_sensor.slider_front_rm
-              - entity: binary_sensor.slider_master
-              - entity: binary_sensor.slider_family_rm
-              - entity: binary_sensor.slider_lanai
-              - entity: binary_sensor.window_office
-              - entity: binary_sensor.window_master_bath
-              - entity: binary_sensor.window_laundry
-              - entity: binary_sensor.window_josh
-              - entity: binary_sensor.window_cruz
-            state_color: false
-            card_mod:
+          - type: custom:auto-entities
+            card:
+              type: entities
+              card_mod:
               style: |
                 ha-card {
                   width: 92%;
@@ -288,6 +275,11 @@ views:
                   color: white;
                   --paper-item-icon-color: white;
                 }
+            filter:
+              include:
+                - group: group.alarm_sensors
+            state_color: false
+
           - type: markdown
             content: "### Occupancy Sensors"
             card_mod:
@@ -301,16 +293,7 @@ views:
                 }
           - type: entities
             entities:
-              - entity: binary_sensor.front_living_room
-              - entity: binary_sensor.office
-              - entity: binary_sensor.master
-              - entity: binary_sensor.kitchen
-              - entity: binary_sensor.family_room
-              - entity: binary_sensor.josh
-              - entity: binary_sensor.cruz
-              - entity: binary_sensor.upstairs_2
-                name: Ariel
-                icon: "mdi:walk"
+              - entity: binary_sensor.bathroom_generic_presence
             state_color: false
             card_mod:
               style: |
