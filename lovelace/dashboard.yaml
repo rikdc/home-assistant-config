@@ -1,4 +1,4 @@
-background: center / cover no-repeat fixed  url('/local/lovelace/bg_long.png?v=1')
+background: var(--background-image)
 title: Home
 kiosk_mode:
   mobile_settings:
@@ -163,7 +163,7 @@ views:
                     cardOptions:
                       name: Alarm & Security
                       icon: "mdi:shield-home"
-                      size: 80%
+                      #size: 80%
                       show_name: false
                       show_state: false
                       show_label: false
@@ -191,7 +191,7 @@ views:
                   #   hold_action:
                   #     action: none
                   #   conditionalClass: |
-                  #     [[[ 
+                  #     [[[
                   #       return "top-fav";
                   #     ]]]
                   #   cardOptions:
@@ -216,7 +216,7 @@ views:
                   #         - margin-top: "-8px"
                   #       icon:
                   #         - color: |
-                  #             [[[ 
+                  #             [[[
                   #               if (states['binary_sensor.garage_door'].state == "on")
                   #                 return "white";
                   #               return "rgba(255, 204, 110,1.0)";
@@ -234,6 +234,30 @@ views:
                     cardOptions:
                       name: Cameras
                       icon: "mdi:cctv"
+                      size: 90%
+                      show_name: false
+                      show_state: false
+                      show_label: false
+                      styles:
+                        card:
+                          - box-shadow: none
+                          - background-color: "rgba(255, 255, 255, 0.0)"
+                          - margin-top: "-5px"
+                        icon:
+                          - color: white
+                  - card: "custom:button-card"
+                    conditionalClass: |
+                      [[[ 
+                        return "top-fav";
+                      ]]]
+                    tap_action:
+                      action: navigate
+                      navigation_path: /sub-chores/0
+                    hold_action:
+                      action: none
+                    cardOptions:
+                      name: Chores
+                      icon: "mdi:calendar-check"
                       size: 90%
                       show_name: false
                       show_state: false
@@ -269,7 +293,7 @@ views:
                   - entity: light.corner_lamp
                     name: Corner Lamp
                     icon: "mdi:floor-lamp-dual"
-                  # - entity: input_boolean.dummy
+                  - entity: input_boolean.dummy
                     name: Television
                     icon: "mdi:remote-tv"
                     tap_action:
@@ -282,19 +306,19 @@ views:
                         return "hideState";
                       ]]]
               - title: Lights
-          # - light.bedroom1
-          # - light.person1_nightlight
-          # - light.person2_nightlight
-          # - light.unit1_hallway_lights
-          # - light.unit1_kitchen_ceiling_light
-          # - light.unit1_kitchen_cabinets
-          # - light.light_livingroom
-          # - light.unit1_livingroom_lamp
-          # - light.frontroom_ceiling
-          # - light.switches_bathroom1
-          # - light.unit1_bathroom_ceiling
-          # - light.dimmer_dry_contact_relay # Mudroom
-          # - light.lower_back_deck_light
+                # - light.bedroom1
+                # - light.person1_nightlight
+                # - light.person2_nightlight
+                # - light.unit1_hallway_lights
+                # - light.unit1_kitchen_ceiling_light
+                # - light.unit1_kitchen_cabinets
+                # - light.light_livingroom
+                # - light.unit1_livingroom_lamp
+                # - light.frontroom_ceiling
+                # - light.switches_bathroom1
+                # - light.unit1_bathroom_ceiling
+                # - light.dimmer_dry_contact_relay # Mudroom
+                # - light.lower_back_deck_light
 
                 entities:
                   - entity: light.kitchen
@@ -377,37 +401,37 @@ views:
                         else
                          return true;
                       ]]]
-              # - title: Accessories
-              #   entities:
-              #     - entity: media_player.music
-              #       name: Whole Home Music Stream
-              #       icon: "mdi:music-circle-outline"
-              #       tap_action:
-              #         action: navigate
-              #         navigation_path: /sub-music/0
-              #       hold_action:
-              #         action: none
-              #     - entity: switch.sonoff_switch_01
-              #       name: Front Room Stereo
-              #       icon: "mdi:album"
-              #       hold_action:
-              #         action: none
-              #     - entity: media_player.denon_avr
-              #       name: Family Room Home Theater
-              #       icon: "mdi:cassette"
-              #     - entity: sensor.arturito
-              #       name: Vacuum
-              #       icon: "mdi:robot-vacuum"
-              #       state: vacuum.arturito
-              #       statePath: attributes.battery_level
-              #       offStates:
-              #         - docked
-              #       spin: true
-              #       tap_action:
-              #         action: navigate
-              #         navigation_path: /sub-vacuum/0
-              #       hold_action:
-              #         action: none
+                  # - title: Accessories
+                  #   entities:
+                  #     - entity: media_player.music
+                  #       name: Whole Home Music Stream
+                  #       icon: "mdi:music-circle-outline"
+                  #       tap_action:
+                  #         action: navigate
+                  #         navigation_path: /sub-music/0
+                  #       hold_action:
+                  #         action: none
+                  #     - entity: switch.sonoff_switch_01
+                  #       name: Front Room Stereo
+                  #       icon: "mdi:album"
+                  #       hold_action:
+                  #         action: none
+                  #     - entity: media_player.denon_avr
+                  #       name: Family Room Home Theater
+                  #       icon: "mdi:cassette"
+                  #     - entity: sensor.arturito
+                  #       name: Vacuum
+                  #       icon: "mdi:robot-vacuum"
+                  #       state: vacuum.arturito
+                  #       statePath: attributes.battery_level
+                  #       offStates:
+                  #         - docked
+                  #       spin: true
+                  #       tap_action:
+                  #         action: navigate
+                  #         navigation_path: /sub-vacuum/0
+                  #       hold_action:
+                  #         action: none
                   # - entity: climate.main_floor
                   #   name: A/C
                   #   icon: "mdi:air-conditioner"
@@ -429,7 +453,7 @@ views:
                   #   hold_action:
                   #     action: none
                   #   conditionalClass: |
-                  #     [[[ 
+                  #     [[[
                   #       return "hideState";
                   #     ]]]
                   - entity: input_boolean.dummy
@@ -451,3 +475,21 @@ views:
                         else
                          return true;
                       ]]]
+              - title: Environment
+                entities:
+                  - entity: sensor.unit_1_frontroom_temperature
+                    icon: "mdi:thermometer"
+                    name: Living Room
+                  - entity: sensor.basement_temperature
+                  - entity: sensor.unit_1_mudroom_temperature
+                    icon: "mdi:thermometer"
+                    name: Mudroom
+                  - entity: sensor.motion_bedroom1_air_temperature
+                    icon: "mdi:thermometer"
+                    name: Bedroom
+                  - entity: sensor.unit_2_kitchen_temperature
+                    icon: "mdi:thermometer"
+                    name: Upstairs
+                  - entity: sensor.unit_2_bedroom_temperature
+                    icon: "mdi:thermometer"
+                    name: Upstairs Bedroom
