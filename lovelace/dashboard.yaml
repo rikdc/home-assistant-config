@@ -27,7 +27,7 @@ views:
                     }
             card:
               type: "custom:swipe-card"
-              start_card: 2
+              start_card: 3
               reset_after: 30
               parameters:
                 spaceBetween: 8
@@ -80,24 +80,29 @@ views:
                       margin-top: -15px;
                       margin-bottom: -7px;
                     }
-                - type: picture-glance
-                  aspect_ratio: "16:9"
-                  camera_image: camera.front_door
-                  camera_view: live
-                  entities: []
-                  name: Front Door
-                  card_mod:
-                    style: |
-                      ha-card {
-                        margin-bottom: 15px;
-                        background: rgba(255, 255, 255, 0.0);
-                        border-radius: 0;
-                        box-shadow: none;
-                        color: white;
-                       }
-                      .box {
-                        background: rgba(255,255,255,0) !important;
-                      }
+                - type: horizontal-stack
+                  title: Family
+                  cards:
+                    - type: "custom:button-card"
+                      entity: person.richard
+                      show_entity_picture:
+                        true
+                        #entity_picture: /local/richard.jpg
+                    - type: "custom:button-card"
+                      entity: person.stefanie
+                      show_entity_picture: true
+                      # offImage: /local/img/face-2-off.png
+                      # offStates:
+                      #   - not_home
+                      #   - unavailable
+                    - type: "custom:button-card"
+                      entity: person.jenn
+                      show_entity_picture: true
+                      offImage: /local/img/cats2-off.png
+                      offStates:
+                        - not_home
+                        - unavailable
+
           - type: "custom:homekit-card"
             home: false
             title: Home
@@ -269,30 +274,27 @@ views:
                           - margin-top: "-5px"
                         icon:
                           - color: white
-                  - entity: fan.family_room_fan
-                    name: Ceiling Fan
-                    icon: "mdi:fan"
-                    spin: true
-                    state: input_select.family_room_fan_speed
-                    conditionalClass: |
-                      [[[ 
-                        if (states['input_boolean.family_room_fan_state'].state == "on")
-                                  return "fan";
-                      ]]]
-                    tap_action:
-                      action: call-service
-                      service: fan.toggle
-                      service_data:
-                        entity_id: fan.family_room_fan
-                    hold_action:
-                      action: navigate
-                      navigation_path: /sub-fan/0
-                    double_tap_action:
-                      action: navigate
-                      navigation_path: /sub-fan/0
-                  - entity: light.corner_lamp
-                    name: Corner Lamp
-                    icon: "mdi:floor-lamp-dual"
+                  # - entity: fan.family_room_fan
+                  #   name: Ceiling Fan
+                  #   icon: "mdi:fan"
+                  #   spin: true
+                  #   state: input_boolean.dummy
+                  #   conditionalClass: |
+                  #     [[[
+                  #       if (states['input_boolean.family_room_fan_state'].state == "on")
+                  #                 return "fan";
+                  #     ]]]
+                  #   tap_action:
+                  #     action: call-service
+                  #     service: fan.toggle
+                  #     service_data:
+                  #       entity_id: fan.family_room_fan
+                  #   hold_action:
+                  #     action: navigate
+                  #     navigation_path: /sub-fan/0
+                  #   double_tap_action:
+                  #     action: navigate
+                  #     navigation_path: /sub-fan/0
                   - entity: input_boolean.dummy
                     name: Television
                     icon: "mdi:remote-tv"
@@ -321,12 +323,12 @@ views:
                 # - light.lower_back_deck_light
 
                 entities:
-                  - entity: light.kitchen
+                  - entity: light.unit1_kitchen_ceiling_light
                     name: Kitchen Island
                     icon: "mdi:wall-sconce-round"
                     double_tap_action:
                       action: popup
-                  - entity: light.kitchen_table
+                  - entity: light.unit1_kitchen_pendants
                     name: Kitchen Table
                     icon: "mdi:wall-sconce-round"
                     double_tap_action:
@@ -336,7 +338,7 @@ views:
                     icon: "mdi:wall-sconce-flat"
                     double_tap_action:
                       action: popup
-                  - entity: light.cabinets_top
+                  - entity: light.unit1_hallway_lights
                     name: Above Cabinets
                     icon: "mdi:wall-sconce-flat-variant"
                     double_tap_action:
@@ -354,15 +356,18 @@ views:
                       service: scene.turn_on
                       service_data:
                         entity_id: scene.tower_lights_purple
-                  - entity: input_boolean.family_room_fan_light_state
-                    name: Fan Light
+                  - entity: light.person1_nightlight
+                    name: Nightlight
                     icon: "mdi:wall-sconce-round"
                     hold_action:
                       action: null
-                  - entity: light.corner_lamp
-                    name: Corner Lamp
+                  - entity: light.person2_nightlight
+                    name: NightLight2
                     icon: "mdi:floor-lamp-dual"
-                  - entity: light.porch
+                  - entity: light.frontroom_ceiling
+                    name: Livingroom Ceiling
+                    icon: "mdi:floor-lamp-dual"
+                  - entity: light.outside
                     name: Front Exterior
                     icon: "mdi:coach-lamp"
                     double_tap_action:
@@ -374,7 +379,7 @@ views:
                       action: none
                     hide: |
                       [[[ 
-                        if (user.name == "Ely")
+                        if (user.name == "Richard")
                          return false;
                         else
                          return true;
@@ -384,7 +389,7 @@ views:
                     icon: "mdi:wall-sconce-round"
                     hide: |
                       [[[ 
-                        if (user.name == "Ely" || user.name == "Annette")
+                        if (user.name == "Richard" || user.name == "Stefanie")
                          return false;
                         else
                          return true;
