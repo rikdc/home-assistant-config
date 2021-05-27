@@ -176,6 +176,20 @@ views:
                   fill: false
                 type: "custom:mini-graph-card"
 
+          - type: glance
+            entities:
+              - entity: sensor.cyberpower_status
+              - entity: sensor.cyberpower_battery_runtime
+              - entity: sensor.cyberpower_battery_voltage
+              - entity: sensor.cyberpower_battery_charge
+              - entity: sensor.cyberpower_load
+            title: UPS
+            columns: 4
+            show_state: true
+            show_icon: true
+            show_name: true
+            state_color: false
+
           - type: markdown
             content: "### Presence Tracking"
             card_mod:
@@ -188,7 +202,9 @@ views:
                   top: -20px;
                   left: 5px;
                 }
-          - type: "custom:icloud3-event-log-card"
+          - type: "custom:logbook-card"
+            entity: group.alarm_sensors
+            collapse: 5
             card_mod:
               style: |
                 ha-card {
