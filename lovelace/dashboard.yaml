@@ -55,25 +55,32 @@ views:
                       }
                 - type: markdown
                   content: >
-                    <table> <tr><td width="200px"><h3>{{
-                    states('sensor.dashboard_greeting') }}, {{ user
-                    }}</h3><strong>Current Temperature:</strong>
-                    {{state_attr('weather.home','temperature') |
-                    round}}&deg;F</br> {% if is_state("sun.sun",
-                    "above_horizon") -%}
-                        <strong>Next Sunset:</strong> {{as_timestamp(strptime(state_attr("sun.sun", "next_setting"), '')) | timestamp_custom("%-I:%M %p")}}
-                    {%- else -%}
-                        <strong>Next Sunrise:</strong> {{as_timestamp(strptime(state_attr("sun.sun", "next_rising"), '')) | timestamp_custom("%-I:%M %p")}}
-                    {%- endif %}</br></br><strong>SmartHome Mode:</strong> {{
-                    states('input_text.home_mode') }}</br>
-                    <strong>Doors:</strong> {{ states('sensor.door_locks')
-                    }}</br> <strong>Grocery Budget:</strong> ${{
-                    states('sensor.grocery_budget_balance') }}
-                    </td><td></br><img
-                    src="https://darksky.net/{{states('sensor.dashboard_weather')}}"
-                    width="190px" /></td></tr> <tr><td colspan="2">{{
-                    states('sensor.dashboard_occupancy')
-                    }}</td></tr></table></br>
+                    <table>
+                      <tr>
+                        <td width="200px">
+                          <h3>{{states('sensor.dashboard_greeting') }}, {{ user}}</h3>
+                          <strong>Current Temperature:</strong> {{state_attr('weather.home','temperature') | round}}&deg;F</br>
+                          <strong>Humidity:</strong> {{ states('sensor.aqi_humidity') }}%</br>
+                          {% if is_state("sun.sun", "above_horizon") -%}
+                              <strong>Next Sunset:</strong> {{as_timestamp(strptime(state_attr("sun.sun", "next_setting"), '')) | timestamp_custom("%-I:%M %p")}}
+                          {%- else -%}
+                              <strong>Next Sunrise:</strong> {{as_timestamp(strptime(state_attr("sun.sun", "next_rising"), '')) | timestamp_custom("%-I:%M %p")}}
+                          {%- endif %}</br></br>
+                          <strong>SmartHome Mode:</strong> {{ states('input_text.home_mode') }}</br>
+                          <strong>Doors:</strong> {{ states('sensor.door_locks')}}</br>
+                          <strong>Grocery Budget:</strong> ${{ states('sensor.grocery_budget_balance') }}
+                        </td>
+                        <td>
+                        </br>
+                          <img
+                          src="https://darksky.net/{{states('sensor.dashboard_weather')}}"
+                          width="190px" /></td></tr> <tr><td colspan="2">{{
+                          states('sensor.dashboard_occupancy')
+                          }}
+                          </td>
+                        </tr>
+                      </table>
+                    </br>
                   style: |
                     ha-card {
                       background: transparent;
@@ -343,7 +350,7 @@ views:
                     icon: "mdi:wall-sconce-flat-variant"
                     double_tap_action:
                       action: popup
-                  - entity: light.tower_lamps
+                  - entity: switch.light_end_table
                     name: Tower Lamps
                     icon: "mdi:floor-lamp"
                     double_tap_action:
@@ -364,6 +371,9 @@ views:
                   - entity: light.person2_nightlight
                     name: NightLight2
                     icon: "mdi:floor-lamp-dual"
+                  - entity: light.loft_light
+                    name: Loft Light
+
                   - entity: light.frontroom_ceiling
                     name: Livingroom Ceiling
                     icon: "mdi:floor-lamp-dual"
@@ -394,20 +404,12 @@ views:
                         else
                          return true;
                       ]]]
-                  - entity: switch.sonoff_switch_02
-                    name: Master Lamp
-                    icon: "mdi:lamp"
-                    hold_action:
-                      action: none
-                    hide: |
-                      [[[ 
-                        if (user.name == "Ely" || user.name == "Annette")
-                         return false;
-                        else
-                         return true;
-                      ]]]
-                  # - title: Accessories
-                  #   entities:
+                  - entity: light.unit2_kitchen_pendants
+                    name: Kitchen Pendants
+                  - entity: light.unit2_kitchen_spotlights
+                    name: Kitchen Ceiling
+              - title: Accessories
+                entities:
                   #     - entity: media_player.music
                   #       name: Whole Home Music Stream
                   #       icon: "mdi:music-circle-outline"
@@ -449,18 +451,18 @@ views:
                   #     navigation_path: /sub-hvac/0
                   #   hold_action:
                   #     action: none
-                  # - entity: input_boolean.dummy
-                  #   name: Printer
-                  #   icon: "mdi:printer"
-                  #   tap_action:
-                  #     action: navigate
-                  #     navigation_path: /sub-print/0
-                  #   hold_action:
-                  #     action: none
-                  #   conditionalClass: |
-                  #     [[[
-                  #       return "hideState";
-                  #     ]]]
+                  - entity: input_boolean.dummy
+                    name: Printer
+                    icon: "mdi:printer"
+                    tap_action:
+                      action: navigate
+                      navigation_path: /sub-print/0
+                    hold_action:
+                      action: none
+                    conditionalClass: |
+                      [[[
+                        return "hideState";
+                      ]]]
                   - entity: input_boolean.dummy
                     name: Admin
                     icon: "mdi:tools"
