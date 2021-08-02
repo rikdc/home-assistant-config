@@ -1,13 +1,10 @@
 title: Home
 
-custom_header:
-  !include custom_header.yaml
+custom_header: !include custom_header.yaml
 
-decluttering_templates:
-  !include_dir_merge_named decluttering_templates/
+decluttering_templates: !include_dir_merge_named decluttering_templates/
 
-button_card_templates:
-  !include_dir_merge_named button_card_templates/
+button_card_templates: !include_dir_merge_named button_card_templates/
 
 views:
   - !include views/view_home.yaml
@@ -18,23 +15,23 @@ views:
   - !include views/view_media.yaml
   - title: Devices
     path: devices
-    icon: 'mdi:robot-vacuum'
+    icon: "mdi:robot-vacuum"
     panel: true
     badges: []
     cards:
-      - type: 'custom:layout-card'
+      - type: "custom:layout-card"
         column_width:
           - 375
           - 500
         layout: vertical
         cards:
-          - type: 'custom:button-card'
+          - type: "custom:button-card"
             color: auto
             color_type: blank-card
             styles:
               card:
                 - height: 25px
-          - type: 'custom:vacuum-card'
+          - type: "custom:vacuum-card"
             entity: vacuum.xiaomi_vacuum_cleaner
             stats:
               default:
@@ -60,14 +57,14 @@ views:
             actions:
               - name: Clean living room
                 service: script.clean_living_room
-                icon: 'mdi:sofa'
+                icon: "mdi:sofa"
               - name: Clean bedroom
                 service: script.clean_bedroom
-                icon: 'mdi:bed-empty'
+                icon: "mdi:bed-empty"
               - name: Clean kitchen
                 service: script.clean_kitchen
-                icon: 'mdi:silverware-fork-knife'
-          - type: 'custom:layout-break'
+                icon: "mdi:silverware-fork-knife"
+          - type: "custom:layout-break"
   - !include views/view_camera.yaml
   - !include views/view_server.yaml
   - !include views/view_battery.yaml

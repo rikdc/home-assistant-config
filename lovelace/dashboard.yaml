@@ -281,27 +281,113 @@ views:
                           - margin-top: "-5px"
                         icon:
                           - color: white
-                  # - entity: fan.family_room_fan
-                  #   name: Ceiling Fan
-                  #   icon: "mdi:fan"
-                  #   spin: true
-                  #   state: input_boolean.dummy
-                  #   conditionalClass: |
-                  #     [[[
-                  #       if (states['input_boolean.family_room_fan_state'].state == "on")
-                  #                 return "fan";
-                  #     ]]]
+                  - entity: script.person1_bedtime
+                    name: Bedtime
+                    icon: "mdi:power-sleep"
+                    spin: true
+                    state: input_boolean.dummy
+                    tap_action:
+                      action: call-service
+                      service: script.person1_bedtime
+
+                  #
+                  # Feed the Cat
+                  #
+
+                  - card: "custom:button-card"
+                    tap_action:
+                      action: call-service
+                      service: automation.trigger
+                      service_data:
+                        entity_id: automation.cat_has_been_fed
+                      confirmation:
+                        text: Are you sure you'd like to feed the cat?
+                    hold_action:
+                      action: none
+                    conditionalClass: |
+                      [[[
+                        return "top-fav";
+                      ]]]
+                    cardOptions:
+                      entity: cover.sonoff_sv_switch_01
+                      size: 100%
+                      icon: |
+                        [[[
+                          if (states['binary_sensor.cat_needs_feeding'].state == "on")
+                            return "mdi:emoticon-angry";
+                          else if (states['binary_sensor.cat_needs_feeding'].state == "off")
+                            return "mdi:emoticon-happy";
+                          else
+                            return "mdi:cloud-question";
+                        ]]]
+                      show_name: false
+                      show_state: false
+                      show_label: false
+                      styles:
+                        card:
+                          - box-shadow: none
+                          - background-color: "rgba(255, 255, 255, 0.0)"
+                          - margin-top: "-8px"
+                        icon:
+                          - color: |
+                              [[[
+                                if (states['binary_sensor.cat_needs_feeding'].state == "on")
+                                  return "red";
+                                return "white";
+                              ]]]
+                  # - card: custom:button-card
                   #   tap_action:
                   #     action: call-service
-                  #     service: fan.toggle
+                  #     service: automation.trigger
                   #     service_data:
-                  #       entity_id: fan.family_room_fan
+                  #       entity_id: automation.cat_has_been_fed
+                  #   entity: binary_sensor.cat_needs_feeding
+                  #   spin: true
+                  #   show_icon: true
+                  #   icon:
+                  #   show_state: false
+                  #   icon_height: 45px
                   #   hold_action:
-                  #     action: navigate
-                  #     navigation_path: /sub-fan/0
-                  #   double_tap_action:
-                  #     action: navigate
-                  #     navigation_path: /sub-fan/0
+                  #     action: none
+                  #   conditionalClass: |
+                  #     [[[
+                  #       return "top-fav";
+                  #     ]]]
+                  #   cardOptions:
+                  #     name: Dipshit
+                  #     icon: "hass:cat"
+                  #     # size: 90%
+                  #     # show_name: false
+                  #     # show_state: false
+                  #     # show_label: false
+                  #     styles:
+                  #       card:
+                  #         - box-shadow: none
+                  #         - background-color: "rgba(255, 255, 255, 0.0)"
+                  #         - margin-top: "-5px"
+                  #       icon:
+                  #         - color: white
+                  #   custom_fields:
+                  #     temp: |
+                  #       [[[
+                  #         return `<div style="padding-top: 36px;"><div style="position: absolute; bottom: 12px; right: 12px;">
+                  #           <span style="width: 12px; height: 12px; color: grey; font-size: 14px"> last fed ${states['sensor.cat_last_fed'].state} hour(s) ago</span></div></div>`
+                  #       ]]]
+
+                  - entity: script.person1_bedtime
+                    name: Ceiling Fan
+                    icon: "mdi:fan"
+                    spin: true
+                    state: input_boolean.dummy
+                    tap_action:
+                      action: call-service
+                      service: script.person1_bedtime
+                    hold_action:
+                      action: navigate
+                      navigation_path: /sub-fan/0
+                    double_tap_action:
+                      action: navigate
+                      navigation_path: /sub-fan/0
                   - entity: input_boolean.dummy
                     name: Television
                     icon: "mdi:remote-tv"
@@ -439,18 +525,18 @@ views:
                   #         navigation_path: /sub-vacuum/0
                   #       hold_action:
                   #         action: none
-                  # - entity: climate.main_floor
-                  #   name: A/C
-                  #   icon: "mdi:air-conditioner"
-                  #   offStates:
-                  #     - heat
-                  #     - cool
-                  #     - heat_cool
-                  #   tap_action:
-                  #     action: navigate
-                  #     navigation_path: /sub-hvac/0
-                  #   hold_action:
-                  #     action: none
+                  - entity: climate.ir_blaster_ac
+                    name: A/C
+                    icon: "mdi:air-conditioner"
+                    offStates:
+                      - heat
+                      - cool
+                      - heat_cool
+                    tap_action:
+                      action: navigate
+                      navigation_path: /sub-hvac/0
+                    hold_action:
+                      action: none
                   - entity: input_boolean.dummy
                     name: Printer
                     icon: "mdi:printer"
