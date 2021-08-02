@@ -4,6 +4,7 @@ kiosk_mode:
     hide_header: true
 views:
   - icon: "mdi:air-conditioner"
+    panel: false
     badges: []
     cards:
       - type: vertical-stack
@@ -92,31 +93,31 @@ views:
                 }
           - type: entities
             entities:
-              - entity: binary_sensor.front_living_room
+              - entity: input_select.unit1_livingroom_presence
                 icon: "mdi:wifi"
                 type: "custom:multiple-entity-row"
                 name: Front Living Room
                 state_header: Occupancy
                 entities:
-                  - entity: sensor.front_living_room_temperature
+                  - entity: sensor.q_sensor_air_temperature
                     name: Temperature
-              - entity: binary_sensor.office
+              - entity: input_select.unit1_livingroom_presence
                 icon: "mdi:wifi"
                 type: "custom:multiple-entity-row"
                 name: Office
                 state_header: Occupancy
                 entities:
-                  - entity: sensor.office_temperature
+                  - entity: sensor.motion_bathroom_air_temperature
                     name: Temperature
-              - entity: binary_sensor.master
+              - entity: binary_sensor.unit2_office_occupancy
                 icon: "mdi:wifi"
                 type: "custom:multiple-entity-row"
                 name: Master
                 state_header: Occupancy
                 entities:
-                  - entity: sensor.master_temperature
+                  - entity: sensor.motion_bedroom1_air_temperature
                     name: Temperature
-              - entity: binary_sensor.kitchen
+              - entity: input_select.unit1_kitchen_presence
                 icon: "mdi:wifi"
                 type: "custom:multiple-entity-row"
                 name: Kitchen
@@ -124,21 +125,21 @@ views:
                 entities:
                   - entity: sensor.kitchen_temperature
                     name: Temperature
-              - entity: binary_sensor.family_room
+              - entity: binary_sensor.basement_door_access_control_window_door_is_open
                 icon: "mdi:wifi"
                 type: "custom:multiple-entity-row"
                 name: Family Room
                 state_header: Occupancy
                 entities:
-                  - entity: sensor.family_room_temperature
+                  - entity: sensor.basement_temperature
                     name: Temperature
-              - entity: binary_sensor.josh
+              - entity: person.jenn
                 icon: "mdi:wifi"
                 type: "custom:multiple-entity-row"
-                name: Josh's Room
+                name: Jenn's Room
                 state_header: Occupancy
                 entities:
-                  - entity: sensor.josh_temperature
+                  - entity: sensor.unit_2_multisensor_bedroom_temperature
                     name: Temperature
               - entity: binary_sensor.guest_bedroom
                 icon: "mdi:wifi"
@@ -148,13 +149,13 @@ views:
                 entities:
                   - entity: sensor.guest_bedroom_temperature
                     name: Temperature
-              - entity: binary_sensor.cruz
+              - entity: binary_sensor.garage_multisensor_motion
                 icon: "mdi:wifi"
                 type: "custom:multiple-entity-row"
-                name: Cruz's Room
+                name: Garage
                 state_header: Occupancy
                 entities:
-                  - entity: sensor.guest_bedroom_temperature
+                  - entity: sensor.garage_multisensor_temperature
                     name: Temperature
               - entity: binary_sensor.upstairs_2
                 icon: "mdi:wifi"
