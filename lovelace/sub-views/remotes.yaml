@@ -840,7 +840,7 @@ views:
                   top: -55px;
                   margin-bottom: -55px;
                 }
-  - title: TV - Cruz's Rm
+  - title: TV - Jenn's Rm
     path: tv-cruz
     visible:
       - user: d5bd3c44e884450aacbaf0a76
@@ -1637,7 +1637,7 @@ views:
                   top: -55px;
                   margin-bottom: -55px;
                 }
-  - title: TV - Josh's Rm
+  - title: TV - Basement
     path: tv-josh
     badges: []
     cards:

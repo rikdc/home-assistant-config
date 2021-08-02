@@ -294,6 +294,12 @@ views:
           - type: entities
             entities:
               - entity: binary_sensor.bathroom_generic_presence
+              - entity: binary_sensor.main_floor_occupancy
+              - entity: binary_sensor.bedroom1_occupancy
+              - entity: input_select.bedroom1_presence
+              - entity: input_select.unit1_livingroom_presence
+              - entity: input_select.unit2_livingroom_presence
+
             state_color: false
             card_mod:
               style: |

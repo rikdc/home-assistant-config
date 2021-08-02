@@ -9,6 +9,20 @@ views:
     cards:
       - type: vertical-stack
         cards:
+          - type: "custom:button-card"
+            size: 25px
+            icon: "mdi:close"
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace-demo/0
+            styles:
+              card:
+                - width: 40px
+                - height: 40px
+                - background-color: "rgba(255,255,255,0)"
+                - box-shadow: none
+              icon:
+                - margin-left: px
           - type: horizontal-stack
             cards:
               - type: custom:layout-card

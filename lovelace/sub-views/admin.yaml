@@ -74,6 +74,24 @@ views:
                     icon: "mdi:alert"
                     hold_action:
                       action: none
+
+          - type: glance
+            columns: 3
+            entities:
+              - entity: device_tracker.unit_1_ap
+                name: AP1
+                image: local/unifi_ap.png
+              - entity: device_tracker.unit_2_ap
+                name: AP2
+                image: local/unifi_ap.png
+              - entity: device_tracker.us8p60
+                name: Switch
+                image: local/unifi_switch.png
+            show_icon: true
+            show_name: true
+            show_state: true
+            title: false
+
           - type: markdown
             content: "### System Monitoring"
             card_mod:
