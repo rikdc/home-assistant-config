@@ -1,13 +1,13 @@
-id: '1606409498051'
+id: "1606409498051"
 alias: Outside Lights on at Dusk
-description: 'Turn on outside lights when it is dusk'
+description: "Turn on outside lights when it is dusk"
 trigger:
-- platform: sun
-  event: sunset
+  - platform: sun
+    event: sunset
 condition: []
 action:
-- type: turn_on
-  device_id: 0da99448d71f804081f1f849ded7a374
-  entity_id: light.light_outside_front
-  domain: light
+  - type: turn_on
+    device_id: 0da99448d71f804081f1f849ded7a374
+    entity_id: light.light_outside_front
+    domain: light
 mode: single
