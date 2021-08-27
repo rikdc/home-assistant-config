@@ -21,13 +21,13 @@ sensor:
           {% else %}
             {% set people = '' -%}
           {% if states("person.richard") != "home" -%}
-            {% set people = people + "Richard, " -%}
+            {% set people = people + state_attr('person.richard', 'friendly_name') + ", " -%}
           {% endif %}
           {% if states("person.stef") != "home" -%}
-            {% set people = people + "Stef, " -%}
+            {% set people = people + state_attr('person.stef', 'friendly_name') + ", " -%}
           {% endif %}
           {% if states("person.jenn") != "home" -%}
-            {% set people = people + "Jenn, " -%}
+            {% set people = people + state_attr('person.jenn', 'friendly_name') + ", " -%}
           {% endif %}
             {% set people = people[:-2] -%}
             Not at home: {{ people }}
