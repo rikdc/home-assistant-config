@@ -1,14 +1,14 @@
 alias: lights_on_bedroom2
-id: '1601820768590'
+id: "1601820768590"
 description: Turns on the loft light when Person3 is home and it's dark
 trigger:
-- at: '21:10'
-  platform: time
+  - at: "21:10"
+    platform: time
 condition:
-- condition: state
-  entity_id: person.jenn
-  state: home
+  - condition: state
+    entity_id: person.jenn
+    state: home
 action:
-- service: light.turn_on
-  entity_id: light.loft_evening_lights
+  - service: light.turn_on
+    entity_id: light.loft_evening_lights
 mode: single

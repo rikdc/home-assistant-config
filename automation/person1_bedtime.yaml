@@ -1,9 +1,9 @@
 alias: Bedtime
-id: 'bedtime'
+id: "bedtime"
 trigger:
   - platform: state
     entity_id: input_boolean.bedtime
-    to: 'on'
+    to: "on"
     for:
       hours: 0
       minutes: 5
@@ -15,7 +15,7 @@ action:
   - service: media_player.turn_off
     entity_id: media_player.roku_streaming_stick
   - service: lock.lock
-    entity_id:  group.all_house_locks
+    entity_id: group.all_house_locks
   - service: switch.turn_off
     entity_id: switch.unti1_livingroom_socket
   - service: homeassistant.turn_off
