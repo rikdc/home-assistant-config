@@ -1,5 +1,5 @@
 alias: Light Unit1 Bathroom Motion
-description: ''
+description: ""
 use_blueprint:
   path: freakshock88/motion_illuminance_activated_entity.yaml
   input:
