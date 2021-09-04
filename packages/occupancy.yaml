@@ -219,11 +219,23 @@ input_select:
     initial: Unknown
     <<: *location_states
 
+  richard_location:
+    initial: Unknown
+    <<: *location_states
+
   person2_location:
     initial: Unknown
     <<: *location_states
 
+  stefanie_location:
+    initial: Unknown
+    <<: *location_states
+
   person3_location:
+    initial: Unknown
+    <<: *location_states
+
+  jenn_location:
     initial: Unknown
     <<: *location_states
 
@@ -271,7 +283,77 @@ automation:
         data:
           entity_id: input_boolean.home_occupied
 
-  # - id: ""
-  #   alias: "Set Person1 Location"
-  #   trigger:
-  #   action:
+  - id: "hasjdasd420df9036"
+    alias: "Away Status: Extended Away"
+    trigger:
+      platform: state
+      entity_id:
+        - person.richard
+        - person.stefanie
+        - person.jenn
+      to: not_home
+      for:
+        hours: 24
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_loctation' }}"
+          option: "Extended Away"
+
+  - id: "hasjdasd420df9037"
+    alias: "Away Status: Leaving"
+    trigger:
+      platform: state
+      entity_id:
+        - person.richard
+        - person.stefanie
+        - person.jenn
+      to: not_home
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
+          option: "Just Left"
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: >
+            {{ trigger.entity_id[7:] }} has just left.
+      - delay:
+          minutes: 1
+      - service: input_select.select_option
+        data:
+          entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
+          option: "Away"
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: >
+            {{ trigger.entity_id[7:] }} is now away.
+    mode: parallel
+
+  - id: "hasjdasd420df9039"
+    alias: "Away Status: Arriving"
+    trigger:
+      platform: state
+      entity_id:
+        - person.richard
+        - person.stefanie
+        - person.jenn
+      to: home
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
+          option: "Just Arrived"
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: >
+            {{ trigger.entity_id[7:] }} has just arrived.
+      - delay:
+          minutes: 1
+      - service: input_select.select_option
+        data:
+          entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
+          option: "Home"
