@@ -10,20 +10,33 @@ alarm_control_panel:
   delay_time: 20
   trigger_time: 4
   disarmed:
-      trigger_time: 0
+    trigger_time: 0
   armed_home:
-      arming_time: 0
-      delay_time: 0
+    arming_time: 0
+    delay_time: 0
   armed_night:
-      arming_time: 0
-      delay_time: 0
+    arming_time: 0
+    delay_time: 0
 
 group:
   alarm_sensors:
-    - binary_sensor.unit2_nodeid_76_door_state
-    - sensor.unit1_frontdoor_notification_access_control_door_state
-    - binary_sensor.main_entrance_door_state
-    - binary_sensor.motion_bathroom_home_security_motion_detection
+    # Lower Floor DWS
+    - binary_sensor.bathroom_window_access_control_window_door_is_open
+    - binary_sensor.frontdoor_access_control_window_door_is_open
+    - binary_sensor.main_entrance_access_control_window_door_is_open
+
+    # Lower Motion
+    - binary_sensor.q_sensor_home_security_motion_detection
+    - binary_sensor.motion_living_room_home_security_motion_detection
+    - binary_sensor.frontdoor_motion_home_security_motion_detection
+    - binary_sensor.motion_bedroom1_home_security_motion_detection
+    - binary_sensor.unit_1_mudroom_motion
+
+    # Upper Floor DWS
+    - binary_sensor.backdoor_access_control_window_door_is_open
+
+    # Upper Motion
+    - binary_sensor.multisensor_unit2_office_motion
 
   all_house_locks:
     - lock.backdoor_lock_2
@@ -34,6 +47,11 @@ input_boolean:
     name: Panic Mode
     initial: off
     icon: mdi:shield-outline
+
+  walkthrough_mode:
+    name: Walkthrough Mode
+    initial: Off
+    icon: mdi:walk
 
 switch:
   - platform: template
@@ -51,16 +69,16 @@ switch:
 
 automation:
   - id: alarm_arm_home_at_night
-    alias: 'Alarm: Arm Home at night'
-    description: 'Arms the alarm, and locks the doors'
-    initial_state: 'on'
+    alias: "Alarm: Arm Home at night"
+    description: "Arms the alarm, and locks the doors"
+    initial_state: "on"
     condition:
       - condition: state
         entity_id: group.household
-        state: 'home'
+        state: "home"
     trigger:
       platform: time
-      at: '22:00:00'
+      at: "22:00:00"
     action:
       - service: alarm_control_panel.alarm_arm_night
         entity_id: alarm_control_panel.home_alarm
@@ -68,23 +86,22 @@ automation:
         entity_id: group.all_house_locks
 
   - id: alarm_arm_home_when_away
-    alias: 'Alarm: Arm home when everyone is out'
+    alias: "Alarm: Arm home when everyone is out"
     trigger:
       - entity_id: group.household
         platform: state
-        from: 'home'
-        to: 'away'
+        from: "home"
+        to: "away"
     action:
       - service: alarm_control_panel.alarm_arm_away
-        entity_id: alarm_control_panel.home_alarm  
+        entity_id: alarm_control_panel.home_alarm
       - service: notify.admins
         data:
           message: Alarm has been set to away.
-          title: 'Home Alarm'
+          title: "Home Alarm"
 
   - id: alarm_disarm_home
-    alias: 'Alarm: Disarm alarm in the morning'
-    
+    alias: "Alarm: Disarm alarm in the morning if someone is home"
     trigger:
       platform: time
       at: "06:30:00"
@@ -97,19 +114,19 @@ automation:
         entity_id: alarm_control_panel.home_alarm
 
   - alias: Alarm - Panic Button On
-    id: 'alarm_panic_button_on'
-    description: 'Experimental: Panic button.'
+    id: "alarm_panic_button_on"
+    description: "Experimental: Panic button."
     trigger:
       - platform: state
         entity_id: switch.panic_mode
-        to: 'on'
+        to: "on"
     action:
       - service: notify.admins
         data:
           message: Panic Button Has Been Pressed!
           data:
             apns_headers:
-            'apns-collapse-id': 'security-alarm'
+            "apns-collapse-id": "security-alarm"
             push:
               badge: 0
               category: "alarm"
@@ -118,31 +135,23 @@ automation:
                 critical: 1
                 volume: 1.0
 
-          ##########################################################
-          ## Panic Button Off
-          ##########################################################
-
   - alias: Alarm - Panic Button Off
-    id: 'alarm_panic_button_off'
+    id: "alarm_panic_button_off"
     trigger:
       - platform: state
         entity_id: switch.panic_mode
-        to: 'off'
+        to: "off"
     action:
       - service: switch.turn_off
         entity_id:
           - switch.siren
 
-          ##########################################################
-          ## Panic Button Auto Off
-          ##########################################################
-
   - alias: Alarm - Panic Button Auto Off
-    id: 'alarm_panic_button_auto_off'
+    id: "alarm_panic_button_auto_off"
     trigger:
       - platform: state
         entity_id: switch.panic_mode
-        to: 'on'
+        to: "on"
         for:
           hours: 0
           minutes: 2
@@ -151,3 +160,87 @@ automation:
       - service: switch.turn_off
         entity_id:
           - switch.siren
+
+  - id: alarm_armed_away
+    alias: Alarm State Changed
+    trigger:
+      platform: state
+      entity_id: alarm_control_panel.home_alarm
+    action:
+      data_template:
+        title: Home alarm state
+        message:
+          "{% if trigger.to_state.state == 'arming' %}\n    Alarm is arming,\
+          \ please exit the building!\n{%- else -%}\n    Alarm has been set to: {{ trigger.to_state.state|replace(\"\
+          armed_\", \"\")|title }}\n{%- endif %}\n"
+      service: notify.all
+
+  - alias: "Alarm: Trigger alarm while armed away"
+    trigger:
+      - platform: state
+        entity_id: group.alarm_sensors
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: alarm_control_panel.home_alarm
+        state: armed_away
+    action:
+      service: alarm_control_panel.alarm_trigger
+      target:
+        entity_id: alarm_control_panel.home_alarm
+
+  - alias: "Alarm: Send notification when alarm triggered"
+    trigger:
+      - platform: state
+        entity_id: alarm_control_panel.home_alarm
+        to: "triggered"
+    action:
+      - service: notify.all
+        data:
+          title: Home Alarm
+        data_template:
+          message: "Alarm! {{ trigger.to_state.attributes.friendly_name }} has triggered the alarm."
+
+  # - id: "1630716542865"
+  #   alias: "Alarm: Sensors unavailable"
+  #   description: "If any sensor is unavaialble for more than a few minutes, indicate there is a warning"
+
+  - id: "1630716542865"
+    alias: "Alarm: Sensor Walkthrough Test Disabled"
+    trigger:
+      platform: state
+      entity_id: input_boolean.walkthrough_mode
+      to: "off"
+    action:
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: "Walthrough Mode Disabled"
+    mode: single
+
+  - id: "1630716542864"
+    alias: "Alarm: Sensor Walkthrough Test"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.unit_1_bedroom_motion
+        id: unit1_bedroom
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.unit_1_mudroom_motion
+        id: unit1_mudroom
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.motion_bathroom_home_security_motion_detection
+        id: unit1_bathroom
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: input_boolean.walkthrough_mode
+        state: "on"
+    action:
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: >
+            Motion in {{ trigger.id|replace('_', ' ') }} Detected
+    mode: single
