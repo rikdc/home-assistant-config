@@ -6,11 +6,24 @@
 binary_sensor:
   - platform: template
     sensors:
-      # When the Sump is running the power will spike above 5.
+      # When the Sump is running the power will spike above 3.3.
       main_pump_status:
         friendly_name: "Main Pump Status"
         value_template: >
-          {{ states('sensor.sumppump_power')|float > 5 }}
+          {{ states('sensor.sumppump_power')|float > 3.3 }}
+
+template:
+  - trigger:
+      - platform: numeric_state
+        entity_id:
+          - sensor.main_pump_3day_cycles
+        below: 3
+  - binary_sensor:
+      - name: "Sump Pump Problem"
+        state: "{{ states('sensor.main_pump_3day_cycles')| int < 5 }}"
+        device_class: problem
+        delay_off:
+          minutes: 5
 
 sensor:
   - platform: history_stats
@@ -73,12 +86,9 @@ automation:
   - alias: Sump may not be working
     description: If the sump pump has not run for a couple of days, set a notification.
     trigger:
-      platform: numeric_state
-      entity_id:
-        - sensor.main_pump_3day_cycles
-      below: 3
-      for:
-        minutes: 5
+      platform: state
+      entity_id: binary_sensor.sump_pump_problem
+      to: on
     action:
       service: persistent_notification.create
       data:
