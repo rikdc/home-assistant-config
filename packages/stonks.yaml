@@ -1,0 +1,33 @@
+# Stonks
+#
+# Silly automation that makes an audio alert when my shares go up to new highs.
+sensor:
+  - platform: avanza_stock
+    stock:
+      - id: 508521
+        name: Wayfair
+
+  # High Value over the last 3 months.
+  - platform: statistics
+    entity_id: sensor.wayfair
+    name: Wayfair Stocks Statistics
+
+  # this extracts the attribute "max_value" from "sensor.car_speed_statistics_mean"
+  - platform: template
+    sensors:
+      wayfair_price_max:
+        value_template: "{{ state_attr('sensor.wayfair_stocks_statistics', 'max_value') }}"
+
+automation:
+  - alias: new_wayfair_stonks
+    trigger:
+      platform: state
+      entity_id: sensor.wayfair_price_max
+    condition:
+      condition: template
+      value_template: "{{ trigger.to_state.state | int > trigger.from_state.state | int }}"
+    action:
+      service: tts.cloud_say
+      data:
+        entity_id: media_player.multi_room_controller
+        message: New high for Wayfair Share Price!
