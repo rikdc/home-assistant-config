@@ -1,0 +1,398 @@
+##    input_select.house_presence – keeps track of who is home
+##    input_select.*room*_presence – keeps track of individual room presence
+##    input_select.*person*_location – keeps track of where people are (and is more detailed than the home/away person.*person* entity)
+
+input_boolean:
+  guests:
+    initial: off
+
+  bedroom1_occupancy:
+    initial: off
+
+homeassistant:
+  customize:
+    package.occupancy:
+      occupancy_states: &occupancy_states
+        options:
+          - Unknown
+          - Empty
+          - Someone
+          - Guests
+          - Extended Away
+          - P1
+          - P2
+          - P3
+          - P1 + P2
+          - P1 + P3
+          - P2 + P3
+          - P1 + P2 + P3
+
+      location_states: &location_states
+        options:
+          - Unknown
+          - Just Arrived
+          - Home
+          - Just Left
+          - Away
+          - Extended Away
+          - Unit1 Kitchen
+          - Unit1 Livingroom
+          - Unit2 Livingroom
+          - Bedroom
+          - Bathroom
+          - Upper Office
+
+  # occupancy_lower_bedroom:
+  #   friendly_name: "Bedroom1 Occupied"
+  #   icon_template: mdi:walk
+  #   device_class: "occupancy"
+
+binary_sensor:
+  - platform: template
+    sensors:
+      main_floor_occupancy:
+        friendly_name: "Ground floor occupied"
+        device_class: "occupancy"
+        delay_off:
+          minutes: 5
+        delay_on:
+          seconds: 3
+        value_template: >-
+          {{ (is_state('input_boolean.home_occupied', 'on') 
+              and (
+                   is_state('binary_sensor.bedroom1_occupied', 'on')) 
+                or is_state('binary_sensor.unit1_frontroom_occupied', 'on')
+              )
+          }}
+
+      bedroom1_occupied:
+        friendly_name: "Bedroom1 Occupancy"
+        device_class: "occupancy"
+        delay_off:
+          minutes: 5
+        value_template: >-
+          {{ is_state('binary_sensor.unit_1_bedroom_motion', 'on' )}}
+
+      unit1_frontroom_occupied:
+        friendly_name: "Living Room Occupancy"
+        device_class: "occupancy"
+        delay_off:
+          minutes: 5
+        delay_on:
+          seconds: 3
+        value_template: >-
+          {{ is_state('media_player.50_tcl_roku_tv', 'playing')
+                or is_state('media_player.50_tcl_roku_tv', 'on')
+                or is_state('binary_sensor.q_sensor_home_security_motion_detection', 'on')
+                or is_state('sensor.c3dcc47c1745_room_presence', 'unit1FrontRoom')
+          }}
+
+      unit1_backroom_occupancy:
+        friendly_name: "Back Room Occupancy"
+        device_class: "occupancy"
+        delay_off:
+          minutes: 5
+        delay_on:
+          seconds: 3
+        value_template: >-
+          {{ is_state('binary_sensor.motion_living_room_home_security_motion_detection', 'on') 
+              or is_state('sensor.c3dcc47c1745_room_presence', 'unit1backpi')
+          }}
+
+      bathroom_generic_presence:
+        friendly_name: "Bathroom occupied"
+        device_class: "occupancy"
+        delay_off:
+          minutes: 5
+        value_template: >-
+          {{ is_state('binary_sensor.motion_bathroom_home_security_motion_detection', 'on') }}
+
+      #
+      # First Floor
+      #
+      first_floor_occupancy:
+        friendly_name: "First floor occupancy"
+        device_class: "occupancy"
+        delay_off:
+          minutes: 5
+        delay_on:
+          seconds: 3
+        value_template: >-
+          {{ (is_state('input_boolean.home_occupied', 'on') 
+                and (
+                     is_state('binary_sensor.first_floor_bathroom_occupancy', 'on')
+                  or is_state('binary_sensor.unit2_livingroom_occupancy', 'on')
+                ))
+          }}
+
+      first_floor_bathroom_occupancy:
+        friendly_name: "Bathroom2 occupied"
+        device_class: "occupancy"
+        delay_off:
+          minutes: 5
+        value_template: >-
+          {{ is_state('binary_sensor.motion_bathroom2_home_security_motion_detection', 'on') }}
+
+      unit2_livingroom_occupancy:
+        friendly_name: "Upper Living Room Occupancy"
+        device_class: "occupancy"
+        delay_off:
+          minutes: 5
+        delay_on:
+          seconds: 3
+        value_template: >-
+          {{ is_state('input_select.person1_location', 'Unit2 Livingroom') 
+              or is_state('input_select.person2_location', 'Unit2 Livingroom')
+              or is_state('sensor.df8d2ff3_980f_43df_ba53_7482bbf25627_room_presence', 'unit2livingroom')
+            }}
+
+  - platform: template
+    sensors:
+      office_computer_on:
+        value_template: "{{ states('sensor.office_power_electricity_w_meter') | int > 40 }}"
+
+  - platform: template
+    sensors:
+      unit2_office_occupancy:
+        friendly_name: "Unit2 Office Occupied"
+        device_class: "occupancy"
+        delay_off:
+          minutes: 5
+        delay_on:
+          seconds: 3
+        value_template: >-
+          {{ (is_state('input_boolean.home_occupied', 'on')
+             and is_state('binary_sensor.unit_1_experiment_rcwl0516_movement', 'on')) }}
+
+group:
+  person_locations:
+    - input_select.person1_location
+    - input_select.person2_location
+    - input_select.person3_location
+
+  person_home_away:
+    name: Person Locations
+    entities:
+      - person.richard
+      - person.stefanie
+      - person.jenn #Add more people below
+
+input_select:
+  house_presence:
+    name: Home Presence
+    initial: Unknown
+    <<: *occupancy_states
+
+  bathroom_presence:
+    name: Bathroom Presence
+    initial: Unknown
+    <<: *occupancy_states
+
+  unit1_livingroom_presence:
+    initial: Unknown
+    name: "Unit1 Livingroom Presence"
+    <<: *occupancy_states
+
+  unit2_livingroom_presence:
+    initial: Unknown
+    name: "Unit2 Livingroom Presence"
+    <<: *occupancy_states
+
+  unit1_kitchen_presence:
+    initial: Unknown
+    <<: *occupancy_states
+
+  bedroom1_presence:
+    initial: Unknown
+    <<: *occupancy_states
+
+  unit2_presence:
+    initial: Unknown
+    <<: *occupancy_states
+
+  unit2_bedroom_presence:
+    initial: Unknown
+    <<: *occupancy_states
+
+  unit2_office_presence:
+    name: Unit 2 Office Presence
+    initial: Unknown
+    <<: *occupancy_states
+
+  person1_location:
+    initial: Unknown
+    <<: *location_states
+
+  richard_location:
+    initial: Unknown
+    <<: *location_states
+
+  person2_location:
+    initial: Unknown
+    <<: *location_states
+
+  stefanie_location:
+    initial: Unknown
+    <<: *location_states
+
+  person3_location:
+    initial: Unknown
+    <<: *location_states
+
+  jenn_location:
+    initial: Unknown
+    <<: *location_states
+
+automation:
+  - id: "hasjdasd420df9034"
+    alias: "Set home to occupied"
+    trigger:
+      platform: state
+      entity_id:
+        - person.richard
+        - person.stefanie
+        - person.jenn
+      to: home
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.home_occupied
+
+  - id: "hasjdasdh334"
+    alias: "Set home to not occupied"
+    trigger:
+      platform: state
+      entity_id:
+        - person.richard
+        - person.stefanie
+        - person.jenn
+      from: home
+      to: not_home
+      for:
+        minutes: 5
+    condition:
+      condition: and
+      conditions:
+        - condition: state
+          entity_id: person.richard
+          state: not_home
+        - condition: state
+          entity_id: person.stefanie
+          state: not_home
+        - condition: state
+          entity_id: person.jenn
+          state: not_home
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.home_occupied
+
+  - id: "hasjdasd420df9036"
+    alias: "Away Status: Extended Away"
+    trigger:
+      platform: state
+      entity_id:
+        - person.richard
+        - person.stefanie
+        - person.jenn
+      to: not_home
+      for:
+        hours: 24
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_loctation' }}"
+          option: "Extended Away"
+
+  - id: "hasjdasd420df9037"
+    alias: "Away Status: Leaving"
+    trigger:
+      platform: state
+      entity_id:
+        - person.richard
+        - person.stefanie
+        - person.jenn
+      to: not_home
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
+          option: "Just Left"
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: >
+            {{ trigger.entity_id[7:] }} has just left.
+      - delay:
+          minutes: 1
+      - service: input_select.select_option
+        data:
+          entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
+          option: "Away"
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: >
+            {{ trigger.entity_id[7:] }} is now away.
+    mode: parallel
+
+  - id: "hasjdasd420df9039"
+    alias: "Away Status: Arriving"
+    trigger:
+      platform: state
+      entity_id:
+        - person.richard
+        - person.stefanie
+        - person.jenn
+      to: home
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
+          option: "Just Arrived"
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: >
+            {{ trigger.entity_id[7:] }} has just arrived.
+      - delay:
+          minutes: 1
+      - service: input_select.select_option
+        data:
+          entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
+          option: "Home"
+
+  - id: "hasjdasd420df9040"
+    alias: "Room Location"
+    trigger:
+      platform: state
+      entity_id:
+        - sensor.df8d2ff3_980f_43df_ba53_7482bbf25627_room_presence
+      to: "unit2livingroom"
+      for:
+        minutes: 2
+    action:
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: >
+            {{ trigger.entity_id[7:] }} is in the upper living room.
+
+  - id: "hasjdasd420df9042"
+    alias: "Room Location: Richard"
+    trigger:
+      platform: state
+      entity_id: sensor.186ca552_d54b_417c_b812_9778b0252aa7_room_presence
+      to: "unit2Front"
+      for:
+        minutes: 2
+    action:
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: >
+            {% if ((now() - states.binary_sensor.motion_living_room_home_security_motion_detection.last_changed).seconds < 60 ) %}
+              Richard is in the living room
+            {% else %}
+              Richard is in the office
+            {% endif %}
