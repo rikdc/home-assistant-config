@@ -143,7 +143,7 @@ binary_sensor:
         value_template: >-
           {{ is_state('input_select.person1_location', 'Unit2 Livingroom') 
               or is_state('input_select.person2_location', 'Unit2 Livingroom')
-              or is_state('input_select.person3_location', 'Unit2 Livingroom')
+              or is_state('sensor.df8d2ff3_980f_43df_ba53_7482bbf25627_room_presence', 'unit2livingroom')
             }}
 
   - platform: template
@@ -361,3 +361,38 @@ automation:
         data:
           entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
           option: "Home"
+
+  - id: "hasjdasd420df9040"
+    alias: "Room Location"
+    trigger:
+      platform: state
+      entity_id:
+        - sensor.df8d2ff3_980f_43df_ba53_7482bbf25627_room_presence
+      to: "unit2livingroom"
+      for:
+        minutes: 2
+    action:
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: >
+            {{ trigger.entity_id[7:] }} is in the upper living room.
+
+  - id: "hasjdasd420df9042"
+    alias: "Room Location: Richard"
+    trigger:
+      platform: state
+      entity_id: sensor.186ca552_d54b_417c_b812_9778b0252aa7_room_presence
+      to: "unit2Front"
+      for:
+        minutes: 2
+    action:
+      - service: tts.cloud_say
+        data:
+          entity_id: media_player.multi_room_controller
+          message: >
+            {% if ((now() - states.binary_sensor.motion_living_room_home_security_motion_detection.last_changed).seconds < 60 ) %}
+              Richard is in the living room
+            {% else %}
+              Richard is in the office
+            {% endif %}
