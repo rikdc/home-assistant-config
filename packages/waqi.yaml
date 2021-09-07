@@ -110,37 +110,6 @@ template:
               unknown
             {% endif %}
 
-          ozone: >-
-            {% set attribute = 'attributes.ozone' %}
-            {% set max_hours_behind = 4 %}
-            {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
-            {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
-                                    | rejectattr('attributes.time', 'lt', cutoff)
-                                    | selectattr(attribute)
-                                    | map(attribute=attribute)
-                                    | map('float')
-                                    | list %}
-            {% if stations %}
-              {{ set ozone = (stations|sum / stations|length) | round }}
-              {% if ozone > 300 %}
-                Hazardous
-              {% elif ozone > 200 %}
-                Very Bad
-              {% elif ozone > 150 %}
-                Bad
-              {% elif ozone > 100 %}
-                Bad for sensitive people
-              {% elif ozone > 50 %}
-                Moderate
-              {% elif ozone >= 0 %}
-                Good
-              {% else %}
-                unknown
-              {% endif %}
-            {% else %}
-              unknown
-            {% endif %}
-
           particles: >-
             {% set attribute = 'attributes.pm_2_5' %}
             {% set max_hours_behind = 4 %}
