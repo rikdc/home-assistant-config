@@ -46,49 +46,40 @@ group:
 updater:
   include_used_components: true
 
-# This should be redundant soon, looks like it's deprecated and 
-# configured by the UI only.
-synology_dsm:
-  - host: !secret synology_host
-    username: !secret synology_username
-    password: !secret synology_password
-
 #################################################################
 #                                                               #
 #                           Sensors                             #
 #                                                               #
 #################################################################
 sensor:
-
-#
-# System Monitor
-#
+  #
+  # System Monitor
+  #
   - platform: systemmonitor
     resources:
-    - type: disk_use_percent
-      arg: '/'
-    - type: memory_use_percent
-    - type: processor_use
-    - type: last_boot
-    - type: network_in
-      arg: eth0
-    - type: network_out
-      arg: eth0
-#
-# Version
-#
-# @link https://www.home-assistant.io/integrations/version/
-#
+      - type: disk_use_percent
+        arg: "/"
+      - type: memory_use_percent
+      - type: processor_use
+      - type: last_boot
+      - type: network_in
+        arg: eth0
+      - type: network_out
+        arg: eth0
+  #
+  # Version
+  #
+  # @link https://www.home-assistant.io/integrations/version/
+  #
   - platform: version
 
-
-#
-# Friendly version report
-#
-# Useful for HADashboard.
-#
-# @see /appdaemon/dashboards/Status.dash
-#
+  #
+  # Friendly version report
+  #
+  # Useful for HADashboard.
+  #
+  # @see /appdaemon/dashboards/Status.dash
+  #
   - platform: template
     sensors:
       version:
@@ -130,7 +121,7 @@ sensor:
     name: CPU Temperature
     command: "cat /sys/class/thermal/thermal_zone0/temp"
     unit_of_measurement: "°C"
-    value_template: '{{ (value | multiply(0.001)) | round(1) }}'
+    value_template: "{{ (value | multiply(0.001)) | round(1) }}"
 
 binary_sensor:
   - platform: ping
@@ -142,14 +133,6 @@ binary_sensor:
     host: 192.168.10.1
     name: Gateway
     scan_interval: 60
-
-speedtestdotnet:
-  scan_interval:
-    minutes: 30
-  monitored_conditions:
-    - ping
-    - download
-    - upload
 
 switch:
   - platform: template
@@ -163,26 +146,11 @@ switch:
           data:
             duration: 00:00:60
 
-# sensor:
-# # Synology
-#   - platform: synologydsm
-#     # host: !secret sensor_synology_host
-#     # username: !secret sensor_synology_username
-#     # password: !secret sensor_synology_password
-#     monitored_conditions:
-#       - cpu_total_load
-#       - memory_real_usage
-#       - disk_status
-#       - volume_status
-#       - volume_percentage_used
-#       - disk_temp
-#       - volume_disk_temp_max
-
 #################################################################
 #                                                               #
 #                         System Health                         #
 #                                                               #
-################################################################# 
+#################################################################
 
 system_health:
 
@@ -201,7 +169,7 @@ alert:
     name: Home automation is disabled
     done_message: Home automation enabled
     entity_id: input_boolean.homeautomation
-    state: 'off'
+    state: "off"
     repeat: 30
     can_acknowledge: True
     #skip_first: True
@@ -222,7 +190,7 @@ automation:
         event: start
       # Every 6 hours.
       - platform: time_pattern
-        hours: '/6'
+        hours: "/6"
         minutes: 00
     action:
       # Wait a while so that everything is ready.
@@ -231,9 +199,9 @@ automation:
       - service: homeassistant.update_entity
         entity_id: binary_sensor.updater
 
-## Notify if we're running out of disk space on the main home-assistant server.
+  ## Notify if we're running out of disk space on the main home-assistant server.
   - alias: Disk Use Alarm
-    initial_state: 'on'
+    initial_state: "on"
     trigger:
       platform: numeric_state
       entity_id: sensor.disk_use
@@ -241,12 +209,12 @@ automation:
     action:
       - service: notify.admins
         data:
-          title: 'HA HASSIO Server'
-          message: 'Warning - HA Server Disk Use is {{states.sensor.disk_use.state}}Gb'
+          title: "HA HASSIO Server"
+          message: "Warning - HA Server Disk Use is {{states.sensor.disk_use.state}}Gb"
 
-## Notify of High CPU Usage
+  ## Notify of High CPU Usage
   - alias: CPU Use Alarm
-    initial_state: 'on'
+    initial_state: "on"
     trigger:
       platform: numeric_state
       entity_id: sensor.processor_use
@@ -254,12 +222,12 @@ automation:
     action:
       - service: notify.admins
         data:
-          title: 'HA HASSIO Server'
-          message: 'Warning - HA Server Processor {{states.sensor.processor_use.state}}%'
-          
-## Notify if CPU Temperature is High
+          title: "HA HASSIO Server"
+          message: "Warning - HA Server Processor {{states.sensor.processor_use.state}}%"
+
+  ## Notify if CPU Temperature is High
   - alias: CPU Temp Alarm
-    initial_state: 'on'
+    initial_state: "on"
     trigger:
       platform: numeric_state
       entity_id: sensor.cpu_temperature
@@ -267,5 +235,5 @@ automation:
     action:
       - service: notify.admins
         data:
-          title: 'HA HASSIO Server'
-          message: 'Warning - HA Server CPU Temp is {{states.sensor.cpu_temperature.state}}c'
+          title: "HA HASSIO Server"
+          message: "Warning - HA Server CPU Temp is {{states.sensor.cpu_temperature.state}}c"
