@@ -1,0 +1,62 @@
+#################################################################
+#                                                               #
+#                        Sensor Checks                          #
+#                                                               #
+#################################################################
+# Inspired by: https://blog.swakes.co.uk/home-assistant-system-dashboard/
+
+group:
+  dws_sensors:
+    # Contact
+    - binary_sensor.frontdoor_access_control_window_door_is_open
+    - binary_sensor.main_entrance_access_control_window_door_is_open
+    - binary_sensor.backdoor_access_control_window_door_is_open
+    - binary_sensor.bedroom_window_access_control_window_door_is_open
+    - binary_sensor.basement_door_access_control_window_door_is_open
+    # Motion
+    - binary_sensor.frontdoor_motion_home_security_motion_detection
+    - binary_sensor.motion_living_room_home_security_motion_detection
+    - binary_sensor.motion_bathroom_home_security_motion_detection
+    - binary_sensor.motion_bedroom1_home_security_motion_detection
+    - binary_sensor.motion_bathroom2_home_security_motion_detection
+    - lock.frontdoor
+    - lock.backdoor
+
+template:
+  - binary_sensor:
+    - name: "DWS Unavailable"
+      device_class: "problem"
+      state: "{{ states('sensor.dws_sensors_online') < states('sensor.dws_sensor_check_status_count') }}"
+  
+  - sensor:
+    - name: "DWS Sensors Online"
+      state: >-
+        {% set t = strptime(((now().timestamp() - 780) | timestamp_utc) ~ '+00:00', '%Y-%m-%d %H:%M:%S%z') %}
+        {{
+          expand('group.dws_sensors')
+          | selectattr('last_changed', '<=' , t)
+          | map(attribute='name')
+          | list
+          | count
+        }}
+
+    - name: "DWS Sensor Check Status Count"
+      state: "{{ expand('group.dws_sensors') | count }}"
+
+    - name: "DWS Sensor Check Status Percent"
+      state: "{{ '%0.1f' | format(states('sensor.dws_sensors_online')|float / states('sensor.dws_sensor_check_status_count')|float * 100.0) }}"
+      icon: 'mdi:door-open'
+      unit_of_measurement: '%'
+
+automation:
+  - id: "d07e3bb9-5109-4d76-a883-bc025fc359f0"
+    alias: "Alarm: Important Sensors are unavailable"
+    trigger:
+      platform: state
+      entity_id: binary_sensor.dws_unavailable
+      to: "on"
+    action:
+      - service: notify.admins
+        data_template:
+          message: "One or more of the alarm sensors is not reporting status changes. Check them!"
+    mode: single

@@ -23,7 +23,7 @@ group:
     # Lower Floor DWS
     - binary_sensor.bathroom_window_access_control_window_door_is_open
     - binary_sensor.frontdoor_access_control_window_door_is_open
-    #- binary_sensor.main_entrance_access_control_window_door_is_open
+    - binary_sensor.main_entrance_access_control_window_door_is_open
 
     # Lower Motion
     - binary_sensor.q_sensor_home_security_motion_detection
@@ -56,6 +56,7 @@ input_boolean:
 template:
   - binary_sensor:
       - name: "Alarm Sensors have Unavailable States"
+        device_class: "problem"
         state: "{{ states.binary_sensor | selectattr('entity_id', 'in', state_attr('group.alarm_sensors','entity_id')) | selectattr('state', 'in', ['unavailable', 'unknown', 'none']) | list | count > 0 }}"
 
 switch:

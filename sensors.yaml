@@ -23,7 +23,7 @@
   name: Morning Commute
   api_key: !secret here_api_key
   origin_entity_id: device_tracker.stefanies_phone
-  destination_entity_id: zone.wells_library
+  destination_entity_id: !secret zone_work_location1
 
 - platform: here_travel_time
   name: Stefanies Journey Home
