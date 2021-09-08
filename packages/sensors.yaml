@@ -8,7 +8,6 @@
 group:
   dws_sensors:
     # Contact
-    - binary_sensor.bathroom_window_home_security_tampering_product_cover_removed
     - binary_sensor.frontdoor_access_control_window_door_is_open
     - binary_sensor.main_entrance_access_control_window_door_is_open
     - binary_sensor.backdoor_access_control_window_door_is_open
@@ -23,41 +22,41 @@ group:
     - lock.frontdoor
     - lock.backdoor
 
-sensor:
-  - platform: template
-    sensors:
-      dws_sensors_online:
-        value_template: >-
-          {% set t = strptime(((now().timestamp() - 780) | timestamp_utc) ~ '+00:00', '%Y-%m-%d %H:%M:%S%z') %}
-          {{
-            expand('group.dws_sensors')
-            | selectattr('last_changed', '<=' , t)
-            | map(attribute='name')
-            | list
-            | count
-          }}
+template:
+  - binary_sensor:
+    - name: "DWS Unavailable"
+      device_class: "problem"
+      state: "{{ states('sensor.dws_sensors_online') < states('sensor.dws_sensor_check_status_count') }}"
+  
+  - sensor:
+    - name: "DWS Sensors Online"
+      state: >-
+        {% set t = strptime(((now().timestamp() - 780) | timestamp_utc) ~ '+00:00', '%Y-%m-%d %H:%M:%S%z') %}
+        {{
+          expand('group.dws_sensors')
+          | selectattr('last_changed', '<=' , t)
+          | map(attribute='name')
+          | list
+          | count
+        }}
 
-      dws_sensor_check_status_count:
-        icon_template: 'mdi:door-open'
-        friendly_name: DWS Sensors Count
-        unit_of_measurement: count
-        value_template: >-
-          {{ expand('group.dws_sensors') | count }}
+    - name: "DWS Sensor Check Status Count"
+      state: "{{ expand('group.dws_sensors') | count }}"
 
-      dws_sensor_check_status_percent:
-        entity_id:
-          - sensor.dws_sensors_online
-          - sensor.dws_sensor_check_status_count
-        friendly_name: DWS Sensors Online
-        icon_template: 'mdi:door-open'
-        unit_of_measurement: '%'
-        value_template: >-
-          {{ '%0.1f' | format(states('sensor.dws_sensors_online')|float / states('sensor.dws_sensor_check_status_count')|float * 100.0) }}
-      
-      dws_sensor_check_status:
-        entity_id:
-          - sensor.dws_sensor_check_status_percent
-        friendly_name: DWS Sensors Online
-        icon_template: 'mdi:door-open'
-        value_template: >-
-          {{ states('sensor.dws_sensors_online') -}}/{{-  states('sensor.dws_sensor_check_status_count') -}}
+    - name: "DWS Sensor Check Status Percent"
+      state: "{{ '%0.1f' | format(states('sensor.dws_sensors_online')|float / states('sensor.dws_sensor_check_status_count')|float * 100.0) }}"
+      icon: 'mdi:door-open'
+      unit_of_measurement: '%'
+
+automation:
+  - id: "d07e3bb9-5109-4d76-a883-bc025fc359f0"
+    alias: "Alarm: Important Sensors are unavailable"
+    trigger:
+      platform: state
+      entity_id: binary_sensor.dws_unavailable
+      to: "on"
+    action:
+      - service: notify.admins
+        data_template:
+          message: "One or more of the alarm sensors is not reporting status changes. Check them!"
+    mode: single
