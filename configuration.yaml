@@ -35,7 +35,7 @@ lovelace:
     #
     lovelace-demo:
       mode: yaml
-      title: Demo
+      title: Mobile
       icon: mdi:view-dashboard
       show_in_sidebar: true
       require_admin: false
@@ -82,21 +82,6 @@ lovelace:
       show_in_sidebar: true
       require_admin: false
       filename: lovelace/sub-views/remotes.yaml
-
-panel_iframe:
-  nodered:
-    title: "NodeRed"
-    url: !secret app_nodered_url
-    icon: mdi:chip
-    require_admin: true
-  z2m:
-    title: "ZWave"
-    url: !secret app_zwave_url
-    icon: mdi:home
-  portainer:
-    title: "Portainer"
-    icon: mdi:docker
-    url: !secret app_portainer_url
 
 input_boolean: !include input_boolean.yaml
 binary_sensor: !include binary_sensors.yaml
@@ -177,3 +162,12 @@ notify:
     platform: group
     services:
       - service: !secret person2_mobile
+
+media_player:
+  - platform: snapcast
+    host: !secret snapcast_server
+
+  - platform: mpd
+    host: !secret mopidy_multiroom
+    port: 6600
+    name: Multi-Room Controller
