@@ -221,7 +221,12 @@ automation:
       - service: tts.cloud_say
         data:
           entity_id: media_player.multi_room_controller
-          message: "Walthrough Mode Disabled"
+          message: >
+            {% if trigger.to_state == 'on' %}
+              Walkthrough Mode Activated
+            {% else %}
+              Walkthrough Mode Disabled
+            {% endif %}
     mode: single
 
   - id: "1630716542864"
