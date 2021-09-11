@@ -23,6 +23,7 @@ group:
     # Lower Floor DWS
     - binary_sensor.bathroom_window_access_control_window_door_is_open
     - binary_sensor.frontdoor_access_control_window_door_is_open
+    - binary_sensor.frontdoor_access_control_window_door_is_open_2
     - binary_sensor.main_entrance_access_control_window_door_is_open
 
     # Lower Motion
@@ -36,7 +37,7 @@ group:
     #- binary_sensor.backdoor_access_control_window_door_is_open
 
     # Upper Motion
-    #- binary_sensor.multisensor_unit2_office_motion
+    - binary_sensor.multisensor_unit2_office_motion
 
   all_house_locks:
     - lock.backdoor_lock
@@ -54,10 +55,23 @@ input_boolean:
     icon: mdi:walk
 
 template:
-  - binary_sensor:
-      - name: "Alarm Sensors have Unavailable States"
-        device_class: "problem"
-        state: "{{ states.binary_sensor | selectattr('entity_id', 'in', state_attr('group.alarm_sensors','entity_id')) | selectattr('state', 'in', ['unavailable', 'unknown', 'none']) | list | count > 0 }}"
+  - sensor:
+      - name: "Alarm Sensors Unavailable"
+        state: >-
+          {{ states|
+              selectattr('entity_id', 'in', state_attr('group.alarm_sensors', 'entity_id'))
+            |selectattr('state', 'in', ['unavailable', 'unknown', 'none'])
+            |list
+            |count
+          }}
+        attributes:
+          entities: >-
+            {{ states|
+                selectattr('entity_id', 'in', state_attr('group.alarm_sensors', 'entity_id'))
+              |selectattr('state', 'in', ['unavailable', 'unknown', 'none'])
+              |map(attribute='entity_id')
+              |list
+            }}
 
 switch:
   - platform: template
@@ -207,12 +221,30 @@ automation:
         data_template:
           message: "Alarm! {{ trigger.to_state.attributes.friendly_name }} has triggered the alarm."
 
-  # - id: "1630716542865"
-  #   alias: "Alarm: Sensors unavailable"
-  #   description: "If any sensor is unavaialble for more than a few minutes, indicate there is a warning"
-
   - id: "1630716542865"
-    alias: "Alarm: Sensor Walkthrough Test Disabled"
+    alias: "Alarm: Sensors unavailable"
+    trigger:
+      - platform: state
+        entity_id: sensor.alarm_sensors_unavailable
+    action:
+      - choose:
+          conditions:
+            - condition: numeric_state
+              entity_id: sensor.alarm_sensors_unavailable
+              below: 1
+          sequence:
+            - service: persistent_notification.dismiss
+              data:
+                notification_id: unavailable_entities
+        default:
+          - service: persistent_notification.create
+            data:
+              title: Unavailable Entities
+              message: "- {{ expand(state_attr('sensor.alarm_sensors_unavailable','entities'))|map(attribute='entity_id')|join('\n- ') }}"
+              notification_id: unavailable_entities
+
+  - id: "1630716542863"
+    alias: "Alarm: Sensor Walkthrough Test State"
     trigger:
       platform: state
       entity_id: input_boolean.walkthrough_mode
