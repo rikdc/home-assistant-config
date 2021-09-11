@@ -5,6 +5,10 @@ allow_automation_execution:
   name: "Allow Automation"
   initial: off
 
+allow_notifications:
+  name: "Allow notifications"
+  initial: on
+
 disable_lock_doors:
   name: Disable Lock Automation #This works, but I should invert the polarity.
   icon: mdi:lock-plus
