@@ -110,4 +110,8 @@ automation:
           - switch.sumppump
       - wait_template: "{{ is_state('switch.sumppump', 'on') }}"
         timeout: "00:01:00"
+      - service: persistent_notification.create
+        data:
+          message: >
+            Sump switch was off, it is now back on.
     mode: single
