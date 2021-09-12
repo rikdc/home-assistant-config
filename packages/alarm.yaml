@@ -248,13 +248,12 @@ automation:
     trigger:
       platform: state
       entity_id: input_boolean.walkthrough_mode
-      to: "off"
     action:
       - service: tts.cloud_say
         data:
           entity_id: media_player.multi_room_controller
           message: >
-            {% if trigger.to_state == 'on' %}
+            {% if trigger.to_state.state == 'on' %}
               Walkthrough Mode Activated
             {% else %}
               Walkthrough Mode Disabled
