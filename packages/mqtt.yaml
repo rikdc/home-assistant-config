@@ -1,0 +1,10 @@
+# automation:
+
+
+# eufy_vacuum:
+#   devices:
+#   - name: Robovac
+#     address: 192.168.107.7
+#     access_token: 603e54f74eb97e41
+#     id: 45874831fcf5c481d91f
+#     type: T2250

@@ -1,29 +1,8 @@
 - id: "1606409704850"
   name: Unit 1 Watching TV
   entities:
-    switch.light_kitchen_cabinets:
-      friendly_name: Light Kitchen Cabinets
-      state: "on"
-    switch.unit1_hallway_lights_restart:
-      friendly_name: unit1_hallway_lights Restart
-      icon: mdi:restart
-      state: "off"
-    switch.kitchen_hallway_lights:
-      friendly_name: Kitchen Hallway Lights
-      icon: mdi:chart-multiline
-      state: "off"
-    switch.tasmota:
-      friendly_name: Tasmota
-      state: unavailable
-    switch.tasmota2:
-      friendly_name: Tasmota2
-      state: unavailable
-    switch.unit1_kitchen_ceiling_lights_switch:
-      friendly_name: Unit1-Kitchen_Ceiling_Lights_switch
-      state: "off"
-    light.unit1_light_livingroom_dimmer:
-      brightness: 106
-      friendly_name: Unit1-Light_Livingroom_dimmer
+    light.frontroom_ceiling:
+      brightness: 100
       supported_features: 41
       state: "on"
 - id: "1607914372221"
@@ -102,9 +81,6 @@
       friendly_name: Light_Livingroom
       supported_features: 33
       state: "on"
-    switch.hallway_lights:
-      friendly_name: Hallway Lights
-      state: "on"
     switch.cabinet_lights:
       friendly_name: Cabinet Lights
       state: "on"
@@ -128,3 +104,65 @@
       supported_features: 31
       state: armed_away
   icon: mdi:lock
+- id: "1621737351094"
+  name: Bedroom 1 Pre-Sleep
+  entities:
+    light.bedroom1:
+      supported_color_modes:
+        - brightness
+      color_mode: brightness
+      brightness: 75
+      friendly_name: Bedroom1
+      supported_features: 33
+      state: "on"
+    switch.bedroom_switches:
+      friendly_name: Bedroom-Switches
+      state: "on"
+    switch.bedroom_switches_2:
+      friendly_name: Bedroom-Switches
+      state: "on"
+    switch.bedroom_switches_2_2:
+      friendly_name: Bedroom-Switches (2)
+      state: "on"
+    switch.bedroom_switches_3:
+      friendly_name: Bedroom-Switches (3)
+      state: "off"
+- id: "1625006642121"
+  name: unit 2 - living room lights on
+  entities:
+    switch.unit2_socket_livingroom_couch_2:
+      friendly_name: Unit2 Socket Livingroom Couch
+      icon: ""
+      state: "on"
+    switch.unit2livingroomsocket:
+      friendly_name: Unit2LivingroomSocket
+      state: "off"
+- id: "1625006716036"
+  name: unit 2 - living room & kitchen lights on
+  entities:
+    switch.unit2livingroomsocket:
+      friendly_name: Unit2LivingroomSocket
+      state: "off"
+    switch.unit2_socket_livingroom_couch_2:
+      friendly_name: Unit2 Socket Livingroom Couch
+      icon: ""
+      state: "on"
+    light.unit2_kitchen_pendants:
+      supported_color_modes:
+        - brightness
+      friendly_name: Kitchen Pendants
+      supported_features: 32
+      state: "off"
+- id: "1625008686802"
+  name: Unit 2 - Scene 2
+  entities:
+    switch.unit2_socket_livingroom_couch_2:
+      friendly_name: Unit2 Socket Livingroom Couch
+      icon: ""
+      state: "off"
+    light.unit2_kitchen_pendants:
+      supported_color_modes:
+        - brightness
+      friendly_name: Kitchen Pendants
+      supported_features: 32
+      state: "off"

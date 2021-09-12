@@ -11,22 +11,22 @@ automation:
     action:
       - service: notify.admins
         data:
-          title: 'Network Monitor'
-          message: 'There has been a new device detected on the network.'
+          title: "Network Monitor"
+          message: "There has been a new device detected on the network."
 
   - alias: Network - WAN Down Notification
     trigger:
       - platform: state
         entity_id: binary_sensor.wan
-        to: 'off'
+        to: "off"
         for:
           hours: 0
           minutes: 1
           seconds: 0
-    # condition:
-    #   - condition: state
-    #     entity_id: input_boolean.disable_notifications
-    #     state: 'off'
+    condition:
+      - condition: state
+        entity_id: input_boolean.allow_notifications
+        state: "off"
     action:
       - service: persistent_notification.create
         data:
@@ -38,16 +38,16 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.wan
-        from: 'off'
-        to: 'on'
+        from: "off"
+        to: "on"
         for:
           hours: 0
           minutes: 1
           seconds: 0
     condition:
       - condition: state
-        entity_id: input_boolean.disable_notifications
-        state: 'off'
+        entity_id: input_boolean.allow_notifications
+        state: "on"
     action:
       - service: persistent_notification.create
         data:
@@ -78,20 +78,31 @@ utility_meter:
     source: sensor.internet_mb_uploaded
     cycle: monthly
 
+binary_sensor:
+  - platform: ping
+    host: 8.8.8.8
+    name: WAN
+    scan_interval: 60
+
+  - platform: ping
+    host: 192.168.10.1
+    name: Gateway
+    scan_interval: 60
+
 sensor:
   - platform: template
     sensors:
       internet_mb_downloaded:
         friendly_name: "Internet Download"
-        unit_of_measurement: 'MB'
+        unit_of_measurement: "MB"
         value_template: "{{ state_attr('binary_sensor.edgeos_interface_eth0', 'MBytes (Received)') }}"
       internet_mb_uploaded:
         value_template: "{{ state_attr('binary_sensor.edgeos_interface_eth0', 'MBytes (Sent)') }}"
-        unit_of_measurement: 'MB'
+        unit_of_measurement: "MB"
 
       internet_usage_in:
         value_template: "{{ ((state_attr('binary_sensor.edgeos_interface_eth0','MBytes/ps (Received)')  | float)) | round(3) }}"
-        unit_of_measurement: 'MB'
+        unit_of_measurement: "MB"
       internet_usage_out:
         value_template: "{{ ((state_attr('binary_sensor.edgeos_interface_eth0','MBytes/ps (Sent)')  | float)) | round(3) }}"
-        unit_of_measurement: 'MB'
+        unit_of_measurement: "MB"
