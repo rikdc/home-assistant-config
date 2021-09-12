@@ -46,6 +46,21 @@ group:
 updater:
   include_used_components: true
 
+counter:
+  syslog_errors:
+    name: "Errors in SysLog since start"
+    initial: 0
+    step: 1
+    restore: false
+    icon: mdi:alert
+
+  syslog_warnings:
+    name: "Warnings in SysLog since start"
+    initial: 0
+    step: 1
+    restore: false
+    icon: mdi:alert-outline
+
 #################################################################
 #                                                               #
 #                           Sensors                             #
@@ -123,16 +138,25 @@ sensor:
     unit_of_measurement: "°C"
     value_template: "{{ (value | multiply(0.001)) | round(1) }}"
 
-binary_sensor:
-  - platform: ping
-    host: 8.8.8.8
-    name: WAN
-    scan_interval: 60
+  - platform: command_line
+    name: YAML Code Lines Count
+    command: find . -name '*.yaml' -not -path "./custom_components/*" -type f -print0 | xargs -0 cat | sed '/^\s*#/d;/^\s*$/d' | wc -l
+    scan_interval: 14400
+    unit_of_measurement: lines
 
-  - platform: ping
-    host: 192.168.10.1
-    name: Gateway
-    scan_interval: 60
+  - platform: command_line
+    name: ERRORS in System Log [command line]
+    command: grep -c -E "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} ERROR .*$" /config/home-assistant.log || true
+    scan_interval: 3600
+    unit_of_measurement: pc
+
+  - platform: command_line
+    name: WARNINGS in System Log [command line]
+    command: >
+      grep -E "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} WARNING .*$" /config/home-assistant.log |
+      grep -c -v -E "^.+ We found a custom integration .+ which has not been tested by Home Assistant.+$" || true
+    scan_interval: 3600
+    unit_of_measurement: pc
 
 switch:
   - platform: template
@@ -237,3 +261,29 @@ automation:
         data:
           title: "HA HASSIO Server"
           message: "Warning - HA Server CPU Temp is {{states.sensor.cpu_temperature.state}}c"
+
+  - alias: "HASS: ERRORs in System Log - Counter"
+    id: 3b8230a5-49d5-437b-8bd9-d3f72f95425f
+    trigger:
+      platform: event
+      event_type: system_log_event
+      event_data:
+        level: ERROR
+    mode: parallel
+    max: 50
+    action:
+      - service: counter.increment
+        entity_id: counter.syslog_errors
+
+  - alias: "HASS: WARNINGs in System Log - Counter"
+    id: acdf3489-b611-445c-bd24-2efc9c431124
+    trigger:
+      platform: event
+      event_type: system_log_event
+      event_data:
+        level: WARNING
+    mode: parallel
+    max: 50
+    action:
+      - service: counter.increment
+        entity_id: counter.syslog_warnings
