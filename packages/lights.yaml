@@ -5,60 +5,43 @@
 #                                                 #
 ###################################################
 
-homeassistant:
-  customize:
-    package.lighting:
-      outside_lights: &outside_lights
-        entities:
-          - light.light_outside_front
-          - light.outside_light
-          - light.unit2_deck_lights_dimmer
-
-      downstairs_lights: &downstairs_lights
-        entities:
-          - light.bedroom1
-          - light.person1_nightlight
-          - light.person2_nightlight
-          - light.unit1_hallway_lights
-          - light.unit1_kitchen_ceiling_light
-          - light.unit1_kitchen_cabinets
-          - light.light_livingroom
-          - light.unit1_livingroom_lamp
-          - light.frontroom_ceiling
-          - light.switches_bathroom1
-          - light.unit1_bathroom_ceiling
-          - light.dimmer_dry_contact_relay # Mudroom
-          - light.lower_back_deck_light
-
-      upstairs_lights: &upstairs_lights
-        entities:
-          - light.unit2_loft_light_dimmer
-          - light.unit2_loft_fairy_lights
-          - light.kitchen_pendants_2
-          - light.unit2_kitchen_spotlights_dimmer
-          - light.upstairs_fireside_lamp
-          - light.staircase_lights
-          - light.unit2_sofa_lamp
-          - light.unit2_office
-
 light:
   - platform: group
-    name: All Lights
-    <<: *outside_lights
-    <<: *downstairs_lights
-    <<: *upstairs_lights
-
-  - platform: group
     name: Outside
-    <<: *outside_lights
+    entities:
+      - light.light_outside_front
+      - light.outside_light
+      - light.unit2_deck_lights_dimmer
+      - light.deck_lights
 
   - platform: group
-    name: downstairs_lights
-    <<: *downstairs_lights
+    name: Downstairs
+    entities:
+      - light.bedroom1
+      - light.person1_nightlight
+      - light.person2_nightlight
+      - light.unit1_hallway_lights
+      - light.unit1_kitchen_ceiling_light
+      - light.unit1_kitchen_cabinets
+      - light.light_livingroom
+      - light.unit1_livingroom_lamp
+      - light.frontroom_ceiling
+      - light.switches_bathroom1
+      - light.unit1_bathroom_ceiling
+      - light.dimmer_dry_contact_relay # Mudroom
+      - light.lower_back_deck_light
 
   - platform: group
-    name: uptairs_lights
-    <<: *upstairs_lights
+    name: Upstairs
+    entities:
+      - light.unit2_loft_light_dimmer
+      - light.unit2_loft_fairy_lights
+      - light.kitchen_pendants_2
+      - light.unit2_kitchen_spotlights_dimmer
+      - light.upstairs_fireside_lamp
+      - light.staircase_lights
+      - light.unit2_sofa_lamp
+      - light.unit2_office
 
   - platform: group
     name: Loft Lights
@@ -187,3 +170,14 @@ input_number:
     initial: 5
     min: 1
     max: 1440
+
+powercalc:
+
+#
+# For energy monitoring
+#
+sensor:
+  - platform: powercalc
+    entity_id: light.frontroom_ceiling
+    fixed:
+      power: 36

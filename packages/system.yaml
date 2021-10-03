@@ -44,7 +44,6 @@ group:
       - sensor.pi_hole_domains_blocked
 
 updater:
-  include_used_components: true
 
 counter:
   syslog_errors:

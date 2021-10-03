@@ -26,7 +26,7 @@ template:
   - binary_sensor:
       - name: "DWS Unavailable"
         device_class: "problem"
-        state: "{{ states('sensor.dws_sensors_online') < states('sensor.dws_sensor_check_status_count') }}"
+        state: "{{ states('sensor.dws_sensors_online')|int < states('sensor.dws_sensor_check_status_count')|int }}"
 
   - sensor:
       - name: "DWS Sensors Online"

@@ -266,15 +266,15 @@ views:
             card:
               type: entities
               card_mod:
-              style: |
-                ha-card {
-                  width: 92%;
-                  margin: auto;
-                  border-radius: 12px;
-                  background: rgba(255,255,255,0.1);
-                  color: white;
-                  --paper-item-icon-color: white;
-                }
+                style: |
+                  ha-card {
+                    width: 92%;
+                    margin: auto;
+                    border-radius: 12px;
+                    background: rgba(255,255,255,0.1);
+                    color: white;
+                    --paper-item-icon-color: white;
+                  }
             filter:
               include:
                 - group: group.alarm_sensors
@@ -295,10 +295,8 @@ views:
             entities:
               - entity: binary_sensor.bathroom_generic_presence
               - entity: binary_sensor.main_floor_occupancy
-              - entity: binary_sensor.bedroom1_occupancy
-              - entity: input_select.bedroom1_presence
-              - entity: input_select.unit1_livingroom_presence
-              - entity: input_select.unit2_livingroom_presence
+              - entity: binary_sensor.bedroom1_occupied
+              - entity: binary_sensor.unit1_frontroom_occupied
 
             state_color: false
             card_mod:

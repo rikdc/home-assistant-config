@@ -4,7 +4,7 @@
 #                                                               #
 #################################################################
 automation:
-  - alias: "New device connected"
+  - alias: "Network: New device connected"
     trigger:
       - platform: event
         event_type: device_tracker_new_device
@@ -14,69 +14,48 @@ automation:
           title: "Network Monitor"
           message: "There has been a new device detected on the network."
 
-  - alias: Network - WAN Down Notification
+  - alias: "Network: WAN Status Change Notification"
     trigger:
       - platform: state
         entity_id: binary_sensor.wan
-        to: "off"
         for:
           hours: 0
-          minutes: 1
-          seconds: 0
-    condition:
-      - condition: state
-        entity_id: input_boolean.allow_notifications
-        state: "off"
-    action:
-      - service: persistent_notification.create
-        data:
-          message: "Internet Down"
-          title: "WAN"
-          notification_id: "1"
-
-  - alias: Network - WAN Up Notification
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.wan
-        from: "off"
-        to: "on"
-        for:
-          hours: 0
-          minutes: 1
+          minutes: 2
           seconds: 0
     condition:
       - condition: state
         entity_id: input_boolean.allow_notifications
         state: "on"
     action:
-      - service: persistent_notification.create
-        data:
-          message: "Internet Up"
-          title: "WAN"
-          notification_id: "1"
-
-## Bandwidth Monitoring
-input_number:
-  wan_traffic_delta_in:
-    min: 0
-    max: 4294967295
-  wan_traffic_delta_out:
-    min: 0
-    max: 4294967295
-
-utility_meter:
-  daily_internet_usage_in:
-    source: sensor.internet_mb_downloaded
-    cycle: daily
-  daily_internet_usage_out:
-    source: sensor.internet_mb_uploaded
-    cycle: daily
-  monthly_internet_usage_in:
-    source: sensor.internet_mb_downloaded
-    cycle: monthly
-  monthly_internet_usage_out:
-    source: sensor.internet_mb_uploaded
-    cycle: monthly
+      - choose:
+          conditions:
+            - condition: state
+              entity_id: binary_sensor.wan
+              state: "on"
+          sequence:
+            - service: persistent_notification.create
+              data:
+                title: Monitor
+                message: "Internet access is back up"
+                notification_id: internet_monitor
+            - service: notify.admins
+              data:
+                title: Monitor
+                message: "Internet access is back up"
+            - delay: 120
+            - service: persistent_notification.dismiss
+              data:
+                notification_id: unavailable_entities
+        default:
+          - service: persistent_notification.create
+            data:
+              title: Monitor
+              message: "Internet access is down"
+              notification_id: internet_monitor
+          - service: notify.admins
+            data:
+              title: Monitor
+              message: "Internet access is down"
 
 binary_sensor:
   - platform: ping
@@ -100,9 +79,10 @@ sensor:
         value_template: "{{ state_attr('binary_sensor.edgeos_interface_eth0', 'MBytes (Sent)') }}"
         unit_of_measurement: "MB"
 
-      internet_usage_in:
-        value_template: "{{ ((state_attr('binary_sensor.edgeos_interface_eth0','MBytes/ps (Received)')  | float)) | round(3) }}"
-        unit_of_measurement: "MB"
-      internet_usage_out:
-        value_template: "{{ ((state_attr('binary_sensor.edgeos_interface_eth0','MBytes/ps (Sent)')  | float)) | round(3) }}"
-        unit_of_measurement: "MB"
+utility_meter:
+  daily_internet_usage_in:
+    source: sensor.internet_mb_downloaded
+    cycle: daily
+  daily_internet_usage_out:
+    source: sensor.internet_mb_uploaded
+    cycle: daily
