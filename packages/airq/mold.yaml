@@ -1,0 +1,18 @@
+#
+# Mold Indicators
+#
+# You should try to determine the right calibration factor for your house,
+# not assume the default is reasonable. Basically, a factor of 2.0 means that
+# there is half the amount of temperature differential at the “coldest” part
+# of the house (as the docs suggest, typically a window) than at the thermostat.
+# So, given your numbers – 6 outside, 20 inside – a factor of 2 would assume
+# the window is 13 and base its condensation estimate on that temperature.
+# Source: https://community.home-assistant.io/t/need-help-with-mold-indicator-sensor/152950/5
+#
+# Example:
+# # # - platform: mold_indicator
+# # #   indoor_temp_sensor: sensor.temp
+# # #   indoor_humidity_sensor: sensor.humidity
+# # #   outdoor_temp_sensor: sensor.weather_temperature
+# # #   calibration_factor: 2.0
+#
