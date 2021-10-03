@@ -22,13 +22,6 @@ frontend:
 lovelace:
   mode: storage
   dashboards:
-    lovelace-yaml:
-      mode: yaml
-      title: Home
-      icon: mdi:view-dashboard
-      show_in_sidebar: true
-      require_admin: false
-      filename: lovelace/tablet.yaml
     #
     # Mobile Dashboard + Sub-Dashboards
     #
@@ -94,6 +87,20 @@ browser_mod:
 
 logger:
   default: info
+
+localtuya:
+  - host: 192.168.30
+    device_id: 08102037e8db84b81c50
+    local_key: dba2c9a835a3456999e66c25ae2fba09
+    friendly_name: Tuya Device
+    protocol_version: "3.3"
+    entities:
+      - platform: binary_sensor
+        friendly_name: Plug Status
+        id: 1
+        device_class: power
+        state_on: "true" # Optional
+        state_off: "false" # Optional
 
 # Text to speech
 tts:
