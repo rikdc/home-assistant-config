@@ -1,3 +1,14 @@
+############################################################
+##                                                        ##
+##                  Environmental Health                  ##
+##                                                        ##
+############################################################
+
+# Automations
+#
+# - Alert if the humidity status changes beyond a given threshold.
+#
+
 sensor:
   - platform: filter
     name: "Bedroom1 Realistic Humidity"
@@ -17,6 +28,7 @@ template:
         state: >
           {{ states('sensor.bedroom1_realistic_humidity') | int < 40 or states('sensor.bedroom1_realistic_humidity') | int > 50 }}
         attributes:
+          room: "Bedroom 1"
           reason: >-
             {% set current_state = states('sensor.bedroom1_realistic_humidity')|int %}
             {% if current_state < 15 %}
@@ -46,9 +58,11 @@ automation:
     action:
       - service: persistent_notification.create
         data:
+          notification_id: environment_humidity_notification
           message: >
-            The humidity in the {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'status') }}
+            The humidity in {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'reason') }}
       - service: notify.all
         data:
+          notification_id: environment_humidity_notification
           message: >
-            The humidity in the {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'status') }}
+            The humidity in the {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'reason') }}
