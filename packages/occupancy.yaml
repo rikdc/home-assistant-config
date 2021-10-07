@@ -29,7 +29,6 @@ homeassistant:
           {% else %}
             Bathroom
           {% endif %}
-          {{ trigger.entity_id }}
 
       occupancy_states: &occupancy_states
         options:
