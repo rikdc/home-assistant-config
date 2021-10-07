@@ -6,38 +6,30 @@ input_boolean:
   guests:
     initial: off
 
-  bedroom1_occupancy:
-    initial: off
-
 homeassistant:
   customize:
     package.occupancy:
       room_determination: &room_determination
-        # options: >-
-        #   Unknown,
-        #   Upstairs,Bathroom
-        # # - None
-        # # - Unknown
-        # # - Just Arrived
-        # # - Home
-        # # - Just Left
-        # # - Away
-        # # - Extended Away
-        # # - Unit1 Kitchen
-        # # - Unit1 Livingroom
-        # # - Upstairs
-        # # - Bedroom
-        # # - Bathroom
-        # # - Upper Office
         state: >
           {% set h = states(trigger.entity_id) %}
           {% if h == 'unit2livingroom' %}
             Upstairs
           {% elif h == 'unit1FrontRoom' %}
             Downstairs
+          {% elif h == 'not_home' %}
+            {% set away_for = ((as_timestamp(now()) - as_timestamp(states.sensor[trigger.entity_id].last_changed)) /60) |int %}
+            {{ away_for }}
+            {% if (away_for <= 1) %}
+              Just Left
+            {% elif away_for <= 1440 %}
+              Away
+            {% else %}
+              Extended Away
+            {% endif %}
           {% else %}
             Bathroom
           {% endif %}
+          {{ trigger.entity_id }}
 
       occupancy_states: &occupancy_states
         options:
@@ -46,13 +38,6 @@ homeassistant:
           - Someone
           - Guests
           - Extended Away
-          - P1
-          - P2
-          - P3
-          - P1 + P2
-          - P1 + P3
-          - P2 + P3
-          - P1 + P2 + P3
 
       location_states: &location_states
         options:
@@ -68,11 +53,6 @@ homeassistant:
           - Bedroom
           - Bathroom
           - Upper Office
-
-  # occupancy_lower_bedroom:
-  #   friendly_name: "Bedroom1 Occupied"
-  #   icon_template: mdi:walk
-  #   device_class: "occupancy"
 
 binary_sensor:
   - platform: template
@@ -124,7 +104,7 @@ binary_sensor:
         value_template: >-
           {{ is_state('binary_sensor.motion_living_room_home_security_motion_detection', 'on') 
               or is_state('sensor.4246807c524d46c58df145284816b8e1_100_1_room_presence', 'unit1BackPi')
-              or is_state('ssensor.186ca552_d54b_417c_b812_9778b0252aa7_room_presence', 'unit1BackPi')
+              or is_state('sensor.186ca552_d54b_417c_b812_9778b0252aa7_room_presence', 'unit1BackPi')
               or is_state('sensor.df8d2ff3_980f_43df_ba53_7482bbf25627_room_presence', 'unit1BackPi')
           }}
 
@@ -199,47 +179,11 @@ group:
     entities:
       - person.richard
       - person.stefanie
-      - person.jenn #Add more people below
+      - person.jenn
 
 input_select:
   house_presence:
     name: Home Presence
-    initial: Unknown
-    <<: *occupancy_states
-
-  bathroom_presence:
-    name: Bathroom Presence
-    initial: Unknown
-    <<: *occupancy_states
-
-  unit1_livingroom_presence:
-    initial: Unknown
-    name: "Unit1 Livingroom Presence"
-    <<: *occupancy_states
-
-  unit2_livingroom_presence:
-    initial: Unknown
-    name: "Unit2 Livingroom Presence"
-    <<: *occupancy_states
-
-  unit1_kitchen_presence:
-    initial: Unknown
-    <<: *occupancy_states
-
-  bedroom1_presence:
-    initial: Unknown
-    <<: *occupancy_states
-
-  unit2_presence:
-    initial: Unknown
-    <<: *occupancy_states
-
-  unit2_bedroom_presence:
-    initial: Unknown
-    <<: *occupancy_states
-
-  unit2_office_presence:
-    name: Unit 2 Office Presence
     initial: Unknown
     <<: *occupancy_states
 
