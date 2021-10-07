@@ -1,0 +1,15 @@
+id: 76636def-caa2-4148-9bff-4a0bf3faca07
+alias: "Work: Person1 left work notification"
+trigger:
+  platform: state
+  entity_id: person.stefanie
+  from: !secret person1_work_location
+condition:
+  condition: time
+  after: "15:00:00"
+  before: "22:00:00"
+action:
+  service: notify.all
+  data:
+    title: "Work"
+    message: "Stefanie has left work! ♥️🎉"
