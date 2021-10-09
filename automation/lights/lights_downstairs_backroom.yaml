@@ -9,4 +9,4 @@ use_blueprint:
     no_motion_wait: input_number.unit1_frontroom_lights_off_duration
     blocker_entity: input_boolean.guests
     time_limit_after: input_datetime.time_typically_waking_up
-    turn_off_blocker_entity: input_datetime.time_typically_sleeping_start
+    time_limit_before: input_datetime.time_typically_sleeping_start
