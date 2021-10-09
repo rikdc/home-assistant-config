@@ -6,7 +6,7 @@ trigger:
     platform: time
 condition:
   - condition: state
-    entity_id: person.jenn
+    entity_id: !secret person3_entity
     state: home
 action:
   - service: light.turn_on
