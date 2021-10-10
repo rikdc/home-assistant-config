@@ -105,21 +105,6 @@ automation:
       - service: lock.lock
         entity_id: group.all_house_locks
 
-  - id: alarm_arm_home_when_away
-    alias: "Alarm: Arm home when everyone is out"
-    trigger:
-      - entity_id: group.household
-        platform: state
-        from: "home"
-        to: "away"
-    action:
-      - service: alarm_control_panel.alarm_arm_away
-        entity_id: alarm_control_panel.home_alarm
-      - service: notify.admins
-        data:
-          message: Alarm has been set to away.
-          title: "Home Alarm"
-
   - id: alarm_disarm_home
     alias: "Alarm: Disarm alarm in the morning if someone is home"
     trigger:
