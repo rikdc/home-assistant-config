@@ -23,7 +23,7 @@ group:
     name: RPi Resources
     #view: no
     entities:
-      - sensor.disk_use
+      - sensor.disk_use_percent
       - sensor.memory_use_percent
       - sensor.processor_use
       - sensor.cpu_temperature
@@ -227,7 +227,7 @@ automation:
     initial_state: "on"
     trigger:
       platform: numeric_state
-      entity_id: sensor.disk_use
+      entity_id: sensor.disk_use_percent
       above: 12
     action:
       - service: notify.admins
