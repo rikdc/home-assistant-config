@@ -62,9 +62,9 @@ views:
                           <strong>Current Temperature:</strong> {{state_attr('weather.home','temperature') | round}}&deg;F</br>
                           <strong>Humidity:</strong> {{ states('sensor.aqi_humidity') }}%</br>
                           {% if is_state("sun.sun", "above_horizon") -%}
-                              <strong>Next Sunset:</strong> {{as_timestamp(strptime(state_attr("sun.sun", "next_setting"), '')) | timestamp_custom("%-I:%M %p")}}
+                              <strong>Next Sunset:</strong> {{ state_attr("sun.sun", "next_setting") | as_datetime }}
                           {%- else -%}
-                              <strong>Next Sunrise:</strong> {{as_timestamp(strptime(state_attr("sun.sun", "next_rising"), '')) | timestamp_custom("%-I:%M %p")}}
+                              <strong>Next Sunrise:</strong> {{ state_attr("sun.sun", "next_rising") | as_datetime) | timestamp_custom("%-I:%M %p")}}
                           {%- endif %}</br></br>
                           <strong>SmartHome Mode:</strong> {{ states('input_text.home_mode') }}</br>
                           <strong>Doors:</strong> {{ states('sensor.door_locks')}}</br>
@@ -570,7 +570,7 @@ views:
                       ]]]
               - title: Environment
                 entities:
-                  - entity: sensor.unit_1_frontroom_temperature
+                  - entity: sensor.q_sensor_air_temperature
                     icon: "mdi:thermometer"
                     name: Living Room
                   - entity: sensor.basement_temperature

@@ -63,6 +63,5 @@ automation:
             The humidity in {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'reason') }}
       - service: notify.all
         data:
-          notification_id: environment_humidity_notification
           message: >
             The humidity in the {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'reason') }}

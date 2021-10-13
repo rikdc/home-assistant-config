@@ -1,4 +1,3 @@
-
 #
 # Light Automation Inputs
 #
@@ -50,7 +49,17 @@ input_datetime:
     has_date: false
     has_time: true
 
-## Floor 2
+  time_typically_sleeping_start:
+    name: "Time Typically Sleeping Start"
+    has_date: false
+    has_time: true
+
+  time_typically_waking_up:
+    name: "Time Typically Waking Up"
+    has_date: false
+    has_time: true
+
+  ## Floor 2
   unit2_livingroom_lights_on_start:
     name: "unit2_livingroom_lights_on_start"
     has_date: false

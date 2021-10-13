@@ -119,7 +119,7 @@ light:
 
   - platform: switch
     name: Lower back deck light
-    entity_id: switch.dimmer_dry_contact_relay
+    entity_id: switch.switches_mudroom
 
     #
     # Upstairs Lights

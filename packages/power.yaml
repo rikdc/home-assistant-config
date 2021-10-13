@@ -44,4 +44,4 @@ sensor:
       energy_total_usage:
         friendly_name: Total Energy Usage
         unit_of_measurement: kWh
-        value_template: "{{ (states('sensor.dehumidifier_energy')|float + states('sensor.office_power_electricity_w_meter')|float)|round(1) }}"
+        value_template: "{{ (states('sensor.dehumidifier_energy')|float + states('sensor.office_power_electricity_w_meter')|float(default=0))|round(1) }}"
