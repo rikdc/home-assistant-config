@@ -14,6 +14,8 @@ homeassistant:
           {% set h = states(trigger.entity_id) %}
           {% if h == 'unit2livingroom' %}
             Upstairs
+          {% elif h == 'unit2Front' %}
+            Office
           {% elif h == 'unit1FrontRoom' %}
             Downstairs
           {% elif h == 'not_home' %}
@@ -64,9 +66,9 @@ binary_sensor:
         delay_on:
           seconds: 3
         value_template: >-
-          {{ (is_state('input_boolean.home_occupied', 'on') 
+          {{ (is_state('input_boolean.home_occupied', 'on')
               and (
-                   is_state('binary_sensor.bedroom1_occupied', 'on')) 
+                   is_state('binary_sensor.bedroom1_occupied', 'on'))
                 or is_state('binary_sensor.unit1_frontroom_occupied', 'on')
               )
           }}
@@ -101,7 +103,7 @@ binary_sensor:
         delay_on:
           seconds: 3
         value_template: >-
-          {{ is_state('binary_sensor.motion_living_room_home_security_motion_detection', 'on') 
+          {{ is_state('binary_sensor.motion_living_room_home_security_motion_detection', 'on')
               or is_state('sensor.4246807c524d46c58df145284816b8e1_100_1_room_presence', 'unit1BackPi')
               or is_state('sensor.186ca552_d54b_417c_b812_9778b0252aa7_room_presence', 'unit1BackPi')
               or is_state('sensor.df8d2ff3_980f_43df_ba53_7482bbf25627_room_presence', 'unit1BackPi')
@@ -126,7 +128,7 @@ binary_sensor:
         delay_on:
           seconds: 3
         value_template: >-
-          {{ (is_state('input_boolean.home_occupied', 'on') 
+          {{ (is_state('input_boolean.home_occupied', 'on')
                 and (
                      is_state('binary_sensor.first_floor_bathroom_occupancy', 'on')
                   or is_state('binary_sensor.unit2_livingroom_occupancy', 'on')
@@ -150,7 +152,7 @@ binary_sensor:
         delay_on:
           seconds: 3
         value_template: >-
-          {{ is_state('binary_sensor.first_floor_occupancy', 'on')           
+          {{ is_state('binary_sensor.first_floor_occupancy', 'on')
               and is_state('media_player.roku_streaming_stick', 'playing')
             }}
 
@@ -191,6 +193,9 @@ template:
       - platform: state
         entity_id:
           - sensor.4246807c524d46c58df145284816b8e1_100_1_room_presence
+      - platform: zone
+        entity_id: !secret person1_entity
+        zone: zone.home
     sensor:
       - name: "Person1 Location"
         <<: *room_determination
@@ -199,6 +204,9 @@ template:
       - platform: state
         entity_id:
           - sensor.186ca552_d54b_417c_b812_9778b0252aa7_room_presence
+      - platform: zone
+        entity_id: !secret person2_entity
+        zone: zone.home
     sensor:
       - name: "Person2 Location"
         <<: *room_determination
@@ -207,6 +215,9 @@ template:
       - platform: state
         entity_id:
           - sensor.df8d2ff3_980f_43df_ba53_7482bbf25627_room_presence
+      - platform: zone
+        entity_id: !secret person3_entity
+        zone: zone.home
     sensor:
       - name: "Person3 Location"
         <<: *room_determination

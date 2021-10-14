@@ -36,7 +36,7 @@ light:
     entities:
       - light.unit2_loft_light_dimmer
       - light.unit2_loft_fairy_lights
-      - light.kitchen_pendants_2
+      - light.kitchen_pendants
       - light.unit2_kitchen_spotlights_dimmer
       - light.upstairs_fireside_lamp
       - light.staircase_lights
