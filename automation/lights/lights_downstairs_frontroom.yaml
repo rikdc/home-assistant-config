@@ -1,4 +1,4 @@
-alias: Light Unit1 Frontroom Motion
+alias: Light Downstairs Frontroom Motion
 description: ""
 use_blueprint:
   path: freakshock88/motion_illuminance_activated_entity.yaml

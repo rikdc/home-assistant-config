@@ -1,4 +1,4 @@
-alias: Light Unit2 Livingroom Motion
+alias: Light Upstairs Livingroom Motion
 use_blueprint:
   path: freakshock88/motion_illuminance_activated_entity.yaml
   input:

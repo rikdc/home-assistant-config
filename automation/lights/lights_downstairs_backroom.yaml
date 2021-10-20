@@ -1,5 +1,5 @@
 id: b3805d37-5888-4d00-a019-6295dc650cdd
-alias: Light Unit1 Backroom Motion
+alias: Light Downstairs Backroom Motion
 description: ""
 use_blueprint:
   path: freakshock88/motion_illuminance_activated_entity.yaml
