@@ -1,0 +1,20 @@
+id: "7a569e58-b647-42a3-a199-718a5d24f7e0"
+alias: Light AutoOff Kitchen
+description: ""
+trigger:
+  - platform: state
+    entity_id: light.unit1_kitchen_lights
+    to: "on"
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+action:
+  - wait_for_trigger:
+      - platform: state
+        entity_id: binary_sensor.unit1_backroom_occupancy
+        to: "off"
+  - service: light.turn_off
+    entity_id: light.unit1_kitchen_lights
+  - service: "script.turn_off_kitchen_lights"
+mode: single
