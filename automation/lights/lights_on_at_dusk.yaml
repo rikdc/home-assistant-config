@@ -6,8 +6,6 @@ trigger:
     event: sunset
 condition: []
 action:
-  - type: turn_on
-    device_id: 0da99448d71f804081f1f849ded7a374
+  - service: light.turn_on
     entity_id: light.light_outside_front
-    domain: light
 mode: single

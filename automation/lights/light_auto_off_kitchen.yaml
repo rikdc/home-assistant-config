@@ -16,5 +16,5 @@ action:
         to: "off"
   - service: light.turn_off
     entity_id: light.unit1_kitchen_lights
-  - service: "script.turn_off_kitchen_lights"
+  - service: script.turn_off_kitchen_lights
 mode: single
