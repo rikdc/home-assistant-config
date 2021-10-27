@@ -4,15 +4,15 @@ trigger:
   - platform: state
     entity_id: input_boolean.bedtime
     to: "on"
-  - platform: state
-    entity_id: remote.50_tcl_roku_tv
-    to: "off"
+  # - platform: state
+  #   entity_id: remote.50_tcl_roku_tv
+  #   to: "off"
 action:
-  - service: light.turn_on
-    target:
-      entity_id: light.frontroom_ceiling
-    data:
-      brightness_pct: 50
+  # - service: light.turn_on
+  #   target:
+  #     entity_id: light.frontroom_ceiling
+  #   data:
+  #     brightness_pct: 50
   - service: switch.turn_off
     entity_id: switch.light_end_table
   - service: lock.lock
@@ -27,5 +27,5 @@ action:
     entity_id: input_boolean.bedtime
   - service: script.post_to_home_log
     data:
-      message: "🛌" Person 1 is going to bed"
+      message: "🛌 Person 1 is going to bed"
       title: Bedtime!
