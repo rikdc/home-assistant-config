@@ -157,6 +157,26 @@ sensor:
     scan_interval: 3600
     unit_of_measurement: pc
 
+  #
+  # Host System Updates
+  #
+  # @link https://community.home-assistant.io/t/ha-on-ubuntu-monitor-available-os-updates/158417/4
+  #
+  - platform: command_line
+    name: System Updates
+    scan_interval: 86400
+    command: "cat /share/system_updates.out | cut -d ';' -f 1"
+
+  #
+  # Host System Security Updates
+  #
+  # @link https://community.home-assistant.io/t/ha-on-ubuntu-monitor-available-os-updates/158417/4
+  #
+  - platform: command_line
+    name: Security Updates
+    scan_interval: 86400
+    command: "cat /share/system_updates.out | cut -d ';' -f 2"
+
 switch:
   - platform: template
     switches:
