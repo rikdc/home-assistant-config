@@ -251,9 +251,9 @@ automation:
         above: 0
         for: "24:00:00"
     action:
-      - service: notify.admins
+      - service: script.post_to_home_log
         data:
-          title: "Updates Available"
+          title: "Server Updates"
           message: "Warning - Mufasa can be updated, but unattended upgrades has not run"
 
   ## Notify if we're running out of disk space on the main home-assistant server.
