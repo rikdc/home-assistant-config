@@ -28,7 +28,7 @@ light:
       - light.frontroom_ceiling
       - light.switches_bathroom1
       - light.unit1_bathroom_ceiling
-      - light.dimmer_dry_contact_relay # Mudroom
+      - light.switches_mudroom
       - light.lower_back_deck_light
 
   - platform: group
