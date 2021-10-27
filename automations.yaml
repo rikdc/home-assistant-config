@@ -1,64 +1,53 @@
-- id: '1611013578242'
+- id: "1611013578242"
   alias: Tag b8901fe6-ad65-45c8-9f3d-e24bf8b62c63 is scanned
-  description: ''
+  description: ""
   trigger:
-  - platform: tag
-    tag_id: b8901fe6-ad65-45c8-9f3d-e24bf8b62c63
+    - platform: tag
+      tag_id: b8901fe6-ad65-45c8-9f3d-e24bf8b62c63
   condition: []
   action:
-  - service: automation.trigger
-    data: {}
-    entity_id: automation.cat_has_been_fed
+    - service: automation.trigger
+      data: {}
+      entity_id: automation.cat_has_been_fed
   mode: single
-- id: '1613484113089'
+- id: "1613484113089"
   alias: Richard at Work Toggle
-  description: ''
+  description: ""
   trigger:
-  - platform: tag
-    tag_id: 6dca970e-7431-4082-be30-39768671197f
+    - platform: tag
+      tag_id: 6dca970e-7431-4082-be30-39768671197f
   condition: []
   action:
-  - choose:
-    - conditions:
-      - condition: not
-        conditions:
-        - condition: state
-          entity_id: input_select.person2_activity
-          state: At Work
-      sequence:
-      - service: input_select.select_option
-        data:
-          option: At Work
-        entity_id: input_select.person2_activity
-    default: []
+    - choose:
+        - conditions:
+            - condition: not
+              conditions:
+                - condition: state
+                  entity_id: input_select.person2_activity
+                  state: At Work
+          sequence:
+            - service: input_select.select_option
+              data:
+                option: At Work
+              entity_id: input_select.person2_activity
+      default: []
   mode: single
-- id: '1613583111771'
-  alias: Door Log Tag
-  description: ''
-  trigger:
-  - platform: tag
-    tag_id: ea03378e-838b-493b-9920-28a728df67d8
-  condition: []
-  action:
-  - service: lock.lock
-    data: {}
-    entity_id: lock.frontdoor_lock
-  mode: single
-- id: '1613583163489'
+
+- id: "1613583163489"
   alias: Tag ea03378e-838b-493b-9920-28a728df67d8 is scanned
-  description: ''
+  description: ""
   trigger:
-  - platform: tag
-    tag_id: ea03378e-838b-493b-9920-28a728df67d8
+    - platform: tag
+      tag_id: ea03378e-838b-493b-9920-28a728df67d8
   condition: []
   action:
-  - service: lock.lock
-    data: {}
-    entity_id: lock.frontdoor_lock
+    - service: lock.lock
+      data: {}
+      entity_id: lock.frontdoor_lock
   mode: single
-- id: '1618690465011'
+- id: "1618690465011"
   alias: Motion Light Bathroom 2
-  description: ''
+  description: ""
   use_blueprint:
     path: freakshock88/motion_illuminance_activated_entity.yaml
     input:
@@ -67,111 +56,111 @@
       no_motion_wait: input_number.bathroom2_off_duration
 - id: upstairs_scene_controller
   alias: SceneController Upstairs
-  description: ''
+  description: ""
   use_blueprint:
     path: philk/zen34-blueprint.yaml
     input:
       zwave_device: 9f43aee3bf7ab12f4221b7462c5431bd
       KeyPressed_Up:
-      - service: light.turn_on
-        entity_id: light.unit2_sofa_lamp
+        - service: light.turn_on
+          entity_id: light.unit2_sofa_lamp
       KeyPressed_Down:
-      - service: light.turn_off
-        entity_id: light.unit2_sofa_lamp
+        - service: light.turn_off
+          entity_id: light.unit2_sofa_lamp
       KeyPressed2x_Up:
-      - service: light.turn_on
-        target:
-          entity_id:
-          - light.unit2_sofa_lamp
-          - light.kitchen_pendants
+        - service: light.turn_on
+          target:
+            entity_id:
+              - light.unit2_sofa_lamp
+              - light.kitchen_pendants
       KeyPressed2x_Down:
-      - service: light.turn_off
-        target:
-          entity_id:
-          - light.unit2_sofa_lamp
-          - light.kitchen_pendants
+        - service: light.turn_off
+          target:
+            entity_id:
+              - light.unit2_sofa_lamp
+              - light.kitchen_pendants
       KeyPressed3x_Up: []
       KeyPressed3x_Down:
-      - service: light.turn_on
-        target:
-          entity_id: light.bathroom2_lights
-      - service: light.turn_off
-        target:
-          entity_id:
-          - light.kitchen_spotlights
-          - light.kitchen_pendants
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 5
-          milliseconds: 0
-      - service: light.turn_off
-        target:
-          entity_id: light.upstairs
-- id: '1626660542063'
+        - service: light.turn_on
+          target:
+            entity_id: light.bathroom2_lights
+        - service: light.turn_off
+          target:
+            entity_id:
+              - light.kitchen_spotlights
+              - light.kitchen_pendants
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 5
+            milliseconds: 0
+        - service: light.turn_off
+          target:
+            entity_id: light.upstairs
+- id: "1626660542063"
   alias: Downstairs Scene Controller
-  description: ''
+  description: ""
   use_blueprint:
     path: philk/zen34-blueprint.yaml
     input:
       KeyPressed_Up:
-      - service: light.turn_on
-        target:
-          device_id: 24f3de9ca06f58ad025f3c032fd9513f
+        - service: light.turn_on
+          target:
+            device_id: 24f3de9ca06f58ad025f3c032fd9513f
       KeyPressed2x_Up:
-      - service: light.turn_on
-        target:
-          entity_id:
-          - light.frontroom_ceiling
-          - light.unit1_livingroom_lamp
+        - service: light.turn_on
+          target:
+            entity_id:
+              - light.frontroom_ceiling
+              - light.unit1_livingroom_lamp
       KeyPressed_Down:
-      - service: light.turn_off
-        target:
-          device_id: 24f3de9ca06f58ad025f3c032fd9513f
+        - service: light.turn_off
+          target:
+            device_id: 24f3de9ca06f58ad025f3c032fd9513f
       KeyPressed2x_Down:
-      - service: light.turn_off
-        target:
-          device_id:
-          - 24f3de9ca06f58ad025f3c032fd9513f
-          entity_id: light.unit1_livingroom_lamp
+        - service: light.turn_off
+          target:
+            device_id:
+              - 24f3de9ca06f58ad025f3c032fd9513f
+            entity_id: light.unit1_livingroom_lamp
       zwave_device: d25a719d48bd81d2fadf702fec723708
       KeyPressed3x_Down:
-      - service: script.person1_bedtime
-- id: '1633398975580'
+        - service: script.person1_bedtime
+- id: "1633398975580"
   alias: Dim Lights when Roku Plays
-  description: ''
+  description: ""
   trigger:
-  - platform: state
-    entity_id: media_player.50_tcl_roku_tv
-    to: playing
+    - platform: state
+      entity_id: media_player.50_tcl_roku_tv
+      to: playing
   condition:
-  - condition: time
-    after: '19:00:00'
+    - condition: time
+      after: "19:00:00"
   action:
-  - service: light.turn_on
-    data:
-      brightness: 52
-      kelvin: 2700
-    target:
-      device_id: 24f3de9ca06f58ad025f3c032fd9513f
-  - service: switch.turn_on
-    target:
-      entity_id:
-      - switch.light_end_table
+    - service: light.turn_on
+      data:
+        brightness: 52
+        kelvin: 2700
+      target:
+        device_id: 24f3de9ca06f58ad025f3c032fd9513f
+    - service: switch.turn_on
+      target:
+        entity_id:
+          - switch.light_end_table
   mode: single
-- id: '1633398975581'
+- id: "1633398975581"
   alias: Dim Lights when Roku Stops
-  description: ''
+  description: ""
   trigger:
-  - platform: state
-    entity_id: media_player.50_tcl_roku_tv
-    to: 'on'
+    - platform: state
+      entity_id: media_player.50_tcl_roku_tv
+      to: "on"
   condition: []
   action:
-  - service: light.turn_on
-    data:
-      brightness: 254
-      kelvin: 2700
-    target:
-      device_id: 24f3de9ca06f58ad025f3c032fd9513f
+    - service: light.turn_on
+      data:
+        brightness: 254
+        kelvin: 2700
+      target:
+        device_id: 24f3de9ca06f58ad025f3c032fd9513f
   mode: single
