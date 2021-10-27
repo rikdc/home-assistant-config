@@ -10,29 +10,6 @@
       data: {}
       entity_id: automation.cat_has_been_fed
   mode: single
-- id: "1613484113089"
-  alias: Richard at Work Toggle
-  description: ""
-  trigger:
-    - platform: tag
-      tag_id: 6dca970e-7431-4082-be30-39768671197f
-  condition: []
-  action:
-    - choose:
-        - conditions:
-            - condition: not
-              conditions:
-                - condition: state
-                  entity_id: input_select.person2_activity
-                  state: At Work
-          sequence:
-            - service: input_select.select_option
-              data:
-                option: At Work
-              entity_id: input_select.person2_activity
-      default: []
-  mode: single
-
 - id: "1613583163489"
   alias: Tag ea03378e-838b-493b-9920-28a728df67d8 is scanned
   description: ""
