@@ -1,3 +1,4 @@
+id: "7bda5cff-8b7b-4bd6-a387-ec6e95992e9d"
 alias: Light Upstairs Livingroom Motion
 use_blueprint:
   path: freakshock88/motion_illuminance_activated_entity.yaml

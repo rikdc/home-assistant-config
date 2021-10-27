@@ -157,6 +157,26 @@ sensor:
     scan_interval: 3600
     unit_of_measurement: pc
 
+  #
+  # Host System Updates
+  #
+  # @link https://community.home-assistant.io/t/ha-on-ubuntu-monitor-available-os-updates/158417/4
+  #
+  - platform: command_line
+    name: System Updates
+    scan_interval: 86400
+    command: "cat /share/system_updates.out | cut -d ';' -f 1"
+
+  #
+  # Host System Security Updates
+  #
+  # @link https://community.home-assistant.io/t/ha-on-ubuntu-monitor-available-os-updates/158417/4
+  #
+  - platform: command_line
+    name: Security Updates
+    scan_interval: 86400
+    command: "cat /share/system_updates.out | cut -d ';' -f 2"
+
 switch:
   - platform: template
     switches:
@@ -205,7 +225,7 @@ alert:
 #                                                               #
 #################################################################
 automation:
-  - id: update_verify
+  - id: "330757ab-210e-4a78-8743-693cca42c9eb"
     alias: "Update VERIFY"
     trigger:
       # When Home Assistant starts.
@@ -221,6 +241,20 @@ automation:
       # Force a refresh of the updater component.
       - service: homeassistant.update_entity
         entity_id: binary_sensor.updater
+
+  - id: "c2f9d980-82df-4fc7-af59-fc5594a1d039"
+    alias: "System: Host updates not installed"
+    description: "Home Assistant will check the parent host to determine if updates have been applied"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.system_updates
+        above: 0
+        for: "24:00:00"
+    action:
+      - service: script.post_to_home_log
+        data:
+          title: "Server Updates"
+          message: "Warning - Mufasa can be updated, but unattended upgrades has not run"
 
   ## Notify if we're running out of disk space on the main home-assistant server.
   - alias: Disk Use Alarm
