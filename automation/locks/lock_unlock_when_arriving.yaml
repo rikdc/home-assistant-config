@@ -1,0 +1,13 @@
+id: "55bf64c2-cfbb-486f-9427-d16789510424"
+alias: Unlock Frontdoor
+description: ""
+trigger:
+  - platform: state
+    entity_id: person.richard
+    to: home
+condition: []
+action:
+  - service: lock.unlock
+    target:
+      entity_id: lock.frontdoor
+mode: single
