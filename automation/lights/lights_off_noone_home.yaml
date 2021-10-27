@@ -7,8 +7,8 @@ trigger:
     platform: state
     to: away
 action:
-  - type: turn_off
+  - service: light.turn_on
     entity_id: light.downstairs
-  - type: turn_off
+  - service: light.turn_on
     entity_id: light.upstaors
 mode: single
