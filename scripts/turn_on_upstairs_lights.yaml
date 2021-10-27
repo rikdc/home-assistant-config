@@ -1,0 +1,5 @@
+alias: Turn on All Upstairs Lights
+sequence:
+  - service: light.turn_on
+    entity_id: light.upstairs
+mode: single

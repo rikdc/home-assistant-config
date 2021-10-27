@@ -41,7 +41,7 @@ ios:
             behavior: "default"
 
 automation:
-  - id: "1610928666132"
+  - id: "9da4630f-a4fe-46ca-a9bc-1adf1f0b669b"
     alias: Has the cat been fed yet?
     description: ""
     trigger:
@@ -81,7 +81,7 @@ automation:
                   value_template: "{{ not is_state('binary_sensor.cat_needs_feeding', 'on')}}"
               timeout: 1800 # 30 Minutes
     mode: single
-  - id: "1610928766081"
+  - id: "e677e588-369a-4113-b9d1-50a48feccc6d"
     alias: Cat has been fed
     description: Clears alerts when the cat has been fed
     trigger:

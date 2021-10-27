@@ -35,10 +35,12 @@
 # 2,000-5,000 ppm 	Headaches, sleepiness and stagnant, stale, stuffy air. Poor concentration, loss of attention, increased heart rate and slight nausea may also be present.
 # 5,000 	Workplace exposure limit (as 8-hour TWA) in most jurisdictions.
 
+# [] - Co2 on the rise, stuffiness warning.
+
 sensor:
   - platform: filter
     name: "Office1 Realistic co2"
-    entity_id: sensor.bme680_co2_equivalent # sensor.bme680_breath_voc_equivalent
+    entity_id: sensor.ccs811_eco2_value_2 # sensor.bme680_breath_voc_equivalent
     filters:
       - filter: outlier
         window_size: 4
