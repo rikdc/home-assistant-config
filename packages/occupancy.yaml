@@ -18,18 +18,8 @@ homeassistant:
             Office
           {% elif h == 'unit1FrontRoom' %}
             Downstairs
-          {% elif h == 'not_home' %}
-            {% set away_for = ((as_timestamp(now()) - as_timestamp(states.sensor[trigger.entity_id].last_changed)) /60) |int %}
-            {{ away_for }}
-            {% if (away_for <= 1) %}
-              Just Left
-            {% elif away_for <= 1440 %}
-              Away
-            {% else %}
-              Extended Away
-            {% endif %}
           {% else %}
-            Bathroom
+            {{ h }}
           {% endif %}
 
       occupancy_states: &occupancy_states
@@ -48,9 +38,11 @@ homeassistant:
           - Just Left
           - Away
           - Extended Away
-          - Unit1 Kitchen
-          - Unit1 Livingroom
-          - Unit2 Livingroom
+          - Kitchen
+          - Downstairs
+          - Upstairs
+          - Downstairs Livingroom
+          - Upstairs Livingroom
           - Bedroom
           - Bathroom
           - Upper Office
@@ -188,6 +180,15 @@ input_select:
     initial: Unknown
     <<: *occupancy_states
 
+  stefanie_location:
+    <<: *location_states
+
+  richard_location:
+    <<: *location_states
+
+  jenn_location:
+    <<: *location_states
+
 template:
   - trigger:
       - platform: state
@@ -238,7 +239,7 @@ automation:
           entity_id: input_boolean.home_occupied
 
   - id: "04bd834f-d3ac-4e45-a440-807fc26d5d39"
-    alias: "Set home to not occupied"
+    alias: "Set home to unoccupied"
     trigger:
       platform: state
       entity_id:
@@ -340,6 +341,36 @@ automation:
         data:
           entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
           option: "Home"
+
+  - id: "a8d9090d-b313-4fdd-8722-5d02bf181528"
+    alias: "Occupancy: Person 1 Room Location"
+    trigger:
+      - platform: state
+        entity_id:
+          - sensor.stefanie_room_presence # Person 1
+          - sensor.richard_room_presence # Person 2
+          - sensor.jenn_room_presence # Person 3
+      - platform: zone
+        entity_id:
+          - !secret person1_entity
+        zone: zone.home
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: "{{ 'input_select.' + trigger.entity_id[7:-14] + '_location' }}"
+          option: >
+            {% set h = states(trigger.entity_id) %}
+            {% if h == 'unit2livingroom' %}
+              Upstairs
+            {% elif h == 'unit2Front' %}
+              Upper Office
+            {% elif h == 'unit1FrontRoom' %}
+              Downstairs
+            {% elif h == 'pi0-lower-back' %}
+              Downstairs
+            {% else %}
+              {{ h }}
+            {% endif %}
 
   - id: "f2f4f55f-d1a5-4e06-91f0-0dfce4292b69"
     alias: "Room Location"
