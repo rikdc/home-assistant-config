@@ -124,7 +124,9 @@ binary_sensor:
                 and (
                      is_state('binary_sensor.first_floor_bathroom_occupancy', 'on')
                   or is_state('binary_sensor.unit2_livingroom_occupancy', 'on')
-                  or is_state('sensor.richard_location', 'Upstairs')
+                  or is_state('input_select.richard_location', 'Upstairs')
+                  or is_state('input_select.stefanie_location', 'Upstairs')
+                  or is_state('input_select.jenn_location', 'Upstairs')
                 ))
           }}
 
