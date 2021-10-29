@@ -1,0 +1,70 @@
+id: b034485d-7c4f-42c1-b9f3-e94fcd3eb111
+alias: "Locks: No One Home And House Is Not Locked"
+description: "Locks all doors when everyone is out"
+initial_state: "on"
+trigger:
+  - platform: state
+    entity_id: group.household
+    from: "home"
+    to: "not_home"
+condition:
+  #   - condition: not
+  #     conditions:
+  #       - condition: state
+  #         entity_id: device_tracker.unifi_security_gateway
+  #         state: unavailable
+  - condition: state
+    entity_id: input_boolean.automations_presence
+    state: "on"
+action:
+  - service: lock.lock
+    entity_id: group.all_house_locks
+  - service: alarm_control_panel.alarm_arm_away
+    entity_id: alarm_control_panel.home_alarm
+  - service: script.post_to_home_log
+    data:
+      message:
+        ":warning: :door: :window: The following entrances are still open:
+        {% for entity in state_attr('group.alarm_sensors','entity_id')
+        %}{% if states(entity) == 'on' %}{{ '\n* ' ~ state_attr(entity, 'friendly_name')
+        }} {% endif %}{% endfor %}"
+      title: Doors have been locked
+# action:
+#   - choose:
+#       - conditions:
+#           - condition: not
+#             conditions:
+#               # - condition: state
+#               #   entity_id: input_select.home_mode
+#               #   state: Guest
+#               - condition: state
+#                 entity_id: input_boolean.allow_notifications
+#                 state: "off"
+#         sequence:
+#           - service: script.post_to_direct_notification
+#             data:
+#               message:
+#                 ":warning: :door: :window: The following entrances are still open:
+#                 {% for entity in state_attr('group.alarmed_doors_and_windows','entity_id')
+#                 %}{% if states(entity) == 'on' %}{{ '\n* ' ~ state_attr(entity, 'friendly_name')
+#                 }} {% endif %}{% endfor %}"
+#               title: No one is home and couldn't turn on the alarm
+#     default: []
+#   - choose:
+#       - conditions:
+#           - condition: not
+#             conditions:
+#               - condition: state
+#                 entity_id: input_select.home_mode
+#                 state: Guest
+#         sequence:
+#           - service: script.post_to_home_log
+#             data:
+#               message:
+#                 ":warning: :door: :window: The following entrances are still open:
+#                 {% for entity in state_attr('group.alarmed_doors_and_windows','entity_id')
+#                 %}{% if states(entity) == 'on' %}{{ '\n* ' ~ state_attr(entity, 'friendly_name')
+#                 }} {% endif %}{% endfor %}"
+#               title: No one is home and couldn't turn on the alarm
+#     default: []
+# mode: single

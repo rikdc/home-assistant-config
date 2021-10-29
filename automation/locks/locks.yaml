@@ -1,0 +1,12 @@
+id: lock_all_doors
+alias: "Locks: Lock doors when everyone is out"
+description: "Locks all doors when everyone is out"
+initial_state: "on"
+trigger:
+  - platform: state
+    entity_id: group.household
+    from: "home"
+    to: "away"
+action:
+  - service: lock.lock
+    entity_id: group.all_house_locks
