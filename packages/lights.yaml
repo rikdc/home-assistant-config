@@ -39,6 +39,7 @@ light:
       - light.upstairs_kitchen_pendants
       - light.upstairs_kitchen_spotlights
       - light.upstairs_fireside_lamp
+      - light.upper_livingroom_lamp
       - light.staircase_lights
       - light.unit2_sofa_lamp
       - light.unit2_office
