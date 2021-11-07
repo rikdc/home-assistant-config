@@ -26,7 +26,8 @@ template:
       - name: "Bedroom1 Humidity Status"
         device_class: "problem"
         state: >
-          {{ states('sensor.bedroom1_realistic_humidity') | int < 40 or states('sensor.bedroom1_realistic_humidity') | int > 50 }}
+          {% set state = states('sensor.bedroom1_realistic_humidity') %}
+          {{ is_number(state) and ( state | float < 40  or state | float > 50 )  }}
         delay_on: 00:00:30
         delay_off: 00:00:30
         attributes:
