@@ -27,6 +27,8 @@ template:
         device_class: "problem"
         state: >
           {{ states('sensor.bedroom1_realistic_humidity') | int < 40 or states('sensor.bedroom1_realistic_humidity') | int > 50 }}
+        delay_on: 00:00:30
+        delay_off: 00:00:30
         attributes:
           room: "Bedroom 1"
           reason: >-
