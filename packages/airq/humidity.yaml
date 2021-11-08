@@ -12,7 +12,7 @@
 sensor:
   - platform: filter
     name: "Bedroom1 Realistic Humidity"
-    entity_id: sensor.unit_1_bedroom_humidity
+    entity_id: sensor.motion_bedroom1_humidity
     filters:
       - filter: outlier
         window_size: 4
@@ -52,6 +52,35 @@ template:
               Saturation Point
             {% endif %}
 
+      - name: "Livingroom1 Humidity Status"
+        device_class: "problem"
+        state: >
+          {% set state = states('sensor.motion_frontroom_humidity') %}
+          {{ is_number(state) and ( state | float < 40  or state | float > 50 )  }}
+        delay_on: 00:00:30
+        delay_off: 00:00:30
+        attributes:
+          room: "Livingroom 1"
+          reason: >-
+            {% set current_state = states('sensor.motion_frontroom_humidity')|int %}
+            {% if current_state < 15 %}
+              Way too dry
+            {% elif current_state < 20 %}
+              Too Dry
+            {% elif current_state < 40 %}
+              Dry
+            {% elif current_state < 50 %}
+              Good
+            {% elif current_state < 60 %}
+              Humid
+            {% elif current_state < 65 %}
+              Too Humid
+            {% elif current_state < 80 %}
+              Soaking
+            {% else %}
+              Saturation Point
+            {% endif %}
+
 automation:
   - alias: AirQ - Indoor Humidity Notifications
     trigger:
@@ -68,5 +97,6 @@ automation:
             The humidity in {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'reason') }}
       - service: notify.all
         data:
+          notification_id: "{{ trigger.entity_id }}"
           message: >
             The humidity in the {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'reason') }}
