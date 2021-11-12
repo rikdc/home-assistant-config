@@ -23,7 +23,7 @@ light:
       - light.unit1_hallway_lights
       - light.unit1_kitchen_ceiling_light
       - light.unit1_kitchen_cabinets
-      - light.light_livingroom
+      - light.downstairs_backroom
       - light.unit1_livingroom_lamp
       - light.frontroom_ceiling
       - light.switches_bathroom1
