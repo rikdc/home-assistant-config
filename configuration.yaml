@@ -87,20 +87,9 @@ browser_mod:
 
 logger:
   default: info
-
-localtuya:
-  - host: 192.168.30
-    device_id: 08102037e8db84b81c50
-    local_key: dba2c9a835a3456999e66c25ae2fba09
-    friendly_name: Tuya Device
-    protocol_version: "3.3"
-    entities:
-      - platform: binary_sensor
-        friendly_name: Plug Status
-        id: 1
-        device_class: power
-        state_on: "true" # Optional
-        state_off: "false" # Optional
+  logs:
+    # Reduces excessive logging for this automation.
+    homeassistant.components.automation.occupancy_person_1_room_location: error
 
 # Text to speech
 tts:
@@ -118,6 +107,7 @@ recorder:
     entity_globs:
       - media_player.*
       - sensor.emby*
+      - automation.occupancy_*
 
 influxdb:
   host: influxdb
@@ -177,3 +167,8 @@ media_player:
     host: !secret mopidy_multiroom
     port: 6600
     name: Multi-Room Controller
+
+counter:
+  front_door:
+    initial: 0
+    step: 1
