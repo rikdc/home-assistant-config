@@ -43,6 +43,23 @@ light:
       - light.staircase_lights
       - light.unit2_sofa_lamp
       - light.unit2_office
+      - light.upper_livingroom_lamp
+      - light.office2_lamp2
+      - light.bathroom2_lights
+      - light.switches_bathroom1
+
+  - platform: group
+    name: Upstairs Livingroom
+    entities:
+      - light.upper_livingroom_lamp
+      - light.upstairs_fireside_lamp
+      - light.unit2_sofa_lamp
+
+  - platform: group
+    name: Upstairs Office
+    entities:
+      - light.office2_lamp2
+      - light.office_light
 
   - platform: group
     name: Loft Lights
@@ -133,6 +150,13 @@ light:
       - light.unit2_loft_fairy_lights
 
   - platform: group
+    name: Office2 Lights
+    entities:
+      - light.office2_lamp2
+      - light.office_lamp2
+      - light.multi_color_bulb_2
+
+  - platform: group
     name: Upstairs Livingroom
     entities:
       - light.unit2_sofa_lamp
@@ -151,6 +175,10 @@ light:
   - platform: switch
     name: "Office Light"
     entity_id: switch.unit2_office_switch
+
+  - platform: switch
+    name: "Office Lamp2"
+    entity_id: switch.office
 
   - platform: switch
     name: "Upstairs Fireside Lamp"
