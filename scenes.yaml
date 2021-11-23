@@ -73,7 +73,7 @@
     switch.kitchen_pendants:
       friendly_name: Kitchen_Pendants
       state: "on"
-    light.light_livingroom:
+    light.downstairs_backroom:
       supported_color_modes:
         - brightness
       color_mode: brightness

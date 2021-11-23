@@ -27,7 +27,7 @@ light:
       - light.unit1_livingroom_lamp
       - light.frontroom_ceiling
       - light.switches_bathroom1
-      - light.unit1_bathroom_ceiling
+      - light.unit1_bathroom_vanity_light
       - light.switches_mudroom
       - light.lower_back_deck_light
 
@@ -41,7 +41,7 @@ light:
       - light.upstairs_fireside_lamp
       - light.upper_livingroom_lamp
       - light.staircase_lights
-      - light.unit2_sofa_lamp
+      - light.upstairs_sofa_lamp
       - light.unit2_office
       - light.upper_livingroom_lamp
       - light.office2_lamp2
@@ -67,10 +67,10 @@ light:
       - light.unit2_loft_fairy_lights
 
   - platform: group
-    name: Unit1 Bathroom Lights
+    name: Bathroom1 Lights
     entities:
-      - light.unit1_bathroom_vanity_light
-      - light.bathroom_shower_light # wtf?
+      - light.bathroom1_vanity
+      - light.bathroom1_ceiling
 
   - platform: group
     name: Unit1 Kitchen Lights
@@ -125,16 +125,8 @@ light:
     entity_id: switch.hallway_lights
 
   - platform: switch
-    name: Unit1 Bathroom Ceiling
+    name: Bathroom1 Ceiling
     entity_id: switch.switches_bathroom1
-
-  - platform: switch
-    name: Unit1 Bathroom Vanity Light
-    entity_id: switch.unit1_bathroom_vanity_light
-
-  - platform: switch
-    name: Unit1 Bathroom Shower Light
-    entity_id: switch.unit1_bathroom_shower_light
 
   - platform: switch
     name: Lower back deck light
@@ -159,7 +151,7 @@ light:
   - platform: group
     name: Upstairs Livingroom
     entities:
-      - light.unit2_sofa_lamp
+      - light.upstairs_sofa_lamp
       - light.upper_livingroom_lamp
 
   - platform: group
@@ -168,13 +160,20 @@ light:
       - light.upstairs_kitchen_pendants
       - light.upstairs_kitchen_spotlights
 
+  - platform: group
+    name: Upstairs Office
+    entities:
+      - light.office2_lamp2
+      - light.multi_color_bulb_2
+      - light.office2_lamp1
+
   - platform: switch
     name: "Unit2 Loft Fairy Lights"
     entity_id: switch.unit2_socket_bedroom
 
   - platform: switch
-    name: "Office Light"
-    entity_id: switch.unit2_office_switch
+    name: "Office2 Lamp"
+    entity_id: switch.upstairs_office
 
   - platform: switch
     name: "Office Lamp2"
@@ -189,8 +188,8 @@ light:
     entity_id: switch.staircase_lights
 
   - platform: switch
-    name: "Unit2 Sofa Lamp"
-    entity_id: switch.unit2_socket_livingroom_couch_2
+    name: "Upstairs Sofa Lamp"
+    entity_id: switch.unit2_socket_livingroom_couch
 
   - platform: switch
     name: Bathroom2 Vanity
