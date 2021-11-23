@@ -276,6 +276,7 @@ automation:
       platform: numeric_state
       entity_id: sensor.processor_use
       above: 85
+      for: "00:01:00"
     action:
       - service: notify.admins
         data:
