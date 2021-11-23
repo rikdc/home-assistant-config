@@ -1,0 +1,9 @@
+- id: "1618690465011"
+  alias: Light Upstairs Bathroom
+  description: ""
+  use_blueprint:
+    path: freakshock88/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.motion_bathroom2_home_security_motion_detection
+      target_entity: light.bathroom2_vanity
+      no_motion_wait: input_number.bathroom2_off_duration
