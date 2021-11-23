@@ -23,7 +23,7 @@ light:
       - light.unit1_hallway_lights
       - light.unit1_kitchen_ceiling_light
       - light.unit1_kitchen_cabinets
-      - light.light_livingroom
+      - light.downstairs_backroom
       - light.unit1_livingroom_lamp
       - light.frontroom_ceiling
       - light.switches_bathroom1
@@ -36,9 +36,10 @@ light:
     entities:
       - light.unit2_loft_light_dimmer
       - light.unit2_loft_fairy_lights
-      - light.kitchen_pendants
-      - light.unit2_kitchen_spotlights_dimmer
+      - light.upstairs_kitchen_pendants
+      - light.upstairs_kitchen_spotlights
       - light.upstairs_fireside_lamp
+      - light.upper_livingroom_lamp
       - light.staircase_lights
       - light.unit2_sofa_lamp
       - light.unit2_office
@@ -154,6 +155,18 @@ light:
       - light.office2_lamp2
       - light.office_lamp2
       - light.multi_color_bulb_2
+
+  - platform: group
+    name: Upstairs Livingroom
+    entities:
+      - light.unit2_sofa_lamp
+      - light.upper_livingroom_lamp
+
+  - platform: group
+    name: Upstairs Kitchen
+    entities:
+      - light.upstairs_kitchen_pendants
+      - light.upstairs_kitchen_spotlights
 
   - platform: switch
     name: "Unit2 Loft Fairy Lights"
