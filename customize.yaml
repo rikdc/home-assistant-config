@@ -51,3 +51,10 @@ sensor.unit_1_frontroom_illuminance:
 
 sensor.illuminance:
   device_class: illuminance
+
+# Door/Window Sensors
+binary_sensor.main_entrance_access_control_window_door_is_open:
+  friendly_name: "Main Entrance"
+
+binary_sensor.backdoor_access_control_window_door_is_open:
+  friendly_name: "Upstairs Backdoor"
