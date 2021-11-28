@@ -26,6 +26,7 @@ light:
       - light.downstairs_backroom
       - light.unit1_livingroom_lamp
       - light.frontroom_ceiling
+      - light.backroom # backroom ceiling.
       - light.switches_bathroom1
       - light.unit1_bathroom_vanity_light
       - light.switches_mudroom
