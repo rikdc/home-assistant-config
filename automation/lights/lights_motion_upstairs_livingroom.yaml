@@ -1,0 +1,11 @@
+id: "7bda5cff-8b7b-4bd6-a387-ec6e95992e9d"
+alias: "Lights: Motion Upstairs Livingroom"
+use_blueprint:
+  path: freakshock88/motion_illuminance_activated_entity.yaml
+  input:
+    motion_sensor: binary_sensor.unit_2_kitchen_motion
+    target_entity: light.upstairs_sofa_lamp
+    time_limit_after: input_datetime.unit2_livingroom_lights_on_start
+    time_limit_before: input_datetime.unit2_livingroom_lights_on_stop
+    no_motion_wait: input_number.unit1_frontroom_lights_off_duration
+    turn_off_blocker_entity: binary_sensor.first_floor_occupancy
