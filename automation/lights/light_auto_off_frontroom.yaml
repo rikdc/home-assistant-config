@@ -6,4 +6,4 @@ use_blueprint:
   input:
     occupancy_entity: binary_sensor.unit1_frontroom_occupied
     light_target: light.frontroom_ceiling
-    no_motion_wait: 5
+    no_motion_wait: 900
