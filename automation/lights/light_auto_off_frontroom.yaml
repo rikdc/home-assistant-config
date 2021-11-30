@@ -1,19 +1,9 @@
-id: "eb941460-7f24-49f5-b0f6-d36b76912ee4"
-alias: Light AutoOff Frontroom
+id: "a459c6d0-98fc-42e3-b341-afc2177a71f1"
+alias: "Lights: AutoOff Frontroom"
 description: ""
-trigger:
-  - platform: state
-    entity_id: light.frontroom_ceiling
-    to: "on"
-    for:
-      hours: 0
-      minutes: 15
-      seconds: 0
-action:
-  - wait_for_trigger:
-      - platform: state
-        entity_id: binary_sensor.unit1_frontroom_occupied
-        to: "off"
-  - service: light.turn_off
-    entity_id: light.frontroom_ceiling
-mode: single
+use_blueprint:
+  path: rikdc/lights_off.yaml
+  input:
+    occupancy_entity: binary_sensor.unit1_frontroom_occupied
+    light_target: light.frontroom_ceiling
+    no_motion_wait: 5
