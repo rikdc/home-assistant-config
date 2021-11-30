@@ -4,7 +4,7 @@ sequence:
   - conditions:
     - condition: time
       after: '22:00:00'
-      before: 06:30:00
+      before: '06:30:00'
     sequence:
     - service: scene.turn_on
       target:
