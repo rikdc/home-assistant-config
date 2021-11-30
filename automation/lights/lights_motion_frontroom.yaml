@@ -1,0 +1,9 @@
+id: "c1f876d8-a9f1-4074-938c-e6434f819dc9"
+alias: "Lights: Motion Frontroom"
+description: ""
+use_blueprint:
+  path: freakshock88/motion_illuminance_activated_entity.yaml
+  input:
+    motion_sensor: binary_sensor.motion_frontroom_home_security_motion_detection
+    target_entity: light.frontroom_ceiling
+    no_motion_wait: input_number.unit1_frontroom_lights_off_duration

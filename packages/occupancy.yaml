@@ -83,7 +83,8 @@ binary_sensor:
         value_template: >-
           {{ is_state('media_player.50_tcl_roku_tv', 'playing')
                 or is_state('media_player.50_tcl_roku_tv', 'on')
-                or is_state('binary_sensor.q_sensor_home_security_motion_detection', 'on')
+                or is_state('binary_sensor.motion_frontroom_home_security_motion_detection', 'on')
+                or is_state('binary_sensor.downstairs_person_motion', 'on')
                 or is_state('sensor.c3dcc47c1745_room_presence', 'unit1FrontRoom')
           }}
 
@@ -231,9 +232,9 @@ automation:
     trigger:
       platform: state
       entity_id:
-        - person.richard
-        - person.stefanie
-        - person.jenn
+        - !secret person1_entity
+        - !secret person2_entity
+        - !secret person3_entity
       to: home
     action:
       - service: input_boolean.turn_on
@@ -245,9 +246,9 @@ automation:
     trigger:
       platform: state
       entity_id:
-        - person.richard
-        - person.stefanie
-        - person.jenn
+        - !secret person1_entity
+        - !secret person2_entity
+        - !secret person3_entity
       from: home
       to: not_home
       for:
@@ -256,13 +257,13 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: person.richard
+          entity_id: !secret person1_entity
           state: not_home
         - condition: state
-          entity_id: person.stefanie
+          entity_id: !secret person2_entity
           state: not_home
         - condition: state
-          entity_id: person.jenn
+          entity_id: !secret person3_entity
           state: not_home
     action:
       - service: input_boolean.turn_off
@@ -274,9 +275,9 @@ automation:
     trigger:
       platform: state
       entity_id:
-        - person.richard
-        - person.stefanie
-        - person.jenn
+        - !secret person1_entity
+        - !secret person2_entity
+        - !secret person3_entity
       to: not_home
       for:
         hours: 24
@@ -291,9 +292,9 @@ automation:
     trigger:
       platform: state
       entity_id:
-        - person.richard
-        - person.stefanie
-        - person.jenn
+        - !secret person1_entity
+        - !secret person2_entity
+        - !secret person3_entity
       to: not_home
     action:
       - service: input_select.select_option
@@ -323,9 +324,9 @@ automation:
     trigger:
       platform: state
       entity_id:
-        - person.richard
-        - person.stefanie
-        - person.jenn
+        - !secret person1_entity
+        - !secret person2_entity
+        - !secret person3_entity
       to: home
     action:
       - service: input_select.select_option

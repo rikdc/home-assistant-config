@@ -1,9 +1,9 @@
-id: "a459c6d0-98fc-42e3-b341-afc2177a71f1"
-alias: "Lights: AutoOff Frontroom"
-description: ""
+id: "414145f9-71f7-452d-bccd-8e538c5004ed"
+alias: "Lights: AutoOff Downstairs Backroom"
+description: ''
 use_blueprint:
   path: rikdc/lights_off.yaml
   input:
     occupancy_entity: binary_sensor.unit1_frontroom_occupied
-    light_target: light.frontroom_ceiling
+    light_target: light.backroom
     no_motion_wait: 900
