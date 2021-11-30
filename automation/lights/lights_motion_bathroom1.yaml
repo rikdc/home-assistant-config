@@ -6,7 +6,7 @@ use_blueprint:
   input:
     motion_sensor: binary_sensor.motion_bathroom_home_security_motion_detection
     turn_off_blocker_entity: binary_sensor.bathroom_generic_presence
-    target_entity: light.bathroom1_vanity
+    target_entity: script.turn_on_bathroom_lights
     time_limit_after: input_datetime.unit1_bathroom_lights_on_start
     time_limit_before: input_datetime.unit1_bathroom_lights_on_stop
     no_motion_wait: input_number.unit1_bathroom_lights_off_duration
