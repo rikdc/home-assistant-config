@@ -1,5 +1,5 @@
 id: "414145f9-71f7-452d-bccd-8e538c5004ed"
-alias: "Lights: AutoOff Backroom"
+alias: "Lights: AutoOff Downstairs Backroom"
 description: ''
 use_blueprint:
   path: rikdc/lights_off.yaml
