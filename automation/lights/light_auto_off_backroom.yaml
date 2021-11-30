@@ -1,0 +1,39 @@
+id: " 414145f9-71f7-452d-bccd-8e538c5004ed"
+alias: Light AutoOff Backroom
+description: ""
+trigger:
+  - platform: state
+    entity_id: light.backroom
+    to: "on"
+    for:
+      hours: "0"
+      minutes: "15"
+      seconds: "0"
+  # These triggers allow the automation to kick off after a restart.
+  - platform: homeassistant
+    event: start
+  - platform: event
+    event_type:
+      - automation_reloaded
+action:
+  - choose:
+      - alias: "If the light is on, enter a loop."
+        conditions:
+          condition: state
+          entity_id: "light.backroom"
+          state: "on"
+        sequence:
+          - alias: "Wait until the room is unoccupied or the light is off"
+            repeat:
+              while:
+                - condition: state
+                  entity_id: binary_sensor.unit1_frontroom_occupied
+                  state: "on"
+                - condition: state
+                  entity_id: "light.backroom"
+                  state: "on"
+              sequence:
+                - delay: "00:00:01"
+          - service: light.turn_off
+            entity_id: light.backroom
+mode: single
