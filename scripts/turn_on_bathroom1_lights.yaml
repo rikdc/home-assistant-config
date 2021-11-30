@@ -1,0 +1,18 @@
+alias: Turn on Bathroom1 Lights
+sequence:
+- choose:
+  - conditions:
+    - condition: time
+      after: '22:00:00'
+      before: 06:30:00
+    sequence:
+    - service: scene.turn_on
+      target:
+        entity_id: scene.bathroom1_diminished_lighting
+  default:
+  - service: light.turn_on
+    target:
+      entity_id: light.bathroom1_vanity
+    data:
+      brightness_pct: 100
+mode: single

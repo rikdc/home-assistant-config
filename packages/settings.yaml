@@ -39,16 +39,6 @@ input_datetime:
     has_date: false
     has_time: true
 
-  unit1_bedroom_lights_on_start:
-    name: "unit1_bedroom_lights_on_start"
-    has_date: false
-    has_time: true
-
-  unit1_bedroom_lights_on_stop:
-    name: "unit1_bedroom_lights_on_stop"
-    has_date: false
-    has_time: true
-
   time_typically_sleeping_start:
     name: "Time Typically Sleeping Start"
     has_date: false
