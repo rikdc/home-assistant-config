@@ -80,6 +80,7 @@ binary_sensor: !include binary_sensors.yaml
 
 group: !include_dir_merge_named group/
 script: !include_dir_named scripts/
+scene: !include scenes.yaml
 automation ui: !include automations.yaml
 automation manual: !include_dir_list automation/
 
@@ -88,8 +89,10 @@ browser_mod:
 logger:
   default: info
   logs:
-    # Reduces excessive logging for this automation.
+    # Reduces excessive logging for these automations.
     homeassistant.components.automation.occupancy_person_1_room_location: error
+    homeassistant.components.automation.light_autooff_kitchen: error
+    homeassistant.components.automation.light_autooff_backroom: error
 
 # Text to speech
 tts:
@@ -110,7 +113,7 @@ recorder:
       - automation.occupancy_*
 
 influxdb:
-  host: influxdb
+  host: !secret influxdb_url
   port: 8086
   database: home_assistant
 
@@ -160,8 +163,8 @@ notify:
       - service: !secret person2_mobile
 
 media_player:
-  - platform: snapcast
-    host: !secret snapcast_server
+  # - platform: snapcast
+  #   host: !secret snapcast_server
 
   - platform: mpd
     host: !secret mopidy_multiroom
