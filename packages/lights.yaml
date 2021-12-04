@@ -203,7 +203,7 @@ input_number:
     min: 1
     max: 1440
 
-  room_light_level:
+  default_cutoff_illuminance:
     min: 1
     max: 1440
 
