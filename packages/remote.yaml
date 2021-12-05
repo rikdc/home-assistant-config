@@ -1,0 +1,31 @@
+automation:
+  - id: "33f2306e-a733-4d05-ad0a-ba65f26811c6"
+    alias: "System: Disable remote access when everyone home."
+    trigger:
+      platform: state
+      entity_id: input_boolean.home_occupied
+      to: "on"
+    action:
+      - service: script.post_to_home_log
+        data:
+          message: "✅ Everyone is home, disabling remote connections"
+          title: Cloud Connect
+      - service: cloud.remote_disconnect
+    mode: single
+
+  - id: "33f2306e-a733-4d05-ad0a-ba65f26811c7"
+    alias: "System: Enable remote access when everyone away."
+    trigger:
+      platform: state
+      entity_id:
+        - !secret person1_entity
+        - !secret person2_entity
+        - !secret person3_entity
+      to: "not_home"
+    action:
+      - service: script.post_to_home_log
+        data:
+          message: "✅ Someone is not home, enabling remote connections"
+          title: Cloud Connect
+      - service: cloud.remote_connect
+    mode: single
