@@ -1,0 +1,124 @@
+blueprint:
+  name: Z-Wave JS Scene Controller HANK Electronics SCN04
+  description: Create automations for the HANK Electronics SCN04 4 button scene controller
+    using the Z-WAVE JS integration.
+  domain: automation
+  input:
+    scn04:
+      name: HANK Electronics scene controller
+      description: List of available HANK Electronics SCN04 scene controllers.
+      selector:
+        device:
+          integration: zwave_js
+          manufacturer: HANK Electronics Ltd.
+          model: SCN04
+    button_1_press:
+      name: Button 1 (Moon and Star) - Up/On press 1x
+      description: Action to run, when the button is pressed one time.
+      default: []
+      selector:
+        action: {}
+    button_1_held:
+      name: Button 1 (Moon and Star) - Held down
+      description: Action to run, when the button is held down.
+      default: []
+      selector:
+        action: {}
+    button_1_released:
+      name: Button 1 (Moon and Star) - Released
+      description: Action to run, when the button is released.
+      default: []
+      selector:
+        action: {}
+    button_2_press:
+      name: Button 2 (People) - Up/On press 1x
+      description: Action to run, when the button is pressed one time.
+      default: []
+      selector:
+        action: {}
+    button_2_held:
+      name: Button 2 (People) - Held down
+      description: Action to run, when the button is held down.
+      default: []
+      selector:
+        action: {}
+    button_2_released:
+      name: Button 2 (People) - Released
+      description: Action to run, when the button is released.
+      default: []
+      selector:
+        action: {}
+    button_3_press:
+      name: Button 3 (Circle with Line) - Up/On press 1x
+      description: Action to run, when the button is pressed one time.
+      default: []
+      selector:
+        action: {}
+    button_3_held:
+      name: Button 3 (Circle with Line) - Held down
+      description: Action to run, when the button is held down.
+      default: []
+      selector:
+        action: {}
+    button_3_released:
+      name: Button 3 (Circle with Line) - Released
+      description: Action to run, when the button is released.
+      default: []
+      selector:
+        action: {}
+    button_4_press:
+      name: Button 4 (Circle) - Up/On press 1x
+      description: Action to run, when the button is pressed one time.
+      default: []
+      selector:
+        action: {}
+    button_4_held:
+      name: Button 4 (Circle) - Held down
+      description: Action to run, when/ the button is held down.
+      default: []
+      selector:
+        action: {}
+    button_4_released:
+      name: Button 4 (Circle) - Released
+      description: Action to run, when/ the button is released.
+      default: []
+      selector:
+        action: {}
+  source_url: https://community.home-assistant.io/t/hank-electronics-hkzw-scn04-4-button-scene-controller-for-z-wave-js/294979
+mode: single
+max_exceeded: silent
+trigger:
+- platform: event
+  event_type: zwave_js_value_notification
+  event_data:
+    device_id: !input 'scn04'
+    command_class_name: Central Scene
+action:
+- variables:
+    scene_id: '{{ trigger.event.data.property_key }}'
+    action_name: '{{ trigger.event.data.value }}'
+- choose:
+  - conditions: '{{ scene_id == ''001'' and action_name == ''KeyPressed'' }}'
+    sequence: !input 'button_1_press'
+  - conditions: '{{ scene_id == ''001'' and action_name == ''KeyHeldDown'' }}'
+    sequence: !input 'button_1_held'
+  - conditions: '{{ scene_id == ''001'' and action_name == ''KeyReleased'' }}'
+    sequence: !input 'button_1_released'
+  - conditions: '{{ scene_id == ''002'' and action_name == ''KeyPressed'' }}'
+    sequence: !input 'button_2_press'
+  - conditions: '{{ scene_id == ''002'' and action_name == ''KeyHeldDown'' }}'
+    sequence: !input 'button_2_held'
+  - conditions: '{{ scene_id == ''002'' and action_name == ''KeyReleased'' }}'
+    sequence: !input 'button_2_released'
+  - conditions: '{{ scene_id == ''003'' and action_name == ''KeyPressed'' }}'
+    sequence: !input 'button_3_press'
+  - conditions: '{{ scene_id == ''003'' and action_name == ''KeyHeldDown'' }}'
+    sequence: !input 'button_3_held'
+  - conditions: '{{ scene_id == ''003'' and action_name == ''KeyReleased'' }}'
+    sequence: !input 'button_3_released'
+  - conditions: '{{ scene_id == ''004'' and action_name == ''KeyPressed'' }}'
+    sequence: !input 'button_4_press'
+  - conditions: '{{ scene_id == ''004'' and action_name == ''KeyHeldDown'' }}'
+    sequence: !input 'button_4_held'
+  - conditions: '{{ scene_id == ''004'' and action_name == ''KeyReleased'' }}'
+    sequence: !input 'button_4_released'
