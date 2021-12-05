@@ -10,3 +10,5 @@ use_blueprint:
     time_limit_after: input_datetime.unit1_bathroom_lights_on_start
     time_limit_before: input_datetime.unit1_bathroom_lights_on_stop
     no_motion_wait: input_number.unit1_bathroom_lights_off_duration
+    illuminance_sensor: sensor.motion_bathroom_illuminance
+    illuminance_cutoff: input_number.default_cutoff_illuminance
