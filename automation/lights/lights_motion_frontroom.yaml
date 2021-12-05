@@ -7,3 +7,5 @@ use_blueprint:
     motion_sensor: binary_sensor.motion_frontroom_home_security_motion_detection
     target_entity: light.frontroom_ceiling
     no_motion_wait: input_number.unit1_frontroom_lights_off_duration
+    illuminance_sensor: sensor.motion_frontroom_illuminance
+    illuminance_cutoff: input_number.default_cutoff_illuminance
