@@ -203,7 +203,7 @@ input_number:
     min: 1
     max: 1440
 
-  room_light_level:
+  default_cutoff_illuminance:
     min: 1
     max: 1440
 
@@ -223,3 +223,11 @@ sensor:
     entity_id: light.frontroom_ceiling
     fixed:
       power: 36
+
+binary_sensor:
+  - platform: template
+    sensors:
+      disable_bedroom1_motion_lights:
+        friendly_name: "Disable Bedroom1 Motion Lights"
+        value_template: >
+          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}
