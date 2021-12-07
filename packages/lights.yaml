@@ -98,6 +98,10 @@ light:
   # Pseudo-lights that are actually switches
   #
   - platform: switch
+    name: "Basement Ceiling"
+    entity_id: switch.z_wave_plus_on_off_toggle_switch
+    
+  - platform: switch
     name: Person2 Nightlight
     entity_id: switch.bedroom_switches_2_2
 
