@@ -104,29 +104,6 @@
       supported_features: 31
       state: armed_away
   icon: mdi:lock
-- id: '1621737351094'
-  name: Bedroom 1 Pre-Sleep
-  entities:
-    light.bedroom1:
-      supported_color_modes:
-      - brightness
-      color_mode: brightness
-      brightness: 75
-      friendly_name: Bedroom1
-      supported_features: 33
-      state: 'on'
-    switch.bedroom_switches:
-      friendly_name: Bedroom-Switches
-      state: 'on'
-    switch.bedroom_switches_2:
-      friendly_name: Bedroom-Switches
-      state: 'on'
-    switch.bedroom_switches_2_2:
-      friendly_name: Bedroom-Switches (2)
-      state: 'on'
-    switch.bedroom_switches_3:
-      friendly_name: Bedroom-Switches (3)
-      state: 'off'
 - id: '1625006642121'
   name: unit 2 - living room lights on
   entities:

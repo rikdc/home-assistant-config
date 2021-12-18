@@ -24,13 +24,16 @@ light:
       - light.unit1_kitchen_ceiling_light
       - light.unit1_kitchen_cabinets
       - light.downstairs_backroom
-      - light.unit1_livingroom_lamp
-      - light.frontroom_ceiling
       - light.backroom # backroom ceiling.
       - light.switches_bathroom1
       - light.unit1_bathroom_vanity_light
       - light.switches_mudroom
       - light.lower_back_deck_light
+      # Frontroom
+      - light.unit1_livingroom_lamp
+      - light.livingroom_worklight_4
+      - light.frontroom_ceiling
+      - light.livingroom_lamp
 
   - platform: group
     name: Upstairs
@@ -46,6 +49,8 @@ light:
       - light.unit2_office
       - light.upper_livingroom_lamp
       - light.office2_lamp2
+      - light.office2_lamp3
+      - light.office_light
       - light.bathroom2_lights
       - light.switches_bathroom1
 
@@ -60,6 +65,7 @@ light:
     name: Upstairs Office
     entities:
       - light.office2_lamp2
+      - light.office2_lamp3
       - light.office_light
 
   - platform: group
@@ -94,20 +100,18 @@ light:
       - light.unit1_light_livingroom_dimmer
       - light.unit1_livingroom_lamp
 
+  - platform: group
+    name: Bedroom1 Nightlight
+    entities:
+      - light.person1_nightlight
+      - light.person2_nightlight
+
   #
   # Pseudo-lights that are actually switches
   #
   - platform: switch
     name: "Basement Ceiling"
     entity_id: switch.z_wave_plus_on_off_toggle_switch
-    
-  - platform: switch
-    name: Person2 Nightlight
-    entity_id: switch.bedroom_switches_2_2
-
-  - platform: switch
-    name: Person1 Nightlight
-    entity_id: switch.bedroom_switches_2
 
   - platform: switch
     name: Unit1 Livingroom Lamp

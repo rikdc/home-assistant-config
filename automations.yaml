@@ -192,6 +192,10 @@
         target:
           entity_id: light.bedroom1
       button_4_held: []
+      button_3_press:
+      - service: light.toggle
+        target:
+          entity_id: light.person2_nightlight
 - id: '1637809006304'
   alias: 'Scene: Person 2 Nightstand'
   description: ''
@@ -206,7 +210,9 @@
       button_4_press:
       - service: light.toggle
         target:
-          entity_id: light.bedroom1
+          entity_id:
+          - light.person2_nightlight
+          - light.person1_nightlight
       button_3_press:
       - service: light.toggle
         target:
