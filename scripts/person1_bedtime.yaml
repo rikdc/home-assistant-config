@@ -5,6 +5,9 @@ sequence:
   - service: light.turn_off
     entity_id:
       - light.downstairs
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.bedtime
   - service: script.post_to_home_log
     data:
       message: "🛌 Person 1 is going to bed"
