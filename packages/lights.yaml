@@ -100,20 +100,18 @@ light:
       - light.unit1_light_livingroom_dimmer
       - light.unit1_livingroom_lamp
 
+  - platform: group
+    name: Bedroom1 Nightlight
+    entities:
+      - light.person1_nightlight
+      - light.person2_nightlight
+
   #
   # Pseudo-lights that are actually switches
   #
   - platform: switch
     name: "Basement Ceiling"
     entity_id: switch.z_wave_plus_on_off_toggle_switch
-    
-  - platform: switch
-    name: Person2 Nightlight
-    entity_id: switch.bedroom_switches_2_2
-
-  - platform: switch
-    name: Person1 Nightlight
-    entity_id: switch.bedroom_switches_2
 
   - platform: switch
     name: Unit1 Livingroom Lamp
