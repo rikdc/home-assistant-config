@@ -62,13 +62,6 @@ light:
       - light.upstairs_sofa_lamp
 
   - platform: group
-    name: Upstairs Office
-    entities:
-      - light.office2_lamp2
-      - light.office2_lamp3
-      - light.office_light
-
-  - platform: group
     name: Loft Lights
     entities:
       - light.unit2_loft_fairy_lights
@@ -172,9 +165,9 @@ light:
   - platform: group
     name: Upstairs Office
     entities:
+      - light.office2_lamp
       - light.office2_lamp2
-      - light.multi_color_bulb_2
-      - light.office2_lamp1
+      - light.office2_lamp3
 
   - platform: switch
     name: "Unit2 Loft Fairy Lights"
@@ -185,7 +178,7 @@ light:
     entity_id: switch.upstairs_office
 
   - platform: switch
-    name: "Office Lamp2"
+    name: "Office2 Lamp3"
     entity_id: switch.office
 
   - platform: switch
