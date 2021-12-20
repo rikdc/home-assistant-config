@@ -7,6 +7,7 @@ use_blueprint:
     motion_sensor: binary_sensor.motion_living_room_home_security_motion_detection
     target_entity: light.backroom
     no_motion_wait: input_number.unit1_frontroom_lights_off_duration
-    blocker_entity: input_boolean.guests
+    blocker_entity: binary_sensor.disable_backroom_motion_lights
+    turn_off_blocker_entity: binary_sensor.unit1_backroom_occupancy
     time_limit_after: input_datetime.time_typically_waking_up
     time_limit_before: input_datetime.time_typically_sleeping_start
