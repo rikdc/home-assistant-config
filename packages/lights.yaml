@@ -59,14 +59,7 @@ light:
     entities:
       - light.upper_livingroom_lamp
       - light.upstairs_fireside_lamp
-      - light.unit2_sofa_lamp
-
-  - platform: group
-    name: Upstairs Office
-    entities:
-      - light.office2_lamp2
-      - light.office2_lamp3
-      - light.office_light
+      - light.upstairs_sofa_lamp
 
   - platform: group
     name: Loft Lights
@@ -172,9 +165,9 @@ light:
   - platform: group
     name: Upstairs Office
     entities:
+      - light.office2_lamp
       - light.office2_lamp2
-      - light.multi_color_bulb_2
-      - light.office2_lamp1
+      - light.office2_lamp3
 
   - platform: switch
     name: "Unit2 Loft Fairy Lights"
@@ -185,7 +178,7 @@ light:
     entity_id: switch.upstairs_office
 
   - platform: switch
-    name: "Office Lamp2"
+    name: "Office2 Lamp3"
     entity_id: switch.office
 
   - platform: switch
@@ -237,5 +230,15 @@ binary_sensor:
     sensors:
       disable_bedroom1_motion_lights:
         friendly_name: "Disable Bedroom1 Motion Lights"
+        value_template: >
+          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}
+
+      disable_backroom_motion_lights:
+        friendly_name: "Disable Backroom Motion Lights"
+        value_template: >
+          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}
+
+      disable_frontroom_motion_lights:
+        friendly_name: "Disable Front Motion Lights"
         value_template: >
           {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}

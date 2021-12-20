@@ -1,219 +1,242 @@
-- id: '1613583163489'
+- id: "1613583163489"
   alias: Tag ea03378e-838b-493b-9920-28a728df67d8 is scanned
-  description: ''
+  description: ""
   trigger:
-  - platform: tag
-    tag_id: ea03378e-838b-493b-9920-28a728df67d8
+    - platform: tag
+      tag_id: ea03378e-838b-493b-9920-28a728df67d8
   condition: []
   action:
-  - service: lock.lock
-    data: {}
-    entity_id: lock.frontdoor_lock
+    - service: lock.lock
+      data: {}
+      entity_id: lock.frontdoor_lock
   mode: single
 - id: upstairs_scene_controller
   alias: SceneController Upstairs
-  description: ''
+  description: ""
   use_blueprint:
     path: philk/zen34-blueprint.yaml
     input:
       zwave_device: 9f43aee3bf7ab12f4221b7462c5431bd
       KeyPressed_Up:
-      - service: light.turn_on
-        data: {}
-        target:
-          entity_id: light.upstairs_livingroom
+        - service: light.turn_on
+          data: {}
+          target:
+            entity_id: light.upstairs_livingroom
       KeyPressed_Down:
-      - service: light.turn_off
-        data: {}
-        target:
-          entity_id: light.upstairs_livingroom
+        - service: light.turn_off
+          data: {}
+          target:
+            entity_id: light.upstairs_livingroom
       KeyPressed2x_Up:
-      - service: light.turn_on
-        target:
-          entity_id: light.upstairs_kitchen
+        - service: light.turn_on
+          target:
+            entity_id: light.upstairs_kitchen
       KeyPressed2x_Down:
-      - service: light.turn_off
-        target:
-          entity_id: light.upstairs_kitchen
+        - service: light.turn_off
+          target:
+            entity_id: light.upstairs_kitchen
       KeyPressed3x_Up: []
       KeyPressed3x_Down:
-      - service: light.turn_on
-        target:
-          entity_id: light.bathroom2_lights
-      - service: light.turn_off
-        target:
-          entity_id: light.bathroom2_lights
-      - delay:
-          hours: 0
-          minutes: 0
-          seconds: 5
-          milliseconds: 0
-- id: '1626660542063'
+        - service: light.turn_on
+          target:
+            entity_id: light.bathroom2_lights
+        - service: light.turn_off
+          target:
+            entity_id: light.bathroom2_lights
+        - delay:
+            hours: 0
+            minutes: 0
+            seconds: 5
+            milliseconds: 0
+- id: "1626660542063"
   alias: Downstairs Scene Controller
-  description: ''
+  description: ""
   use_blueprint:
     path: philk/zen34-blueprint.yaml
     input:
       KeyPressed_Up:
-      - service: light.turn_on
-        target:
-          device_id: 24f3de9ca06f58ad025f3c032fd9513f
+        - service: light.turn_on
+          target:
+            device_id: 24f3de9ca06f58ad025f3c032fd9513f
       KeyPressed2x_Up:
-      - service: light.turn_on
-        target:
-          entity_id:
-          - light.frontroom_ceiling
-          - light.unit1_livingroom_lamp
+        - service: light.turn_on
+          target:
+            entity_id:
+              - light.frontroom_ceiling
+              - light.unit1_livingroom_lamp
       KeyPressed_Down:
-      - service: light.turn_off
-        target:
-          device_id: 24f3de9ca06f58ad025f3c032fd9513f
+        - service: light.turn_off
+          target:
+            device_id: 24f3de9ca06f58ad025f3c032fd9513f
       KeyPressed2x_Down:
-      - service: light.turn_off
-        target:
-          device_id:
-          - 24f3de9ca06f58ad025f3c032fd9513f
-          entity_id: light.unit1_livingroom_lamp
+        - service: light.turn_off
+          target:
+            device_id:
+              - 24f3de9ca06f58ad025f3c032fd9513f
+            entity_id: light.unit1_livingroom_lamp
       zwave_device: d25a719d48bd81d2fadf702fec723708
       KeyPressed3x_Down:
-      - service: script.person1_bedtime
-- id: '1633398975580'
+        - service: script.person1_bedtime
+- id: "1633398975580"
   alias: Dim Lights when Roku Plays
-  description: ''
+  description: ""
   trigger:
-  - platform: state
-    entity_id: media_player.50_tcl_roku_tv
-    to: playing
+    - platform: state
+      entity_id: media_player.50_tcl_roku_tv
+      to: playing
   condition:
-  - condition: time
-    after: '19:00:00'
+    - condition: time
+      after: "19:00:00"
   action:
-  - service: light.turn_on
-    data:
-      brightness: 52
-      kelvin: 2700
-    target:
-      device_id: 24f3de9ca06f58ad025f3c032fd9513f
-  - service: switch.turn_on
-    target:
-      entity_id:
-      - switch.light_end_table
+    - service: light.turn_on
+      data:
+        brightness: 52
+        kelvin: 2700
+      target:
+        device_id: 24f3de9ca06f58ad025f3c032fd9513f
+    - service: switch.turn_on
+      target:
+        entity_id:
+          - switch.light_end_table
   mode: single
-- id: '1633398975581'
+- id: "1633398975581"
   alias: Dim Lights when Roku Stops
-  description: ''
+  description: ""
   trigger:
-  - platform: state
-    entity_id: media_player.50_tcl_roku_tv
-    to: 'on'
+    - platform: state
+      entity_id: media_player.50_tcl_roku_tv
+      to: "on"
   condition: []
   action:
-  - service: light.turn_on
-    data:
-      brightness: 254
-      kelvin: 2700
-    target:
-      device_id: 24f3de9ca06f58ad025f3c032fd9513f
+    - service: light.turn_on
+      data:
+        brightness: 254
+        kelvin: 2700
+      target:
+        device_id: 24f3de9ca06f58ad025f3c032fd9513f
   mode: single
-- id: '1636204191724'
+- id: "1636204191724"
   alias: Bedroom2 Scene Controller
-  description: ''
+  description: ""
   use_blueprint:
     path: philk/zen34-blueprint.yaml
     input:
       zwave_device: 909ee6b4eed3ef8f4b7d4e5874683c59
       KeyPressed_Up:
-      - service: light.turn_on
-        target:
-          entity_id: light.unit2_loft_fairy_lights
+        - service: light.turn_on
+          target:
+            entity_id: light.unit2_loft_fairy_lights
       KeyPressed_Down:
-      - service: light.turn_off
-        target:
-          entity_id: light.unit2_loft_fairy_lights
+        - service: light.turn_off
+          target:
+            entity_id: light.unit2_loft_fairy_lights
       KeyPressed2x_Down:
-      - service: light.turn_off
-        target:
-          entity_id: light.upstairs
-        data: {}
-- id: '1636382167011'
+        - service: light.turn_off
+          target:
+            entity_id: light.upstairs
+          data: {}
+- id: "1636382167011"
   alias: Z-Wave JS Scene Controller HANK Electronics SCN04
-  description: ''
+  description: ""
   use_blueprint:
     path: Net_Giant/hank-electronics-hkzw-scn04-4-button-scene-controller-for-z-wave-js.yaml
     input:
       scn04: 334bc900119105387c182c00f3ee5d74
       button_1_press:
-      - service: script.turn_off_all_lights
-- id: '1636741737565'
-  alias: 'Lights: Office Control'
-  description: ''
+        - service: script.turn_off_all_lights
+- id: "1636741737565"
+  alias: "Lights: Office Control"
+  description: ""
   trigger:
-  - platform: device
-    type: turned_on
-    device_id: f3084def3592eab42ec87953c00b8994
-    entity_id: switch.upstairs_office
-    domain: switch
+    - platform: device
+      type: turned_on
+      device_id: f3084def3592eab42ec87953c00b8994
+      entity_id: switch.upstairs_office
+      domain: switch
   condition: []
   action:
-  - service: light.turn_on
-    target:
-      entity_id: light.upstairs_office
-    data:
-      transition: 0
+    - service: light.turn_on
+      target:
+        entity_id: light.upstairs_office
+      data:
+        transition: 0
   mode: single
-- id: '1636741737566'
-  alias: 'Lights: Office Control (Off)'
-  description: ''
+- id: "1636741737566"
+  alias: "Lights: Office Control (Off)"
+  description: ""
   trigger:
-  - platform: device
-    type: turned_off
-    device_id: f3084def3592eab42ec87953c00b8994
-    entity_id: switch.upstairs_office
-    domain: switch
+    - platform: device
+      type: turned_off
+      device_id: f3084def3592eab42ec87953c00b8994
+      entity_id: switch.upstairs_office
+      domain: switch
   condition: []
   action:
-  - service: light.turn_off
-    target:
-      entity_id: light.upstairs_office
-    data:
-      transition: 0
+    - service: light.turn_off
+      target:
+        entity_id: light.upstairs_office
+      data:
+        transition: 0
   mode: single
-- id: '1637797146793'
+- id: "1637797146793"
   alias: Scene - Person1 Nightstand
-  description: ''
+  description: ""
   use_blueprint:
     path: Net_Giant/hank-electronics-hkzw-scn04-4-button-scene-controller-for-z-wave-js.yaml
     input:
       scn04: 334bc900119105387c182c00f3ee5d74
       button_1_press:
-      - service: script.person1_bedtime
+        - service: script.person1_bedtime
       button_4_press:
-      - service: light.toggle
-        target:
-          entity_id: light.bedroom1
+        - service: light.toggle
+          target:
+            entity_id: light.bedroom1
       button_4_held: []
       button_3_press:
-      - service: light.toggle
-        target:
-          entity_id: light.person2_nightlight
-- id: '1637809006304'
-  alias: 'Scene: Person 2 Nightstand'
-  description: ''
+        - service: light.toggle
+          target:
+            entity_id: light.person2_nightlight
+- id: "1637809006304"
+  alias: "Scene: Person 2 Nightstand"
+  description: ""
   use_blueprint:
     path: Net_Giant/hank-electronics-hkzw-scn04-4-button-scene-controller-for-z-wave-js.yaml
     input:
       scn04: 3fa221e521cdb92e0ad30b47591ab2a5
       button_1_press:
-      - service: light.turn_off
-        target:
-          entity_id: light.downstairs
+        - service: light.turn_off
+          target:
+            entity_id: light.downstairs
       button_4_press:
-      - service: light.toggle
-        target:
-          entity_id:
-          - light.person2_nightlight
-          - light.person1_nightlight
+        - service: light.toggle
+          target:
+            entity_id:
+              - light.person2_nightlight
+              - light.person1_nightlight
       button_3_press:
-      - service: light.toggle
-        target:
-          entity_id: light.bedroom1
+        - service: light.toggle
+          target:
+            entity_id: light.bedroom1
+- id: "1640010598036"
+  alias: "Scene: Office2 Light Control"
+  description: ""
+  trigger:
+    - platform: device
+      device_id: f3084def3592eab42ec87953c00b8994
+      domain: zwave_js
+      type: event.value_notification.central_scene
+      property: scene
+      property_key: "002"
+      endpoint: 0
+      command_class: 91
+      subtype: Endpoint 0 Scene 002
+      value: 3
+  condition: []
+  action:
+    - service: light.toggle
+      data:
+        transition: 0
+      target:
+        entity_id:
+          - light.upstairs_office
+  mode: single

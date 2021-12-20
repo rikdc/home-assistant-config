@@ -101,9 +101,9 @@ binary_sensor:
           seconds: 3
         value_template: >-
           {{ is_state('binary_sensor.motion_living_room_home_security_motion_detection', 'on')
-              or is_state('sensor.4246807c524d46c58df145284816b8e1_100_1_room_presence', 'unit1BackPi')
-              or is_state('sensor.186ca552_d54b_417c_b812_9778b0252aa7_room_presence', 'unit1BackPi')
-              or is_state('sensor.df8d2ff3_980f_43df_ba53_7482bbf25627_room_presence', 'unit1BackPi')
+                or is_state('sensor.richard_room_presence', 'pi0-lower-back')
+                or is_state('sensor.stefanie_room_presence', 'pi0-lower-back')
+                or is_state('sensor.jenn_room_presence', 'pi0-lower-back')
           }}
 
       bathroom_generic_presence:
