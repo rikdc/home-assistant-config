@@ -43,7 +43,7 @@ www/*.jpg
 www/community/*
 custom_components/*
 tts/*
-
+site/*
 *.pickle
 
 # Compressed Lovelace components
