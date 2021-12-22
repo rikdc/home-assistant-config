@@ -1,5 +1,5 @@
 id: "518fded7-8520-44e2-a020-b41b7073bad7"
-alias: Outside Lights on at Dusk
+alias: "Lights: Outside Lights on at Dusk"
 description: "Turn on outside lights when it is dusk"
 trigger:
   - platform: sun

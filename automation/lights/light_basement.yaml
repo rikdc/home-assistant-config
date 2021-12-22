@@ -1,5 +1,5 @@
 id: '111da0e6-db5e-400b-86f1-4a04be7a5f0e'
-alias: 'Light: Basement Door'
+alias: 'Lights: Basement Door'
 description: 'Toggles basement lights based on the door state.'
 trigger:
 - platform: state

@@ -1,5 +1,5 @@
 id: 0040dae3-d3c6-4d0a-a521-cee688b144f9
-alias: Outside Lights off at Bedtime
+alias: "Lights: Outside Lights off at Bedtime"
 description: Turn off outside lights at 11pm if we're all home.
 trigger:
   - platform: time
@@ -10,7 +10,6 @@ condition:
     state: home
 action:
   - type: turn_off
-    device_id: 0da99448d71f804081f1f849ded7a374
     entity_id: light.light_outside_front
     domain: light
 mode: single

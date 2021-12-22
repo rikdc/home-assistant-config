@@ -1,5 +1,5 @@
 id: "6a4fad52-201d-40fb-901c-ca1434ae3c80"
-alias: Lights Off Nobody Home
+alias: "Lights: Lights Off Nobody Home"
 description: Turn off all lights when nobody is home.
 trigger:
   - entity_id: group.household
@@ -10,5 +10,5 @@ action:
   - service: light.turn_on
     entity_id: light.downstairs
   - service: light.turn_on
-    entity_id: light.upstaors
+    entity_id: light.upstairs
 mode: single
