@@ -17,7 +17,7 @@ counter:
 
 automation:
   - id: "e0c17ac9-81c6-47ce-8945-18d1749a720a"
-    alias: "^ Bathroom1: Humidity"
+    alias: "Bathroom1: Humidity"
     description: "Turn on Extractor Fan when humidity rises"
     trigger:
       - platform: numeric_state
@@ -29,11 +29,11 @@ automation:
           message: ":bathtub: :door: Bathroom humidity is above 65"
 
   - id: "d287c06c-c710-4573-b29b-567e433f18a8"
-    alias: "^Bathroom: Door Opened"
+    alias: "Bathroom1: Door Opened"
     description: ""
     trigger:
       - platform: state
-        entity_id: binary_sensor.bathroom_door
+        entity_id: binary_sensor.backdoor_access_control_window_door_is_open_2 # TODO: Rename Sensor for ease of use.
         to: "on"
         from: "off"
     condition: []
@@ -49,11 +49,11 @@ automation:
         entity_id: counter.bathroom_door
     mode: single
   - id: "0d6743d1-0165-42bd-96ae-eeab68a1f549"
-    alias: "Bathroom: Door Opened Once For More than 20 seconds"
+    alias: "Bathroom1: Door Opened Once For More than 20 seconds"
     description: ""
     trigger:
       - platform: state
-        entity_id: binary_sensor.bathroom_door
+        entity_id: binary_sensor.backdoor_access_control_window_door_is_open_2
         to: "on"
         from: "off"
         for: 00:00:20
