@@ -155,3 +155,107 @@
       supported_features: 32
       state: 'on'
   icon: mdi:car-light-dimmed
+- id: '1640142707666'
+  name: Bedroom Mood 1
+  entities:
+    light.person1_nightlight:
+      min_mireds: 153
+      max_mireds: 370
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 49
+      hs_color:
+      - 195.082
+      - 71.765
+      rgb_color:
+      - 71
+      - 208
+      - 255
+      xy_color:
+      - 0.166
+      - 0.268
+      friendly_name: Nightlight1
+      supported_features: 32
+      state: 'on'
+    light.person2_nightlight:
+      min_mireds: 153
+      max_mireds: 370
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 49
+      hs_color:
+      - 195.243
+      - 72.549
+      rgb_color:
+      - 70
+      - 208
+      - 255
+      xy_color:
+      - 0.165
+      - 0.268
+      friendly_name: Nightlight 2
+      supported_features: 32
+      state: 'on'
+    light.bedroom1:
+      supported_color_modes:
+      - brightness
+      friendly_name: Bedroom1
+      supported_features: 32
+      state: 'off'
+  icon: mdi:coffee-maker-check-outline
+- id: '1640142707667'
+  name: Bedroom Mood 2
+  entities:
+    light.person1_nightlight:
+      min_mireds: 153
+      max_mireds: 370
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 193
+      hs_color:
+      - 0
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      xy_color:
+      - 0.701
+      - 0.299
+      friendly_name: Nightlight1
+      supported_features: 32
+      state: 'on'
+    light.person2_nightlight:
+      min_mireds: 153
+      max_mireds: 370
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 116
+      hs_color:
+      - 0
+      - 85.882
+      rgb_color:
+      - 255
+      - 36
+      - 36
+      xy_color:
+      - 0.68
+      - 0.301
+      friendly_name: Nightlight 2
+      supported_features: 32
+      state: 'on'
+    light.bedroom1:
+      supported_color_modes:
+      - brightness
+      friendly_name: Bedroom1
+      supported_features: 32
+      state: 'off'
+  icon: mdi:coffee-maker-check-outline
