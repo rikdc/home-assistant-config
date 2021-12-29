@@ -6,6 +6,80 @@ input_boolean:
   guests:
     initial: off
 
+  bathroom_schedule:
+    initial: on
+
+sensor:
+  # Bathroom
+
+  ## Area Entities
+  - platform: history_stats
+    name: Stats - Bathroom Bright
+    entity_id: binary_sensor.area_bathroom_bright
+    state: "on"
+    type: ratio
+    end: "{{ now() }}"
+    duration:
+      days: 7
+  - platform: history_stats
+    name: Stats - Bathroom Humidity Trend
+    entity_id: binary_sensor.area_bathroom_humidity_trend
+    state: "on"
+    type: ratio
+    end: "{{ now() }}"
+    duration:
+      days: 7
+  - platform: history_stats
+    name: Stats - Bathroom Occupied
+    entity_id: binary_sensor.area_bathroom_occupied
+    state: "on"
+    type: ratio
+    end: "{{ now() }}"
+    duration:
+      days: 7
+  - platform: history_stats
+    name: Stats - Bathroom Temperature Trend
+    entity_id: sensor.motion_bathroom_air_temperature
+    state: "on"
+    type: ratio
+    end: "{{ now() }}"
+    duration:
+      days: 7
+  - platform: history_stats
+    name: Stats - Bathroom Motion
+    entity_id: binary_sensor.motion_bathroom_home_security_motion_detection
+    state: "on"
+    type: ratio
+    end: "{{ now() }}"
+    duration:
+      days: 7
+  # - platform: history_stats
+  #   name: Stats - Bathroom Schedule
+  #   entity_id: input_boolean.bathroom_schedule
+  #   state: "on"
+  #   type: ratio
+  #   end: "{{ now() }}"
+  #   duration:
+  #     days: 7
+
+  ## Device Entities
+  # - platform: history_stats
+  #   name: Stats - Bathroom MOT-01 occupancy
+  #   entity_id: binary_sensor.mot_01_occupancy
+  #   state: "on"
+  #   type: ratio
+  #   end: "{{ now() }}"
+  #   duration:
+  #     days: 7
+  # - platform: history_stats
+  #   name: Stats - Bathroom Multisensor Motion
+  #   entity_id: binary_sensor.bathroom_multisensor_motion
+  #   state: "on"
+  #   type: ratio
+  #   end: "{{ now() }}"
+  #   duration:
+  #     days: 7
+
 homeassistant:
   customize:
     package.occupancy:
@@ -48,6 +122,41 @@ homeassistant:
           - Upper Office
 
 binary_sensor:
+  - platform: trend
+    sensors:
+      # Humidity
+
+      area_bathroom_humidity_trend:
+        friendly_name: Area - Bathroom Humidity Trend
+        entity_id: sensor.motion_bathroom_humidity
+        sample_duration: 1200
+        max_samples: 6
+        min_gradient: 0.011
+        device_class: moisture
+
+  # Bathroom
+  - platform: bayesian
+    name: Area - Bathroom Occupied
+    prior: 0.2083
+    device_class: occupancy
+    probability_threshold: 0.70
+    observations:
+      - platform: "state"
+        entity_id: binary_sensor.area_bathroom_humidity_trend
+        prob_given_true: 0.0768
+        prob_given_false: 0.0020
+        to_state: "on"
+      - platform: "state"
+        entity_id: binary_sensor.motion_bathroom_home_security_motion_detection
+        prob_given_true: 0.6720
+        prob_given_false: 0.0531
+        to_state: "on"
+      - platform: "state"
+        entity_id: sensor.motion_bathroom_illuminance
+        prob_given_true: 1.2048
+        prob_given_false: 0.2853
+        to_state: "on"
+
   - platform: template
     sensors:
       main_floor_occupancy:
@@ -109,7 +218,7 @@ binary_sensor:
       bathroom_generic_presence:
         friendly_name: "Bathroom occupied"
         device_class: "occupancy"
-        delay_off: "{{ 300 if states('counter.bathroom_door')|int % 2 else 0 }}" # immediately if the door is closed, or wait 5 mins.
+        delay_off: "{{ 300 if (states('counter.bathroom_door')|int % 2 == 1 ) else 0 }}" # immediately if the door is closed, or wait 5 mins.
         value_template: >-
           {{ is_state('binary_sensor.motion_bathroom_home_security_motion_detection', 'on') 
               or states('counter.bathroom_door')|int % 2 == 1
