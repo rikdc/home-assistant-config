@@ -1,0 +1,89 @@
+# Bathroom Automations
+#
+# - Motion Detected, Dark - Turn Light On
+# - Motion Detected, Dark, Late in the evening - Turn Light to 25%
+# - Unoccupied - Turn Ligts Off
+#
+# Inspired By:
+# https://github.com/dannytsang/homeassistant-config/blob/main/packages/rooms/bathroom.yaml#L499
+
+counter:
+  bathroom_door:
+    name: Bathroom Door Open Close
+    restore: false
+    initial: 0
+    minimum: 0
+    step: 1
+
+automation:
+  - id: "e0c17ac9-81c6-47ce-8945-18d1749a720a"
+    alias: "Bathroom1: Humidity"
+    description: "Turn on Extractor Fan when humidity rises"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.motion_bathroom_humidity
+        above: 65
+    action:
+      - service: script.post_to_home_log
+        data:
+          message: ":bathtub: :door: Bathroom humidity is above 65"
+
+  - id: "d287c06c-c710-4573-b29b-567e433f18a8"
+    alias: "Bathroom1: Door Opened"
+    description: ""
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.backdoor_access_control_window_door_is_open_2 # TODO: Rename Sensor for ease of use.
+        to: "on"
+        from: "off"
+    condition: []
+    action:
+      - service: script.post_to_home_log
+        data:
+          message:
+            ":bathtub: :door: Bathroom door opened. Incrementing counter :abacus:
+            from {{ states('counter.bathroom_door') }} to {{ states('counter.bathroom_door')
+            | int + state_attr('counter.bathroom_door', 'step') | int }}."
+      - service: counter.increment
+        data: {}
+        entity_id: counter.bathroom_door
+    mode: single
+
+  - id: " 8d6e9a2b-b1ff-468a-839f-6f08073d71a0"
+    alias: "Bathroom1: (Debug) Occupancy Detected"
+    description: ""
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.area_bathroom_occupied
+        to: "on"
+        from: "off"
+    action:
+      - service: script.post_to_home_log
+        data:
+          message: ":bathtub: :door: :abacus: Bathroom1 is occupied"
+    mode: single
+
+  - id: "0d6743d1-0165-42bd-96ae-eeab68a1f549"
+    alias: "Bathroom1: Door Opened Once For More than 20 seconds"
+    description: ""
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.backdoor_access_control_window_door_is_open_2
+        to: "on"
+        from: "off"
+        for: 00:00:20
+    condition:
+      - condition: numeric_state
+        entity_id: counter.bathroom_door
+        below: "2"
+    action:
+      - service: script.post_to_home_log
+        data:
+          message:
+            ':bathtub: :door: :abacus: Bathroom  door has been opened for more
+            than 20 secs. Resetting counter  from {{ states("counter.bathroom_door")
+            }} to 0'
+      - service: counter.reset
+        data: {}
+        entity_id: counter.bathroom_door
+    mode: single

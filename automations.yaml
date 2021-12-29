@@ -179,7 +179,7 @@
         transition: 0
   mode: single
 - id: "1637797146793"
-  alias: Scene - Person1 Nightstand
+  alias: "Scene: - Person1 Nightstand"
   description: ""
   use_blueprint:
     path: Net_Giant/hank-electronics-hkzw-scn04-4-button-scene-controller-for-z-wave-js.yaml
@@ -190,12 +190,13 @@
       button_4_press:
         - service: light.toggle
           target:
-            entity_id: light.bedroom1
-      button_4_held: []
+            entity_id:
+              - light.person2_nightlight
+              - light.person1_nightlight
       button_3_press:
         - service: light.toggle
           target:
-            entity_id: light.person2_nightlight
+            entity_id: light.bedroom1
 - id: "1637809006304"
   alias: "Scene: Person 2 Nightstand"
   description: ""
