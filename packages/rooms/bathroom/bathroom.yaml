@@ -49,6 +49,20 @@ automation:
         entity_id: counter.bathroom_door
     mode: single
 
+  - id: " 8d6e9a2b-b1ff-468a-839f-6f08073d71a0"
+    alias: "Bathroom1: (Debug) Occupancy Detected"
+    description: ""
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.area_bathroom_occupied
+        to: "on"
+        from: "off"
+    action:
+      - service: script.post_to_home_log
+        data:
+          message: ":bathtub: :door: :abacus: Bathroom1 is occupied"
+    mode: single
+
   - id: "0d6743d1-0165-42bd-96ae-eeab68a1f549"
     alias: "Bathroom1: Door Opened Once For More than 20 seconds"
     description: ""
