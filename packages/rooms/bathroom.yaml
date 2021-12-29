@@ -48,6 +48,7 @@ automation:
         data: {}
         entity_id: counter.bathroom_door
     mode: single
+
   - id: "0d6743d1-0165-42bd-96ae-eeab68a1f549"
     alias: "Bathroom1: Door Opened Once For More than 20 seconds"
     description: ""

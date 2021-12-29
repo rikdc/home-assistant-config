@@ -215,15 +215,6 @@ binary_sensor:
                 or is_state('sensor.jenn_room_presence', 'pi0-lower-back')
           }}
 
-      bathroom_generic_presence:
-        friendly_name: "Bathroom occupied"
-        device_class: "occupancy"
-        delay_off: "{{ 300 if (states('counter.bathroom_door')|int % 2 == 1 ) else 0 }}" # immediately if the door is closed, or wait 5 mins.
-        value_template: >-
-          {{ is_state('binary_sensor.motion_bathroom_home_security_motion_detection', 'on') 
-              or states('counter.bathroom_door')|int % 2 == 1
-          }}
-
       #
       # First Floor
       #
