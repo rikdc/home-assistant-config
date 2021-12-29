@@ -46,7 +46,7 @@ tts/*
 ssl/*
 
 *.pickle
-
+themes/*
 # Compressed Lovelace components
 *.js.gz
 
