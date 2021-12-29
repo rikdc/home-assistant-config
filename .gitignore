@@ -47,6 +47,7 @@ ssl/*
 
 *.pickle
 themes/*
+images/*
 # Compressed Lovelace components
 *.js.gz
 
