@@ -22,6 +22,9 @@ dummy:
 automations_presence:
   initial: on
 
+guests:
+  initial: off
+
 automations_presence_ble:
   initial: on
 
