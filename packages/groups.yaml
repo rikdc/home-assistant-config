@@ -1,0 +1,8 @@
+#################################################################
+#                                                               #
+#                            Groups                             #
+#                                                               #
+#################################################################
+
+sensor: !include_dir_merge_list ../sensors #temporary
+group: !include_dir_merge_named ../groups
