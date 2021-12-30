@@ -1,0 +1,7 @@
+utility_meter:
+  daily_internet_usage_in:
+    source: sensor.internet_mb_downloaded
+    cycle: daily
+  daily_internet_usage_out:
+    source: sensor.internet_mb_uploaded
+    cycle: daily
