@@ -28,6 +28,12 @@ input_number:
     min: 1
     max: 1440
 
+  area_bedroom_lux_level1:
+    initial: 30
+    step: 1
+    min: 0
+    max: 100
+
 input_datetime:
   unit1_bathroom_lights_on_start:
     name: "unit1_bathroom_lights_on_start"

@@ -36,13 +36,13 @@ template:
         delay_on: 5
         delay_off: 5
         state: >
-          {{ states('sensor.bedroom1_realistic_temperature') | int < 60 or states('sensor.bedroom1_realistic_temperature') | int > 67 }}
+          {{ states('sensor.bedroom1_realistic_temperature') | float(0) < 60 or states('sensor.bedroom1_realistic_temperature') | float(0) > 67 }}
         attributes:
           room: "Bedroom 1"
           reason: >-
-            {% if states('sensor.bedroom1_realistic_temperature') | int < 60 %}
+            {% if states('sensor.bedroom1_realistic_temperature') | float(0) < 60 %}
                Too Cold
-            {% elif states('ssensor.bedroom1_realistic_temperatures') | int > 67 %}
+            {% elif states('ssensor.bedroom1_realistic_temperatures') | float(0) > 67 %}
               Too Warm
             {% else %}
                Normal

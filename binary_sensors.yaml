@@ -12,10 +12,10 @@
 - platform: tod
   name: evening
   after: sunset
-  after_offset: '-00:30'
-  before: '23:59'
+  after_offset: "-00:30"
+  before: "23:59"
 
 - platform: tod
   name: night
-  after: '23:59'
-  before: '05:30'
+  after: "23:59"
+  before: "05:30"
