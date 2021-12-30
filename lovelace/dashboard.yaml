@@ -73,7 +73,7 @@ views:
                         <td>
                         </br>
                           <img
-                          src="https://darksky.net/{{states('sensor.dashboard_weather')}}"
+                          src="{{states('sensor.dashboard_weather')}}"
                           width="190px" /></td></tr> <tr><td colspan="2">{{
                           states('sensor.dashboard_occupancy')
                           }}
