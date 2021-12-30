@@ -17,7 +17,7 @@ sensor:
         friendly_name: "Cat last fed"
         unit_of_measurement: "hours(s) ago"
         value_template: >
-          {{ ((now().timestamp() - state_attr('input_datetime.cat_last_fed','timestamp'))/(60*60)) | round(0, 'floor') |int }}
+          {{ ((now().timestamp() - state_attr('input_datetime.cat_last_fed','timestamp'))/(60*60)) | round(0, 'floor') |int(0) }}
 
 binary_sensor:
   - platform: template
@@ -25,7 +25,7 @@ binary_sensor:
       cat_needs_feeding:
         friendly_name: "Cat needs feeding"
         value_template: >
-          {{ states('sensor.cat_last_fed')|int >= 9 and ((now().hour <= 9 and now().hour >= 7) or (now().hour >= 18 and now().hour <= 20)) }}
+          {{ states('sensor.cat_last_fed')|int(0) >= 9 and ((now().hour <= 9 and now().hour >= 7) or (now().hour >= 18 and now().hour <= 20)) }}
 
 ios:
   push:
