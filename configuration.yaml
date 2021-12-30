@@ -12,6 +12,13 @@ homeassistant:
   packages: !include_dir_named packages
   customize: !include customize.yaml
 
+  auth_providers:
+    - type: homeassistant
+    - type: command_line
+      command: /config/shell/ldap-auth.sh
+      args: ["/config/shell/ldap-auth.cfg"]
+      meta: true
+
 http:
   ssl_certificate: ssl/home-assistant.local.pem
   ssl_key: ssl/home-assistant.local-key.pem
