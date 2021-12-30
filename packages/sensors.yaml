@@ -5,6 +5,8 @@
 #################################################################
 # Inspired by: https://blog.swakes.co.uk/home-assistant-system-dashboard/
 
+sensor: !include_dir_merge_list ../sensors #temporary
+
 group:
   dws_sensors:
     # Contact

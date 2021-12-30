@@ -52,10 +52,10 @@ template:
         name: "Area - Bedroom1 Bright"
         device_class: light
         attributes:
-          current_illuminance: "{{ (states('sensor.motion_bedroom1_illuminance') | float) }}"
+          current_illuminance: "{{ (states('sensor.motion_bedroom1_illuminance') | float(0)) }}"
           light_state: "{{ states('light.bedroom_lights') }}"
           sun: "{{ states('sun.sun') }}"
-        state: "{{ (states('sensor.motion_bedroom1_illuminance') | int > states('input_number.area_bedroom_lux_level') | int) and (is_state('sun.sun', 'above_horizon') or is_state('light.bedroom1', 'off')) }}"
+        state: "{{ (states('sensor.motion_bedroom1_illuminance') | int(0) > states('input_number.area_bedroom_lux_level') | int(0)) and (is_state('sun.sun', 'above_horizon') or is_state('light.bedroom1', 'off')) }}"
 
       - unique_id: "area_bedroom1_occupied"
         name: Bedroom1 Occupied
