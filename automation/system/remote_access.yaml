@@ -1,0 +1,24 @@
+id: "33f2306e-a733-4d05-ad0a-ba65f26811c6"
+alias: "System: Toggle remote access depending on home occupancy"
+trigger:
+  platform: state
+  entity_id: input_boolean.home_occupied
+action:
+  - alias: "Disable remote access if everyone is home, else enable"
+    choose:
+      - alias: "If everyone is home"
+        conditions: "{{ trigger.to_state.state == 'on' }}"
+        sequence:
+          - service: script.post_to_home_log
+            data:
+              message: "✅ Everyone is home, disabling remote connections"
+              title: Cloud Connect
+          - service: cloud.remote_disconnect
+    # ELSE (someone is out)
+    default:
+      - service: script.post_to_home_log
+        data:
+          message: "✅ Someone is not home, enabling remote connections"
+          title: Cloud Connect
+      - service: cloud.remote_connect
+mode: single
