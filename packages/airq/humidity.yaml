@@ -21,6 +21,13 @@ sensor:
         time_constant: 10
         precision: 2
 
+- platform: min_max
+  name: Area - Household Humidity
+  type: mean
+  round_digits: 1
+  entity_ids:
+    - sensor.waqi_bangor_maine_usa
+
 template:
   - binary_sensor:
       - name: "Bedroom1 Humidity Status"

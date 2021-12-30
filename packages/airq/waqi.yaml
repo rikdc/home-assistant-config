@@ -58,6 +58,23 @@ template:
         hours: 0
         minutes: 15
     sensor:
+      - name: "Weather Outside Humidity"
+        state: >-
+          {% set attribute = 'attributes.humidity' %}
+          {% set max_hours_behind = 4 %}
+          {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
+          {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
+                                  | rejectattr('attributes.time', 'lt', cutoff)
+                                  | selectattr(attribute)
+                                  | map(attribute=attribute)
+                                  | map('float')
+                                  | list %}
+          {% if stations %}
+            {{ (stations|sum / stations|length) | round }}
+          {% else %}
+            unknown
+          {% endif %}
+
       - name: "AQI"
         icon: mdi:chemical-weapon
         state: >-
