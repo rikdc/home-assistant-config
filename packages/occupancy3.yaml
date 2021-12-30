@@ -61,7 +61,7 @@ binary_sensor:
           {{
                is_state('binary_sensor.area_bedroom_occupied', 'on')
             or is_state('binary_sensor.area_bathroom_occupied', 'on')
-            or is_state('binary_sensor.unit1_frontroom_occupied', 'on')
+            or is_state('binary_sensor.living_room_occupancy', 'on')
           }}
 
       unit1_backroom_occupancy:
