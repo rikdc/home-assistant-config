@@ -1,6 +1,6 @@
 - platform: filter
   name: "Bedroom1 Realistic Temperature"
-  entity_id: sensor.unit_1_bedroom_temperature
+  entity_id: sensor.motion_bedroom1_air_temperature
   filters:
     - filter: outlier
       window_size: 4
