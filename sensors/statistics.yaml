@@ -32,3 +32,46 @@
   type: count
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
   end: "{{ now() }}"
+
+# Area Entities
+# Bathroom
+- platform: history_stats
+  name: Stats - Bathroom Bright
+  entity_id: binary_sensor.area_bathroom_bright
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bathroom Humidity Trend
+  entity_id: binary_sensor.area_bathroom_humidity_trend
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bathroom Occupied
+  entity_id: binary_sensor.area_bathroom_occupied
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bathroom Temperature Trend
+  entity_id: sensor.motion_bathroom_air_temperature
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bathroom Motion
+  entity_id: binary_sensor.motion_bathroom_home_security_motion_detection
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
