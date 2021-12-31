@@ -1,7 +1,0 @@
-- binary_sensor:
-    - name: first_floor_bathroom_occupancy
-      device_class: "occupancy"
-      delay_off:
-        minutes: 5
-      state: >-
-        {{ is_state('binary_sensor.motion_bathroom2_home_security_motion_detection', 'on') }}
