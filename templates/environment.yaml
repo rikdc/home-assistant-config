@@ -73,3 +73,8 @@
           {% else %}
               Normal
           {% endif %}
+
+    - name: "Office1 co2 Status"
+      device_class: "problem"
+      state: >
+        {{ states('sensor.bme680_co2_equivalent') | int <= 1000 }}
