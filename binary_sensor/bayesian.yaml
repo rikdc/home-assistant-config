@@ -1,0 +1,68 @@
+- platform: bayesian
+  name: Area - Bathroom Occupied
+  prior: 0.2083
+  device_class: occupancy
+  probability_threshold: 0.70
+  observations:
+    - platform: "state"
+      entity_id: binary_sensor.area_bathroom_humidity_trend
+      prob_given_true: 0.0768
+      prob_given_false: 0.0020
+      to_state: "on"
+    - platform: "state"
+      entity_id: binary_sensor.motion_bathroom_home_security_motion_detection
+      prob_given_true: 0.6720
+      prob_given_false: 0.0531
+      to_state: "on"
+    - platform: "state"
+      entity_id: sensor.motion_bathroom_illuminance
+      prob_given_true: 1.2048
+      prob_given_false: 0.2853
+      to_state: "on"
+
+- platform: bayesian
+  name: Area - Bedroom Occupied
+  prior: 0.5
+  device_class: occupancy
+  probability_threshold: 0.7
+  observations:
+    # - platform: "state"
+    #   entity_id: "media_player.bedroom_tv"
+    #   prob_given_true: 0.0300
+    #   prob_given_false: 0.0015
+    #   to_state: "playing"
+    - platform: "state"
+      entity_id: "input_boolean.bedtime"
+      prob_given_true: 0.5940
+      prob_given_false: 0.0891
+      to_state: "on"
+    # - platform: "state"
+    #   entity_id: "binary_sensor.seb_sleeping"
+    #   prob_given_true: 0.9680
+    #   prob_given_false: 0.1452
+    #   to_state: "on"
+    # - platform: "state"
+    #   entity_id: "media_player.bedroom_echo"
+    #   prob_given_true: 0.0720
+    #   prob_given_false: 0.0144
+    #   to_state: "playing"
+    - platform: "state"
+      entity_id: "binary_sensor.sleep_schedule"
+      prob_given_true: 0.8
+      prob_given_false: 0.16
+      to_state: "on"
+    - platform: "state"
+      entity_id: "binary_sensor.motion_bedroom1_home_security_motion_detection"
+      prob_given_true: 0.1960
+      prob_given_false: 0.0392
+      to_state: "on"
+    - platform: "state"
+      entity_id: binary_sensor.area_bedroom_bright #"binary_sensor.area_bedroom1_bright"
+      prob_given_true: 0.4040
+      prob_given_false: 0.3838
+      to_state: "on"
+    - platform: "state"
+      entity_id: "sun.sun"
+      prob_given_true: 0.98
+      prob_given_false: 0.6860
+      to_state: "below_horizon"

@@ -75,3 +75,45 @@
   end: "{{ now() }}"
   duration:
     days: 7
+
+# Bedroom1
+- platform: history_stats
+  name: Stats - Bedroom1 Bright
+  entity_id: binary_sensor.area_bedroom1_bright
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bedroom1 Humidity Trend
+  entity_id: binary_sensor.motion_bedroom1_humidity
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bedroom1 Occupied
+  entity_id: binary_sensor.area_bedroom1_occupied
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bedroom1 Temperature Trend
+  entity_id: sensor.motion_bedroom1_air_temperature
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bedroom1 Motion
+  entity_id: binary_sensor.motion_bedroom1_home_security_motion_detection
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7

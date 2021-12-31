@@ -1,0 +1,51 @@
+- binary_sensor:
+    - unique_id: area_bedroom1_bright
+      name: "Area - Bedroom1 Bright"
+      device_class: light
+      attributes:
+        current_illuminance: "{{ (states('sensor.motion_bedroom1_illuminance') | float(0)) }}"
+        light_state: "{{ states('light.bedroom_lights') }}"
+        sun: "{{ states('sun.sun') }}"
+      state: "{{ (states('sensor.motion_bedroom1_illuminance') | int(0) > states('input_number.area_bedroom_lux_level') | int(0)) and (is_state('sun.sun', 'above_horizon') or is_state('light.bedroom1', 'off')) }}"
+
+    - unique_id: "area_bedroom1_occupied"
+      name: Bedroom1 Occupied
+      device_class: "occupancy"
+      delay_off:
+        minutes: 5
+      state: >-
+        {{ is_state('binary_sensor.motion_bedroom1_home_security_motion_detection', 'on' )
+            or (is_state('input_boolean.bedtime', 'on'))
+        }}
+
+    - unique_id: "sleep_schedule"
+      name: Sleep Schedule
+      icon: mdi:clock
+      state: >
+        {% set current_time = now().strftime("%H:%M")  %}
+        {% set time_limit_before= states('input_datetime.time_typically_sleeping_start') %}
+        {% set time_limit_after = states('input_datetime.time_typically_sleeping_start') %}
+
+        {% if time_limit_before == none and time_limit_after == none %}
+        true
+        {% endif %}
+
+        {% if time_limit_before != none and time_limit_after == none %}
+        {% set current_time_is_before_limit = current_time < time_limit_before  %}
+        {{ current_time_is_before_limit }}
+        {% elif time_limit_before == none and time_limit_after != none %}
+        {% set current_time_is_after_limit = current_time > time_limit_after  %}
+        {{ current_time_is_after_limit }}
+        {% endif %}
+
+        {% if time_limit_before != none and time_limit_after != none %}
+        {% set before_limit_is_tomorrow = time_limit_before < time_limit_after  %}
+        {% set current_time_is_before_limit = current_time < time_limit_before  %}
+        {% set current_time_is_after_limit = current_time > time_limit_after  %}
+        {% set time_window_spans_midnight = time_limit_after > time_limit_before  %}
+          {% if time_window_spans_midnight != none and time_window_spans_midnight and before_limit_is_tomorrow %}
+          {{ current_time_is_after_limit or current_time_is_before_limit }}
+          {% elif time_window_spans_midnight != none and not time_window_spans_midnight %}
+          {{ current_time_is_before_limit and current_time_is_after_limit }}
+          {% endif %}
+        {% endif %}
