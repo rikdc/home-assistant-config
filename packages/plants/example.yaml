@@ -1,0 +1,136 @@
+plant:
+  snakeplant_albus:
+    sensors:
+      moisture: sensor.soil_moisture_level
+      # battery: sensor.my_sensor_battery
+      temperature: sensor.my_sensor_temperature
+      # conductivity: sensor.my_sensor_conductivity
+      brightness: sensor.q_sensor_illuminance
+    min_moisture: 20
+
+# Growtent Light Groups
+group:
+  growlights1:
+    name: Growlights Tent 1
+    entities:
+      - switch.growlight2
+      - switch.growlight3
+      - switch.extractorfan
+      - switch.tasmota4 #hmm.
+
+  growlights2:
+    name: Growlights Tent 2
+    entities:
+      - switch.switch3
+      - switch.switch4
+      - switch.switch3
+
+input_select:
+  growtent1_growschedule:
+    name: Growtent1 Schedule
+    options:
+      - Germinating
+      - Vegetative
+      - Flowering
+    initial: Germinating
+    icon: mdi:panda
+
+  growtent2_growschedule:
+    name: Growtent2 Schedule
+    options:
+      - Germinating
+      - Vegetative
+      - Flowering
+    initial: Germinating
+    icon: mdi:panda
+
+input_datetime:
+  growtent1_lights_on:
+    name: When lights should be on.
+    has_date: false
+    has_time: true
+    initial: "01:00"
+
+  growtent1_lights_off:
+    name: When lights should be on.
+    has_date: false
+    has_time: true
+    initial: "19:00"
+
+  growtent2_lights_on:
+    name: When lights should be on.
+    has_date: false
+    has_time: true
+    initial: "00:00"
+
+  growtent2_lights_off:
+    name: When lights should be on.
+    has_date: false
+    has_time: true
+    initial: "18:00"
+
+automation:
+  # - alias: "Growschedule Changed"
+  #   description: "Set datetimes when the grow schedule updates"
+
+  - alias: "Growtent: Tent2 Lights On"
+    description: "Control lights depending on the selected schedule"
+    trigger:
+      - platform: time
+        at: input_datetime.growtent2_lights_on
+    action:
+      - service: switch.turn_on
+        entity_id: group.growlights2
+      - service: script.post_to_home_log
+        data:
+          message: "Growtent2 - Lighs are on!"
+    mode: single
+
+  - alias: "Growtent: Tent2 Lights Off"
+    description: "Control lights depending on the selected schedule"
+    trigger:
+      - platform: time
+        at: input_datetime.growtent2_lights_off
+    action:
+      - service: switch.turn_off
+        entity_id: group.growlights2
+      - service: script.post_to_home_log
+        data:
+          message: "Growtent2 - Lighs are off!"
+    mode: single
+
+  - alias: Growlight Cycle On
+    description: "Turn on Growlights"
+    trigger:
+      - platform: time
+        at: input_datetime.growtent1_lights_on
+    condition: []
+    action:
+      - service: switch.turn_on
+        entity_id: switch.growlight3
+      - service: switch.turn_on
+        entity_id: switch.growlight2
+      - service: switch.turn_on
+        entity_id: switch.extractorfan
+      - service: script.post_to_home_log
+        data:
+          message: "Growtent1 - Lighs are on!"
+    mode: single
+
+  - alias: Growlight Cycle Off
+    description: "Turn of Growlights"
+    trigger:
+      - platform: time
+        at: "19:00:00"
+    condition: []
+    action:
+      - service: switch.turn_off
+        entity_id: switch.growlight3
+      - service: switch.turn_off
+        entity_id: switch.growlight2
+      - service: swtich.turn_off
+        entity_id: switch.extractorfan
+      - service: script.post_to_home_log
+        data:
+          message: "Growtent2 - Lighs are off!"
+    mode: single
