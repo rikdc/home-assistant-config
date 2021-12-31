@@ -213,32 +213,3 @@ input_number:
     initial: 5
     min: 1
     max: 1440
-
-powercalc:
-
-#
-# For energy monitoring
-#
-sensor:
-  - platform: powercalc
-    entity_id: light.frontroom_ceiling
-    fixed:
-      power: 36
-
-binary_sensor:
-  - platform: template
-    sensors:
-      disable_bedroom1_motion_lights:
-        friendly_name: "Disable Bedroom1 Motion Lights"
-        value_template: >
-          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}
-
-      disable_backroom_motion_lights:
-        friendly_name: "Disable Backroom Motion Lights"
-        value_template: >
-          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}
-
-      disable_frontroom_motion_lights:
-        friendly_name: "Disable Front Motion Lights"
-        value_template: >
-          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}

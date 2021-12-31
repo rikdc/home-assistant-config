@@ -1,0 +1,4 @@
+- platform: powercalc
+  entity_id: light.frontroom_ceiling
+  fixed:
+    power: 36
