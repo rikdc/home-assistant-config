@@ -36,22 +36,13 @@
 # 5,000 	Workplace exposure limit (as 8-hour TWA) in most jurisdictions.
 
 # [] - Co2 on the rise, stuffiness warning.
-
-sensor:
-  - platform: filter
-    name: "Office1 Realistic co2"
-    entity_id: sensor.ccs811_eco2_value_2 # sensor.bme680_breath_voc_equivalent
-    filters:
-      - filter: outlier
-        window_size: 4
-        radius: 4.0
-      - filter: lowpass
-        time_constant: 10
-        precision: 2
-
-template:
-  - binary_sensor:
-      - name: "Office1 co2 Status"
-        device_class: "problem"
-        state: >
-          {{ states('sensor.bme680_co2_equivalent') | int <= 1000 }}
+- platform: filter
+  name: "Office1 Realistic co2"
+  entity_id: sensor.ccs811_eco2_value_2 # sensor.bme680_breath_voc_equivalent
+  filters:
+    - filter: outlier
+      window_size: 4
+      radius: 4.0
+    - filter: lowpass
+      time_constant: 10
+      precision: 2
