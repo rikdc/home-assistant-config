@@ -83,7 +83,6 @@ lovelace:
       filename: lovelace/sub-views/remotes.yaml
 
 input_boolean: !include input_boolean.yaml
-binary_sensor: !include binary_sensors.yaml
 
 group: !include_dir_merge_named group/
 script: !include_dir_named scripts/
@@ -92,6 +91,7 @@ automation ui: !include automations.yaml
 automation manual: !include_dir_list automation/
 
 browser_mod:
+powercalc:
 
 logger:
   default: info
