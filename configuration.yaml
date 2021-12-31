@@ -19,62 +19,6 @@ http:
 frontend:
   themes: !include_dir_merge_named themes
 
-lovelace:
-  mode: storage
-  dashboards:
-    #
-    # Mobile Dashboard + Sub-Dashboards
-    #
-    lovelace-demo:
-      mode: yaml
-      title: Mobile
-      icon: mdi:view-dashboard
-      show_in_sidebar: true
-      require_admin: false
-      filename: lovelace/dashboard.yaml
-    sub-security:
-      mode: yaml
-      title: Security
-      show_in_sidebar: false
-      require_admin: false
-      filename: lovelace/sub-views/security.yaml
-    sub-cameras:
-      mode: yaml
-      title: Cameras
-      show_in_sidebar: false
-      require_admin: false
-      filename: lovelace/sub-views/cameras.yaml
-    sub-admin:
-      mode: yaml
-      title: Admin
-      show_in_sidebar: false
-      require_admin: false
-      filename: lovelace/sub-views/admin.yaml
-    sub-fan:
-      mode: yaml
-      title: Fans
-      show_in_sidebar: false
-      require_admin: false
-      filename: lovelace/sub-views/fan.yaml
-    sub-hvac:
-      mode: yaml
-      title: HVAC
-      show_in_sidebar: false
-      require_admin: false
-      filename: lovelace/sub-views/hvac.yaml
-    sub-music:
-      mode: yaml
-      title: Music
-      show_in_sidebar: false
-      require_admin: false
-      filename: lovelace/sub-views/music.yaml
-    sub-remotes:
-      mode: yaml
-      title: Remotes
-      show_in_sidebar: false
-      require_admin: false
-      filename: lovelace/sub-views/remotes.yaml
-
 input_boolean: !include input_boolean.yaml
 binary_sensor: !include binary_sensors.yaml
 
