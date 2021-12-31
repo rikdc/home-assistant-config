@@ -1,0 +1,34 @@
+- platform: history_stats
+  name: Main Pump 3day Cycles
+  entity_id: binary_sensor.main_pump_status
+  state: "on"
+  type: count
+  end: "{{ now() }}"
+  duration:
+    days: 3
+
+- platform: history_stats
+  name: Main Pump 30day Cycles
+  entity_id: binary_sensor.main_pump_status
+  state: "on"
+  type: count
+  end: "{{ now().replace(minute=0).replace(second=0) }}"
+  duration:
+    days: 30
+
+- platform: history_stats
+  name: Backup Pump 1day Cycles
+  entity_id: binary_sensor.backup_pump_status
+  state: "on"
+  type: count
+  end: "{{ now().replace(minute=0).replace(second=0) }}"
+  duration:
+    days: 1
+
+- platform: history_stats
+  name: Main Pump Running
+  entity_id: binary_sensor.main_pump_status
+  state: "on"
+  type: count
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
