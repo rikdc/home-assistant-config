@@ -1,7 +1,3 @@
-##    input_select.house_presence – keeps track of who is home
-##    input_select.*room*_presence – keeps track of individual room presence
-##    input_select.*person*_location – keeps track of where people are (and is more detailed than the home/away person.*person* entity)
-
 homeassistant:
   customize:
     package.occupancy:
