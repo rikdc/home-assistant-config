@@ -1,0 +1,17 @@
+- platform: filter
+  name: "Bedroom1 Realistic Humidity"
+  entity_id: sensor.motion_bedroom1_humidity
+  filters:
+    - filter: outlier
+      window_size: 4
+      radius: 4.0
+    - filter: lowpass
+      time_constant: 10
+      precision: 2
+
+- platform: min_max
+  name: Area - Household Humidity
+  type: mean
+  round_digits: 1
+  entity_ids:
+    - sensor.waqi_bangor_maine_usa

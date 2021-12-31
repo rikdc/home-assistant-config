@@ -23,30 +23,6 @@ counter:
 
 #################################################################
 #                                                               #
-#                           Sensors                             #
-#                                                               #
-#################################################################
-sensor:
-
-#################################################################
-#                                                               #
-#                            Alerts                             #
-#                                                               #
-#################################################################
-alert:
-  home_automation:
-    name: Home automation is disabled
-    done_message: Home automation enabled
-    entity_id: input_boolean.allow_automation_execution
-    state: "off"
-    repeat: 30
-    can_acknowledge: True
-    #skip_first: True
-    notifiers:
-      - home_automation
-
-#################################################################
-#                                                               #
 #                          Automations                          #
 #                                                               #
 #################################################################
