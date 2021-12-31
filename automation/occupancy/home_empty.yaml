@@ -1,0 +1,28 @@
+id: "04bd834f-d3ac-4e45-a440-807fc26d5d39"
+alias: "Set home to unoccupied"
+trigger:
+  platform: state
+  entity_id:
+    - !secret person1_entity
+    - !secret person2_entity
+    - !secret person3_entity
+  from: home
+  to: not_home
+  for:
+    minutes: 5
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: !secret person1_entity
+      state: not_home
+    - condition: state
+      entity_id: !secret person2_entity
+      state: not_home
+    - condition: state
+      entity_id: !secret person3_entity
+      state: not_home
+action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.home_occupied

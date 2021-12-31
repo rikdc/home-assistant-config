@@ -1,0 +1,10 @@
+- binary_sensor:
+    - name: unit2_office_occupancy
+      device_class: "occupancy"
+      delay_off:
+        minutes: 5
+      delay_on:
+        seconds: 3
+      state: >-
+        {{ (is_state('input_boolean.home_occupied', 'on')
+            and is_state('binary_sensor.unit_1_experiment_rcwl0516_movement', 'on')) }}

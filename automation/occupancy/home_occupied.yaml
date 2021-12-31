@@ -1,0 +1,13 @@
+id: "37f15be9-acd5-49db-bdad-ddd5ce35ac2a"
+alias: "Set home to occupied"
+trigger:
+  platform: state
+  entity_id:
+    - !secret person1_entity
+    - !secret person2_entity
+    - !secret person3_entity
+  to: home
+action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.home_occupied
