@@ -9,7 +9,7 @@ history:
       - binary_sensor.*_motion
 
 homeassistant:
-  packages: !include_dir_named packages
+  packages: !include_dir_named configuration/
   customize: !include customize.yaml
 
   auth_providers:

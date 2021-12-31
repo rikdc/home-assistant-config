@@ -3,7 +3,7 @@
 #
 # The purpose of this package is to allow a random TV show to start
 # after an NFC tag is scanned.
-# 
+#
 # This package has largely been inspired by:
 # - https://community.home-assistant.io/t/thought-id-share-my-nfc-tag-emby-media-player-setup/282127
 # - How to get a dynamic input_select: https://community.home-assistant.io/t/fill-input-select/63865/43
@@ -16,7 +16,7 @@
 # - When an NFC Tag is scanned, select a random episode and play it.
 #
 
-# This is a hack, I wanted to use the base URL for the Rest commands, but 
+# This is a hack, I wanted to use the base URL for the Rest commands, but
 # secrets can't be used as variables. If this was a more important
 # automation, I would conver this to a component.
 input_text:
@@ -34,7 +34,7 @@ sensor:
     name: "Emby - Random Always Sunny Episode"
     resource_template: "{{ states('input_text.emby_base_url') + '/emby/Shows/21775/Episodes' }}"
     scan_interval: 4
-    value_template: '{{ value_json.Items[range(0,((value_json.TotalRecordCount | int) -1 ))|random].Id}} '
+    value_template: "{{ value_json.Items[range(0,((value_json.TotalRecordCount | int) -1 ))|random].Id}} "
     headers:
       X-Emby-Token: !secret emby_key
       Content-Type: application/json
@@ -48,38 +48,38 @@ rest:
   sensor:
     - name: Emby - Session Upstairs Living Room
       value_template: >
-         {% set items = value_json | selectattr('DeviceName','eq', 'Roku Streaming Stick') | list | first %}
-         {{ items['Id'] }} 
+        {% set items = value_json | selectattr('DeviceName','eq', 'Roku Streaming Stick') | list | first %}
+        {{ items['Id'] }}
     - name: Emby - Session Downstairs Living Room
       value_template: >
-         {% set items = value_json | selectattr('DeviceName','eq', 'Downstairs Livingroom') | list | first %}
-         {{ items['Id'] }} 
+        {% set items = value_json | selectattr('DeviceName','eq', 'Downstairs Livingroom') | list | first %}
+        {{ items['Id'] }}
 
 rest_command:
   emby_start_show:
     url: "{{ states('input_text.emby_base_url') }}/emby/Sessions/{{ states(session) }}/Playing?ItemIds={{ states(show) }}&PlayCommand=PlayNow"
     method: POST
     headers:
-      accept: '*/*'
+      accept: "*/*"
       X-Emby-Token: !secret emby_key
-      Content-Type: 'application/json'
+      Content-Type: "application/json"
 
 script:
   emby_turn_on_livingroom:
     sequence:
-    - type: turn_on
-      device_id: 0b3641ef9902529c6166b328fbdcfbe7
-      entity_id: media_player.roku_streaming_stick_2
-      domain: remote
+      - type: turn_on
+        device_id: 0b3641ef9902529c6166b328fbdcfbe7
+        entity_id: media_player.roku_streaming_stick_2
+        domain: remote
     mode: single
 
   emby_open_livingroom:
     sequence:
-    - service: media_player.select_source
-      data:
-        source: Emby
-      target:
-        entity_id: media_player.roku_streaming_stick_2
+      - service: media_player.select_source
+        data:
+          source: Emby
+        target:
+          entity_id: media_player.roku_streaming_stick_2
     mode: single
 
 automation:
@@ -87,25 +87,25 @@ automation:
     mode: single
     trigger:
       - platform: tag
-        tag_id:  6dca970e-7431-4082-be30-39768671197f 
+        tag_id: 6dca970e-7431-4082-be30-39768671197f
     variables:
       tags:
-         6dca970e-7431-4082-be30-39768671197f :
+        6dca970e-7431-4082-be30-39768671197f:
           tv: Upstairs TV
           turn_on_emby: script.emby_turn_on_livingroom
           open_emby: script.emby_open_livingroom
           media_player: media_player.roku_streaming_stick_2
     action:
-    # Make sure Emby is open, and if it isn't, start it
-    - service_template: >
-        {% if (is_state( tags[trigger.event.data.tag_id].media_player , "off")) %}
-          {{ tags[trigger.event.data.tag_id].turn_on_emby }}
-        {% else %}
-          {{ tags[trigger.event.data.tag_id].open_emby }}
-        {% endif %}
-    - wait_template: "{{ is_state_attr(tags[trigger.event.data.tag_id].media_player, 'source', 'Emby') }}"
-    - delay: 5 #this is annoying, need to be more elegant here.
-    - service: rest_command.emby_start_show
-      data_template:
-        show: sensor.emby_random_always_sunny_episode
-        session: sensor.emby_session_upstairs_living_room
+      # Make sure Emby is open, and if it isn't, start it
+      - service_template: >
+          {% if (is_state( tags[trigger.event.data.tag_id].media_player , "off")) %}
+            {{ tags[trigger.event.data.tag_id].turn_on_emby }}
+          {% else %}
+            {{ tags[trigger.event.data.tag_id].open_emby }}
+          {% endif %}
+      - wait_template: "{{ is_state_attr(tags[trigger.event.data.tag_id].media_player, 'source', 'Emby') }}"
+      - delay: 5 #this is annoying, need to be more elegant here.
+      - service: rest_command.emby_start_show
+        data_template:
+          show: sensor.emby_random_always_sunny_episode
+          session: sensor.emby_session_upstairs_living_room
