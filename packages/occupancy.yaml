@@ -1,0 +1,33 @@
+##    input_select.house_presence – keeps track of who is home
+##    input_select.*room*_presence – keeps track of individual room presence
+##    input_select.*person*_location – keeps track of where people are (and is more detailed than the home/away person.*person* entity)
+
+homeassistant:
+  customize:
+    package.occupancy:
+      location_states: &location_states
+        options:
+          - Unknown
+          - Just Arrived
+          - Home
+          - Just Left
+          - Away
+          - Extended Away
+          - Kitchen
+          - Downstairs
+          - Upstairs
+          - Downstairs Livingroom
+          - Upstairs Livingroom
+          - Bedroom
+          - Bathroom
+          - Upper Office
+
+input_select:
+  stefanie_location:
+    <<: *location_states
+
+  richard_location:
+    <<: *location_states
+
+  jenn_location:
+    <<: *location_states
