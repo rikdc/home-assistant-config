@@ -124,11 +124,6 @@ sensor:
     scan_interval: 86400
     command: "cat /share/system_updates.out | cut -d ';' -f 2"
 
-input_boolean:
-  homeautomation:
-    name: Home Automation
-    icon: mdi:home-automation
-
 #################################################################
 #                                                               #
 #                            Alerts                             #
@@ -138,7 +133,7 @@ alert:
   home_automation:
     name: Home automation is disabled
     done_message: Home automation enabled
-    entity_id: input_boolean.homeautomation
+    entity_id: input_boolean.allow_automation_execution
     state: "off"
     repeat: 30
     can_acknowledge: True
