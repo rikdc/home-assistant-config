@@ -28,7 +28,7 @@ counter:
 #################################################################
 automation:
   - id: "330757ab-210e-4a78-8743-693cca42c9eb"
-    alias: "Update VERIFY"
+    alias: "Ssystem: Update VERIFY"
     trigger:
       # When Home Assistant starts.
       - platform: homeassistant
@@ -59,7 +59,7 @@ automation:
           message: "Warning - Mufasa can be updated, but unattended upgrades has not run"
 
   ## Notify if we're running out of disk space on the main home-assistant server.
-  - alias: Disk Use Alarm
+  - alias: "System: Disk Use Alarm"
     initial_state: "on"
     trigger:
       platform: numeric_state
@@ -72,7 +72,7 @@ automation:
           message: "Warning - HA Server Disk Use is {{states.sensor.disk_use.state}}Gb"
 
   ## Notify of High CPU Usage
-  - alias: CPU Use Alarm
+  - alias: "System: CPU Use Alarm"
     initial_state: "on"
     trigger:
       platform: numeric_state
@@ -86,7 +86,7 @@ automation:
           message: "Warning - HA Server Processor {{states.sensor.processor_use.state}}%"
 
   ## Notify if CPU Temperature is High
-  - alias: CPU Temp Alarm
+  - alias: "System: CPU Temp Alarm"
     initial_state: "on"
     trigger:
       platform: numeric_state
@@ -98,7 +98,7 @@ automation:
           title: "HA HASSIO Server"
           message: "Warning - HA Server CPU Temp is {{states.sensor.cpu_temperature.state}}c"
 
-  - alias: "HASS: ERRORs in System Log - Counter"
+  - alias: "System: ERRORs in System Log - Counter"
     id: 3b8230a5-49d5-437b-8bd9-d3f72f95425f
     trigger:
       platform: event
@@ -111,7 +111,7 @@ automation:
       - service: counter.increment
         entity_id: counter.syslog_errors
 
-  - alias: "HASS: WARNINGs in System Log - Counter"
+  - alias: "System: WARNINGs in System Log - Counter"
     id: acdf3489-b611-445c-bd24-2efc9c431124
     trigger:
       platform: event

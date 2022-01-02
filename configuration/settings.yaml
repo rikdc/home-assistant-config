@@ -99,3 +99,71 @@ input_datetime:
     name: "unit2_livingroom_lights_on_stop"
     has_date: false
     has_time: true
+
+input_boolean:
+  #
+  # Automation Switches
+  #
+  allow_automation_execution:
+    name: "Allow Automation"
+    initial: off
+
+  allow_notifications:
+    name: "Allow notifications"
+    initial: on
+
+  disable_lock_doors:
+    name: Disable Lock Automation #This works, but I should invert the polarity.
+    icon: mdi:lock-plus
+
+  dummy:
+    initial: on
+
+  #
+  # People states
+  #
+  automations_presence:
+    initial: on
+
+  guests:
+    initial: off
+
+  automations_presence_ble:
+    initial: on
+
+  automations_presence_bed:
+    initial: off
+
+  person1_in_bed:
+    name: person1 in bed
+    icon: mdi:bed
+
+  person1_is_awake:
+    name: person1_awake
+    icon: mdi:bed
+
+  person1_asleep:
+    name: person1 asleep
+    icon: mdi:bed
+
+  person1_home:
+    name: person1 home
+    icon: mdi:bed
+
+  home_occupied:
+    name: "home_occupied"
+    icon: mdi:account-group
+
+  bedtime:
+    name: Bedtime
+    initial: off
+    icon: mdi:bed
+
+  person3_bedtime:
+    name: Jenns Bedtime
+    initial: off
+
+  ## Occupancy
+  livingroom_occupied:
+    name: "livingroom_occupied"
+    initial: off
