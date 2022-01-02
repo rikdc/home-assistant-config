@@ -1,5 +1,5 @@
 - id: 0040dae3-d3c6-4d0a-a521-cee688b144f9
-  alias: Lights: Outside Lights off at Bedtime
+  alias: "Lights: Outside Lights off at Bedtime"
   description: Turn off outside lights at 11pm if we're all home.
   trigger:
     - platform: time
