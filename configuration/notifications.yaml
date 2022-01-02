@@ -32,3 +32,48 @@ script:
       #     data:
       #       blocks: []
       #   service: notify.slack_notify
+
+notify:
+  - name: STANDARD_EMAIL
+    username: !secret email_username
+    password: !secret email_password
+    platform: smtp
+    sender: !secret sender_email
+    recipient: !secret my_email
+    server: !secret email_host
+    port: 465
+    encryption: tls
+
+  - name: ALL
+    platform: group
+    services:
+      - service: !secret person1_mobile
+      - service: !secret person2_mobile
+      - service: !secret person3_mobile
+
+  - name: android
+    platform: group
+    services:
+      - service: !secret person1_mobile
+
+  - name: iphone
+    platform: group
+    services:
+      - service: !secret person2_mobile
+      - service: !secret person3_mobile
+
+  - name: home_automation
+    platform: group
+    services:
+      - service: !secret person2_mobile
+        data:
+          title: "Enable Home automation?"
+          data:
+            push:
+              badge: 0
+              category: "home_automation"
+
+  - name: admins
+    platform: group
+    services:
+      - service: !secret person2_mobile

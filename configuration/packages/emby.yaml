@@ -34,7 +34,7 @@ sensor:
     name: "Emby - Random Always Sunny Episode"
     resource_template: "{{ states('input_text.emby_base_url') + '/emby/Shows/21775/Episodes' }}"
     scan_interval: 4
-    value_template: "{{ value_json.Items[range(0,((value_json.TotalRecordCount | int) -1 ))|random].Id}} "
+    value_template: "{{ value_json.Items[range(0,((value_json.TotalRecordCount | int(0)) -1 ))|random].Id}} "
     headers:
       X-Emby-Token: !secret emby_key
       Content-Type: application/json
