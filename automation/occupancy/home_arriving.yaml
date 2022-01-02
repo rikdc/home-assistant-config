@@ -1,25 +1,25 @@
-id: "231ea913-dde3-495e-aa9f-3817671010b6"
-alias: "Away Status: Arriving"
-trigger:
-  platform: state
-  entity_id:
-    - !secret person1_entity
-    - !secret person2_entity
-    - !secret person3_entity
-  to: home
-action:
-  - service: input_select.select_option
-    data:
-      entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
-      option: "Just Arrived"
-  - service: tts.cloud_say
-    data:
-      entity_id: media_player.multi_room_controller
-      message: >
-        {{ trigger.entity_id[7:] }} has just arrived.
-  - delay:
-      minutes: 1
-  - service: input_select.select_option
-    data:
-      entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
-      option: "Home"
+- id: "231ea913-dde3-495e-aa9f-3817671010b6"
+  alias: "Away Status: Arriving"
+  trigger:
+    platform: state
+    entity_id:
+      - !secret person1_entity
+      - !secret person2_entity
+      - !secret person3_entity
+    to: home
+  action:
+    - service: input_select.select_option
+      data:
+        entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
+        option: "Just Arrived"
+    - service: tts.cloud_say
+      data:
+        entity_id: media_player.multi_room_controller
+        message: >
+          {{ trigger.entity_id[7:] }} has just arrived.
+    - delay:
+        minutes: 1
+    - service: input_select.select_option
+      data:
+        entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
+        option: "Home"

@@ -1,11 +1,11 @@
-id: "518fded7-8520-44e2-a020-b41b7073bad7"
-alias: Outside Lights on at Dusk
-description: "Turn on outside lights when it is dusk"
-trigger:
-  - platform: sun
-    event: sunset
-condition: []
-action:
-  - service: light.turn_on
-    entity_id: light.light_outside_front
-mode: single
+- id: "518fded7-8520-44e2-a020-b41b7073bad7"
+  alias: Outside Lights on at Dusk
+  description: "Turn on outside lights when it is dusk"
+  trigger:
+    - platform: sun
+      event: sunset
+  condition: []
+  action:
+    - service: light.turn_on
+      entity_id: light.light_outside_front
+  mode: single

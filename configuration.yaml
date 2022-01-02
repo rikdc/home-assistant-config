@@ -28,7 +28,7 @@ frontend:
 
 scene: !include scenes.yaml
 automation ui: !include automations.yaml
-automation manual: !include_dir_list automation/
+automation manual: !include_dir_merge_named automation/
 
 browser_mod:
 powercalc:
