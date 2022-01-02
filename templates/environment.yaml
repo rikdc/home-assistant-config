@@ -57,6 +57,35 @@
             Saturation Point
           {% endif %}
 
+    - name: "Bathroom1 Humidity Status"
+      device_class: "problem"
+      state: >
+        {% set state = states('sensor.motion_bathroom_humidity') %}
+        {{ is_number(state) and ( state | float(0) < 40  or state | float(0) > 50 )  }}
+      delay_on: 00:00:30
+      delay_off: 00:00:30
+      attributes:
+        room: "Bathroom1 1"
+        reason: >-
+          {% set current_state = states('sensor.motion_bathroom_humidity')|int %}
+          {% if current_state < 15 %}
+            Way too dry
+          {% elif current_state < 20 %}
+            Too Dry
+          {% elif current_state < 40 %}
+            Dry
+          {% elif current_state < 50 %}
+            Good
+          {% elif current_state < 60 %}
+            Humid
+          {% elif current_state < 65 %}
+            Too Humid
+          {% elif current_state < 80 %}
+            Soaking
+          {% else %}
+            Saturation Point
+          {% endif %}
+
     - name: "Bedroom1 Temperature Status"
       device_class: "problem"
       delay_on: 5

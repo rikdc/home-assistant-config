@@ -26,9 +26,11 @@ http:
 frontend:
   themes: !include_dir_merge_named themes
 
+readme:
+
 scene: !include scenes.yaml
 automation ui: !include automations.yaml
-automation manual: !include_dir_merge_named automation/
+automation manual: !include_dir_merge_list automation/
 
 browser_mod:
 powercalc:

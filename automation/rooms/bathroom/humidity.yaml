@@ -1,11 +1,22 @@
-- id: "e0c17ac9-81c6-47ce-8945-18d1749a720a"
+- id: "e0c17ac9-81c6-47ce-8945-18d1749a720b"
   alias: "Bathroom1: Humidity"
   description: "Turn on Extractor Fan when humidity rises"
   trigger:
-    - platform: numeric_state
-      entity_id: sensor.motion_bathroom_humidity
-      above: 65
+    - platform: state
+      entity_id: binary_sensor.bathroom1_humidity_status
   action:
     - service: script.post_to_home_log
       data:
-        message: ":bathtub: :door: Bathroom humidity is above 65"
+        message: ":bathtub: :door: Bathroom humidity {{ state_attr(trigger.entity_id, 'reason') }}"
+    - alias: "Toggle the fan based on the status"
+      choose:
+        - alias: "Humidity is high"
+          conditions: "{{ trigger.to_state.state == 'on' }}"
+          sequence:
+            - service: switch.turn_on
+              target:
+                entity_id: switch.switches_bathroom1
+      default:
+        - service: switch.turn_off
+          target:
+            entity_id: switch.switches_bathroom1
