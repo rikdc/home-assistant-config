@@ -3,7 +3,7 @@
   use_blueprint:
     path: freakshock88/motion_illuminance_activated_entity.yaml
     input:
-      motion_sensor: binary_sensor.unit_2_kitchen_motion
+      motion_sensor: binary_sensor.upstairs_person_motion
       target_entity: light.upstairs_sofa_lamp
       time_limit_after: input_datetime.unit2_livingroom_lights_on_start
       time_limit_before: input_datetime.unit2_livingroom_lights_on_stop
