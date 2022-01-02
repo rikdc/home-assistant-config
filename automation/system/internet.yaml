@@ -1,0 +1,43 @@
+- id: 6640f6f5-dac5-4637-9ddd-66c582af5023
+  alias: "Network: WAN Status Change Notification"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wan
+      for:
+        hours: 0
+        minutes: 2
+        seconds: 0
+  condition:
+    - condition: state
+      entity_id: input_boolean.allow_notifications
+      state: "on"
+  action:
+    - choose:
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.wan
+            state: "on"
+        sequence:
+          - service: persistent_notification.create
+            data:
+              title: Monitor
+              message: "Internet access is back up"
+              notification_id: internet_monitor
+          - service: notify.admins
+            data:
+              title: Monitor
+              message: "Internet access is back up"
+          - delay: 120
+          - service: persistent_notification.dismiss
+            data:
+              notification_id: unavailable_entities
+      default:
+        - service: persistent_notification.create
+          data:
+            title: Monitor
+            message: "Internet access is down"
+            notification_id: internet_monitor
+        - service: notify.admins
+          data:
+            title: Monitor
+            message: "Internet access is down"

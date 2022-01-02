@@ -1,0 +1,29 @@
+homeassistant:
+  customize:
+    package.occupancy:
+      location_states: &location_states
+        options:
+          - Unknown
+          - Just Arrived
+          - Home
+          - Just Left
+          - Away
+          - Extended Away
+          - Kitchen
+          - Downstairs
+          - Upstairs
+          - Downstairs Livingroom
+          - Upstairs Livingroom
+          - Bedroom
+          - Bathroom
+          - Upper Office
+
+input_select:
+  stefanie_location:
+    <<: *location_states
+
+  richard_location:
+    <<: *location_states
+
+  jenn_location:
+    <<: *location_states

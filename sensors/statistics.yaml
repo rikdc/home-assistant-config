@@ -1,0 +1,119 @@
+- platform: history_stats
+  name: Main Pump 3day Cycles
+  entity_id: binary_sensor.main_pump_status
+  state: "on"
+  type: count
+  end: "{{ now() }}"
+  duration:
+    days: 3
+
+- platform: history_stats
+  name: Main Pump 30day Cycles
+  entity_id: binary_sensor.main_pump_status
+  state: "on"
+  type: count
+  end: "{{ now().replace(minute=0).replace(second=0) }}"
+  duration:
+    days: 30
+
+- platform: history_stats
+  name: Backup Pump 1day Cycles
+  entity_id: binary_sensor.backup_pump_status
+  state: "on"
+  type: count
+  end: "{{ now().replace(minute=0).replace(second=0) }}"
+  duration:
+    days: 1
+
+- platform: history_stats
+  name: Main Pump Running
+  entity_id: binary_sensor.main_pump_status
+  state: "on"
+  type: count
+  start: "{{ now().replace(hour=0, minute=0, second=0) }}"
+  end: "{{ now() }}"
+
+# Area Entities
+# Bathroom
+- platform: history_stats
+  name: Stats - Bathroom Bright
+  entity_id: binary_sensor.area_bathroom_bright
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bathroom Humidity Trend
+  entity_id: binary_sensor.area_bathroom_humidity_trend
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bathroom Occupied
+  entity_id: binary_sensor.area_bathroom_occupied
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bathroom Temperature Trend
+  entity_id: sensor.motion_bathroom_air_temperature
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bathroom Motion
+  entity_id: binary_sensor.motion_bathroom_home_security_motion_detection
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+
+# Bedroom1
+- platform: history_stats
+  name: Stats - Bedroom1 Bright
+  entity_id: binary_sensor.area_bedroom1_bright
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bedroom1 Humidity Trend
+  entity_id: binary_sensor.motion_bedroom1_humidity
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bedroom1 Occupied
+  entity_id: binary_sensor.area_bedroom1_occupied
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bedroom1 Temperature Trend
+  entity_id: sensor.motion_bedroom1_air_temperature
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Bedroom1 Motion
+  entity_id: binary_sensor.motion_bedroom1_home_security_motion_detection
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7

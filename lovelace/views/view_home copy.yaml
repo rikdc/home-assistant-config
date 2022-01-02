@@ -1,0 +1,705 @@
+title: Sensors
+path: sensors
+panel: true
+icon: 'mdi:eye-circle-outline'
+badges: []
+cards:
+  - type: 'custom:layout-card'
+    column_width:
+      - 450
+      - 975
+    layout: vertical
+    cards:
+      - type: 'custom:homekit-card'
+        horizontalScroll: true
+        statePositionTop: true
+        useBrightness: false
+        useTemperature: false
+        enableColumns: true
+        tileHoldAnimation: false
+        panel: true
+        home: false
+        style: |
+          :host {
+            --tile-background: rgba(230, 230, 228, 0.5);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            --tile-name-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            --tile-state-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+            --tile-value-text-color: rgba(0, 0, 0, 1);
+            --tile-value-text-font-size: 12px;
+            --tile-icon-color: rgba(0, 0, 0, 0.25);
+            --tile-on-icon-color: #f7d959;
+            --tile-width-mobile: 90px;
+            --tile-height-mobile: 90px;
+            --min-header-height: 150px;
+            --tile-icon-size: 36px;
+            --tile-image-radius: 0%
+          }
+        rows:
+          - row: 1
+            columns:
+              - column: 1
+                entities:
+                  - entities:
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: binary_sensor.main_entrance_door_state
+                              name: Main Door
+                              color: red
+                            - entity: binary_sensor.unit_1_bedroom_motion
+                              name: Living Room
+                              color: green
+                            - entity: binary_sensor.unit_1_frontroom_motion
+                              name: Front Room
+                              color: blue
+                            - entity: binary_sensor.night
+                              color: 'rgba(100,100,100,.75)'
+                              y_axis: secondary
+                              aggregate_func: min
+                              show_state: false
+                              show_line: true
+                              show_points: false
+                          name: Motion
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 6
+                          update_interval: 10
+                          aggregate_func: max
+                          line_width: 1
+                          smoothing: false
+                          state_map:
+                            - value: 'off'
+                              label: Clear
+                            - value: 'on'
+                              label: Detected
+                        noPadding: true
+                        higher: true
+                        higherSize: 2
+                        wider: true
+                        widerSize: 4
+
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: binary_sensor.main_entrance_door_state
+                              name: Main Door
+                              color: red
+                            - entity: binary_sensor.night
+                              color: 'rgba(100,100,100,.75)'
+                              y_axis: secondary
+                              aggregate_func: min
+                              show_state: false
+                              show_line: true
+                              show_points: false
+                          name: Door
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 6
+                          update_interval: 10
+                          aggregate_func: max
+                          line_width: 1
+                          smoothing: false
+                          state_map:
+                            - value: 'off'
+                              label: Closed
+                            - value: 'on'
+                              label: Open
+                        noPadding: true
+                        higher: true
+                        higherSize: 2
+                        wider: true
+                        widerSize: 4
+                    title: Security Status
+      - type: custom:layout-break
+      - type: custom:homekit-card
+        title: Media
+        titleColor: '#000'
+        horizontalScroll: true
+        statePositionTop: true
+        useBrightness: false
+        useTemperature: false
+        enableColumns: true
+        tileHoldAnimation: false
+        panel: true
+        home: false
+        style: |
+          :host {
+            --tile-background: rgba(230, 230, 228, 0.5);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            --tile-name-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            --tile-state-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+            --tile-value-text-color: rgba(0, 0, 0, 1);
+            --tile-value-text-font-size: 12px;
+            --tile-icon-color: rgba(0, 0, 0, 0.25);
+            --tile-on-icon-color: #f7d959;
+            --tile-width-mobile: 90px;
+            --tile-height-mobile: 90px;
+            --min-header-height: 150px;
+            --tile-icon-size: 36px;
+            --tile-image-radius: 0%
+          }
+        rows:
+          - row: 2
+            columns:
+              - column: 1
+                entities:
+                  - entities:
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.unit_1_frontroom_temperature
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: -20
+                              color: '#008bff'
+                            - value: -10
+                              color: '#62d9ff'
+                            - value: -5
+                              color: '#a4f5ff'
+                            - value: 0
+                              color: '#f1ffff'
+                            - value: 5
+                              color: '#ffff88'
+                            - value: 10
+                              color: '#ffe359'
+                            - value: 15
+                              color: '#ffb92c'
+                            - value: 20
+                              color: '#ff9d20'
+                            - value: 25
+                              color: '#ff7d1d'
+                            - value: 30
+                              color: '#ff5d11'
+                            - value: 35
+                              color: '#ff3609'
+                            - value: 40
+                              color: '#a61e00'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 1
+                          update_interval: 1
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                      - card: 'custom:mini-graph-card'
+                        show_state: true
+                        cardOptions:
+                          entities:
+                            - entity: sensor.unit_1_bedroom_temperature
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: -20
+                              color: '#008bff'
+                            - value: -10
+                              color: '#62d9ff'
+                            - value: -5
+                              color: '#a4f5ff'
+                            - value: 0
+                              color: '#f1ffff'
+                            - value: 5
+                              color: '#ffff88'
+                            - value: 10
+                              color: '#ffe359'
+                            - value: 15
+                              color: '#ffb92c'
+                            - value: 20
+                              color: '#ff9d20'
+                            - value: 25
+                              color: '#ff7d1d'
+                            - value: 30
+                              color: '#ff5d11'
+                            - value: 35
+                              color: '#ff3609'
+                            - value: 40
+                              color: '#a61e00'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 1
+                          update_interval: 1
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.unit1_bathroom_temperature_air
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: -20
+                              color: '#008bff'
+                            - value: -10
+                              color: '#62d9ff'
+                            - value: -5
+                              color: '#a4f5ff'
+                            - value: 0
+                              color: '#f1ffff'
+                            - value: 5
+                              color: '#ffff88'
+                            - value: 10
+                              color: '#ffe359'
+                            - value: 15
+                              color: '#ffb92c'
+                            - value: 20
+                              color: '#ff9d20'
+                            - value: 25
+                              color: '#ff7d1d'
+                            - value: 30
+                              color: '#ff5d11'
+                            - value: 35
+                              color: '#ff3609'
+                            - value: 40
+                              color: '#a61e00'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 1
+                          update_interval: 1
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.basement_temperature
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: 0
+                              color: '#008bff'
+                            - value: 20
+                              color: '#62d9ff'
+                            - value: 40
+                              color: '#a4f5ff'
+                            - value: 60
+                              color: '#f1ffff'
+                            - value: 80
+                              color: '#ffff88'
+                            - value: 100
+                              color: '#ffe359'
+                            - value: 120
+                              color: '#ffb92c'
+                            - value: 140
+                              color: '#ff9d20'
+                            - value: 160
+                              color: '#ff7d1d'
+                            - value: 180
+                              color: '#ff5d11'
+                            - value: 200
+                              color: '#ff3609'
+                            - value: 250
+                              color: '#a61e00'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 1
+                          update_interval: 1
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                    title: Temperature & AQI Status
+      - type: custom:layout-break
+      
+      - type: custom:homekit-card
+        title: Media
+        titleColor: '#000'
+        horizontalScroll: true
+        statePositionTop: true
+        useBrightness: false
+        useTemperature: false
+        enableColumns: true
+        tileHoldAnimation: false
+        panel: true
+        home: false
+        style: |
+          :host {
+            --tile-background: rgba(230, 230, 228, 0.5);
+            --tile-border-radius: 12px;
+            --tile-width: 100px;
+            --tile-height: 100px;
+            --tile-on-background: rgba(255, 255, 255, 1);
+            --tile-name-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-name-text-color: rgba(0, 0, 0, 1);
+            --tile-state-text-color: rgba(0, 0, 0, 0.3);
+            --tile-on-state-text-color: rgba(0, 0, 0, 1);
+            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+            --tile-value-text-color: rgba(0, 0, 0, 1);
+            --tile-value-text-font-size: 12px;
+            --tile-icon-color: rgba(0, 0, 0, 0.25);
+            --tile-on-icon-color: #f7d959;
+            --tile-width-mobile: 90px;
+            --tile-height-mobile: 90px;
+            --min-header-height: 150px;
+            --tile-icon-size: 36px;
+            --tile-image-radius: 0%
+          }
+        rows:
+          - row: 1
+            columns:
+              - column: 2
+                entities:
+                  - entities:
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.unit_1_frontroom_humidity
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: 60
+                              color: '#002bff'
+                            - value: 55
+                              color: '#0068ff'
+                            - value: 50
+                              color: '#00aeff'
+                            - value: 45
+                              color: '#23cdff'
+                            - value: 40
+                              color: '#63e0ff'
+                            - value: 35
+                              color: '#94f2ff'
+                            - value: 30
+                              color: '#cdfdff'
+                            - value: 25
+                              color: '#f0ffff'
+                            - value: 20
+                              color: '#fcf089'
+                            - value: 15
+                              color: '#ffa729'
+                            - value: 10
+                              color: '#ff7814'
+                            - value: 5
+                              color: '#ffa500'
+                            - value: 0
+                              color: '#ff3609'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 1
+                          update_interval: 1
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                      - card: 'custom:mini-graph-card'
+                        show_state: true
+                        cardOptions:
+                          entities:
+                            - entity: sensor.pc_room_temp_humidity
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: 60
+                              color: '#002bff'
+                            - value: 55
+                              color: '#0068ff'
+                            - value: 50
+                              color: '#00aeff'
+                            - value: 45
+                              color: '#23cdff'
+                            - value: 40
+                              color: '#63e0ff'
+                            - value: 35
+                              color: '#94f2ff'
+                            - value: 30
+                              color: '#cdfdff'
+                            - value: 25
+                              color: '#f0ffff'
+                            - value: 20
+                              color: '#fcf089'
+                            - value: 15
+                              color: '#ffa729'
+                            - value: 10
+                              color: '#ff7814'
+                            - value: 5
+                              color: '#ffa500'
+                            - value: 0
+                              color: '#ff3609'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 1
+                          update_interval: 1
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.book_room_temp_humidity
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: 60
+                              color: '#002bff'
+                            - value: 55
+                              color: '#0068ff'
+                            - value: 50
+                              color: '#00aeff'
+                            - value: 45
+                              color: '#23cdff'
+                            - value: 40
+                              color: '#63e0ff'
+                            - value: 35
+                              color: '#94f2ff'
+                            - value: 30
+                              color: '#cdfdff'
+                            - value: 25
+                              color: '#f0ffff'
+                            - value: 20
+                              color: '#fcf089'
+                            - value: 15
+                              color: '#ffa729'
+                            - value: 10
+                              color: '#ff7814'
+                            - value: 5
+                              color: '#ffa500'
+                            - value: 0
+                              color: '#ff3609'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 1
+                          update_interval: 1
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.xiaomi_airpurifier_humidity
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: 60
+                              color: '#002bff'
+                            - value: 55
+                              color: '#0068ff'
+                            - value: 50
+                              color: '#00aeff'
+                            - value: 45
+                              color: '#23cdff'
+                            - value: 40
+                              color: '#63e0ff'
+                            - value: 35
+                              color: '#94f2ff'
+                            - value: 30
+                              color: '#cdfdff'
+                            - value: 25
+                              color: '#f0ffff'
+                            - value: 20
+                              color: '#fcf089'
+                            - value: 15
+                              color: '#ffa729'
+                            - value: 10
+                              color: '#ff7814'
+                            - value: 5
+                              color: '#ffa500'
+                            - value: 0
+                              color: '#ff3609'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 1
+                          update_interval: 1
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.saloon_temp_humidity
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: 60
+                              color: '#002bff'
+                            - value: 55
+                              color: '#0068ff'
+                            - value: 50
+                              color: '#00aeff'
+                            - value: 45
+                              color: '#23cdff'
+                            - value: 40
+                              color: '#63e0ff'
+                            - value: 35
+                              color: '#94f2ff'
+                            - value: 30
+                              color: '#cdfdff'
+                            - value: 25
+                              color: '#f0ffff'
+                            - value: 20
+                              color: '#fcf089'
+                            - value: 15
+                              color: '#ffa729'
+                            - value: 10
+                              color: '#ff7814'
+                            - value: 5
+                              color: '#ffa500'
+                            - value: 0
+                              color: '#ff3609'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 1
+                          update_interval: 1
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.front_balcony_temp_humidity
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: 60
+                              color: '#002bff'
+                            - value: 55
+                              color: '#0068ff'
+                            - value: 50
+                              color: '#00aeff'
+                            - value: 45
+                              color: '#23cdff'
+                            - value: 40
+                              color: '#63e0ff'
+                            - value: 35
+                              color: '#94f2ff'
+                            - value: 30
+                              color: '#cdfdff'
+                            - value: 25
+                              color: '#f0ffff'
+                            - value: 20
+                              color: '#fcf089'
+                            - value: 15
+                              color: '#ffa729'
+                            - value: 10
+                              color: '#ff7814'
+                            - value: 5
+                              color: '#ffa500'
+                            - value: 0
+                              color: '#ff3609'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 1
+                          update_interval: 1
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                      - card: 'custom:mini-graph-card'
+                        cardOptions:
+                          entities:
+                            - entity: sensor.back_balcony_temp_humidity
+                          show: ''
+                          labels: false
+                          color_thresholds:
+                            - value: 60
+                              color: '#002bff'
+                            - value: 55
+                              color: '#0068ff'
+                            - value: 50
+                              color: '#00aeff'
+                            - value: 45
+                              color: '#23cdff'
+                            - value: 40
+                              color: '#63e0ff'
+                            - value: 35
+                              color: '#94f2ff'
+                            - value: 30
+                              color: '#cdfdff'
+                            - value: 25
+                              color: '#f0ffff'
+                            - value: 20
+                              color: '#fcf089'
+                            - value: 15
+                              color: '#ffa729'
+                            - value: 10
+                              color: '#ff7814'
+                            - value: 5
+                              color: '#ffa500'
+                            - value: 0
+                              color: '#ff3609'
+                          animate: true
+                          hours_to_show: 24
+                          points_per_hour: 1
+                          update_interval: 1
+                          line_color: var(--accent-color)
+                          line_width: 8
+                          font_size: 50
+                          aggregate_func: max
+                        noPadding: true
+                        higher: true
+                        higherSize: 1
+                        wider: true
+                        widerSize: 2
+                    title: Humidity Status

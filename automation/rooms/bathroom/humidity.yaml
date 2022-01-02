@@ -1,0 +1,11 @@
+- id: "e0c17ac9-81c6-47ce-8945-18d1749a720a"
+  alias: "Bathroom1: Humidity"
+  description: "Turn on Extractor Fan when humidity rises"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.motion_bathroom_humidity
+      above: 65
+  action:
+    - service: script.post_to_home_log
+      data:
+        message: ":bathtub: :door: Bathroom humidity is above 65"

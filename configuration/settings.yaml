@@ -1,0 +1,169 @@
+#
+# Light Automation Inputs
+#
+
+binary_sensor:
+  - platform: template
+    sensors:
+      disable_bedroom1_motion_lights:
+        friendly_name: "Disable Bedroom1 Motion Lights"
+        value_template: >
+          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}
+
+      disable_backroom_motion_lights:
+        friendly_name: "Disable Backroom Motion Lights"
+        value_template: >
+          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}
+
+      disable_frontroom_motion_lights:
+        friendly_name: "Disable Front Motion Lights"
+        value_template: >
+          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}
+
+## Floor 1
+input_number:
+  unit1_bathroom_lights_off_duration:
+    icon: mdi:clock-start
+    initial: 15
+    min: 1
+    max: 1440
+
+  unit1_bedroom_lights_off_duration:
+    icon: mdi:clock-start
+    initial: 15
+    min: 1
+    max: 1440
+
+  unit1_entryway_lights_off_duration:
+    icon: mdi:clock-start
+    initial: 5
+    min: 1
+    max: 1440
+
+  unit2_livingroom_lights_off_duration:
+    icon: mdi:clock-start
+    initial: 15
+    min: 1
+    max: 1440
+
+  area_bedroom_lux_level1:
+    initial: 30
+    step: 1
+    min: 0
+    max: 100
+
+  unit1_frontroom_lights_off_duration:
+    icon: mdi:clock-start
+    initial: 15
+    min: 1
+    max: 1440
+
+  default_cutoff_illuminance:
+    min: 1
+    max: 1440
+
+  bathroom2_off_duration:
+    icon: mdi:clock-start
+    initial: 5
+    min: 1
+    max: 1440
+
+input_datetime:
+  unit1_bathroom_lights_on_start:
+    name: "unit1_bathroom_lights_on_start"
+    has_date: false
+    has_time: true
+
+  unit1_bathroom_lights_on_stop:
+    name: "unit1_bathroom_lights_on_stop"
+    has_date: false
+    has_time: true
+
+  time_typically_sleeping_start:
+    name: "Time Typically Sleeping Start"
+    has_date: false
+    has_time: true
+
+  time_typically_waking_up:
+    name: "Time Typically Waking Up"
+    has_date: false
+    has_time: true
+
+  ## Floor 2
+  unit2_livingroom_lights_on_start:
+    name: "unit2_livingroom_lights_on_start"
+    has_date: false
+    has_time: true
+
+  unit2_livingroom_lights_on_stop:
+    name: "unit2_livingroom_lights_on_stop"
+    has_date: false
+    has_time: true
+
+input_boolean:
+  #
+  # Automation Switches
+  #
+  allow_automation_execution:
+    name: "Allow Automation"
+    initial: off
+
+  allow_notifications:
+    name: "Allow notifications"
+    initial: on
+
+  disable_lock_doors:
+    name: Disable Lock Automation #This works, but I should invert the polarity.
+    icon: mdi:lock-plus
+
+  dummy:
+    initial: on
+
+  #
+  # People states
+  #
+  automations_presence:
+    initial: on
+
+  guests:
+    initial: off
+
+  automations_presence_ble:
+    initial: on
+
+  automations_presence_bed:
+    initial: off
+
+  person1_in_bed:
+    name: person1 in bed
+    icon: mdi:bed
+
+  person1_is_awake:
+    name: person1_awake
+    icon: mdi:bed
+
+  person1_asleep:
+    name: person1 asleep
+    icon: mdi:bed
+
+  person1_home:
+    name: person1 home
+    icon: mdi:bed
+
+  home_occupied:
+    name: "home_occupied"
+    icon: mdi:account-group
+
+  bedtime:
+    name: Bedtime
+    initial: off
+    icon: mdi:bed
+
+  person3_bedtime:
+    name: Jenns Bedtime
+    initial: off
+
+  ## Occupancy
+  livingroom_occupied:
+    name: "livingroom_occupied"
+    initial: off

@@ -1,0 +1,6 @@
+household:
+  icon: mdi:home-heart
+  entities:
+    - person.richard
+    - person.stefanie
+    - person.jenn

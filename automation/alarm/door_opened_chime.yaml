@@ -1,19 +1,19 @@
-id: "a43decef-799a-4646-9fa0-7800f4fb0510"
-alias: "Alarm: Play a chime when the front door is opened"
-description: "Broadcasts a chime to all opted-in speakers when the frontdoor is opened"
-trigger:
-  - platform: state
-    entity_id: group.external_door_sensors
-    to: "on"
-condition: []
-action:
-  - service: tts.cloud_say
-    data:
-      message: >
-        {% for entity in trigger.to_state.attributes.entity_id %}
-          {% if states(entity) == 'on' %}
-            {{ state_attr(entity, 'friendly_name') }} is open.
-          {% endif %}
-        {% endfor %}
-      entity_id: media_player.multi_room_controller
-mode: single
+- id: "a43decef-799a-4646-9fa0-7800f4fb0510"
+  alias: "Alarm: Play a chime when the front door is opened"
+  description: "Broadcasts a chime to all opted-in speakers when the frontdoor is opened"
+  trigger:
+    - platform: state
+      entity_id: group.external_door_sensors
+      to: "on"
+  condition: []
+  action:
+    - service: tts.cloud_say
+      data:
+        message: >
+          {% for entity in trigger.to_state.attributes.entity_id %}
+            {% if states(entity) == 'on' %}
+              {{ state_attr(entity, 'friendly_name') }} is open.
+            {% endif %}
+          {% endfor %}
+        entity_id: media_player.multi_room_controller
+  mode: single

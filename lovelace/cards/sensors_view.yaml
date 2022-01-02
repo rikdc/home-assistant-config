@@ -1,0 +1,84 @@
+type: vertical-stack
+cards:
+
+############################################################################
+#                                                                          #
+#   Title                                                                  #
+#                                                                          #
+############################################################################
+
+  - type: horizontal-stack
+    cards:
+    
+      - type: custom:button-card
+        template: shoulder_blank_card  
+    
+      - type: custom:decluttering-card
+        template: title_button_card
+        variables:
+          - name: Sensors
+    
+      - type: custom:button-card
+        template: shoulder_blank_card 
+
+############################################################################
+#                                                                          #
+#   Sensors                                                                #
+#                                                                          #
+############################################################################
+
+  - type: horizontal-stack
+    cards:
+
+      - type: custom:button-card
+        template: shoulder_blank_card 
+
+      - type: custom:decluttering-card # Kitchen Motion Sensor
+        template: motion_sensor
+        variables:
+          - entity: binary_sensor.unit_1_kitchen_motion
+          - name: Kitchen
+
+      - type: custom:decluttering-card # Kitchen Motion Sensor
+        template: motion_sensor
+        variables:
+          - entity: binary_sensor.unit_1_frontroom_motion
+          - name: Living Room
+
+      - type: custom:decluttering-card # Bathroom Motion Sensor
+        template: motion_sensor
+        variables:
+          - entity: binary_sensor.unit1_bathroom_motion_sensor_status
+          - name: Bathroom
+
+      # - type: "custom:button-card"
+      #   color_type: blank-card 
+                  
+      - type: custom:button-card
+        template: shoulder_blank_card
+
+  - type: horizontal-stack
+    cards:
+
+      - type: custom:button-card
+        template: shoulder_blank_card 
+
+      - type: custom:decluttering-card # Kitchen Motion Sensor
+        template: motion_sensor
+        variables:
+          - entity: binary_sensor.first_floor_occupancy
+          - name: Ground Floor
+
+      - type: custom:decluttering-card # Kitchen Motion Sensor
+        template: motion_sensor
+        variables:
+          - entity: binary_sensor.first_floor_occupancy
+          - name: First Floor
+
+      # - type: "custom:button-card"
+      #   color_type: blank-card 
+                  
+      - type: custom:button-card
+        template: shoulder_blank_card
+
+  - !include /config/lovelace/styles/separator_card.yaml    

@@ -1,588 +1,70 @@
-background: var(--background-image)
 title: Home
-kiosk_mode:
-  mobile_settings:
-    hide_header: true
+
+custom_header: !include custom_header.yaml
+
+decluttering_templates: !include_dir_merge_named decluttering_templates/
+
+button_card_templates: !include_dir_merge_named button_card_templates/
+
 views:
-  - title: Home
+  - !include views/view_home.yaml
+  - !include views/view_homeassistant.yaml
+  - !include views/view_lights.yaml
+  - !include views/view_environment.yaml
+  - !include views/view_sensors.yaml
+  - !include views/view_media.yaml
+  - title: Devices
+    path: devices
+    icon: "mdi:robot-vacuum"
     panel: true
     badges: []
     cards:
-      - type: vertical-stack
+      - type: "custom:layout-card"
+        column_width:
+          - 375
+          - 500
+        layout: vertical
         cards:
-          - type: "custom:mod-card"
-            card_mod:
-              style:
-                swipe-card:
-                  $: |
-                    .swiper-pagination-bullet {
-                      width: 10px;
-                      height: 10px;
-                      background-color: rgba(255,255,255,1.0) !important;
-                      position: relative;
-                      top: 15px
-                    }
-                    .swiper-pagination-bullet-active {
-                      background-color: rgba(247,148,29,1.0) !important;
-                    }
-            card:
-              type: "custom:swipe-card"
-              start_card: 3
-              reset_after: 30
-              parameters:
-                spaceBetween: 8
-                autoHeight: true
-                pagination:
-                  type: bullets
-              cards:
-                - type: picture-glance
-                  aspect_ratio: "16:9"
-                  camera_image: camera.driveway
-                  camera_view: live
-                  entities: []
-                  name: Driveway
-                  card_mod:
-                    style: |
-                      ha-card {
-                        margin-bottom: 15px;
-                        background: rgba(255, 255, 255, 0.0);
-                        border-radius: 0;
-                        box-shadow: none;
-                        color: white;
-                       }
-                      .box {
-                        background: rgba(255,255,255,0) !important;
-                      }
-                - type: markdown
-                  content: >
-                    <table>
-                      <tr>
-                        <td width="200px">
-                          <h3>{{states('sensor.dashboard_greeting') }}, {{ user}}</h3>
-                          <strong>Current Temperature:</strong> {{state_attr('weather.home','temperature') | round}}&deg;F</br>
-                          <strong>Humidity:</strong> {{ states('sensor.aqi_humidity') }}%</br>
-                          {% if is_state("sun.sun", "above_horizon") -%}
-                              <strong>Next Sunset:</strong> {{ state_attr("sun.sun", "next_setting") | as_datetime }}
-                          {%- else -%}
-                              <strong>Next Sunrise:</strong> {{ state_attr("sun.sun", "next_rising") | as_datetime) | timestamp_custom("%-I:%M %p")}}
-                          {%- endif %}</br></br>
-                          <strong>SmartHome Mode:</strong> {{ states('input_text.home_mode') }}</br>
-                          <strong>Doors:</strong> {{ states('sensor.door_locks')}}</br>
-                          <strong>Grocery Budget:</strong> ${{ states('sensor.grocery_budget_balance') }}
-                        </td>
-                        <td>
-                        </br>
-                          <img
-                          src="https://darksky.net/{{states('sensor.dashboard_weather')}}"
-                          width="190px" /></td></tr> <tr><td colspan="2">{{
-                          states('sensor.dashboard_occupancy')
-                          }}
-                          </td>
-                        </tr>
-                      </table>
-                    </br>
-                  style: |
-                    ha-card {
-                      background: transparent;
-                      margin-top: -15px;
-                      margin-bottom: -7px;
-                    }
-                - type: horizontal-stack
-                  title: Family
-                  cards:
-                    - type: "custom:button-card"
-                      entity: person.richard
-                      show_entity_picture:
-                        true
-                        #entity_picture: /local/richard.jpg
-                    - type: "custom:button-card"
-                      entity: person.stefanie
-                      show_entity_picture: true
-                      # offImage: /local/img/face-2-off.png
-                      # offStates:
-                      #   - not_home
-                      #   - unavailable
-                    - type: "custom:button-card"
-                      entity: person.jenn
-                      show_entity_picture: true
-                      offImage: /local/img/cats2-off.png
-                      offStates:
-                        - not_home
-                        - unavailable
-
-          - type: "custom:homekit-card"
-            home: false
-            title: Home
-            useBrightness: true
-            useTemperature: true
-            titleColor: "#FFF"
-            statePositionTop: true
-            style: |
-              :host {
-                --tile-background: rgba(255, 255, 255, 0.10);
-                --tile-border-radius: 12px;
-                --tile-width: 100px;
-                --tile-height: 100px;
-                --tile-on-background: rgba(255, 255, 255, 0.7);
-
-                --tile-name-text-color: rgba(255, 255, 255, 0.8);
-                --tile-on-name-text-color: rgba(0, 0, 0, 1);
-
-                --tile-state-text-color: rgba(255, 255, 255, 0.8);
-                --tile-on-state-text-color: rgba(0, 0, 0, 1);
-
-                --tile-state-changed-text-color: rgb(134, 134, 134);
-                --tile-unavailable-state-text-color: rgba(255, 255, 255, 1);
-
-                --tile-value-text-color: rgba(255, 0, 0, 1);
-
-
-                --tile-icon-color: rgba(255, 255, 255, 0.8);
-                --tile-on-icon-color: rgba(247,148,29,0.9) !important;
-                /* #f7d959; rgba(255,204,110,1.0) */
-                font-family: Arial;
-              }
-              .top-fav {
-                background-color: rgba(255, 255, 230,0.5) !important;
-              }
-              .off-bg {
-                background-color: rgba(255, 255, 255, 0.10) ;
-              }
-              .fan .icon {
-                color: rgba(0, 0, 0, 0.5) !important;
-              }
-              .hideState .state {
-                visibility:hidden !important;
-              }
-              homekit-button .icon.climate {
-                 background-color: rgba(247,148,29,1.0) !important;
-              }
-            entities:
-              - title: Favorites
-                entities:
-                  - card: "custom:button-card"
-                    conditionalClass: |
-                      [[[ 
-                        return "top-fav";
-                      ]]]
-                    type: "custom:light-popup-card"
-                    tap_action:
-                      action: navigate
-                      navigation_path: /sub-security/0
-                    hold_action:
-                      action: navigate
-                      navigation_path: /sub-security/0
-                    cardOptions:
-                      name: Alarm & Security
-                      icon: "mdi:shield-home"
-                      #size: 80%
-                      show_name: false
-                      show_state: false
-                      show_label: false
-                      styles:
-                        card:
-                          - "-webkit-box-shadow": none
-                          - box-shadow: none
-                          - background-color: "rgba(255, 255, 255, 0.0)"
-                          - margin-top: 5px
-                        icon:
-                          - color: |
-                              [[[ 
-                                if (states['alarm_control_panel.home_alarm'].state == "disarmed")
-                                  return "rgba(51, 102, 0,1)";
-                                return "rgba(230, 0, 0,0.7)";
-                              ]]]
-                  # - card: "custom:button-card"
-                  #   tap_action:
-                  #     action: call-service
-                  #     service: cover.toggle
-                  #     service_data:
-                  #       entity_id: cover.sonoff_sv_switch_01
-                  #     confirmation:
-                  #       text: Are you sure you'd like to open/close the garage door?
-                  #   hold_action:
-                  #     action: none
-                  #   conditionalClass: |
-                  #     [[[
-                  #       return "top-fav";
-                  #     ]]]
-                  #   cardOptions:
-                  #     entity: cover.sonoff_sv_switch_01
-                  #     size: 100%
-                  #     icon: |
-                  #       [[[
-                  #         if (states['binary_sensor.garage_door'].state == "on")
-                  #           return "mdi:garage";
-                  #         else if (states['binary_sensor.garage_door'].state == "off")
-                  #           return "mdi:garage-open";
-                  #         else
-                  #           return "mdi:cloud-question";
-                  #       ]]]
-                  #     show_name: false
-                  #     show_state: false
-                  #     show_label: false
-                  #     styles:
-                  #       card:
-                  #         - box-shadow: none
-                  #         - background-color: "rgba(255, 255, 255, 0.0)"
-                  #         - margin-top: "-8px"
-                  #       icon:
-                  #         - color: |
-                  #             [[[
-                  #               if (states['binary_sensor.garage_door'].state == "on")
-                  #                 return "white";
-                  #               return "rgba(255, 204, 110,1.0)";
-                  #             ]]]
-                  - card: "custom:button-card"
-                    conditionalClass: |
-                      [[[ 
-                        return "top-fav";
-                      ]]]
-                    tap_action:
-                      action: navigate
-                      navigation_path: /sub-cameras/0
-                    hold_action:
-                      action: none
-                    cardOptions:
-                      name: Cameras
-                      icon: "mdi:cctv"
-                      size: 90%
-                      show_name: false
-                      show_state: false
-                      show_label: false
-                      styles:
-                        card:
-                          - box-shadow: none
-                          - background-color: "rgba(255, 255, 255, 0.0)"
-                          - margin-top: "-5px"
-                        icon:
-                          - color: white
-                  - card: "custom:button-card"
-                    conditionalClass: |
-                      [[[ 
-                        return "top-fav";
-                      ]]]
-                    tap_action:
-                      action: navigate
-                      navigation_path: /sub-chores/0
-                    hold_action:
-                      action: none
-                    cardOptions:
-                      name: Chores
-                      icon: "mdi:calendar-check"
-                      size: 90%
-                      show_name: false
-                      show_state: false
-                      show_label: false
-                      styles:
-                        card:
-                          - box-shadow: none
-                          - background-color: "rgba(255, 255, 255, 0.0)"
-                          - margin-top: "-5px"
-                        icon:
-                          - color: white
-                  - entity: script.person1_bedtime
-                    name: Bedtime
-                    icon: "mdi:power-sleep"
-                    spin: true
-                    state: input_boolean.dummy
-                    tap_action:
-                      action: call-service
-                      service: script.person1_bedtime
-
-                  #
-                  # Feed the Cat
-                  #
-
-                  - card: "custom:button-card"
-                    tap_action:
-                      action: call-service
-                      service: automation.trigger
-                      service_data:
-                        entity_id: automation.cat_has_been_fed
-                      confirmation:
-                        text: Are you sure you'd like to feed the cat?
-                    hold_action:
-                      action: none
-                    conditionalClass: |
-                      [[[
-                        return "top-fav";
-                      ]]]
-                    cardOptions:
-                      entity: cover.sonoff_sv_switch_01
-                      size: 100%
-                      icon: |
-                        [[[
-                          if (states['binary_sensor.cat_needs_feeding'].state == "on")
-                            return "mdi:emoticon-angry";
-                          else if (states['binary_sensor.cat_needs_feeding'].state == "off")
-                            return "mdi:emoticon-happy";
-                          else
-                            return "mdi:cloud-question";
-                        ]]]
-                      show_name: false
-                      show_state: false
-                      show_label: false
-                      styles:
-                        card:
-                          - box-shadow: none
-                          - background-color: "rgba(255, 255, 255, 0.0)"
-                          - margin-top: "-8px"
-                        icon:
-                          - color: |
-                              [[[
-                                if (states['binary_sensor.cat_needs_feeding'].state == "on")
-                                  return "red";
-                                return "white";
-                              ]]]
-                  # - card: custom:button-card
-                  #   tap_action:
-                  #     action: call-service
-                  #     service: automation.trigger
-                  #     service_data:
-                  #       entity_id: automation.cat_has_been_fed
-                  #   entity: binary_sensor.cat_needs_feeding
-                  #   spin: true
-                  #   show_icon: true
-                  #   icon:
-                  #   show_state: false
-                  #   icon_height: 45px
-                  #   hold_action:
-                  #     action: none
-                  #   conditionalClass: |
-                  #     [[[
-                  #       return "top-fav";
-                  #     ]]]
-                  #   cardOptions:
-                  #     name: Dipshit
-                  #     icon: "hass:cat"
-                  #     # size: 90%
-                  #     # show_name: false
-                  #     # show_state: false
-                  #     # show_label: false
-                  #     styles:
-                  #       card:
-                  #         - box-shadow: none
-                  #         - background-color: "rgba(255, 255, 255, 0.0)"
-                  #         - margin-top: "-5px"
-                  #       icon:
-                  #         - color: white
-                  #   custom_fields:
-                  #     temp: |
-                  #       [[[
-                  #         return `<div style="padding-top: 36px;"><div style="position: absolute; bottom: 12px; right: 12px;">
-                  #           <span style="width: 12px; height: 12px; color: grey; font-size: 14px"> last fed ${states['sensor.cat_last_fed'].state} hour(s) ago</span></div></div>`
-                  #       ]]]
-
-                  - entity: script.person1_bedtime
-                    name: Ceiling Fan
-                    icon: "mdi:fan"
-                    spin: true
-                    state: input_boolean.dummy
-                    tap_action:
-                      action: call-service
-                      service: script.person1_bedtime
-                    hold_action:
-                      action: navigate
-                      navigation_path: /sub-fan/0
-                    double_tap_action:
-                      action: navigate
-                      navigation_path: /sub-fan/0
-                  - entity: input_boolean.dummy
-                    name: Television
-                    icon: "mdi:remote-tv"
-                    tap_action:
-                      action: navigate
-                      navigation_path: /sub-remotes/0
-                    hold_action:
-                      action: none
-                    conditionalClass: |
-                      [[[ 
-                        return "hideState";
-                      ]]]
-              - title: Lights
-                # - light.bedroom1
-                # - light.person1_nightlight
-                # - light.person2_nightlight
-                # - light.unit1_hallway_lights
-                # - light.unit1_kitchen_ceiling_light
-                # - light.unit1_kitchen_cabinets
-                # - light.light_livingroom
-                # - light.unit1_livingroom_lamp
-                # - light.frontroom_ceiling
-                # - light.switches_bathroom1
-                # - light.unit1_bathroom_ceiling
-                # - light.dimmer_dry_contact_relay # Mudroom
-                # - light.lower_back_deck_light
-
-                entities:
-                  - entity: light.unit1_kitchen_ceiling_light
-                    name: Kitchen Island
-                    icon: "mdi:wall-sconce-round"
-                    double_tap_action:
-                      action: popup
-                  - entity: light.unit1_kitchen_pendants
-                    name: Kitchen Table
-                    icon: "mdi:wall-sconce-round"
-                    double_tap_action:
-                      action: popup
-                  - entity: light.unit1_kitchen_cabinets
-                    name: Under Cabinets
-                    icon: "mdi:wall-sconce-flat"
-                    double_tap_action:
-                      action: popup
-                  - entity: light.unit1_hallway_lights
-                    name: Above Cabinets
-                    icon: "mdi:wall-sconce-flat-variant"
-                    double_tap_action:
-                      action: popup
-                  - entity: switch.light_end_table
-                    name: Tower Lamps
-                    icon: "mdi:floor-lamp"
-                    double_tap_action:
-                      action: call-service
-                      service: scene.turn_on
-                      service_data:
-                        entity_id: scene.tower_lights_white
-                    hold_action:
-                      action: call-service
-                      service: scene.turn_on
-                      service_data:
-                        entity_id: scene.tower_lights_purple
-                  - entity: light.person1_nightlight
-                    name: Nightlight
-                    icon: "mdi:wall-sconce-round"
-                    hold_action:
-                      action: null
-                  - entity: light.person2_nightlight
-                    name: NightLight2
-                    icon: "mdi:floor-lamp-dual"
-                  - entity: light.loft_light
-                    name: Loft Light
-
-                  - entity: light.frontroom_ceiling
-                    name: Livingroom Ceiling
-                    icon: "mdi:floor-lamp-dual"
-                  - entity: light.outside
-                    name: Front Exterior
-                    icon: "mdi:coach-lamp"
-                    double_tap_action:
-                      action: more-info
-                  - entity: switch.sonoff_switch_04
-                    name: Office Lamp
-                    icon: "mdi:desk-lamp"
-                    hold_action:
-                      action: none
-                    hide: |
-                      [[[ 
-                        if (user.name == "Richard")
-                         return false;
-                        else
-                         return true;
-                      ]]]
-                  - entity: light.master
-                    name: Master Fan Light
-                    icon: "mdi:wall-sconce-round"
-                    hide: |
-                      [[[ 
-                        if (user.name == "Richard" || user.name == "Stefanie")
-                         return false;
-                        else
-                         return true;
-                      ]]]
-                  - entity: light.unit2_kitchen_pendants
-                    name: Kitchen Pendants
-                  - entity: light.unit2_kitchen_spotlights
-                    name: Kitchen Ceiling
-              - title: Accessories
-                entities:
-                  #     - entity: media_player.music
-                  #       name: Whole Home Music Stream
-                  #       icon: "mdi:music-circle-outline"
-                  #       tap_action:
-                  #         action: navigate
-                  #         navigation_path: /sub-music/0
-                  #       hold_action:
-                  #         action: none
-                  #     - entity: switch.sonoff_switch_01
-                  #       name: Front Room Stereo
-                  #       icon: "mdi:album"
-                  #       hold_action:
-                  #         action: none
-                  #     - entity: media_player.denon_avr
-                  #       name: Family Room Home Theater
-                  #       icon: "mdi:cassette"
-                  #     - entity: sensor.arturito
-                  #       name: Vacuum
-                  #       icon: "mdi:robot-vacuum"
-                  #       state: vacuum.arturito
-                  #       statePath: attributes.battery_level
-                  #       offStates:
-                  #         - docked
-                  #       spin: true
-                  #       tap_action:
-                  #         action: navigate
-                  #         navigation_path: /sub-vacuum/0
-                  #       hold_action:
-                  #         action: none
-                  - entity: climate.ir_blaster_ac
-                    name: A/C
-                    icon: "mdi:air-conditioner"
-                    offStates:
-                      - heat
-                      - cool
-                      - heat_cool
-                    tap_action:
-                      action: navigate
-                      navigation_path: /sub-hvac/0
-                    hold_action:
-                      action: none
-                  - entity: input_boolean.dummy
-                    name: Printer
-                    icon: "mdi:printer"
-                    tap_action:
-                      action: navigate
-                      navigation_path: /sub-print/0
-                    hold_action:
-                      action: none
-                    conditionalClass: |
-                      [[[
-                        return "hideState";
-                      ]]]
-                  - entity: input_boolean.dummy
-                    name: Admin
-                    icon: "mdi:tools"
-                    tap_action:
-                      action: navigate
-                      navigation_path: /sub-admin/0
-                    hold_action:
-                      action: none
-                    conditionalClass: |
-                      [[[ 
-                        return "hideState";
-                      ]]]
-                    hide: |
-                      [[[ 
-                        if (user.name == "Richard")
-                         return false;
-                        else
-                         return true;
-                      ]]]
-              - title: Environment
-                entities:
-                  - entity: sensor.q_sensor_air_temperature
-                    icon: "mdi:thermometer"
-                    name: Living Room
-                  - entity: sensor.basement_temperature
-                  - entity: sensor.unit_1_mudroom_temperature
-                    icon: "mdi:thermometer"
-                    name: Mudroom
-                  - entity: sensor.motion_bedroom1_air_temperature
-                    icon: "mdi:thermometer"
-                    name: Bedroom
-                  - entity: sensor.unit_2_kitchen_temperature
-                    icon: "mdi:thermometer"
-                    name: Upstairs
-                  - entity: sensor.unit_2_bedroom_temperature
-                    icon: "mdi:thermometer"
-                    name: Upstairs Bedroom
+          - type: "custom:button-card"
+            color: auto
+            color_type: blank-card
+            styles:
+              card:
+                - height: 25px
+          - type: "custom:vacuum-card"
+            entity: vacuum.xiaomi_vacuum_cleaner
+            stats:
+              default:
+                - attribute: filter_left
+                  unit: hours
+                  subtitle: Filter
+                - attribute: side_brush_left
+                  unit: hours
+                  subtitle: Side brush
+                - attribute: main_brush_left
+                  unit: hours
+                  subtitle: Main brush
+                - attribute: sensor_dirty_left
+                  unit: hours
+                  subtitle: Sensors
+              cleaning:
+                - attribute: cleaned_area
+                  unit: m2
+                  subtitle: Cleaning area
+                - attribute: cleaning_time
+                  unit: minutes
+                  subtitle: Cleaning time
+            actions:
+              - name: Clean living room
+                service: script.clean_living_room
+                icon: "mdi:sofa"
+              - name: Clean bedroom
+                service: script.clean_bedroom
+                icon: "mdi:bed-empty"
+              - name: Clean kitchen
+                service: script.clean_kitchen
+                icon: "mdi:silverware-fork-knife"
+          - type: "custom:layout-break"
+  - !include views/view_camera.yaml
+  - !include views/view_server.yaml
+  - !include views/view_battery.yaml

@@ -1,0 +1,34 @@
+core network:
+  name: Core Network
+  entities:
+    - binary_sensor.core_router
+
+internet:
+  name: Internet
+  entities:
+    - sensor.speedtest_ping
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+
+resources:
+  name: RPi Resources
+  entities:
+    - sensor.disk_use_percent
+    - sensor.memory_use_percent
+    - sensor.processor_use
+    - sensor.cpu_temperature
+    - sensor.last_boot
+
+pi_hole:
+  name: Pi Hole Status
+  entities:
+    # - sensor.pi_hole_status
+    - switch.pi_hole
+    - sensor.pi_hole_ads_blocked_today
+    - sensor.pi_hole_ads_percentage_blocked_today
+    - sensor.pi_hole_dns_queries_cached
+    - sensor.pi_hole_dns_queries_forwarded
+    - sensor.pi_hole_dns_queries_today
+    - sensor.pi_hole_dns_unique_clients
+    - sensor.pi_hole_dns_unique_domains
+    - sensor.pi_hole_domains_blocked

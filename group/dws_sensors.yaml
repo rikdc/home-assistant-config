@@ -1,0 +1,18 @@
+dws_sensors:
+  name: Door/Window Sensors
+  icon: mdi:window-closed
+  entities:
+    # Contact
+    - binary_sensor.frontdoor_access_control_window_door_is_open
+    - binary_sensor.main_entrance_access_control_window_door_is_open
+    - binary_sensor.backdoor_access_control_window_door_is_open
+    - binary_sensor.bedroom_window_access_control_window_door_is_open
+    - binary_sensor.basement_door_access_control_window_door_is_open
+    # Motion
+    - binary_sensor.frontdoor_motion_home_security_motion_detection
+    - binary_sensor.motion_living_room_home_security_motion_detection
+    - binary_sensor.motion_bathroom_home_security_motion_detection
+    - binary_sensor.motion_bedroom1_home_security_motion_detection
+    - binary_sensor.motion_bathroom2_home_security_motion_detection
+    - lock.frontdoor
+    - lock.backdoor

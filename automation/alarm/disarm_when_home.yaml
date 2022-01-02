@@ -1,17 +1,17 @@
-id: "14354e41-12d0-4fee-b84e-918cb0aeac7c"
-alias: "Alarm: Disarm when people arrive home"
-description: "Disarms the alarm if anyone from the household group is home"
-trigger:
-  - platform: state
-    entity_id: group.household
-    from: not_home
-    to: home
-condition: []
-action:
-  - service: alarm_control_panel.alarm_arm_home
-    entity_id: alarm_control_panel.home_alarm
-  - service: script.post_to_home_log
-    data:
-      message: "✅ People are home, disarming the alarm"
-      title: Alarm Disarmed
-mode: single
+- id: "14354e41-12d0-4fee-b84e-918cb0aeac7c"
+  alias: "Alarm: Disarm when people arrive home"
+  description: "Disarms the alarm if anyone from the household group is home"
+  trigger:
+    - platform: state
+      entity_id: group.household
+      from: not_home
+      to: home
+  condition: []
+  action:
+    - service: alarm_control_panel.alarm_arm_home
+      entity_id: alarm_control_panel.home_alarm
+    - service: script.post_to_home_log
+      data:
+        message: "✅ People are home, disarming the alarm"
+        title: Alarm Disarmed
+  mode: single

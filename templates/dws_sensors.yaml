@@ -1,0 +1,26 @@
+# Inspired by: https://blog.swakes.co.uk/home-assistant-system-dashboard/
+
+- binary_sensor:
+    - name: "DWS Unavailable"
+      device_class: "problem"
+      state: "{{ states('sensor.dws_sensors_online')|int(0) < states('sensor.dws_sensor_check_status_count')|int(0) }}"
+
+- sensor:
+    - name: "DWS Sensors Online"
+      state: >-
+        {% set t = strptime(((now().timestamp() - 780) | timestamp_utc) ~ '+00:00', '%Y-%m-%d %H:%M:%S%z') %}
+        {{
+          expand('group.dws_sensors')
+          | selectattr('last_changed', '<=' , t)
+          | map(attribute='name')
+          | list
+          | count
+        }}
+
+    - name: "DWS Sensor Check Status Count"
+      state: "{{ expand('group.dws_sensors') | count }}"
+
+    - name: "DWS Sensor Check Status Percent"
+      state: "{{ '%0.1f' | format(states('sensor.dws_sensors_online')|float / states('sensor.dws_sensor_check_status_count')|float * 100.0) }}"
+      icon: "mdi:door-open"
+      unit_of_measurement: "%"

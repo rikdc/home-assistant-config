@@ -1,0 +1,9 @@
+- platform: trend
+  sensors:
+    area_bathroom_humidity_trend:
+      friendly_name: Area - Bathroom Humidity Trend
+      entity_id: sensor.motion_bathroom_humidity
+      sample_duration: 1200
+      max_samples: 6
+      min_gradient: 0.011
+      device_class: moisture
