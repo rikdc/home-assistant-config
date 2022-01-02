@@ -4,32 +4,17 @@ homeassistant:
       room_determination: &room_determination
         state: >
           {% set h = states(trigger.entity_id) %}
-          {% if h == 'unit2livingroom' %}
+          {% if h == 'pi0-upper-office' %}
             Upstairs
-          {% elif h == 'unit2Front' %}
-            Office
-          {% elif h == 'unit1FrontRoom' %}
+          {% elif h == 'pi0-upper-back' %}
+            Upstairs Kitchen
+          {% elif h == 'pi4-audio-1' %}
             Downstairs
+          {% elif h == 'pi0-lower-bedroom' %}
+            Bedroom1
           {% else %}
             {{ h }}
           {% endif %}
-
-      # location_states: &location_states
-      #   options:
-      #     - Unknown
-      #     - Just Arrived
-      #     - Home
-      #     - Just Left
-      #     - Away
-      #     - Extended Away
-      #     - Kitchen
-      #     - Downstairs
-      #     - Upstairs
-      #     - Downstairs Livingroom
-      #     - Upstairs Livingroom
-      #     - Bedroom
-      #     - Bathroom
-      #     - Upper Office
 
 template:
   - trigger:
