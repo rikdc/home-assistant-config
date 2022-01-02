@@ -196,20 +196,3 @@ light:
   - platform: switch
     name: Bathroom2 Vanity
     entity_id: switch.light_bathroom2
-
-input_number:
-  unit1_frontroom_lights_off_duration:
-    icon: mdi:clock-start
-    initial: 15
-    min: 1
-    max: 1440
-
-  default_cutoff_illuminance:
-    min: 1
-    max: 1440
-
-  bathroom2_off_duration:
-    icon: mdi:clock-start
-    initial: 5
-    min: 1
-    max: 1440
