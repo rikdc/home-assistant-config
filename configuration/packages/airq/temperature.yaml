@@ -1,0 +1,59 @@
+# Temperature Sensors & Automations
+#
+# This is a more personal one, what is your optimal temperature for sleeping,
+# working, hanging out with friends, and all that?
+#
+# Research:
+#  - https://health.clevelandclinic.org/what-is-the-ideal-sleeping-temperature-for-my-bedroom/
+#  - Typically it is suggested that the temperature in the bedroom for adults should be between 60 and 67 degrees Fahrenheit for optimal sleep.
+#
+#  - https://www.healthline.com/health/sleep/best-temperature-to-sleep
+#     - Keeping your sleeping quarters at a temperature near 65°F (18.3°C), give or take a few degrees, is ideal.
+#
+#  - https://www.getgreenbewell.com/best-bedroom-temperature-for-sleep/
+#    - most medical professionals suggest 65 degrees
+#
+# For Sleeping, I'm going to keep the range between 60 and 67.
+# For Working,
+#   - https://technofaq.org/posts/2021/01/how-the-right-room-temperature-will-boost-employee-productivity/
+#   - https://www.pgi.com/blog/2018/06/what-is-the-ideal-office-temperature-for-productivity/
+
+# binary_sensor:
+
+#   # For everything else...
+#   - platform: template
+#   #       bedroom2_temperature_status:
+#   #         value_template: >
+#   #           {{ states('sensor.unit_2_multisensor_bedroom_temperature') | int < 60 or states('sensor.unit_2_multisensor_bedroom_temperature') | int > 67 }}
+#   #         friendly_name: "Bedroom2 Temperature Status"
+#   #         attribute_templates:
+#   #           room: "Bedroom2"
+#   #           status: >-
+#   #             {% if states('sensor.unit_2_multisensor_bedroom_temperature') | int < 60 %}
+#   #                Too Cold
+#   #             {% elif states('sensor.unit_2_multisensor_bedroom_temperature') | int > 67 %}
+#   #               Too Warm
+#   #             {% else %}
+#   #                Normal
+#   #             {% endif %}
+#   #         device_class: problem
+#   #         delay_on: 5
+#   #         delay_off: 5
+
+#   #       livingroom1_temperature_status:
+#   #         value_template: >
+#   #           {{ states('sensor.q_sensor_air_temperature') | int < 60 or states('sensor.q_sensor_air_temperature') | int > 75 }}
+
+#   #         friendly_name: "Livingroom Temperature"
+#   #         attribute_templates:
+#   #           status: >-
+#   #             {% if states('sensor.q_sensor_air_temperature') | int < 67 %}
+#   #                Too Cold
+#   #             {% elif states('sensor.q_sensor_air_temperature') | int > 75 %}
+#   #               Too Warm
+#   #             {% else %}
+#   #                Normal
+#   #             {% endif %}
+#   #         device_class: problem
+#   #         delay_on: 5
+#   #         delay_off:

@@ -1,0 +1,32 @@
+alert:
+  home_automation:
+    name: Home automation is disabled
+    done_message: Home automation enabled
+    entity_id: input_boolean.allow_automation_execution
+    state: "off"
+    repeat: 30
+    can_acknowledge: True
+    #skip_first: True
+    notifiers:
+      - home_automation
+
+  # room_is_humid:
+
+  #   - alias: AirQ - Indoor Humidity Notifications
+  #   trigger:
+  #     - platform: state
+  #       entity_id:
+  #         - binary_sensor.bedroom1_humidity_status
+  #         - binary_sensor.bedroom2_humidity_status
+  #         - binary_sensor.livingroom1_humidity_status
+  #   action:
+  #     - service: persistent_notification.create
+  #       data:
+  #         notification_id: "{{ trigger.entity_id }}"
+  #         message: >
+  #           The humidity in {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'reason') }}
+  #     - service: notify.all
+  #       data:
+  #         notification_id: "{{ trigger.entity_id }}"
+  #         message: >
+  #           The humidity in the {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'reason') }}

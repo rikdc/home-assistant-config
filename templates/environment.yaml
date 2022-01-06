@@ -1,0 +1,109 @@
+- binary_sensor:
+    - name: "Bedroom1 Humidity Status"
+      device_class: "problem"
+      state: >
+        {% set state = states('sensor.bedroom1_realistic_humidity') %}
+        {{ is_number(state) and ( state | float < 40  or state | float > 50 )  }}
+      delay_on: 00:00:30
+      delay_off: 00:00:30
+      attributes:
+        room: "Bedroom 1"
+        reason: >-
+          {% set current_state = states('sensor.bedroom1_realistic_humidity')|int %}
+          {% if current_state < 15 %}
+            Way too dry
+          {% elif current_state < 20 %}
+            Too Dry
+          {% elif current_state < 40 %}
+            Dry
+          {% elif current_state < 50 %}
+            Good
+          {% elif current_state < 60 %}
+            Humid
+          {% elif current_state < 65 %}
+            Too Humid
+          {% elif current_state < 80 %}
+            Soaking
+          {% else %}
+            Saturation Point
+          {% endif %}
+
+    - name: "Livingroom1 Humidity Status"
+      device_class: "problem"
+      state: >
+        {% set state = states('sensor.motion_frontroom_humidity') %}
+        {{ is_number(state) and ( state | float < 40  or state | float > 50 )  }}
+      delay_on: 00:00:30
+      delay_off: 00:00:30
+      attributes:
+        room: "Livingroom 1"
+        reason: >-
+          {% set current_state = states('sensor.motion_frontroom_humidity')|int %}
+          {% if current_state < 15 %}
+            Way too dry
+          {% elif current_state < 20 %}
+            Too Dry
+          {% elif current_state < 40 %}
+            Dry
+          {% elif current_state < 50 %}
+            Good
+          {% elif current_state < 60 %}
+            Humid
+          {% elif current_state < 65 %}
+            Too Humid
+          {% elif current_state < 80 %}
+            Soaking
+          {% else %}
+            Saturation Point
+          {% endif %}
+
+    - name: "Bathroom1 Humidity Status"
+      device_class: "problem"
+      state: >
+        {% set state = states('sensor.motion_bathroom_humidity') %}
+        {{ is_number(state) and ( state | float(0) < 40  or state | float(0) > 50 )  }}
+      delay_on: 00:00:30
+      delay_off: 00:00:30
+      attributes:
+        room: "Bathroom1 1"
+        reason: >-
+          {% set current_state = states('sensor.motion_bathroom_humidity')|int %}
+          {% if current_state < 15 %}
+            Way too dry
+          {% elif current_state < 20 %}
+            Too Dry
+          {% elif current_state < 40 %}
+            Dry
+          {% elif current_state < 50 %}
+            Good
+          {% elif current_state < 60 %}
+            Humid
+          {% elif current_state < 65 %}
+            Too Humid
+          {% elif current_state < 80 %}
+            Soaking
+          {% else %}
+            Saturation Point
+          {% endif %}
+
+    - name: "Bedroom1 Temperature Status"
+      device_class: "problem"
+      delay_on: 5
+      delay_off: 5
+      state: >
+        {{ states('sensor.bedroom1_realistic_temperature') | float(0) < 60 or states('sensor.bedroom1_realistic_temperature') | float(0) > 67 }}
+      attributes:
+        room: "Bedroom 1"
+        reason: >-
+          {% if states('sensor.bedroom1_realistic_temperature') | float(0) < 60 %}
+              Too Cold
+          {% elif states('ssensor.bedroom1_realistic_temperatures') | float(0) > 67 %}
+            Too Warm
+          {% else %}
+              Normal
+          {% endif %}
+
+    - name: "Office1 co2 Status"
+      device_class: "problem"
+      state: >
+        {{ states('sensor.bme680_co2_equivalent') | int <= 1000 }}

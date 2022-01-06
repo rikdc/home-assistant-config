@@ -1,0 +1,2 @@
+# Sensors are gathering information about states and conditions.
+template: !include_dir_merge_list ../templates

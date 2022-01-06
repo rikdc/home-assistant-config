@@ -1,0 +1,12 @@
+- alias: Sump - Pump may not be working
+  description: If the sump pump has not run for a couple of days, set a notification.
+  trigger:
+    platform: state
+    entity_id: binary_sensor.sump_pump_problem
+    to: "on"
+  action:
+    service: persistent_notification.create
+    data:
+      message: >
+        {{ trigger.to_state.name }} has not been running for a few days!
+  mode: single

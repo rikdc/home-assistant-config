@@ -1,0 +1,111 @@
+#
+# System Monitor
+#
+- platform: systemmonitor
+  resources:
+    - type: disk_use_percent
+      arg: "/"
+    - type: memory_use_percent
+    - type: processor_use
+    - type: last_boot
+    - type: network_in
+      arg: en0
+    - type: network_out
+      arg: en0
+
+#
+# Version
+#
+# @link https://www.home-assistant.io/integrations/version/
+#
+- platform: version
+
+#
+# Friendly version report
+#
+# Useful for HADashboard.
+#
+# @see /appdaemon/dashboards/Status.dash
+#
+- platform: template
+  sensors:
+    version:
+      friendly_name: Version
+      friendly_name_template: >-
+        {% if states('binary_sensor.updater') == 'on' %}
+          Update Available
+        {% else %}
+          Version Installed
+        {% endif %}
+      icon_template: >-
+        {% if states('binary_sensor.updater') == 'on' %}
+          mdi:update
+        {% else %}
+          mdi:home-assistant
+        {% endif %}
+      value_template: >-
+        {% set update = states('binary_sensor.updater') %}
+        {% set version = state_attr('binary_sensor.updater', 'newest_version') %}
+        {% if update == 'on' and version != None %}
+          {{ version }}
+        {% else %}
+          {{ states('sensor.current_version') }}
+        {% endif %}
+      attribute_templates:
+        current_version: >-
+          {{ states('sensor.current_version') }}
+        newest_version: >-
+          {{ state_attr('binary_sensor.updater', 'newest_version') }}
+        release_notes: >-
+          {{ state_attr('binary_sensor.updater', 'release_notes') }}
+        release_notes_html: >-
+          {% set release_notes = state_attr('binary_sensor.updater', 'release_notes') %}
+          {% if release_notes != None %}
+            <a href="{{ release_notes }}" target="_new" style="color:var(--secondary-text-color);">Release notes</a>
+          {% endif %}
+
+- platform: command_line
+  name: CPU Temperature
+  command: "cat /sys/class/thermal/thermal_zone0/temp"
+  unit_of_measurement: "°C"
+  value_template: "{{ (value | multiply(0.001)) | round(1) }}"
+
+- platform: command_line
+  name: YAML Code Lines Count
+  command: find . -name '*.yaml' -not -path "./custom_components/*" -type f -print0 | xargs -0 cat | sed '/^\s*#/d;/^\s*$/d' | wc -l
+  scan_interval: 14400
+  unit_of_measurement: lines
+
+- platform: command_line
+  name: ERRORS in System Log [command line]
+  command: grep -c -E "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} ERROR .*$" /config/home-assistant.log || true
+  scan_interval: 3600
+  unit_of_measurement: pc
+
+- platform: command_line
+  name: WARNINGS in System Log [command line]
+  command: >
+    grep -E "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} WARNING .*$" /config/home-assistant.log |
+    grep -c -v -E "^.+ We found a custom integration .+ which has not been tested by Home Assistant.+$" || true
+  scan_interval: 3600
+  unit_of_measurement: pc
+
+#
+# Host System Updates
+#
+# @link https://community.home-assistant.io/t/ha-on-ubuntu-monitor-available-os-updates/158417/4
+#
+- platform: command_line
+  name: System Updates
+  scan_interval: 86400
+  command: "cat /share/system_updates.out | cut -d ';' -f 1"
+
+#
+# Host System Security Updates
+#
+# @link https://community.home-assistant.io/t/ha-on-ubuntu-monitor-available-os-updates/158417/4
+#
+- platform: command_line
+  name: Security Updates
+  scan_interval: 86400
+  command: "cat /share/system_updates.out | cut -d ';' -f 2"

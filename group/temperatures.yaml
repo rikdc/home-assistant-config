@@ -1,12 +1,12 @@
 thermometers:
-    - sensor.basement_temperature_2
-    - sensor.unit_1_mudroom_temperature
-    - sensor.unit1_hallway_temperature_air
-    - sensor.unit_1_bedroom_temperature
-    - sensor.unit_1_frontroom_temperature
-    - sensor.unit_2_bedroom_temperature
+  - sensor.basement_temperature_2
+  - sensor.unit_1_mudroom_temperature
+  - sensor.unit1_hallway_temperature_air
+  - sensor.unit_1_bedroom_temperature
+  - sensor.unit_1_frontroom_temperature
+  - sensor.unit_2_bedroom_temperature
 
 temperature_entryways:
-    - sensor.basement_temperature_2
-    - sensor.unit_1_mudroom_temperature
-    - sensor.unit1_hallway_temperature_air
+  - sensor.basement_temperature_2
+  - sensor.unit_1_mudroom_temperature
+  - sensor.unit1_hallway_temperature_air

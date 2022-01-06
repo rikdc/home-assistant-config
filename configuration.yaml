@@ -9,8 +9,15 @@ history:
       - binary_sensor.*_motion
 
 homeassistant:
-  packages: !include_dir_named packages
+  packages: !include_dir_named configuration/
   customize: !include customize.yaml
+
+  auth_providers:
+    - type: homeassistant
+    - type: command_line
+      command: /config/shell/ldap-auth.sh
+      args: ["/config/shell/ldap-auth.cfg"]
+      meta: true
 
 http:
   ssl_certificate: ssl/home-assistant.local.pem
@@ -19,16 +26,14 @@ http:
 frontend:
   themes: !include_dir_merge_named themes
 
-input_boolean: !include input_boolean.yaml
-binary_sensor: !include binary_sensors.yaml
+readme:
 
-group: !include_dir_merge_named group/
-script: !include_dir_named scripts/
 scene: !include scenes.yaml
 automation ui: !include automations.yaml
-automation manual: !include_dir_list automation/
+automation manual: !include_dir_merge_list automation/
 
 browser_mod:
+powercalc:
 
 logger:
   default: info
@@ -85,51 +90,6 @@ influxdb:
       - binary_sensor.edgeos_interface_*
       - sensor.daily_internet_usage*
       - input_select.*_location
-
-notify:
-  - name: STANDARD_EMAIL
-    username: !secret email_username
-    password: !secret email_password
-    platform: smtp
-    sender: !secret sender_email
-    recipient: !secret my_email
-    server: !secret email_host
-    port: 465
-    encryption: tls
-
-  - name: ALL
-    platform: group
-    services:
-      - service: !secret person1_mobile
-      - service: !secret person2_mobile
-      - service: !secret person3_mobile
-
-  - name: android
-    platform: group
-    services:
-      - service: !secret person1_mobile
-
-  - name: iphone
-    platform: group
-    services:
-      - service: !secret person2_mobile
-      - service: !secret person3_mobile
-
-  - name: home_automation
-    platform: group
-    services:
-      - service: !secret person2_mobile
-        data:
-          title: "Enable Home automation?"
-          data:
-            push:
-              badge: 0
-              category: "home_automation"
-
-  - name: admins
-    platform: group
-    services:
-      - service: !secret person2_mobile
 
 media_player:
   # - platform: snapcast
