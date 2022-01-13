@@ -81,6 +81,13 @@ light:
       - light.unit1_kitchen_pendants
 
   - platform: group
+    name: Kitchen1 Lights
+    entities:
+      - light.unit1_hallway_lights
+      - light.unit1_kitchen_ceiling_light
+      - light.unit1_kitchen_cabinets
+
+  - platform: group
     name: Unit1 Bedroom Lights
     entities:
       - light.person1_nightlight
