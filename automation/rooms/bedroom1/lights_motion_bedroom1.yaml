@@ -4,8 +4,8 @@
   use_blueprint:
     path: freakshock88/motion_illuminance_activated_entity.yaml
     input:
-      motion_sensor: binary_sensor.motion_bedroom1_home_security_motion_detection
-      illuminance_sensor: sensor.motion_bedroom1_illuminance
+      motion_sensor: binary_sensor.multisensor_bedroom1_home_security_motion_detection
+      illuminance_sensor: sensor.multisensor_bedroom1_illuminance
       illuminance_cutoff: input_number.default_cutoff_illuminance
       target_entity: light.bedroom1
       no_motion_wait: input_number.unit1_bedroom_lights_off_duration

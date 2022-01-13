@@ -52,7 +52,7 @@
       prob_given_false: 0.16
       to_state: "on"
     - platform: "state"
-      entity_id: "binary_sensor.motion_bedroom1_home_security_motion_detection"
+      entity_id: binary_sensor.multisensor_bedroom1_home_security_motion_detection
       prob_given_true: 0.1960
       prob_given_false: 0.0392
       to_state: "on"
@@ -66,3 +66,53 @@
       prob_given_true: 0.98
       prob_given_false: 0.6860
       to_state: "below_horizon"
+
+- platform: bayesian
+  prior: 0.5
+  name: "Person1 - Sleeping"
+  probability_threshold: 0.85
+  observations:
+    # - entity_id: 'group.tracked_users'
+    #   prob_given_true: 0.99
+    #   prob_given_false: 0.5
+    #   platform: 'state'
+    #   to_state: 'home'
+    - entity_id: "sensor.sun"
+      prob_given_true: 0.9
+      prob_given_false: 0.2
+      platform: "state"
+      to_state: "below_horizon"
+    # - entity_id: 'group.all_lights'
+    #   prob_given_true: 0.9
+    #   prob_given_false: 0.4
+    #   platform: 'state'
+    #   to_state: 'off'
+    # - entity_id: 'sensor.coffeemaker'
+    #   prob_given_true: 0.8
+    #   prob_given_false: 0.4
+    #   platform: 'state'
+    #   to_state: 'Ready'
+    # - entity_id: 'variable.last_motion'
+    #   prob_given_true: 0.9
+    #   prob_given_false: 0.3
+    #   platform: 'state'
+    #   to_state: 'Bathroom Motion'
+    # - entity_id: 'binary_sensor.brad_phone_pluggedin'
+    #   prob_given_true: 0.95
+    #   prob_given_false: 0.5
+    #   platform: 'state'
+    #   to_state: 'on'
+# sensor.stefanies_phone_detected_activity
+#   = still, walking,
+
+# binary_sensor.hd1905_keyguard_locked
+#   = on = locked
+
+# binary_sensor.hd1905_interactive
+#   = phone in use
+
+# sensor.stefanies_phone_battery_state
+#   = discharging
+
+# time > after 10pm.
+
