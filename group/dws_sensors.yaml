@@ -12,7 +12,7 @@ dws_sensors:
     - binary_sensor.frontdoor_motion_home_security_motion_detection
     - binary_sensor.motion_living_room_home_security_motion_detection
     - binary_sensor.motion_bathroom_home_security_motion_detection
-    - binary_sensor.motion_bedroom1_home_security_motion_detection
+    - binary_sensor.multisensor_bedroom1_home_security_motion_detection
     - binary_sensor.motion_bathroom2_home_security_motion_detection
     - lock.frontdoor
     - lock.backdoor

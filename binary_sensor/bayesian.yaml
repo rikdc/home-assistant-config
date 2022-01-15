@@ -52,7 +52,7 @@
       prob_given_false: 0.16
       to_state: "on"
     - platform: "state"
-      entity_id: "binary_sensor.motion_bedroom1_home_security_motion_detection"
+      entity_id: binary_sensor.multisensor_bedroom1_home_security_motion_detection
       prob_given_true: 0.1960
       prob_given_false: 0.0392
       to_state: "on"

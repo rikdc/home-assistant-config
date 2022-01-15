@@ -30,7 +30,7 @@ group:
     - binary_sensor.q_sensor_home_security_motion_detection
     - binary_sensor.motion_living_room_home_security_motion_detection
     - binary_sensor.frontdoor_motion_home_security_motion_detection
-    - binary_sensor.motion_bedroom1_home_security_motion_detection
+    - binary_sensor.multisensor_bedroom1_home_security_motion_detection
     - binary_sensor.unit_1_mudroom_motion
 
     # Upper Floor DWS

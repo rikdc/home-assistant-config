@@ -11,7 +11,7 @@
     - alias: "Toggle the fan based on the status"
       choose:
         - alias: "Humidity is high"
-          conditions: "{{ trigger.to_state.state == 'on' }}"
+          conditions: "{{ trigger.to_state.state == 'on' and states('sensor.motion_bathroom_humidity') | float(0) >= 60 }}"
           sequence:
             - service: switch.turn_on
               target:
