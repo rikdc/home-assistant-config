@@ -52,7 +52,7 @@ input_datetime:
     initial: "01:00"
 
   growtent1_lights_off:
-    name: When lights should be on.
+    name: When lights should be off.
     has_date: false
     has_time: true
     initial: "19:00"
@@ -64,7 +64,7 @@ input_datetime:
     initial: "00:00"
 
   growtent2_lights_off:
-    name: When lights should be on.
+    name: When lights should be off.
     has_date: false
     has_time: true
     initial: "18:00"
