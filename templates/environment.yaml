@@ -9,7 +9,7 @@
       attributes:
         room: "Bedroom 1"
         reason: >-
-          {% set current_state = states('sensor.bedroom1_realistic_humidity')|int %}
+          {% set current_state = states('sensor.bedroom1_realistic_humidity')|int(0) %}
           {% if current_state < 15 %}
             Way too dry
           {% elif current_state < 20 %}
@@ -38,7 +38,7 @@
       attributes:
         room: "Livingroom 1"
         reason: >-
-          {% set current_state = states('sensor.motion_frontroom_humidity')|int %}
+          {% set current_state = states('sensor.motion_frontroom_humidity')|int(0) %}
           {% if current_state < 15 %}
             Way too dry
           {% elif current_state < 20 %}
@@ -67,7 +67,7 @@
       attributes:
         room: "Bathroom1 1"
         reason: >-
-          {% set current_state = states('sensor.motion_bathroom_humidity')|int %}
+          {% set current_state = states('sensor.motion_bathroom_humidity')|int(0) %}
           {% if current_state < 15 %}
             Way too dry
           {% elif current_state < 20 %}
@@ -106,4 +106,4 @@
     - name: "Office1 co2 Status"
       device_class: "problem"
       state: >
-        {{ states('sensor.bme680_co2_equivalent') | int <= 1000 }}
+        {{ states('sensor.bme680_co2_equivalent') | int(0) <= 1000 }}
