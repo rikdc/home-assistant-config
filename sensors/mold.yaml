@@ -1,0 +1,30 @@
+- platform: template
+  sensors:
+    mold_indoor_temp:
+      unit_of_measurement: °F
+      value_template: "{{ states('sensor.area_household_air_temperature') |int(19) }}"
+    mold_indoor_humidity:
+      unit_of_measurement: "%"
+      value_template: "{{ states('sensor.area_household_humidity') | int(50) }}"
+
+# You should try to determine the right calibration factor for your house,
+# not assume the default is reasonable. Basically, a factor of 2.0 means that
+# there is half the amount of temperature differential at the “coldest” part
+# of the house (as the docs suggest, typically a window) than at the thermostat.
+# So, given your numbers – 6 outside, 20 inside – a factor of 2 would assume
+# the window is 13 and base its condensation estimate on that temperature.
+# Source: https://community.home-assistant.io/t/need-help-with-mold-indicator-sensor/152950/5
+
+- platform: mold_indicator
+  name: "Area - Basement Mold"
+  indoor_temp_sensor: sensor.basement_temperature
+  indoor_humidity_sensor: sensor.basement_humidity
+  outdoor_temp_sensor: sensor.multisensor_garage_air_temperature
+  calibration_factor: 1.25
+
+- platform: mold_indicator
+  name: "Area - Household Mold"
+  indoor_temp_sensor: sensor.area_household_air_temperature
+  indoor_humidity_sensor: sensor.area_household_humidity
+  outdoor_temp_sensor: sensor.multisensor_garage_air_temperature
+  calibration_factor: 1.25

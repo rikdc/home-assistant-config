@@ -14,4 +14,7 @@
   type: mean
   round_digits: 1
   entity_ids:
-    - sensor.waqi_bangor_maine_usa
+    - sensor.multisensor_bedroom1_humidity
+    - sensor.multisensor_kitchen1_humidity
+    - sensor.motion_bathroom_humidity
+    - sensor.motion_frontroom_humidity
