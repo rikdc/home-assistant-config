@@ -1,0 +1,14 @@
+- alias: "Notify if Mold sensor is too high"
+  initial_state: "on"
+  max_exceeded: silent
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.area_basement_mold
+      #value_template: "{{ float(state.state) }}"
+      above: 69
+  action:
+    - service: script.post_to_home_log
+      data:
+        title: "Possible Mold Growth"
+        message: "It's possible to have mold growth because the mold indicator is"
+    - delay: "05:00:00"

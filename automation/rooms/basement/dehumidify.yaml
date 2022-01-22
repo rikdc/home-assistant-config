@@ -1,0 +1,14 @@
+- alias: "AirQ - Automatic basement dehumidifier"
+  initial_state: "on"
+  trigger:
+    - platform: template
+      value_template: >
+        {% if float(states('sensor.area_basement_mold')) > float(65) or float(states('sensor.area_basement_mold')) < float(64) %} true
+        {% else %} false
+        {% endif %}
+  action:
+    - service_template: >
+        {% if states('sensor.area_basement_mold') | float(0) > 65 %} switch.turn_on
+        {% else %} switch.turn_off
+        {% endif %}
+      entity_id: switch.dehumidifier
