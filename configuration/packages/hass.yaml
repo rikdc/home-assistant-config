@@ -1,0 +1,40 @@
+input_boolean:
+  hass_automation:
+    name: "Hass Automation"
+    icon: mdi:sync-alert
+  hass_alerts:
+    name: "Hass Alerts"
+    icon: mdi:alert
+  startup_pending:
+    name: "Startup Pending"
+    icon: mdi:home-assistant
+    initial: true
+
+automation:
+  - alias: "[Hass] Startup"
+    id: hass_startup
+    description: "Turn on delayed automations, send restart notification."
+    trigger:
+      - platform: homeassistant
+        event: start
+    action:
+      - service: system_log.write
+        data:
+          level: critical
+          logger: automation.hass_startup
+          message: "**** HOME ASSISTANT START ****"
+
+      - service: persistent_notification.create
+        data:
+          title: "Automation Startup"
+          message: "Waiting for startup to complete."
+          notification_id: startup_delay
+
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.startup_pending
+
+      - service: system_log.write
+        data:
+          level: critical
+          logger: automation.hass_startup
+          message: "**** HOME ASSISTANT STARTUP COMPLETE ****"

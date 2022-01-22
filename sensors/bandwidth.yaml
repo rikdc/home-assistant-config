@@ -3,7 +3,7 @@
     internet_mb_downloaded:
       friendly_name: "Internet Download"
       unit_of_measurement: "MB"
-      value_template: "{{ state_attr('binary_sensor.edgeos_interface_eth0', 'MBytes (Received)') }}"
+      value_template: "{{ state_attr('binary_sensor.edgeos_interface_eth4', 'MBytes (Received)') }}"
     internet_mb_uploaded:
-      value_template: "{{ state_attr('binary_sensor.edgeos_interface_eth0', 'MBytes (Sent)') }}"
+      value_template: "{{ state_attr('binary_sensor.edgeos_interface_eth4', 'MBytes (Sent)') }}"
       unit_of_measurement: "MB"
