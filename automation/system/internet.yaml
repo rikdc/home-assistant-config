@@ -11,6 +11,10 @@
     - condition: state
       entity_id: input_boolean.allow_notifications
       state: "on"
+  #       state: >
+  #         {{ is_state('binary_sensor.wan_connected','off')
+  #             and is_state('input_boolean.network_alerts','on')
+  #             and is_state('input_boolean.startup_pending','off') }}
   action:
     - choose:
         conditions:
