@@ -3,9 +3,9 @@
   trigger:
     - platform: state
       entity_id:
-        - sensor.stefanies_phone_room_presence # Person 1
-        - sensor.richards_phone_room_presence # Person 2
-        - sensor.jenns_phone_room_presence # Person 3
+        - !secret person1_room_entity
+        - !secret person2_room_entity
+        - !secret person3_room_entity
     - platform: zone
       entity_id:
         - !secret person1_entity
