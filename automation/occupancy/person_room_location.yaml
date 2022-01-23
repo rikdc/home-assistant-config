@@ -1,26 +1,33 @@
 - id: "a8d9090d-b313-4fdd-8722-5d02bf181528"
-  alias: "Occupancy: Person 1 Room Location"
+  alias: "Occupancy: Person Room Location"
   trigger:
     - platform: state
       entity_id:
-        - sensor.stefanie_room_presence # Person 1
-        - sensor.richard_room_presence # Person 2
-        - sensor.jenn_room_presence # Person 3
+        - sensor.stefanies_phone_room_presence # Person 1
+        - sensor.richards_phone_room_presence # Person 2
+        - sensor.jenns_phone_room_presence # Person 3
     - platform: zone
       entity_id:
         - !secret person1_entity
       zone: zone.home
+  condition:
+    - condition: template
+      value_template: "{{ states(trigger.entity_id) != 'not_home' }}"
   action:
     - service: input_select.select_option
       data:
-        entity_id: "{{ 'input_select.' + trigger.entity_id[7:-14] + '_location' }}"
+        entity_id: "{{ 'input_select.' + trigger.entity_id[7:-21] + '_location' }}"
         option: >
           {% set h = states(trigger.entity_id) %}
-          {% if h == 'unit2livingroom' %}
+          {% if h == 'pi0-upper-back' %}
             Upstairs
+          {% elif h == 'pi0-upper-middle.local' %}
+            Kitchen
           {% elif h == 'unit2Front' %}
             Upper Office
-          {% elif h == 'unit1FrontRoom' %}
+          {% elif h == 'pi0-lower-bedroom' %}
+            Downstairs
+          {% elif h == 'pi0-lower-back' %}
             Downstairs
           {% elif h == 'pi0-lower-back' %}
             Downstairs
