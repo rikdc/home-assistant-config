@@ -142,13 +142,3 @@
           {% else %}
             Saturation Point
           {% endif %}
-
-    - name: "Basement Mold Status"
-      state: >
-        {{ states('sensor.area_basement_mold')|int(0) > 69 }}
-      delay_on: 00:00:30
-
-    - name: "Office1 co2 Status"
-      device_class: "problem"
-      state: >
-        {{ states('sensor.bme680_co2_equivalent') | int(0) <= 1000 }}
