@@ -11,48 +11,48 @@ alert:
       - home_automation
 
   bedroom1_humidity:
-    name: Bedroom1 Humidity is too dry
-    done_message: Humidity is back to normal
-    entity_id: binary_sensor.bedroom1_humidity_status #  {{ state_attr(trigger.entity_id, 'reason') }}
+    name: Bedroom1 Humidity Status
+    done_message: Bedroom1 humidity is back to normal
+    message: >
+      Humditiy in Bedroom1 is {{ state_attr('binary_sensor.bedroom1_humidity_status', 'reason') }}
+    entity_id: binary_sensor.bedroom1_humidity_status
     repeat:
       - 15
       - 30
       - 60
-    can_acknowledge: true
     notifiers:
       - admins
 
   bedroom2_humidity:
-    name: Bedroom2 Humidity is too dry
-    done_message: Humidity is back to normal
+    name: Bedroom2 Humidity warning
+    message: >
+      Humditiy in Bedroom2 is {{ state_attr('binary_sensor.bedroom2_humidity_status', 'reason') }}
+    done_message: Bedroom2 humidity is back to normal
     entity_id: binary_sensor.bedroom2_humidity_status
     repeat:
       - 15
       - 30
       - 60
-    can_acknowledge: true
     notifiers:
       - admins
 
   livingroom1_humidity:
-    name: Livingroom Humidity is too dry
-    done_message: Humidity is back to normal
+    name: Livingroom Humidity Status
+    done_message: Livingroom humidity is back to normal
     entity_id: binary_sensor.livingroom1_humidity_status
+    message: >
+      Humditiy in Bedroom2 is {{ state_attr('binary_sensor.livingroom1_humidity_status', 'reason') }}
     repeat:
       - 15
       - 30
       - 60
-    can_acknowledge: true
     notifiers:
       - admins
 
   basement_mold_warning:
-    name: "Notify if basement mold sensor is too high"
+    name: "Basement mould risk is high"
     done_message: Basement mold risk is normal
     entity_id: binary_sensor.basement_mold_status
-    #title: "Possible Mold Growth"
-    #message: "It's possible to have mold growth because the mold indicator is"
-    can_acknowledge: true
     repeat:
       - 15
       - 30
@@ -63,7 +63,6 @@ alert:
   basement_sumppump_not_running:
     name: Basement sump has not been running for a few days!
     entity_id: binary_sensor.sump_pump_problem
-    can_acknowledge: true
     repeat:
       - 15
       - 30
