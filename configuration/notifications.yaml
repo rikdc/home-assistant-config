@@ -18,7 +18,7 @@ script:
       title:
         description: (optional)Header to the message posted.
     sequence:
-      service: notify.all
+      service: notify.admins
       data:
         title: "{{ title|default('', true) }}"
         message: "{{ message }}"
