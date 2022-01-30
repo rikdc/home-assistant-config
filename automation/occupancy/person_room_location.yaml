@@ -22,13 +22,11 @@
           {% if h == 'pi0-upper-back' %}
             Upstairs
           {% elif h == 'pi0-upper-middle.local' %}
-            Kitchen
+            Livingroom
           {% elif h == 'unit2Front' %}
             Upper Office
           {% elif h == 'pi0-lower-bedroom' %}
-            Downstairs
-          {% elif h == 'pi0-lower-back' %}
-            Downstairs
+            Bedroom1
           {% elif h == 'pi0-lower-back' %}
             Downstairs
           {% else %}
