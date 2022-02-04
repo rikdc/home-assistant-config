@@ -9,6 +9,17 @@
       time_constant: 10
       precision: 2
 
+- platform: filter
+  name: "Bedroom2 Realistic Humidity"
+  entity_id: sensor.upper_office_multisensor_humidity # todo - rename sensor.
+  filters:
+    - filter: outlier
+      window_size: 4
+      radius: 4.0
+    - filter: lowpass
+      time_constant: 10
+      precision: 2
+
 - platform: min_max
   name: Area - Household Humidity
   type: mean

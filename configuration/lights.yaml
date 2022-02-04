@@ -38,7 +38,7 @@ light:
   - platform: group
     name: Upstairs
     entities:
-      - light.unit2_loft_light_dimmer
+      - light.loft_light
       - light.unit2_loft_fairy_lights
       - light.upstairs_kitchen_pendants
       - light.upstairs_kitchen_spotlights
@@ -65,6 +65,9 @@ light:
     name: Loft Lights
     entities:
       - light.unit2_loft_fairy_lights
+      - light.loft_lamp_1_2 # eeps..
+      - light.loft_lamp_2_3
+      - light.loft_light # Salt Lamp
 
   - platform: group
     name: Bathroom1 Lights

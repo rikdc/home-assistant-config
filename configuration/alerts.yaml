@@ -10,23 +10,62 @@ alert:
     notifiers:
       - home_automation
 
-  # room_is_humid:
+  bedroom1_humidity:
+    name: Bedroom1 Humidity Status
+    done_message: Bedroom1 humidity is back to normal
+    message: >
+      Humditiy in Bedroom1 is {{ state_attr('binary_sensor.bedroom1_humidity_status', 'reason') }}
+    entity_id: binary_sensor.bedroom1_humidity_status
+    repeat:
+      - 15
+      - 30
+      - 60
+    notifiers:
+      - admins
 
-  #   - alias: AirQ - Indoor Humidity Notifications
-  #   trigger:
-  #     - platform: state
-  #       entity_id:
-  #         - binary_sensor.bedroom1_humidity_status
-  #         - binary_sensor.bedroom2_humidity_status
-  #         - binary_sensor.livingroom1_humidity_status
-  #   action:
-  #     - service: persistent_notification.create
-  #       data:
-  #         notification_id: "{{ trigger.entity_id }}"
-  #         message: >
-  #           The humidity in {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'reason') }}
-  #     - service: notify.all
-  #       data:
-  #         notification_id: "{{ trigger.entity_id }}"
-  #         message: >
-  #           The humidity in the {{ state_attr(trigger.entity_id, 'room') }} is {{ state_attr(trigger.entity_id, 'reason') }}
+  bedroom2_humidity:
+    name: Bedroom2 Humidity warning
+    message: >
+      Humditiy in Bedroom2 is {{ state_attr('binary_sensor.bedroom2_humidity_status', 'reason') }}
+    done_message: Bedroom2 humidity is back to normal
+    entity_id: binary_sensor.bedroom2_humidity_status
+    repeat:
+      - 15
+      - 30
+      - 60
+    notifiers:
+      - admins
+
+  livingroom1_humidity:
+    name: Livingroom Humidity Status
+    done_message: Livingroom humidity is back to normal
+    entity_id: binary_sensor.livingroom1_humidity_status
+    message: >
+      Humditiy in Bedroom2 is {{ state_attr('binary_sensor.livingroom1_humidity_status', 'reason') }}
+    repeat:
+      - 15
+      - 30
+      - 60
+    notifiers:
+      - admins
+
+  basement_mold_warning:
+    name: "Basement mould risk is high"
+    done_message: Basement mold risk is normal
+    entity_id: binary_sensor.basement_mold_status
+    repeat:
+      - 15
+      - 30
+      - 60
+    notifiers:
+      - admins
+
+  basement_sumppump_not_running:
+    name: Basement sump has not been running for a few days!
+    entity_id: binary_sensor.sump_pump_problem
+    repeat:
+      - 15
+      - 30
+      - 60
+    notifiers:
+      - admins
