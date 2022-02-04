@@ -1,21 +1,4 @@
 - binary_sensor:
-    - name: first_floor_occupancy
-      device_class: "occupancy"
-      delay_off:
-        minutes: 5
-      delay_on:
-        seconds: 3
-      state: >-
-        {{ (is_state('input_boolean.home_occupied', 'on')
-              and (
-                  is_state('binary_sensor.area_bathroom1_occupancy', 'on')
-                or is_state('binary_sensor.unit2_livingroom_occupancy', 'on')
-                or is_state('input_select.richard_location', 'Upstairs')
-                or is_state('input_select.stefanie_location', 'Upstairs')
-                or is_state('input_select.jenn_location', 'Upstairs')
-              ))
-        }}
-
     - unique_id: unit1_frontroom_occupied
       name: "Living Room Occupancy"
       device_class: "occupancy"
@@ -56,16 +39,36 @@
         {{ (is_state('input_boolean.home_occupied', 'on')
             and is_state('binary_sensor.unit_1_experiment_rcwl0516_movement', 'on')) }}
 
-    - name: unit2_livingroom_occupancy
+    - name: area_livingroom_occupancy
       device_class: "occupancy"
       delay_off:
         minutes: 5
       delay_on:
         seconds: 3
       state: >-
-        {{ is_state('binary_sensor.first_floor_occupancy', 'on')
-            and is_state('media_player.roku_streaming_stick', 'playing')
-          }}
+        {{ 
+                is_state('input_select.richard_location', 'Upstairs')
+            or is_state('input_select.stefanie_location', 'Upstairs')
+            or is_state('input_select.jenn_location', 'Upstairs') 
+            or is_state('binary_sensor.upstairs_person_motion', 'on')    
+        }}
+
+    - name: first_floor_occupancy
+      device_class: "occupancy"
+      delay_off:
+        minutes: 5
+      delay_on:
+        seconds: 3
+      state: >-
+        {{ (is_state('input_boolean.home_occupied', 'on')
+              and (
+                  is_state('binary_sensor.area_bathroom_occupancy', 'on')
+                or is_state('binary_sensor.area_livingroom_occupancy', 'on')
+                or is_state('input_select.richard_location', 'Upstairs')
+                or is_state('input_select.stefanie_location', 'Upstairs')
+                or is_state('input_select.jenn_location', 'Upstairs')
+              ))
+        }}
 
     - name: unit1_backroom_occupancy
       device_class: "occupancy"
@@ -79,13 +82,6 @@
               or is_state('input_select.richard_location', 'pi0-lower-back')
               or is_state('input_select.jenn_location', 'pi0-lower-back')
         }}
-
-    - name: area_bathroom1_occupancy
-      device_class: "occupancy"
-      delay_off:
-        minutes: 5
-      state: >-
-        {{ is_state('binary_sensor.motion_bathroom_home_security_motion_detection', 'on') }}
 
     - unique_id: area_bedroom1_bright
       name: "Area - Bedroom1 Bright"
