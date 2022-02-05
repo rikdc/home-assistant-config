@@ -18,8 +18,42 @@
 #   - https://technofaq.org/posts/2021/01/how-the-right-room-temperature-will-boost-employee-productivity/
 #   - https://www.pgi.com/blog/2018/06/what-is-the-ideal-office-temperature-for-productivity/
 
-# binary_sensor:
+- binary_sensor:
+    - name: "Bedroom1 Temperature Status"
+      device_class: "problem"
+      delay_on: 5
+      delay_off: 5
+      state: >
+        {{ states('sensor.bedroom1_realistic_temperature') | float(0) < 60 or states('sensor.bedroom1_realistic_temperature') | float(0) > 71 }}
+      attributes:
+        room: "Bedroom 1"
+        reason: >-
+          {% if states('sensor.bedroom1_realistic_temperature') | float(0) < 60 %}
+              Too Cold
+          {% elif states('ssensor.bedroom1_realistic_temperatures') | float(0) > 71 %}
+            Too Warm
+          {% else %}
+              Normal
+          {% endif %}
 
+    - name: "Frontroom Temperature Status"
+      device_class: "problem"
+      delay_on: 5
+      delay_off: 5
+      state: >
+        {{ states('sensor.bedroom1_realistic_temperature') | float(0) < 60 or states('sensor.bedroom1_realistic_temperature') | float(0) > 71 }}
+      attributes:
+        room: "Bedroom 1"
+        reason: >-
+          {% if states('sensor.bedroom1_realistic_temperature') | float(0) < 60 %}
+              Too Cold
+          {% elif states('ssensor.bedroom1_realistic_temperatures') | float(0) > 71 %}
+            Too Warm
+          {% else %}
+              Normal
+          {% endif %}
+
+# sensor.area_household_air_temperature
 #   # For everything else...
 #   - platform: template
 #   #       bedroom2_temperature_status:

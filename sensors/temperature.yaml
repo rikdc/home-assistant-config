@@ -1,6 +1,6 @@
 - platform: filter
   name: "Bedroom1 Realistic Temperature"
-  entity_id: sensor.motion_bedroom1_air_temperature
+  entity_id: sensor.multisensor_bedroom1_air_temperature
   filters:
     - filter: outlier
       window_size: 4
@@ -8,3 +8,13 @@
     - filter: lowpass
       time_constant: 10
       precision: 2
+
+- platform: min_max
+  name: Area - Household Air Temperature
+  type: mean
+  round_digits: 1
+  entity_ids:
+    - sensor.multisensor_bedroom1_air_temperature
+    - sensor.multisensor_kitchen1_air_temperature
+    - sensor.motion_bathroom_air_temperature
+    - sensor.motion_frontroom_air_temperature

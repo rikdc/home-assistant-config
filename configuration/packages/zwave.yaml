@@ -1,0 +1,8 @@
+###############################################################################
+## Package - ZWave
+## https://github.com/jazzyisj/home-assistant-config/blob/4a17d7ff4119fd93f60ce786cecbe22275564f4c/packages/system/package_zwave.yaml
+###############################################################################
+homeassistant:
+  customize_glob:
+    "sensor.*_node_status":
+      type: zwave_node_status

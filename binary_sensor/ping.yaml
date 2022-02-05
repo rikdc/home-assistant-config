@@ -1,0 +1,19 @@
+- platform: ping
+  host: www.github.com
+  name: WAN
+  scan_interval: 60
+
+- platform: ping
+  host: 192.168.10.1
+  name: Gateway
+  scan_interval: 60
+
+- platform: ping
+  host: 192.168.10.2
+  name: Network AP1
+  scan_interval: 60
+
+- platform: ping
+  host: 192.168.10.3
+  name: Network AP2
+  scan_interval: 60

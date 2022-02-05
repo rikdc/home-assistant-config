@@ -21,8 +21,7 @@ group:
   growlights2:
     name: Growlights Tent 2
     entities:
-      - switch.switch3
-      - switch.switch4
+      - switch.switch1
       - switch.switch3
 
 input_select:
@@ -32,7 +31,6 @@ input_select:
       - Germinating
       - Vegetative
       - Flowering
-    initial: Germinating
     icon: mdi:panda
 
   growtent2_growschedule:
@@ -41,7 +39,6 @@ input_select:
       - Germinating
       - Vegetative
       - Flowering
-    initial: Germinating
     icon: mdi:panda
 
 input_datetime:
@@ -49,13 +46,11 @@ input_datetime:
     name: When lights should be on.
     has_date: false
     has_time: true
-    initial: "01:00"
 
   growtent1_lights_off:
-    name: When lights should be on.
+    name: When lights should be off.
     has_date: false
     has_time: true
-    initial: "19:00"
 
   growtent2_lights_on:
     name: When lights should be on.
@@ -64,10 +59,9 @@ input_datetime:
     initial: "00:00"
 
   growtent2_lights_off:
-    name: When lights should be on.
+    name: When lights should be off.
     has_date: false
     has_time: true
-    initial: "18:00"
 
 automation:
   # - alias: "Growschedule Changed"

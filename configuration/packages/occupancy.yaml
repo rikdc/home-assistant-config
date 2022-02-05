@@ -9,14 +9,18 @@ homeassistant:
           - Just Left
           - Away
           - Extended Away
-          - Kitchen
+
           - Downstairs
+          - Kitchen
+          - Frontroom
+          - Backroom
+          - Bedroom1
+
           - Upstairs
-          - Downstairs Livingroom
-          - Upstairs Livingroom
-          - Bedroom
+          - Livingroom
+          - Bedroom2
           - Bathroom
-          - Upper Office
+          - Office
 
 input_select:
   stefanie_location:
