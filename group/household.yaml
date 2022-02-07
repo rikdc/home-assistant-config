@@ -1,5 +1,6 @@
 household:
   icon: mdi:home-heart
+  all: true
   entities:
     - person.richard
     - person.stefanie

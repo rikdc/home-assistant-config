@@ -1,0 +1,22 @@
+- sensor:
+    - name: dashboard_greeting
+      state: >
+        {% if as_timestamp(now()) | timestamp_custom('%H') | int < 12 %} 
+          Good morning
+        {% elif as_timestamp(now()) | timestamp_custom('%H') | int < 17 %}
+          Good afternoon
+        {% else %}
+          Good evening
+        {% endif %}
+    - name: door_locks
+      state: >
+        {% if states("lock.front_door_lock") == "unlocked" and 
+        states("lock.rear_door_lock") == "unlocked" %}
+          Unlocked
+        {% elif states("lock.front_door_lock") == "unlocked" %}
+          Front door unlocked
+        {% elif states("lock.rear_door_lock") == "unlocked" %}
+          Rear door unlocked
+        {% else %}
+          Locked
+        {% endif %}
