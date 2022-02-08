@@ -1,6 +1,6 @@
 - platform: ping
   host: www.github.com
-  name: WAN
+  name: WAN Connected
   scan_interval: 60
 
 - platform: ping
