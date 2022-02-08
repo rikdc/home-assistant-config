@@ -1,0 +1,78 @@
+# Inspired from https://github.com/jazzyisj/home-assistant-config/
+- binary_sensor:
+    - name: "CPU Temperature Alert"
+      unique_id: cpu_temperature_alert
+      device_class: heat
+      delay_on:
+        minutes: 10 # delay before triggering alert to reduce alerts from temporary spikes
+      state: >
+        {{ states('sensor.cpu_temperature')|int(-1) > 65
+            and is_state('input_boolean.system_alerts','on')
+            and is_state('input_boolean.startup_pending','off') }}
+    - name: "Processor Use Alert"
+      unique_id: processor_use_alert
+      device_class: problem
+      delay_on:
+        minutes: 10
+      state: >
+        {{ states('sensor.processor_use_percent')|int(-1) > 60
+            and is_state('input_boolean.system_alerts','on')
+            and is_state('input_boolean.startup_pending','off') }}
+    - name: "Memory Use Alert"
+      unique_id: memory_use_alert
+      device_class: problem
+      delay_on:
+        minutes: 10
+      state: >
+        {{ states('sensor.memory_use_percent')|int(-1) > 75
+            and is_state('input_boolean.system_alerts','on')
+            and is_state('input_boolean.startup_pending','off') }}
+    - name: "Swap Use Alert"
+      unique_id: swap_use_alert
+      device_class: problem
+      delay_on:
+        minutes: 10
+      state: >
+        {{ states('sensor.swap_use_percent')|int(-1) > 80
+            and is_state('input_boolean.system_alerts','on')
+            and is_state('input_boolean.startup_pending','off') }}
+    - name: "Disk Use Alert"
+      unique_id: disk_use_alert
+      device_class: problem
+      state: >
+        {{ states('sensor.disk_use_percent_home')|int(-1) > 60
+            and is_state('input_boolean.system_alerts','on')
+            and is_state('input_boolean.startup_pending','off') }}
+
+    ###############################################################################
+    ## Templates - Pi-Hole
+    ###############################################################################
+    - name: "PiHole Primary Status"
+      state: >
+        {{ is_state('switch.pi_hole_primary', 'on') }} # Todo; figure out a betterway.
+
+    - name: "PiHole Disconnected Alert"
+      unique_id: pihole_disconnected_alert
+      icon: mdi:pi-hole
+      delay_on:
+        minutes: 5
+      state: >
+        {{ not is_state('binary_sensor.pi_hole','on')
+            or is_state('device_tracker.pi_hole','away')
+            and is_state('input_boolean.network_alerts','on')
+            and is_state('input_boolean.startup_pending','off') }}
+
+    - name: "PiHole Disabled Alert"
+      unique_id: pihole_disabled_alert
+      icon: mdi:pi-hole
+      delay_on:
+        hours: 1
+      state: "{{ is_state('sensor.pi_hole_status','Disabled') }}"
+
+    - name: "PiHole Update Alert"
+      unique_id: pihole_update_alert
+      icon: mdi:pi-hole
+      state: >
+        {{ is_state('binary_sensor.pi_hole_core_update_available','on')
+            or is_state('binary_sensor.pi_hole_ftl_update_available','on')
+            or is_state('binary_sensor.pi_hole_web_update_available','on') }}
