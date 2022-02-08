@@ -1,0 +1,18 @@
+alias: System - Restart Zwave
+sequence:
+  - service: persistent_notification.create
+    data:
+      message: Restarting Z-Wave Container...
+      title: System Monitor
+      notification_id: zwave_monitor
+  - service: switch.turn_off
+    entity_id: switch.mufasa_docker_zwave # This is really inelegant.
+  - delay: 60
+  - service: switch.turn_on
+    entity_id: switch.mufasa_docker_zwave # This is really inelegant.
+  - delay: 60
+  - service: persistent_notification.create
+    data:
+      message: Z-Wave container has restarted.
+      title: System Monitor
+      notification_id: zwave_monitor
