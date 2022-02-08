@@ -1,6 +1,6 @@
 - id: d77c1eca-8685-4bf9-8b09-8925c60f1dd0
   alias: "System: Restart Z-Wave Container"
-  description: "If Z-Wave goes offline for a few minutes, automatically restart the docker container"
+  description: "If Z-Wave goes offline, automatically restart the docker container"
   mode: single
   trigger:
     platform: state
