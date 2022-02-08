@@ -1,24 +1,3 @@
-- platform: template
-  sensors:
-    solar_angle:
-      friendly_name: "Sun angle"
-      unit_of_measurement: 'degrees'
-      value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-
-    sunrise:
-      value_template: "{{ state_attr('sun.sun', 'next_rising') }}"
-
-    sun_elevation:
-      value_template: "{{ state_attr('sun.sun', 'elevation') }}"
-      unit_of_measurement: "degrees"
-      icon_template: >
-        {% set elevation = state_attr('sun.sun', 'elevation')|default(0) %}
-        {% if elevation > 0 %}
-          mdi:weather-sunny
-        {% else %}
-          mdi:weather-night
-        {% endif %}
-
 - platform: here_travel_time
   name: Morning Commute
   api_key: !secret here_api_key

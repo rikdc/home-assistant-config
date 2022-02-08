@@ -2,5 +2,20 @@
   sensors:
     solar_elevation:
       friendly_name: "Solar Elevation"
-      unit_of_measurement: "°"
+      unit_of_measurement: "degrees"
       value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+      icon_template: >
+        {% set elevation = state_attr('sun.sun', 'elevation')|default(0) %}
+        {% if elevation > 0 %}
+          mdi:weather-sunny
+        {% else %}
+          mdi:weather-night
+        {% endif %}
+
+    solar_angle:
+      friendly_name: "Sun angle"
+      unit_of_measurement: 'degrees'
+      value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+
+    sunrise:
+      value_template: "{{ state_attr('sun.sun', 'next_rising') }}"
