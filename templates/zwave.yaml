@@ -28,5 +28,9 @@
         {% endif %}
       attributes:
         entities: >
-          {{ states.sensor|selectattr('attributes.type','eq','zwave_node_status')
-              |selectattr('state','ne','alive')|map(attribute='entity_id')|list }}
+          {{ 
+            states.sensor
+              |selectattr('attributes.type','eq','zwave_node_status')
+              |selectattr('last_updated','<=', now() - timedelta(minutes=60))
+              |selectattr('state','eq','asleep')
+              |map(attribute='last_updated')|list }}
