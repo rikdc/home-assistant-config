@@ -75,11 +75,12 @@
   end: "{{ now() }}"
   duration:
     days: 7
-
+#------------------------------------------------
 # Bedroom1
+#------------------------------------------------
 - platform: history_stats
   name: Stats - Bedroom1 Bright
-  entity_id: binary_sensor.area_bedroom1_bright
+  entity_id: binary_sensor.area_bedroom_bright
   state: "on"
   type: ratio
   end: "{{ now() }}"
@@ -87,7 +88,7 @@
     days: 7
 - platform: history_stats
   name: Stats - Bedroom1 Humidity Trend
-  entity_id: binary_sensor.motion_bedroom1_humidity
+  entity_id: binary_sensor.area_bedroom1_humidity_trend
   state: "on"
   type: ratio
   end: "{{ now() }}"
@@ -95,7 +96,7 @@
     days: 7
 - platform: history_stats
   name: Stats - Bedroom1 Occupied
-  entity_id: binary_sensor.area_bedroom1_occupied
+  entity_id: binary_sensor.area_bedroom_occupied
   state: "on"
   type: ratio
   end: "{{ now() }}"
