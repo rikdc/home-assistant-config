@@ -116,6 +116,10 @@ input_boolean:
     name: Disable Lock Automation #This works, but I should invert the polarity.
     icon: mdi:lock-plus
 
+  system_alerts:
+    name: "Enable System Alerts"
+    initial: on
+
   dummy:
     initial: on
 
