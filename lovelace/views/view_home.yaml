@@ -1,16 +1,16 @@
 title: Home
-path: home
+path: home1
 panel: true
-icon: 'mdi:home'
+icon: "mdi:home"
 badges: []
 cards:
-  - type: 'custom:layout-card'
+  - type: "custom:layout-card"
     column_width:
       - 450
       - 975
     layout: vertical
     cards:
-      - type: 'custom:homekit-card'
+      - type: "custom:homekit-card"
         horizontalScroll: true
         statePositionTop: true
         useBrightness: false
@@ -41,7 +41,7 @@ cards:
             --min-header-height: 150px;
             --tile-icon-size: 36px;
             --tile-image-radius: 0%
-          }  
+          }
         rows:
           - row: 1
             columns:
@@ -61,7 +61,7 @@ cards:
                           - not_home
                           - unavailable
                     title: Family
-      - type: 'custom:homekit-card'
+      - type: "custom:homekit-card"
         horizontalScroll: true
         statePositionTop: true
         useBrightness: false
@@ -92,7 +92,7 @@ cards:
             --min-header-height: 150px;
             --tile-icon-size: 36px;
             --tile-image-radius: 0%
-          }  
+          }
         rows:
           - row: 2
             columns:
@@ -101,30 +101,30 @@ cards:
                   - entities:
                       - entity: binary_sensor.main_floor_occupancy
                         name: Main Motion
-                        icon: 'mdi:run'
-                        offIcon: 'mdi:walk'
+                        icon: "mdi:run"
+                        offIcon: "mdi:walk"
                       - entity: binary_sensor.unit_1_frontroom_motion
                         name: Living Motion
-                        icon: 'mdi:run'
-                        offIcon: 'mdi:walk'
+                        icon: "mdi:run"
+                        offIcon: "mdi:walk"
                       - entity: binary_sensor.unit1_frontroom_occupancy_bayesian
                         name: Book Motion
-                        icon: 'mdi:run'
-                        offIcon: 'mdi:walk'
+                        icon: "mdi:run"
+                        offIcon: "mdi:walk"
                       - entity: binary_sensor.lower_bedroom_occupied
                         name: Main Door
-                        icon: 'mdi:door-open'
-                        offIcon: 'mdi:door-closed'
+                        icon: "mdi:door-open"
+                        offIcon: "mdi:door-closed"
                       - entity: binary_sensor.kitchen_occupancy
                         name: Front Balcony Door
-                        icon: 'mdi:door-open'
-                        offIcon: 'mdi:door-closed'
+                        icon: "mdi:door-open"
+                        offIcon: "mdi:door-closed"
                       - entity: binary_sensor.first_floor_occupancy
                         name: First Floor Occupied
-                        icon: 'mdi:door-open'
-                        offIcon: 'mdi:door-closed'
-                    title: Security                    
-      - type: 'custom:homekit-card'
+                        icon: "mdi:door-open"
+                        offIcon: "mdi:door-closed"
+                    title: Security
+      - type: "custom:homekit-card"
         horizontalScroll: true
         statePositionTop: true
         useBrightness: false
@@ -155,7 +155,7 @@ cards:
             --min-header-height: 150px;
             --tile-icon-size: 36px;
             --tile-image-radius: 0%
-          }  
+          }
         rows:
           - row: 3
             columns:
@@ -232,10 +232,10 @@ cards:
                         wider: true
                         widerSize: 3
                     title: Weather
-      - type: 'custom:layout-break'
-      - type: 'custom:homekit-card'
+      - type: "custom:layout-break"
+      - type: "custom:homekit-card"
         title: Home
-        titleColor: '#000'
+        titleColor: "#000"
         horizontalScroll: true
         statePositionTop: true
         useBrightness: false
@@ -266,7 +266,7 @@ cards:
             --min-header-height: 150px;
             --tile-icon-size: 36px;
             --tile-image-radius: 0%
-          }  
+          }
         rows:
           - row: 1
             columns:
@@ -274,11 +274,11 @@ cards:
                 entities:
                   - entities:
                       - entity: light.all_lights
-                        icon: 'mdi:lightbulb-group'
+                        icon: "mdi:lightbulb-group"
                         name: Home
                         popupExtend:
                           settingsCard:
-                            type: 'custom:light-entity-card'
+                            type: "custom:light-entity-card"
                             cardOptions:
                               entity: this
                               persist_features: true
@@ -286,28 +286,28 @@ cards:
                               child_card: true
                               consolidate_entities: true
                           actions:
-                            - color: '#FFDABB'
+                            - color: "#FFDABB"
                               name: Bright
                               service: light.turn_on
                               service_data:
                                 brightness: 255
                                 entity_id: light.all_lights
                                 kelvin: 4500
-                            - color: '#FFC18D'
+                            - color: "#FFC18D"
                               name: Classic
                               service: light.turn_on
                               service_data:
                                 brightness: 217
                                 entity_id: light.all_lights
                                 kelvin: 3500
-                            - color: '#FFAA5F'
+                            - color: "#FFAA5F"
                               name: Soft
                               service: light.turn_on
                               service_data:
                                 brightness: 128
                                 entity_id: light.all_lights
                                 kelvin: 2800
-                            - color: '#FF9B3D'
+                            - color: "#FF9B3D"
                               name: Relax
                               service: light.turn_on
                               service_data:
@@ -315,11 +315,11 @@ cards:
                                 entity_id: light.all_lights
                                 kelvin: 2400
                       - entity: light.unit1_light_frontroom_ceiling_dimmer
-                        icon: 'mdi:lightbulb-group'
+                        icon: "mdi:lightbulb-group"
                         name: Living Room
                         popupExtend:
                           settingsCard:
-                            type: 'custom:light-popup-card'
+                            type: "custom:light-popup-card"
                             cardOptions:
                               entity: this
                               persist_features: true
@@ -327,32 +327,32 @@ cards:
                               child_card: true
                               consolidate_entities: true
                           actions:
-                            - color: '#FFDABB'
+                            - color: "#FFDABB"
                               name: Bright
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.living_bright_lights
-                            - color: '#FFC18D'
+                            - color: "#FFC18D"
                               name: Classic
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.living_classic_lights
-                            - color: '#FFAA5F'
+                            - color: "#FFAA5F"
                               name: Soft
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.living_soft_lights
-                            - color: '#FF9B3D'
+                            - color: "#FF9B3D"
                               name: Relax
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.living_relax_lights
                       - entity: light.outside
-                        icon: 'mdi:lightbulb-group'
+                        icon: "mdi:lightbulb-group"
                         name: Outside Lights
                         popupExtend:
                           settingsCard:
-                            type: 'custom:light-entity-card'
+                            type: "custom:light-entity-card"
                             cardOptions:
                               entity: this
                               persist_features: true
@@ -360,32 +360,32 @@ cards:
                               child_card: true
                               consolidate_entities: true
                           actions:
-                            - color: '#FFDABB'
+                            - color: "#FFDABB"
                               name: Bright
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.pc_bright_lights
-                            - color: '#FFC18D'
+                            - color: "#FFC18D"
                               name: Classic
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.pc_classic_lights
-                            - color: '#FFAA5F'
+                            - color: "#FFAA5F"
                               name: Soft
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.pc_soft_lights
-                            - color: '#FF9B3D'
+                            - color: "#FF9B3D"
                               name: Relax
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.pc_relax_lights
                       - entity: light.book_room
-                        icon: 'mdi:lightbulb-group'
+                        icon: "mdi:lightbulb-group"
                         name: Book Room
                         popupExtend:
                           settingsCard:
-                            type: 'custom:light-entity-card'
+                            type: "custom:light-entity-card"
                             cardOptions:
                               entity: this
                               persist_features: true
@@ -393,32 +393,32 @@ cards:
                               child_card: true
                               consolidate_entities: true
                           actions:
-                            - color: '#FFDABB'
+                            - color: "#FFDABB"
                               name: Bright
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.book_bright_lights
-                            - color: '#FFC18D'
+                            - color: "#FFC18D"
                               name: Classic
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.book_classic_lights
-                            - color: '#FFAA5F'
+                            - color: "#FFAA5F"
                               name: Soft
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.book_soft_lights
-                            - color: '#FF9B3D'
+                            - color: "#FF9B3D"
                               name: Relax
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.book_relax_lights
                       - entity: light.bedroom
-                        icon: 'mdi:lightbulb-group'
+                        icon: "mdi:lightbulb-group"
                         name: Bedroom
                         popupExtend:
                           settingsCard:
-                            type: 'custom:light-entity-card'
+                            type: "custom:light-entity-card"
                             cardOptions:
                               entity: this
                               persist_features: true
@@ -426,32 +426,32 @@ cards:
                               child_card: true
                               consolidate_entities: true
                           actions:
-                            - color: '#FFDABB'
+                            - color: "#FFDABB"
                               name: Bright
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.bed_bright_lights
-                            - color: '#FFC18D'
+                            - color: "#FFC18D"
                               name: Classic
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.bed_classic_lights
-                            - color: '#FFAA5F'
+                            - color: "#FFAA5F"
                               name: Soft
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.bed_soft_lights
-                            - color: '#FF9B3D'
+                            - color: "#FF9B3D"
                               name: Relax
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.bed_relax_lights
                       - entity: light.lobby
-                        icon: 'mdi:lightbulb-group'
+                        icon: "mdi:lightbulb-group"
                         name: Lobby
                         popupExtend:
                           settingsCard:
-                            type: 'custom:light-entity-card'
+                            type: "custom:light-entity-card"
                             cardOptions:
                               entity: this
                               persist_features: true
@@ -459,32 +459,32 @@ cards:
                               child_card: true
                               consolidate_entities: true
                           actions:
-                            - color: '#FFDABB'
+                            - color: "#FFDABB"
                               name: Bright
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.lobby_bright_lights
-                            - color: '#FFC18D'
+                            - color: "#FFC18D"
                               name: Classic
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.lobby_classic_lights
-                            - color: '#FFAA5F'
+                            - color: "#FFAA5F"
                               name: Soft
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.lobby_soft_lights
-                            - color: '#FF9B3D'
+                            - color: "#FF9B3D"
                               name: Relax
                               service: scene.turn_on
                               service_data:
                                 entity_id: scene.lobby_relax_lights
                       - entity: light.outside
-                        icon: 'mdi:lightbulb-group'
+                        icon: "mdi:lightbulb-group"
                         name: Outside
                         popupExtend:
                           settingsCard:
-                            type: 'custom:light-entity-card'
+                            type: "custom:light-entity-card"
                             cardOptions:
                               entity: this
                               persist_features: true
@@ -492,28 +492,28 @@ cards:
                               child_card: true
                               consolidate_entities: true
                           actions:
-                            - color: '#FFDABB'
+                            - color: "#FFDABB"
                               name: Bright
                               service: light.turn_on
                               service_data:
                                 brightness: 255
                                 entity_id: light.saloon
                                 kelvin: 4500
-                            - color: '#FFC18D'
+                            - color: "#FFC18D"
                               name: Classic
                               service: light.turn_on
                               service_data:
                                 brightness: 217
                                 entity_id: light.saloon
                                 kelvin: 3500
-                            - color: '#FFAA5F'
+                            - color: "#FFAA5F"
                               name: Soft
                               service: light.turn_on
                               service_data:
                                 brightness: 128
                                 entity_id: light.saloon
                                 kelvin: 2800
-                            - color: '#FF9B3D'
+                            - color: "#FF9B3D"
                               name: Relax
                               service: light.turn_on
                               service_data:
@@ -522,7 +522,7 @@ cards:
                                 kelvin: 2400
                     popup:
                       type: custom:light-popup-card
-                      icon: 'mdi:lightbulb-group'
+                      icon: "mdi:lightbulb-group"
                       actionsInARow: 2
                       scenesInARow: 2
                       brightnessWidth: 130px
@@ -530,13 +530,13 @@ cards:
                       borderRadius: 1.75em
                       switchWidth: 130px
                       switchHeight: 360px
-                      sliderColor: '#eee'
-                      sliderThumbColor: 'rgba(100, 100, 100, 0.9)'
-                      sliderTrackColor: 'rgba(100, 100, 100, 0.9)'
+                      sliderColor: "#eee"
+                      sliderThumbColor: "rgba(100, 100, 100, 0.9)"
+                      sliderTrackColor: "rgba(100, 100, 100, 0.9)"
                       fullscreen: true
                       settings: true
                     title: Lights
-      - type: 'custom:homekit-card'
+      - type: "custom:homekit-card"
         horizontalScroll: true
         statePositionTop: true
         useBrightness: false
@@ -567,7 +567,7 @@ cards:
             --min-header-height: 150px;
             --tile-icon-size: 36px;
             --tile-image-radius: 0%
-          }  
+          }
         rows:
           - row: 2
             columns:
@@ -581,7 +581,7 @@ cards:
                             return entity.state == 'off'
                           ]]]
                     title: Media
-      - type: 'custom:homekit-card'
+      - type: "custom:homekit-card"
         horizontalScroll: true
         statePositionTop: true
         useBrightness: false
@@ -612,7 +612,7 @@ cards:
             --min-header-height: 150px;
             --tile-icon-size: 36px;
             --tile-image-radius: 0%
-          }  
+          }
         rows:
           - row: 3
             columns:
@@ -620,22 +620,22 @@ cards:
                 entities:
                   - entities:
                       - entity: sensor.unit_1_frontroom_temperature
-                        icon: 'mdi:thermometer'
+                        icon: "mdi:thermometer"
                         name: Living Room
                       - entity: sensor.basement_temperature
                       - entity: sensor.unit_1_mudroom_temperature
-                        icon: 'mdi:thermometer'
+                        icon: "mdi:thermometer"
                         name: Mudroom
                       - entity: sensor.unit1_hallway_temperature_air
-                        icon: 'mdi:thermometer'
+                        icon: "mdi:thermometer"
                         name: Kitchen
                       - entity: sensor.unit_1_bedroom_temperature
-                        icon: 'mdi:thermometer'
+                        icon: "mdi:thermometer"
                         name: Bedroom
                       - entity: sensor.unit_2_kitchen_temperature
-                        icon: 'mdi:thermometer'
+                        icon: "mdi:thermometer"
                         name: Upstairs
                       - entity: sensor.unit_2_bedroom_temperature
-                        icon: 'mdi:thermometer'
+                        icon: "mdi:thermometer"
                         name: Upstairs Bedroom
                     title: Environment

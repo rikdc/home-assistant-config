@@ -1,0 +1,65 @@
+title: Remotes
+path: remotes
+icon: mdi:remote
+badges: []
+cards:
+  - type: custom:roku-card
+    entity: remote.50_tcl_roku_tv
+    tv: true
+    apps:
+      - icon: mdi:netflix
+        app: Netflix
+      - icon: mdi:hulu
+        app: Hulu
+        hold_action:
+          action: call-service
+          service: media_player.select_source
+          service_data:
+            source: ESPN
+            entity_id: media_player.50_tcl_roku_tv
+    volume_up:
+      tap_action:
+        action: call-service
+        service: remote.send_command
+        service_data:
+          entity_id: media_player.50_tcl_roku_tv
+          command: play
+    volume_down:
+      double_tap_action:
+        action: call-service
+        service: remote.send_command
+        service_data:
+          entity_id: remote.50_tcl_roku_tv
+          command: play
+  - type: custom:roku-card
+    entity: remote.50_tcl_roku_tv
+    tv: true
+    apps:
+      - icon: mdi:netflix
+        app: Netflix
+      - icon: mdi:hulu
+        app: Hulu
+        hold_action:
+          action: call-service
+          service: media_player.select_source
+          service_data:
+            source: ESPN
+            entity_id: media_player.roku_streaming_stick
+    volume_up:
+      tap_action:
+        action: call-service
+        service: remote.send_command
+        service_data:
+          entity_id: media_player.roku_streaming_stick
+          command: play
+    volume_down:
+      double_tap_action:
+        action: call-service
+        service: remote.send_command
+        service_data:
+          entity_id: media_player.roku_streaming_stick
+          command: play
+  - type: media-control
+    entity: media_player.50_tcl_roku_tv
+  - type: media-control
+    entity: media_player.roku_streaming_stick
