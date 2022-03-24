@@ -9,25 +9,21 @@ popup_lights:
     entities:
       - type: section
         label: Downstairs
-      - type: custom:fold-entity-row
-        head:
-          type: custom:multiple-entity-row
-          name: Frontroom
-          state_color: true
-          toggle: true
-          entity: light.loft_lights
-          secondary_info:
-            entity: >-
-              sensor.multisensor_bedroom1_air_temperature
-            name: T
-        entities:
-          - sensor.monitor_awair_score
-          - switch.switches_mudroom
-          - light.outside
-          - light.unit1_livingroom_lamp
-          - light.livingroom_worklight_4
-          - light.frontroom_ceiling
-          - light.livingroom_lamp
+      - type: custom:auto-entities
+        filter:
+          include:
+            - group: light.frontroom_lights
+        card:
+          type: custom:fold-entity-row
+          head:
+            type: custom:multiple-entity-row
+            name: Frontroom
+            state_color: true
+            toggle: true
+            entity: light.frontroom_lights
+            secondary_info:
+              entity: >-
+                sensor.multisensor_bedroom1_air_temperature
       - type: custom:fold-entity-row
         head:
           type: custom:multiple-entity-row
