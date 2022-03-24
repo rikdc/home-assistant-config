@@ -24,41 +24,37 @@ popup_lights:
             secondary_info:
               entity: >-
                 sensor.multisensor_bedroom1_air_temperature
-      - type: custom:fold-entity-row
-        head:
-          type: custom:multiple-entity-row
-          name: Bedroom
-          state_color: true
-          toggle: true
-          entity: light.unit1_bedroom_lights
-          secondary_info:
-            entity: >-
-              sensor.multisensor_bedroom1_air_temperature
-            name: T
-        entities:
-          - light.bedroom1
-          - light.person1_nightlight
-          - light.person2_nightlight
-          - light.bedroom1_nightlight
-      - type: custom:fold-entity-row
-        head:
-          type: custom:multiple-entity-row
-          name: Kitchen/Bathroom
-          state_color: true
-          toggle: true
-          entity: light.unit1_kitchen_lights
-          secondary_info:
-            entity: >-
-              sensor.multisensor_bedroom1_air_temperature
-            name: T
-        entities:
-          - light.backroom
-          - light.bathroom1_vanity
-          - light.bathroom1_ceiling
-          - switch.switches_mudroom
-          - light.unit1_hallway_lights
-          - light.unit1_kitchen_cabinets
-          - light.unit1_kitchen_pendants
+      - type: custom:auto-entities
+        filter:
+          include:
+            - group: light.bedroom1_lights
+        card:
+          type: custom:fold-entity-row
+          head:
+            type: custom:multiple-entity-row
+            name: Bedroom
+            state_color: true
+            toggle: true
+            entity: light.bedroom1_lights
+            secondary_info:
+              entity: >-
+                sensor.multisensor_bedroom1_air_temperature
+      - type: custom:auto-entities
+        filter:
+          include:
+            - group: light.kitchen1_lights
+        card:
+          type: custom:fold-entity-row
+          head:
+            type: custom:multiple-entity-row
+            name: Kitchen/Bathroom
+            state_color: true
+            toggle: true
+            entity: light.kitchen1_lights
+            secondary_info:
+              entity: >-
+                sensor.multisensor_bedroom1_air_temperature
+              name: T
       - type: section
         label: Upstairs
       - type: custom:fold-entity-row
