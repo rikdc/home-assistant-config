@@ -367,6 +367,7 @@ cards:
                               fullscreen: true
                               settings: true
                             title: Lights
+
               - type: "custom:homekit-card"
                 horizontalScroll: true
                 statePositionTop: true
@@ -376,29 +377,6 @@ cards:
                 tileHoldAnimation: false
                 panel: true
                 home: false
-                # style: |
-                #   :host {
-                #     --tile-background: rgba(230, 230, 228, 0.5);
-                #     --tile-border-radius: 12px;
-                #     --tile-width: 100px;
-                #     --tile-height: 100px;
-                #     --tile-on-background: rgba(255, 255, 255, 1);
-                #     --tile-name-text-color: rgba(0, 0, 0, 0.3);
-                #     --tile-on-name-text-color: rgba(0, 0, 0, 1);
-                #     --tile-state-text-color: rgba(0, 0, 0, 0.3);
-                #     --tile-on-state-text-color: rgba(0, 0, 0, 1);
-                #     --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-                #     --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-                #     --tile-value-text-color: rgba(0, 0, 0, 1);
-                #     --tile-value-text-font-size: 12px;
-                #     --tile-icon-color: rgba(0, 0, 0, 0.25);
-                #     --tile-on-icon-color: #f7d959;
-                #     --tile-width-mobile: 90px;
-                #     --tile-height-mobile: 90px;
-                #     --min-header-height: 150px;
-                #     --tile-icon-size: 36px;
-                #     --tile-image-radius: 0%
-                #   }
                 rows:
                   - row: 2
                     columns:
@@ -407,6 +385,16 @@ cards:
                           - entities:
                               - entity: binary_sensor.cat_needs_feeding
                                 name: Feed Cat
+                              - entity: alert.basement_sumppump_not_running
+                                name: Sump Problem
+                                hide: >
+                                  [[[
+                                    return states['alert.basement_sumppump_not_running'].state == 'idle'
+                                  ]]]
+                              - entity: alert.bedroom1_humidity
+                              - entity: alert.bedroom2_humidity
+                              - entity: alert.livingroom1_humidity
+                              - entity: alert.basement_mold_warning
                             title: Alerts
               - type: "custom:homekit-card"
                 horizontalScroll: true
@@ -417,29 +405,6 @@ cards:
                 tileHoldAnimation: false
                 panel: true
                 home: false
-                # style: |
-                #   :host {
-                #     --tile-background: rgba(230, 230, 228, 0.5);
-                #     --tile-border-radius: 12px;
-                #     --tile-width: 100px;
-                #     --tile-height: 100px;
-                #     --tile-on-background: rgba(255, 255, 255, 1);
-                #     --tile-name-text-color: rgba(0, 0, 0, 0.3);
-                #     --tile-on-name-text-color: rgba(0, 0, 0, 1);
-                #     --tile-state-text-color: rgba(0, 0, 0, 0.3);
-                #     --tile-on-state-text-color: rgba(0, 0, 0, 1);
-                #     --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-                #     --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-                #     --tile-value-text-color: rgba(0, 0, 0, 1);
-                #     --tile-value-text-font-size: 12px;
-                #     --tile-icon-color: rgba(0, 0, 0, 0.25);
-                #     --tile-on-icon-color: #f7d959;
-                #     --tile-width-mobile: 90px;
-                #     --tile-height-mobile: 90px;
-                #     --min-header-height: 150px;
-                #     --tile-icon-size: 36px;
-                #     --tile-image-radius: 0%
-                #   }
                 rows:
                   - row: 3
                     columns:
