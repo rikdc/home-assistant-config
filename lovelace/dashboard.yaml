@@ -4,183 +4,53 @@ decluttering_templates: !include_dir_merge_named decluttering_templates/
 
 button_card_templates: !include_dir_merge_named button_card_templates/
 
-# button_card_templates:
-#   shoulder_blank_card:
-#     card:
-#       type: custom:button-card
-#       style: |
-#         ha-card {
-#           overflow: hidden;
-#           width: 0px;
-#         }
-#       color_type: blank-card
-#       styles:
-#         card:
-#           - width: 0px
-#   standard:
-#     color_type: card
-#     size: 80%
-#     hold_action:
-#       action: more-info
-#     styles:
-#       card:
-#         - padding: 0.2em
-#         - "--mdc-ripple-color": yellow
-#         - "--mdc-ripple-press-opacity": 0.5
-#       icon:
-#         - opacity: 0.5
-#       name:
-#         - font-size: 0.65em
-#         - white-space: normal
-#       state:
-#         - font-size: 0.65em
-#         - white-space: normal
-#       label:
-#         - font-size: 0.4em
-#         - white-space: normal
-#   wide:
-#     template: standard
-#     styles:
-#       grid:
-#         - position: relative
-#         - grid-template-areas: '"i n"'
-#         - grid-template-columns: 1fr 1fr
-#         - grid-template-rows: 1fr
-#   option-button:
-#     template: standard
-#     show_icon: false
-#     aspect_ratio: 1/1
-#     styles:
-#       card:
-#         - border-radius: 20%
-#   dimmer-option:
-#     template: option-button
-#     tap_action:
-#       action: call-service
-#       service: light.turn_on
-#       service_data:
-#         entity_id: entity
-#         brightness: "[[[ return variables.set_value ]]]"
-#     state:
-#       - operator: default
-#         styles:
-#           card:
-#             - background-color: "[[[ return variables.option_button_off_color ]]]"
-#             - color: "[[[ return variables.option_text_off_color ]]]"
-#       - operator: template
-#         value: >-
-#           [[[ return (entity.attributes.brightness||0) >= variables.range_start
-#           && (entity.attributes.brightness||0) <= variables.range_stop ]]]
-#         styles:
-#           card:
-#             - background-color: "[[[ return variables.option_button_on_color ]]]"
-#             - color: "[[[ return variables.option_text_on_color ]]]"
-#   presets:
-#     template: standard
-#     color_type: icon
-#     tap_action:
-#       action: none
-#     styles:
-#       card:
-#         - background-color: rgba(0,0,0,0.3)
-#       icon:
-#         - color: white
-#       grid:
-#         - grid-template-areas: '"i opt1 opt2 opt3 opt4" "n opt1 opt2 opt3 opt4"'
-#         - grid-template-columns: 1fr 1fr 1fr 1fr 1fr
-#       custom_fields:
-#         opt1:
-#           - margin: 0.1em
-#           - overflow: visible
-#         opt2:
-#           - margin: 0.1em
-#           - overflow: visible
-#         opt3:
-#           - margin: 0.1em
-#           - overflow: visible
-#         opt4:
-#           - margin: 0.1em
-#           - overflow: visible
-#     variables:
-#       option_template: dimmer-option
-#       option_button_on_color: var(--paper-item-icon-active-color)
-#       option_text_on_color: white
-#       option_button_off_color: var(--paper-card-background-color)
-#       option_text_off_color: white
-#       option1_name: Low
-#       option1_set_value: 51
-#       option1_range_start: 1
-#       option1_range_stop: 77
-#       option2_name: Med
-#       option2_set_value: 102
-#       option2_range_start: 78
-#       option2_range_stop: 170
-#       option3_name: High
-#       option3_set_value: 255
-#       option3_range_start: 171
-#       option3_range_stop: 255
-#       option4_name: "Off"
-#       option4_set_value: 0
-#       option4_range_start: 0
-#       option4_range_stop: 0
-#     custom_fields:
-#       opt1:
-#         card:
-#           type: custom:button-card
-#           entity: "[[[ return variables.entity ]]]"
-#           template: "[[[ return variables.option_template ]]]"
-#           name: "[[[ return variables.option1_name ]]]"
-#           variables:
-#             set_value: "[[[ return variables.option1_set_value ]]]"
-#             range_start: "[[[ return variables.option1_range_start ]]]"
-#             range_stop: "[[[ return variables.option1_range_stop ]]]"
-#             option_button_on_color: "[[[ return variables.option_button_on_color ]]]"
-#             option_button_off_color: "[[[ return variables.option_button_off_color ]]]"
-#             option_text_on_color: "[[[ return variables.option_text_on_color ]]]"
-#             option_text_off_color: "[[[ return variables.option_text_off_color ]]]"
-#       opt2:
-#         card:
-#           type: custom:button-card
-#           entity: "[[[ return variables.entity ]]]"
-#           template: "[[[ return variables.option_template ]]]"
-#           name: "[[[ return variables.option2_name ]]]"
-#           variables:
-#             set_value: "[[[ return variables.option2_set_value ]]]"
-#             range_start: "[[[ return variables.option2_range_start ]]]"
-#             range_stop: "[[[ return variables.option2_range_stop ]]]"
-#             option_button_on_color: "[[[ return variables.option_button_on_color ]]]"
-#             option_button_off_color: "[[[ return variables.option_button_off_color ]]]"
-#             option_text_on_color: "[[[ return variables.option_text_on_color ]]]"
-#             option_text_off_color: "[[[ return variables.option_text_off_color ]]]"
-#       opt3:
-#         card:
-#           type: custom:button-card
-#           entity: "[[[ return variables.entity ]]]"
-#           template: "[[[ return variables.option_template ]]]"
-#           name: "[[[ return variables.option3_name ]]]"
-#           variables:
-#             set_value: "[[[ return variables.option3_set_value ]]]"
-#             range_start: "[[[ return variables.option3_range_start ]]]"
-#             range_stop: "[[[ return variables.option3_range_stop ]]]"
-#             option_button_on_color: "[[[ return variables.option_button_on_color ]]]"
-#             option_button_off_color: "[[[ return variables.option_button_off_color ]]]"
-#             option_text_on_color: "[[[ return variables.option_text_on_color ]]]"
-#             option_text_off_color: "[[[ return variables.option_text_off_color ]]]"
-#       opt4:
-#         card:
-#           type: custom:button-card
-#           entity: "[[[ return variables.entity ]]]"
-#           template: "[[[ return variables.option_template ]]]"
-#           name: "[[[ return variables.option4_name ]]]"
-#           variables:
-#             set_value: "[[[ return variables.option4_set_value ]]]"
-#             range_start: "[[[ return variables.option4_range_start ]]]"
-#             range_stop: "[[[ return variables.option4_range_stop ]]]"
-#             option_button_on_color: "[[[ return variables.option_button_on_color ]]]"
-#             option_button_off_color: "[[[ return variables.option_button_off_color ]]]"
-#             option_text_on_color: "[[[ return variables.option_text_on_color ]]]"
-#             option_text_off_color: "[[[ return variables.option_text_off_color ]]]"
+animated_background:
+  default_url: "https://cdn.flixel.com/flixel/ypy8bw9fgw1zv2b4htp2.hd.mp4"
+  included_users: null
+  entity: "weather.home"
+  state_url:
+    sunny:
+      - "https://cdn.flixel.com/flixel/hlhff0h8md4ev0kju5be.hd.mp4"
+      - "https://cdn.flixel.com/flixel/zjqsoc6ecqhntpl5vacs.hd.mp4"
+      - "https://cdn.flixel.com/flixel/jvw1avupguhfbo11betq.hd.mp4"
+      - "https://cdn.flixel.com/flixel/8cmeusxf3pkanai43djs.hd.mp4"
+      - "https://cdn.flixel.com/flixel/guwb10mfddctfvwioaex.hd.mp4"
+
+    partlycloudy:
+      - "https://cdn.flixel.com/flixel/13e0s6coh6ayapvdyqnv.hd.mp4"
+      - "https://cdn.flixel.com/flixel/aorl3skmssy7udwopk22.hd.mp4"
+      - "https://cdn.flixel.com/flixel/qed6wvf2igukiioykg3r.hd.mp4"
+      - "https://cdn.flixel.com/flixel/3rd72eezaj6d23ahlo7y.hd.mp4"
+      - "https://cdn.flixel.com/flixel/9m11gd43m6qn3y93ntzp.hd.mp4"
+      - "https://cdn.flixel.com/flixel/hrkw2m8eofib9sk7t1v2.hd.mp4"
+
+    cloudy:
+      - "https://cdn.flixel.com/flixel/13e0s6coh6ayapvdyqnv.hd.mp4"
+      - "https://cdn.flixel.com/flixel/aorl3skmssy7udwopk22.hd.mp4"
+      - "https://cdn.flixel.com/flixel/qed6wvf2igukiioykg3r.hd.mp4"
+      - "https://cdn.flixel.com/flixel/3rd72eezaj6d23ahlo7y.hd.mp4"
+      - "https://cdn.flixel.com/flixel/9m11gd43m6qn3y93ntzp.hd.mp4"
+      - "https://cdn.flixel.com/flixel/hrkw2m8eofib9sk7t1v2.hd.mp4"
+
+    mostlycloudy:
+      - "https://cdn.flixel.com/flixel/e95h5cqyvhnrk4ytqt4q.hd.mp4"
+      - "https://cdn.flixel.com/flixel/l2bjw34wnusyf5q2qq3p.hd.mp4"
+      - "https://cdn.flixel.com/flixel/rrgta099ulami3zb9fd2.hd.mp4"
+
+    clear-night:
+      - "https://cdn.flixel.com/flixel/x9dr8caygivq5secll7i.hd.mp4"
+      - "https://cdn.flixel.com/flixel/v26zyfd6yf0r33s46vpe.hd.mp4"
+      - "https://cdn.flixel.com/flixel/ypy8bw9fgw1zv2b4htp2.hd.mp4"
+      - "https://cdn.flixel.com/flixel/rosz2gi676xhkiw1ut6i.hd.mp4"
+
+    fog:
+      - "https://cdn.flixel.com/flixel/vwqzlk4turo2449be9uf.hd.mp4"
+      - "https://cdn.flixel.com/flixel/5363uhabodwwrzgnq6vx.hd.mp4"
+
+    rainy: "https://cdn.flixel.com/flixel/f0w23bd0enxur5ff0bxz.hd.mp4"
+
 views:
+  - !include views/view_home.yaml
   - title: Home
     path: home
     icon: mdi:home
@@ -280,7 +150,7 @@ views:
                               action: call-service
                               service: browser_mod.popup
                               service_data:
-                                title: Lights
+                                title: Lights1
                                 card:
                                   type: custom:decluttering-card
                                   template: popup_lights
@@ -499,38 +369,44 @@ views:
             camera_view: live
             entities: []
             name: Garden
-      - type: custom:swipe-card
-        start_card: 1
-        reset_after: 30
-        parameters:
-          spaceBetween: 8
-          autoHeight: true
-          pagination:
-            type: bullets
+      - type: horizontal-stack
         cards:
-          - type: grid
-            columns: 4
-            cards:
-              - type: button
-                tap_action:
-                  action: call-service
-                  service: script.person1_bedtime
-                  service_data: {}
-                  target: {}
-                icon: mdi:bed
-              - type: button
-                tap_action:
-                  action: toggle
-                entity: lock.frontdoor
-              - type: button
-                tap_action:
-                  action: toggle
-                entity: lock.frontdoor
-              - type: button
-                tap_action:
-                  action: toggle
-                entity: lock.frontdoor
-            name: Garden
+          - type: button
+            tap_action:
+              action: call-service
+              service: script.person1_bedtime
+              service_data: {}
+              target: {}
+            icon: mdi:bed
+            name: Bedtime
+          - type: button
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                command: popup
+                title: Household Climate
+                large: true
+                hide_header: false
+                card:
+                  type: custom:decluttering-card
+                  template: popup_environment
+            name: Climate
+            icon: mdi:air-filter
+          - type: button
+            tap_action:
+              action: fire-dom-event
+              browser_mod:
+                command: popup
+                title: Downstairs Lights
+                large: true
+                hide_header: false
+                card:
+                  type: custom:decluttering-card
+                  template: popup_lights_downstairs
+          - type: button
+            tap_action:
+              action: toggle
+            entity: lock.frontdoor
       - type: horizontal-stack
         cards:
           - type: picture-elements
@@ -875,156 +751,7 @@ views:
             name: Admin
             icon: mdi:account-supervisor-circle-outline
             entity: light.unit1_livingroom_lamp
-          - type: button
-            tap_action:
-              action: call-service
-              service: browser_mod.popup
-              service_data:
-                title: Basement
-                card:
-                  type: vertical-stack
-                  cards:
-                    - type: entities
-                      entities:
-                        - entity: >-
-                            binary_sensor.basement_door_access_control_window_door_is_open
-                          icon: mdi:bed
-                          type: custom:multiple-entity-row
-                          name: Basement
-                          state_header: Occupancy
-                          state_color: true
-                          show_state: false
-                          entities:
-                            - entity: sensor.basement_temperature
-                              name: Temperature
-                            - entity: sensor.multisensor_bedroom1_illuminance
-                              name: Illuminance
-                    - type: horizontal-stack
-                      cards:
-                        - align_icon: left
-                          align_state: center
-                          entities:
-                            - sensor.main_pump_running
-                          font_size: 75
-                          name: Today
-                          show:
-                            fill: false
-                          type: custom:mini-graph-card
-                        - align_icon: left
-                          align_state: center
-                          entities:
-                            - sensor.main_pump_3day_cycles
-                          font_size: 75
-                          name: 3 days
-                          show:
-                            fill: false
-                          type: custom:mini-graph-card
-                        - align_icon: left
-                          align_state: center
-                          entities:
-                            - sensor.main_pump_30day_cycles
-                          font_size: 75
-                          name: 30 days
-                          show:
-                            fill: false
-                          type: custom:mini-graph-card
-                    - type: entities
-                      entities:
-                        - entity: sensor.area_basement_mold
-                        - entity: light.basement_ceiling
-                        - entity: switch.dehumidifier
-              target: {}
-            name: Basement
-            icon: mdi:home-floor-b
-          - type: button
-            tap_action:
-              action: call-service
-              service: browser_mod.navigate
-              service_data:
-                navigation_path: /lovelace/7
-              target: {}
-            entity: light.unit1_kitchen_ceiling_light
-            name: Cameras
-            icon: mdi:cctv
-          - type: button
-            tap_action:
-              action: call-service
-              service: browser_mod.popup
-              service_data:
-                title: Stats
-                card:
-                  type: entities
-                  show_header_toggle: true
-                  entities:
-                    - type: section
-                      label: Downstairs
-                    - entity: binary_sensor.area_bedroom_occupied
-                      icon: mdi:bed
-                      type: custom:multiple-entity-row
-                      name: Bedroom
-                      state_header: Occupancy
-                      state_color: true
-                      show_state: false
-                      entities:
-                        - entity: sensor.multisensor_bedroom1_air_temperature
-                          name: Temperature
-                        - entity: sensor.multisensor_bedroom1_illuminance
-                          name: Illuminance
-                    - entity: binary_sensor.unit1_backroom_occupancy
-                      icon: mdi:sofa
-                      type: custom:multiple-entity-row
-                      name: Backroom
-                      state_header: Occupancy
-                      state_color: true
-                      show_state: false
-                      entities:
-                        - entity: sensor.multisensor_kitchen1_air_temperature
-                          name: Temperature
-                        - entity: sensor.multisensor_kitchen1_illuminance
-                          name: Illuminance
-                    - entity: binary_sensor.living_room_occupancy
-                      icon: mdi:desk
-                      type: custom:multiple-entity-row
-                      name: Frontroom
-                      state_color: true
-                      show_state: false
-                      entities:
-                        - entity: sensor.motion_frontroom_air_temperature
-                          name: Temperature
-                        - entity: sensor.motion_frontroom_illuminance
-                          name: Illuminance
-                    - entity: binary_sensor.area_bathroom_occupied
-                      icon: mdi:bathtub
-                      type: custom:multiple-entity-row
-                      name: Bathroom
-                      state_header: Occupancy
-                      state_color: true
-                      show_state: false
-                      entities:
-                        - entity: sensor.motion_bathroom_air_temperature
-                          name: Temperature
-                        - entity: sensor.motion_bathroom_illuminance
-                          name: Illuminance
-                    - entity: sensor.unit_1_mudroom_temperature
-                      name: Mudroom
-                    - entity: binary_sensor.area_bathroom_occupied
-                      icon: mdi:bathtub
-                      type: custom:mini-graph-card
-                      name: Bathroom
-                      state_header: Occupancy
-                      state_color: true
-                      show_state: false
-                      entities:
-                        - entity: sensor.motion_bathroom_air_temperature
-                          name: Temperature
-                        - entity: sensor.motion_bathroom_illuminance
-                          name: Illuminance
-              title: Upstairs
-              deviceID:
-                - this
-              target: {}
-            name: Stats
-            icon: mdi:chart-bell-curve-cumulative
+
       - type: custom:auto-entities
         card:
           type: entities
@@ -1037,545 +764,16 @@ views:
               state: "on"
               attributes:
                 device_class: battery
-  - icon: mdi:air-filter
-    badges: []
-    cards:
-      - type: vertical-stack
-        cards:
-          - type: markdown
-            content: "### Frontroom"
-          - type: horizontal-stack
-            cards:
-              - type: custom:mini-graph-card
-                animate: true
-                color_thresholds:
-                  - color: "#a55eea"
-                    value: 19.58
-                  - color: "#8854d0"
-                    value: 24.98
-                  - color: "#3867d6"
-                    value: 29.84
-                  - color: "#4b7bec"
-                    value: 34.88
-                  - color: "#2d98da"
-                    value: 39.74
-                  - color: "#45aaf2"
-                    value: 44.78
-                  - color: "#0fb9b1"
-                    value: 49.82
-                  - color: "#2bcbba"
-                    value: 54.86
-                  - color: "#20bf6b"
-                    value: 59.9
-                  - color: "#26de81"
-                    value: 64.76
-                  - color: "#fed330"
-                    value: 69.8
-                  - color: "#f7b731"
-                    value: 74.84
-                  - color: "#fd9644"
-                    value: 79.88
-                  - color: "#fa8231"
-                    value: 84.74
-                  - color: "#fc5c65"
-                    value: null
-                  - color: "#eb3b5a"
-                    value: 96.62
-                entities:
-                  - entity: sensor.motion_frontroom_air_temperature
-                    index: 0
-                    name: Temperature
-                    show_state: true
-                    state_adaptive_color: true
-                  - color: "#666666"
-                    entity: sensor.solar_elevation
-                    line_width: 1
-                    show_fill: false
-                    show_legend: false
-                    show_state: false
-                    y_axis: secondary
-                hour24: true
-                hours_to_show: 24
-                line_width: 2
-                lower_bound_secondary: 0
-                name: Temperature
-                points_per_hour: 12
-                show:
-                  extrema: true
-                  graph: line
-                  points: false
-              - type: custom:mini-graph-card
-                animate: true
-                entities:
-                  - entity: sensor.motion_frontroom_humidity
-                    index: 0
-                    name: Humditiy
-                    show_state: true
-                    state_adaptive_color: true
-                show:
-                  extrema: true
-                  graph: line
-                  points: false
-          - type: markdown
-            content: "### Basement"
-          - type: horizontal-stack
-            cards:
-              - type: custom:mini-graph-card
-                animate: true
-                color_thresholds:
-                  - color: "#a55eea"
-                    value: 19.58
-                  - color: "#8854d0"
-                    value: 24.98
-                  - color: "#3867d6"
-                    value: 29.84
-                  - color: "#4b7bec"
-                    value: 34.88
-                  - color: "#2d98da"
-                    value: 39.74
-                  - color: "#45aaf2"
-                    value: 44.78
-                  - color: "#0fb9b1"
-                    value: 49.82
-                  - color: "#2bcbba"
-                    value: 54.86
-                  - color: "#20bf6b"
-                    value: 59.9
-                  - color: "#26de81"
-                    value: 64.76
-                  - color: "#fed330"
-                    value: 69.8
-                  - color: "#f7b731"
-                    value: 74.84
-                  - color: "#fd9644"
-                    value: 79.88
-                  - color: "#fa8231"
-                    value: 84.74
-                  - color: "#fc5c65"
-                    value: null
-                  - color: "#eb3b5a"
-                    value: 96.62
-                entities:
-                  - entity: sensor.basement_temperature
-                    index: 0
-                    name: Temperature
-                    show_state: true
-                    state_adaptive_color: true
-                  - color: "#666666"
-                    entity: sensor.solar_elevation
-                    line_width: 1
-                    show_fill: false
-                    show_legend: false
-                    show_state: false
-                    y_axis: secondary
-                hour24: true
-                hours_to_show: 24
-                line_width: 2
-                lower_bound_secondary: 0
-                name: Temperature
-                points_per_hour: 12
-                show:
-                  extrema: true
-                  graph: line
-                  points: false
-              - type: custom:mini-graph-card
-                animate: true
-                entities:
-                  - entity: sensor.basement_humidity
-                    index: 0
-                    name: Humditiy
-                    show_state: true
-                    state_adaptive_color: true
-                show:
-                  extrema: true
-                  graph: line
-                  points: false
-          - type: markdown
-            content: "#### Bedroom1"
-          - type: horizontal-stack
-            cards:
-              - type: custom:mini-graph-card
-                animate: true
-                color_thresholds:
-                  - color: "#a55eea"
-                    value: 19.58
-                  - color: "#8854d0"
-                    value: 24.98
-                  - color: "#3867d6"
-                    value: 29.84
-                  - color: "#4b7bec"
-                    value: 34.88
-                  - color: "#2d98da"
-                    value: 39.74
-                  - color: "#45aaf2"
-                    value: 44.78
-                  - color: "#0fb9b1"
-                    value: 49.82
-                  - color: "#2bcbba"
-                    value: 54.86
-                  - color: "#20bf6b"
-                    value: 59.9
-                  - color: "#26de81"
-                    value: 64.76
-                  - color: "#fed330"
-                    value: 69.8
-                  - color: "#f7b731"
-                    value: 74.84
-                  - color: "#fd9644"
-                    value: 79.88
-                  - color: "#fa8231"
-                    value: 84.74
-                  - color: "#fc5c65"
-                    value: null
-                  - color: "#eb3b5a"
-                    value: 96.62
-                entities:
-                  - entity: sensor.multisensor_bedroom1_air_temperature
-                    index: 0
-                    name: Temperature
-                    show_state: true
-                    state_adaptive_color: true
-                  - color: "#666666"
-                    entity: sensor.solar_elevation
-                    line_width: 1
-                    show_fill: false
-                    show_legend: false
-                    show_state: false
-                    y_axis: secondary
-                hour24: true
-                hours_to_show: 24
-                line_width: 2
-                lower_bound_secondary: 0
-                name: Temperature
-                points_per_hour: 12
-                show:
-                  extrema: true
-                  graph: line
-                  points: false
-              - type: custom:mini-graph-card
-                animate: true
-                entities:
-                  - entity: sensor.multisensor_bedroom1_humidity
-                    index: 0
-                    name: Humditiy
-                    show_state: true
-                    state_adaptive_color: true
-                show:
-                  extrema: true
-                  graph: line
-                  points: false
-          - type: markdown
-            content: "#### Bedroom2"
-          - type: horizontal-stack
-            cards:
-              - type: custom:mini-graph-card
-                animate: true
-                color_thresholds:
-                  - color: "#a55eea"
-                    value: 19.58
-                  - color: "#8854d0"
-                    value: 24.98
-                  - color: "#3867d6"
-                    value: 29.84
-                  - color: "#4b7bec"
-                    value: 34.88
-                  - color: "#2d98da"
-                    value: 39.74
-                  - color: "#45aaf2"
-                    value: 44.78
-                  - color: "#0fb9b1"
-                    value: 49.82
-                  - color: "#2bcbba"
-                    value: 54.86
-                  - color: "#20bf6b"
-                    value: 59.9
-                  - color: "#26de81"
-                    value: 64.76
-                  - color: "#fed330"
-                    value: 69.8
-                  - color: "#f7b731"
-                    value: 74.84
-                  - color: "#fd9644"
-                    value: 79.88
-                  - color: "#fa8231"
-                    value: 84.74
-                  - color: "#fc5c65"
-                    value: null
-                  - color: "#eb3b5a"
-                    value: 96.62
-                entities:
-                  - entity: sensor.upper_office_multisensor_temperature
-                    index: 0
-                    name: Temperature
-                    show_state: true
-                    state_adaptive_color: true
-                  - color: "#666666"
-                    entity: sensor.solar_elevation
-                    line_width: 1
-                    show_fill: false
-                    show_legend: false
-                    show_state: false
-                    y_axis: secondary
-                hour24: true
-                hours_to_show: 24
-                line_width: 2
-                lower_bound_secondary: 0
-                name: Temperature
-                points_per_hour: 12
-                show:
-                  extrema: true
-                  graph: line
-                  points: false
-              - type: custom:mini-graph-card
-                animate: true
-                entities:
-                  - entity: sensor.upper_office_multisensor_humidity
-                    index: 0
-                    name: Humditiy
-                    show_state: true
-                    state_adaptive_color: true
-                show:
-                  extrema: true
-                  graph: line
-                  points: false
-          - type: markdown
-            content: "#### Garage"
-          - type: horizontal-stack
-            cards:
-              - type: custom:mini-graph-card
-                animate: true
-                color_thresholds:
-                  - color: "#a55eea"
-                    value: 19.58
-                  - color: "#8854d0"
-                    value: 24.98
-                  - color: "#3867d6"
-                    value: 29.84
-                  - color: "#4b7bec"
-                    value: 34.88
-                  - color: "#2d98da"
-                    value: 39.74
-                  - color: "#45aaf2"
-                    value: 44.78
-                  - color: "#0fb9b1"
-                    value: 49.82
-                  - color: "#2bcbba"
-                    value: 54.86
-                  - color: "#20bf6b"
-                    value: 59.9
-                  - color: "#26de81"
-                    value: 64.76
-                  - color: "#fed330"
-                    value: 69.8
-                  - color: "#f7b731"
-                    value: 74.84
-                  - color: "#fd9644"
-                    value: 79.88
-                  - color: "#fa8231"
-                    value: 84.74
-                  - color: "#fc5c65"
-                    value: null
-                  - color: "#eb3b5a"
-                    value: 96.62
-                entities:
-                  - entity: sensor.multisensor_garage_air_temperature
-                    index: 0
-                    name: Temperature
-                    show_state: true
-                    state_adaptive_color: true
-                  - color: "#666666"
-                    entity: sensor.solar_elevation
-                    line_width: 1
-                    show_fill: false
-                    show_legend: false
-                    show_state: false
-                    y_axis: secondary
-                hour24: true
-                hours_to_show: 24
-                line_width: 2
-                lower_bound_secondary: 0
-                name: Temperature
-                points_per_hour: 12
-                show:
-                  extrema: true
-                  graph: line
-                  points: false
-              - type: custom:mini-graph-card
-                animate: true
-                color_thresholds:
-                  - color: "#a55eea"
-                    value: -6.9
-                  - color: "#8854d0"
-                    value: -3.9
-                  - color: "#3867d6"
-                    value: -1.2
-                  - color: "#4b7bec"
-                    value: 1.6
-                  - color: "#2d98da"
-                    value: 4.3
-                  - color: "#45aaf2"
-                    value: 7.1
-                  - color: "#0fb9b1"
-                    value: 9.9
-                  - color: "#2bcbba"
-                    value: 12.7
-                  - color: "#20bf6b"
-                    value: 15.5
-                  - color: "#26de81"
-                    value: 18.2
-                  - color: "#fed330"
-                    value: 21
-                  - color: "#f7b731"
-                    value: 23.8
-                  - color: "#fd9644"
-                    value: 26.6
-                  - color: "#fa8231"
-                    value: 29.3
-                  - color: "#fc5c65"
-                    value: 32.1
-                  - color: "#eb3b5a"
-                    value: 35.9
-                entities:
-                  - entity: sensor.multisensor_garage_humidity
-                    index: 0
-                    name: Temperature
-                    show_state: true
-                    state_adaptive_color: true
-                  - color: "#666666"
-                    entity: sensor.solar_elevation
-                    line_width: 1
-                    show_fill: false
-                    show_legend: false
-                    show_state: false
-                    y_axis: secondary
-                hour24: true
-                hours_to_show: 24
-                line_width: 2
-                lower_bound_secondary: 0
-                name: Temperature
-                points_per_hour: 12
-                show:
-                  extrema: true
-                  graph: line
-                  points: false
-  - badges: []
-    cards:
-      - type: entities
-        title: Automation Settings
-        show_header_toggle: false
-        entities:
-          - entity: input_boolean.allow_notifications
-          - entity: input_boolean.homeautomation
-          - entity: input_boolean.guests
-          - type: custom:fold-entity-row
-            open: false
-            head:
-              type: section
-              label: Downstairs Lights & Switches
-            entities:
-              - entity: automation.turn_on_unit2_livingroom_lamps_if_theres_motion
-                secondary_info: last-triggered
-              - input_number.unit1_bedroom_lights_off_duration
-              - input_datetime.unit1_bedroom_lights_on_start
-              - input_datetime.unit1_bedroom_lights_on_stop
-          - type: custom:fold-entity-row
-            open: false
-            head:
-              type: section
-              label: Upstairs Lights & Switches
-            entities:
-              - entity: automation.turn_on_unit2_livingroom_lamps_if_theres_motion
-                secondary_info: last-triggered
-              - input_number.unit2_livingroom_lights_off_duration
-              - input_datetime.unit2_livingroom_lights_on_start
-              - input_datetime.unit2_livingroom_lights_on_stop
-      - type: entities
-        title: Bayesian
-        entities:
-          - type: custom:fold-entity-row
-            open: false
-            head:
-              type: section
-              label: Area - Bathroom Occupied
-            entities:
-              - sensor.stats_bathroom_bright
-              - sensor.stats_bathroom_humidity_trend
-              - sensor.stats_bathroom_motion
-              - sensor.stats_bathroom_occupied
-              - sensor.stats_bathroom_temperature_trend
-          - type: custom:fold-entity-row
-            open: false
-            head:
-              type: section
-              label: Person1 - Sleeping
-            entities:
-              - binary_sensor.person1_sleeping
-              - sensor.stats_bathroom_humidity_trend
-              - sensor.stats_bathroom_motion
-              - sensor.stats_bathroom_occupied
-              - sensor.stats_bathroom_temperature_trend
-      - type: entities
-        entities:
-          - entity: input_boolean.bedtime
-          - entity: light.unit1_kitchen_pendants
-          - entity: light.unit1_kitchen_cabinets
-    icon: mdi:tune
-    path: troubleshoot
-    title: Troubleshoot
-    visible:
-      - user: 5b50a74c8dff44f8a1f11e277fd19ff8
-  - icon: hass:flower
-    badges: []
-    cards:
-      - type: vertical-stack
-        cards:
-          - type: entities
-            entities:
-              - entity: group.growlights1
-              - entity: input_select.growtent1_growschedule
-              - entity: input_datetime.growtent1_lights_on
-              - entity: input_datetime.growtent1_lights_off
-          - type: custom:mini-graph-card
-            entities:
-              - sensor.growbot1_illuminance
-            align_icon: left
-            align_state: center
-            show:
-              fill: false
-          - type: custom:mini-graph-card
-            entities:
-              - sensor.air_temperature
-              - sensor.humidity
-              - sensor.soil_temperature
-            align_icon: left
-            align_state: center
-            show:
-              fill: false
-      - type: vertical-stack
-        cards:
-          - type: entities
-            entities:
-              - entity: group.growlights2
-              - entity: input_select.growtent2_growschedule
-              - entity: input_datetime.growtent2_lights_on
-              - entity: input_datetime.growtent2_lights_off
-          - type: custom:mini-graph-card
-            entities:
-              - sensor.growbot1_illuminance
-            align_icon: left
-            align_state: center
-            show:
-              fill: false
-          - type: custom:mini-graph-card
-            entities:
-              - sensor.air_temperature
-              - sensor.humidity
-              - sensor.soil_temperature
-            align_icon: left
-            align_state: center
-            show:
-              fill: false
-
+      - type: custom:auto-entities
+        card:
+          type: entities
+          title: Alerts
+        filter:
+          include:
+            - domain: alert
+              options:
+                secondary_info: last-changed
+              state: "on"
   - icon: mdi:music
     badges: []
     cards:
@@ -1890,173 +1088,8 @@ views:
                   position: relative;
                   top: -100px;
                 }
-  - title: Construction
-    path: construction
-    icon: mdi:account-hard-hat
-    badges: []
-    cards:
-      - type: custom:stack-in-card
-        view_layout:
-          grid-area: header
-        style: |
-          ha-card {
-            border-radius: 0;
-            margin-top: calc(var(--vertical-margin) * -1);
-            margin-left: calc(var(--horizontal-margin) * -3);
-            margin-right: calc(var(--horizontal-margin) * -3);
-            background: var(--sidebar-background-color);
-            color: var(--accent-color);
-            padding-top: 1rem;
-            --primary-text-color: var(--light-primary-color);
-            --secondary-text-color: var(--light-primary-color);
-            --ha-card-box-shadow: none;
-            --ha-card-background: none;
-            --masonry-view-card-margin: 0rem calc(var(--horizontal-margin) * 2);
-          }
-        cards:
-          - type: custom:layout-card
-            layout_type: custom:grid-layout
-            layout:
-              grid-template-columns: 2fr 1fr
-            cards:
-              - type: markdown
-                style: |
-                  ha-card {
-                    --primary-text-color: var(--light-primary-color);
-                    box-shadow: none;
-                    background: none;
-                  }
-                  ha-markdown.no-header {
-                    padding-bottom: 0;
-                  }
-                content: |
-                  # Overview - {{ states('sensor.home_mode') | title }}
-              - type: markdown
-                content: |
-                  ## {{ states('sensor.average_temperature') }}°
-                  ### {{ as_timestamp(now()) | timestamp_custom("%I:%M%p") }}
-                view_layout:
-                  justify-content: center
-                  align-items: center
-                style: |
-                  ha-card {
-                    --primary-text-color: var(--light-primary-color);
-                    float: right;
-                    box-shadow: none;
-                    background: none;
-                  }
-              - type: weather-forecast
-                entity: weather.home
-                style: |
-                  ha-card {
-                    --primary-text-color: var(--light-primary-color);
-                    --secondary-text-color: var(--light-primary-color);
-                  }
-                view_layout:
-                  grid-column: 1 / -1
-  - icon: mdi:docker
-    title: Docker
-    path: docker
-    badges: []
-    cards:
-      - type: custom:auto-entities
-        card:
-          type: grid
-        card_param: cards
-        filter:
-          include:
-            - entity_id: sensor.mufasa_docker_*_state
-              options:
-                custom_fields:
-                  cpu: |
-                    [[[
-                      return `<ha-icon
-                        icon="mdi:chip"
-                        style="width: 20px; height: 20px; color: #B58E31;">
-                        </ha-icon><span> CPU: <span style=color: var(--text-color-sensor);>${states[entity.entity_id.replace('state', 'cpu')].state}%</span></span>`
-                    ]]]
-                  state: |
-                    [[[
-                      return `<ha-icon
-                        icon="mdi:power"
-                        style="width: 20px; height: 20px; color: #B58E31;">
-                        </ha-icon><span> State: <span style=color: var(--text-color-sensor);>${states[entity.entity_id].state}</span></span>`
-                    ]]]
-                  mem: |
-                    [[[
-                      return `<ha-icon
-                        icon="mdi:chip"
-                        style="width: 20px; height: 20px; color: #B58E31;">
-                        </ha-icon><span> RAM: <span style=color: var(--text-color-sensor);>${states[entity.entity_id.replace('state', 'memory')].state} MB</span></span>`
-                    ]]]
-                  up: |
-                    [[[
-                      return `<ha-icon
-                        icon="mdi:power"
-                        style="width: 20px; height: 20px; color: #B58E31;">
-                        </ha-icon><span> <span style=color: var(--text-color-sensor);>${states[entity.entity_id.replace('state', 'status')].state}</span></span>`
-                    ]]]
-                show_entity_picture: true
-                show_state: false
-                size: 35px
-                state:
-                  - entity_picture: /local/docker.png
-                    styles:
-                      entity_picture:
-                        - filter: grayscale(90%)
-                    operator: default
-                  - entity_picture: /local/docker.png
-                    value: running
-                styles:
-                  custom_fields:
-                    cpu:
-                      - padding-bottom: 0px
-                      - align-self: start
-                      - padding-left: 2px
-                      - font-size: 12px
-                      - justify-self: start
-                    up:
-                      - padding-bottom: 0px
-                      - align-self: start
-                      - padding-left: 2px
-                      - font-size: 12px
-                      - justify-self: start
-                    mem:
-                      - padding-bottom: 0px
-                      - align-self: start
-                      - padding-left: 2px
-                      - font-size: 12px
-                      - justify-self: start
-                    state:
-                      - padding-bottom: 0px
-                      - align-self: start
-                      - padding-left: 2px
-                      - font-size: 12px
-                      - justify-self: start
-                  grid:
-                    - grid-template-areas: '"i i" "n n" "state state" "up up" "cpu cpu" "mem mem"'
-                    - grid-template-columns: 1fr 1fr
-                    - grid-template-rows: 1fr min-content min-content min-content min-content
-                  name:
-                    - font-weight: bold
-                    - font-size: 16px
-                    - color: rgb(18,154,190)
-                    - align-self: middle
-                    - justify-self: middle
-                    - padding-bottom: 4px
-                  card:
-                    - height: 165px
-                tap_action:
-                  action: call-service
-                  service: switch.toggle
-                  service_data:
-                    entity_id: switch.docker_homeassistant
-                type: custom:button-card
-  - !include views/view_home.yaml
-  - !include views/view_battery.yaml
   - !include views/view_camera.yaml
   - !include views/view_server.yaml
   - !include views/view_remotes.yaml
-  - !include views/view_environment.yaml
   - !include views/view_sensors.yaml
   - !include views/view_media.yaml

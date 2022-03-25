@@ -43,6 +43,7 @@ popup_lights:
         filter:
           include:
             - group: light.kitchen1_lights
+            - group: light.bathroom1_lights
         card:
           type: custom:fold-entity-row
           head:

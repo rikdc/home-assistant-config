@@ -4,638 +4,626 @@ panel: true
 icon: "mdi:home"
 badges: []
 cards:
-  - type: "custom:layout-card"
-    column_width:
-      - 450
-      - 975
-    layout: vertical
+  - type: custom:bootstrap-grid-card
+    # - type: "custom:layout-card"
+    #   column_width:
+    #     - 450
+    #     - 975
+    #   layout: grid
+    #   grid-template-columns: auto 30px 25%
     cards:
-      - type: "custom:homekit-card"
-        horizontalScroll: true
-        statePositionTop: true
-        useBrightness: false
-        useTemperature: false
-        enableColumns: true
-        tileHoldAnimation: false
-        panel: true
-        home: false
-        style: |
-          :host {
-            --tile-background: rgba(230, 230, 228, 0.5);
-            --tile-border-radius: 12px;
-            --tile-width: 100px;
-            --tile-height: 100px;
-            --tile-on-background: rgba(255, 255, 255, 1);
-            --tile-name-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-name-text-color: rgba(0, 0, 0, 1);
-            --tile-state-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-state-text-color: rgba(0, 0, 0, 1);
-            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-            --tile-value-text-color: rgba(0, 0, 0, 1);
-            --tile-value-text-font-size: 12px;
-            --tile-icon-color: rgba(0, 0, 0, 0.25);
-            --tile-on-icon-color: #f7d959;
-            --tile-width-mobile: 90px;
-            --tile-height-mobile: 90px;
-            --min-header-height: 150px;
-            --tile-icon-size: 36px;
-            --tile-image-radius: 0%
-          }
-        rows:
-          - row: 1
-            columns:
-              - column: 1
-                entities:
-                  - entities:
-                      ######## HERE!
+      - type: row
+        cards:
+          - type: col
+            class: "col-4"
+            cards:
+              - type: "custom:homekit-card"
+                horizontalScroll: true
+                statePositionTop: true
+                useBrightness: false
+                useTemperature: false
+                enableColumns: true
+                tileHoldAnimation: false
+                panel: true
+                home: false
+                # style: |
+                #   :host {
+                #     --tile-background: rgba(230, 230, 228, 0.5);
+                #     --tile-border-radius: 12px;
+                #     --tile-width: 100px;
+                #     --tile-height: 100px;
+                #     --tile-on-background: rgba(255, 255, 255, 1);
+                #     --tile-name-text-color: rgba(0, 0, 0, 0.3);
+                #     --tile-on-name-text-color: rgba(0, 0, 0, 1);
+                #     --tile-state-text-color: rgba(0, 0, 0, 0.3);
+                #     --tile-on-state-text-color: rgba(0, 0, 0, 1);
+                #     --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+                #     --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+                #     --tile-value-text-color: rgba(0, 0, 0, 1);
+                #     --tile-value-text-font-size: 12px;
+                #     --tile-icon-color: rgba(0, 0, 0, 0.25);
+                #     --tile-on-icon-color: #f7d959;
+                #     --tile-width-mobile: 90px;
+                #     --tile-height-mobile: 90px;
+                #     --min-header-height: 150px;
+                #     --tile-icon-size: 36px;
+                #     --tile-image-radius: 0%
+                #   }
+                rows:
+                  - row: 1
+                    columns:
+                      - column: 1
+                        entities:
+                          - entities:
+                              ######## HERE!
 
-                      - entity: person.stefanie
-                        offImage: /local/img/face-2-off.png
-                        offStates:
-                          - not_home
-                          - unavailable
-                      - entity: person.jenn
-                        offImage: /local/img/cats2-off.png
-                        offStates:
-                          - not_home
-                          - unavailable
-                    title: Family
-      - type: "custom:homekit-card"
-        horizontalScroll: true
-        statePositionTop: true
-        useBrightness: false
-        useTemperature: false
-        enableColumns: true
-        tileHoldAnimation: false
-        panel: true
-        home: false
-        style: |
-          :host {
-            --tile-background: rgba(230, 230, 228, 0.5);
-            --tile-border-radius: 12px;
-            --tile-width: 100px;
-            --tile-height: 100px;
-            --tile-on-background: rgba(255, 255, 255, 1);
-            --tile-name-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-name-text-color: rgba(0, 0, 0, 1);
-            --tile-state-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-state-text-color: rgba(0, 0, 0, 1);
-            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-            --tile-value-text-color: rgba(0, 0, 0, 1);
-            --tile-value-text-font-size: 12px;
-            --tile-icon-color: rgba(0, 0, 0, 0.25);
-            --tile-on-icon-color: #f7d959;
-            --tile-width-mobile: 90px;
-            --tile-height-mobile: 90px;
-            --min-header-height: 150px;
-            --tile-icon-size: 36px;
-            --tile-image-radius: 0%
-          }
-        rows:
-          - row: 2
-            columns:
-              - column: 1
-                entities:
-                  - entities:
-                      - entity: binary_sensor.main_floor_occupancy
-                        name: Main Motion
-                        icon: "mdi:run"
-                        offIcon: "mdi:walk"
-                      - entity: binary_sensor.unit_1_frontroom_motion
-                        name: Living Motion
-                        icon: "mdi:run"
-                        offIcon: "mdi:walk"
-                      - entity: binary_sensor.unit1_frontroom_occupancy_bayesian
-                        name: Book Motion
-                        icon: "mdi:run"
-                        offIcon: "mdi:walk"
-                      - entity: binary_sensor.lower_bedroom_occupied
-                        name: Main Door
-                        icon: "mdi:door-open"
-                        offIcon: "mdi:door-closed"
-                      - entity: binary_sensor.kitchen_occupancy
-                        name: Front Balcony Door
-                        icon: "mdi:door-open"
-                        offIcon: "mdi:door-closed"
-                      - entity: binary_sensor.first_floor_occupancy
-                        name: First Floor Occupied
-                        icon: "mdi:door-open"
-                        offIcon: "mdi:door-closed"
-                    title: Security
-      - type: "custom:homekit-card"
-        horizontalScroll: true
-        statePositionTop: true
-        useBrightness: false
-        useTemperature: false
-        enableColumns: true
-        tileHoldAnimation: false
-        panel: true
-        home: false
-        style: |
-          :host {
-            --tile-background: rgba(230, 230, 228, 0.5);
-            --tile-border-radius: 12px;
-            --tile-width: 100px;
-            --tile-height: 100px;
-            --tile-on-background: rgba(255, 255, 255, 1);
-            --tile-name-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-name-text-color: rgba(0, 0, 0, 1);
-            --tile-state-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-state-text-color: rgba(0, 0, 0, 1);
-            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-            --tile-value-text-color: rgba(0, 0, 0, 1);
-            --tile-value-text-font-size: 12px;
-            --tile-icon-color: rgba(0, 0, 0, 0.25);
-            --tile-on-icon-color: #f7d959;
-            --tile-width-mobile: 90px;
-            --tile-height-mobile: 90px;
-            --min-header-height: 150px;
-            --tile-icon-size: 36px;
-            --tile-image-radius: 0%
-          }
-        rows:
-          - row: 3
-            columns:
-              - column: 1
-                entities:
-                  - entities:
-                      - card: weather-forecast
-                        cardOptions:
-                          entity: weather.home
-                        cardStyle: |
-                          ha-card {
-                              padding: 5px!important;
-                              display: flex!important;
-                              flex-direction: column!important;
-                              background: transparent!important;
-                              box-shadow: none!important;
-                              border-radius:0!important;
-                          }
-                          .content {
-                              display: flex!important;
-                              flex-direction: row!important;
-                          }
-                          .icon-image {
-                              min-width: auto!important;
-                          }
-                          .icon-image > * {
-                              height: 33px!important;
-                              flex: 0 0 33px!important;
-                          }
-                          .info .name-state {
-                              font-weight: 600;
-                              padding:0!important;
-                          }
-                          .info .name-state .state {
-                              font-size:14px!important;
-                              text-align:left;
-                              padding: 5px!important;
-                          }
-                          .info .name-state .name {
-                              font-size:0px!important;
-                          }
-                          .info .temp-attribute {
-                              width:100%;
-                              font-weight: 600;
-                          }
-                          .info .temp-attribute .temp {
-                              font-size: 14px!important;
-                          }
-                          .info .temp-attribute .temp span {
-                              font-size: 12px!important;
-                          }
-                          .forecast {
-                              font-size: 12px!important;
-                              padding-top: 2px!important;
-                          }
-                          .forecast-image-icon {
-                              padding:0!important;
-                          }
-                          .forecast-image-icon > * {
-                              width:20px!important;
-                              height:20px!important;
-                              margin: 0 auto!important;
-                          }
-                          .forecast .temp {
-                              margin-top:0!important;
-                              font-size:12px!important;
-                          }
-                          .forecast .templow {
-                              display:none;
-                          }
-                        nopaddign: true
-                        higher: true
-                        higherSize: 1
-                        wider: true
-                        widerSize: 3
-                    title: Weather
-      - type: "custom:layout-break"
-      - type: "custom:homekit-card"
-        title: Home
-        titleColor: "#000"
-        horizontalScroll: true
-        statePositionTop: true
-        useBrightness: false
-        useTemperature: false
-        enableColumns: true
-        tileHoldAnimation: false
-        panel: true
-        home: false
-        style: |
-          :host {
-            --tile-background: rgba(230, 230, 228, 0.5);
-            --tile-border-radius: 12px;
-            --tile-width: 100px;
-            --tile-height: 100px;
-            --tile-on-background: rgba(255, 255, 255, 1);
-            --tile-name-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-name-text-color: rgba(0, 0, 0, 1);
-            --tile-state-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-state-text-color: rgba(0, 0, 0, 1);
-            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-            --tile-value-text-color: rgba(0, 0, 0, 1);
-            --tile-value-text-font-size: 12px;
-            --tile-icon-color: rgba(0, 0, 0, 0.25);
-            --tile-on-icon-color: #f7d959;
-            --tile-width-mobile: 90px;
-            --tile-height-mobile: 90px;
-            --min-header-height: 150px;
-            --tile-icon-size: 36px;
-            --tile-image-radius: 0%
-          }
-        rows:
-          - row: 1
-            columns:
-              - column: 2
-                entities:
-                  - entities:
-                      - entity: light.all_lights
-                        icon: "mdi:lightbulb-group"
-                        name: Home
-                        popupExtend:
-                          settingsCard:
-                            type: "custom:light-entity-card"
-                            cardOptions:
-                              entity: this
-                              persist_features: true
-                              smooth_color_wheel: true
-                              child_card: true
-                              consolidate_entities: true
-                          actions:
-                            - color: "#FFDABB"
-                              name: Bright
-                              service: light.turn_on
-                              service_data:
-                                brightness: 255
-                                entity_id: light.all_lights
-                                kelvin: 4500
-                            - color: "#FFC18D"
-                              name: Classic
-                              service: light.turn_on
-                              service_data:
-                                brightness: 217
-                                entity_id: light.all_lights
-                                kelvin: 3500
-                            - color: "#FFAA5F"
-                              name: Soft
-                              service: light.turn_on
-                              service_data:
-                                brightness: 128
-                                entity_id: light.all_lights
-                                kelvin: 2800
-                            - color: "#FF9B3D"
-                              name: Relax
-                              service: light.turn_on
-                              service_data:
-                                brightness: 64
-                                entity_id: light.all_lights
-                                kelvin: 2400
-                      - entity: light.unit1_light_frontroom_ceiling_dimmer
-                        icon: "mdi:lightbulb-group"
-                        name: Living Room
-                        popupExtend:
-                          settingsCard:
-                            type: "custom:light-popup-card"
-                            cardOptions:
-                              entity: this
-                              persist_features: true
-                              smooth_color_wheel: true
-                              child_card: true
-                              consolidate_entities: true
-                          actions:
-                            - color: "#FFDABB"
-                              name: Bright
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.living_bright_lights
-                            - color: "#FFC18D"
-                              name: Classic
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.living_classic_lights
-                            - color: "#FFAA5F"
-                              name: Soft
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.living_soft_lights
-                            - color: "#FF9B3D"
-                              name: Relax
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.living_relax_lights
-                      - entity: light.outside
-                        icon: "mdi:lightbulb-group"
-                        name: Outside Lights
-                        popupExtend:
-                          settingsCard:
-                            type: "custom:light-entity-card"
-                            cardOptions:
-                              entity: this
-                              persist_features: true
-                              smooth_color_wheel: true
-                              child_card: true
-                              consolidate_entities: true
-                          actions:
-                            - color: "#FFDABB"
-                              name: Bright
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.pc_bright_lights
-                            - color: "#FFC18D"
-                              name: Classic
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.pc_classic_lights
-                            - color: "#FFAA5F"
-                              name: Soft
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.pc_soft_lights
-                            - color: "#FF9B3D"
-                              name: Relax
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.pc_relax_lights
-                      - entity: light.book_room
-                        icon: "mdi:lightbulb-group"
-                        name: Book Room
-                        popupExtend:
-                          settingsCard:
-                            type: "custom:light-entity-card"
-                            cardOptions:
-                              entity: this
-                              persist_features: true
-                              smooth_color_wheel: true
-                              child_card: true
-                              consolidate_entities: true
-                          actions:
-                            - color: "#FFDABB"
-                              name: Bright
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.book_bright_lights
-                            - color: "#FFC18D"
-                              name: Classic
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.book_classic_lights
-                            - color: "#FFAA5F"
-                              name: Soft
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.book_soft_lights
-                            - color: "#FF9B3D"
-                              name: Relax
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.book_relax_lights
-                      - entity: light.bedroom
-                        icon: "mdi:lightbulb-group"
-                        name: Bedroom
-                        popupExtend:
-                          settingsCard:
-                            type: "custom:light-entity-card"
-                            cardOptions:
-                              entity: this
-                              persist_features: true
-                              smooth_color_wheel: true
-                              child_card: true
-                              consolidate_entities: true
-                          actions:
-                            - color: "#FFDABB"
-                              name: Bright
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.bed_bright_lights
-                            - color: "#FFC18D"
-                              name: Classic
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.bed_classic_lights
-                            - color: "#FFAA5F"
-                              name: Soft
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.bed_soft_lights
-                            - color: "#FF9B3D"
-                              name: Relax
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.bed_relax_lights
-                      - entity: light.lobby
-                        icon: "mdi:lightbulb-group"
-                        name: Lobby
-                        popupExtend:
-                          settingsCard:
-                            type: "custom:light-entity-card"
-                            cardOptions:
-                              entity: this
-                              persist_features: true
-                              smooth_color_wheel: true
-                              child_card: true
-                              consolidate_entities: true
-                          actions:
-                            - color: "#FFDABB"
-                              name: Bright
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.lobby_bright_lights
-                            - color: "#FFC18D"
-                              name: Classic
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.lobby_classic_lights
-                            - color: "#FFAA5F"
-                              name: Soft
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.lobby_soft_lights
-                            - color: "#FF9B3D"
-                              name: Relax
-                              service: scene.turn_on
-                              service_data:
-                                entity_id: scene.lobby_relax_lights
-                      - entity: light.outside
-                        icon: "mdi:lightbulb-group"
-                        name: Outside
-                        popupExtend:
-                          settingsCard:
-                            type: "custom:light-entity-card"
-                            cardOptions:
-                              entity: this
-                              persist_features: true
-                              smooth_color_wheel: true
-                              child_card: true
-                              consolidate_entities: true
-                          actions:
-                            - color: "#FFDABB"
-                              name: Bright
-                              service: light.turn_on
-                              service_data:
-                                brightness: 255
-                                entity_id: light.saloon
-                                kelvin: 4500
-                            - color: "#FFC18D"
-                              name: Classic
-                              service: light.turn_on
-                              service_data:
-                                brightness: 217
-                                entity_id: light.saloon
-                                kelvin: 3500
-                            - color: "#FFAA5F"
-                              name: Soft
-                              service: light.turn_on
-                              service_data:
-                                brightness: 128
-                                entity_id: light.saloon
-                                kelvin: 2800
-                            - color: "#FF9B3D"
-                              name: Relax
-                              service: light.turn_on
-                              service_data:
-                                brightness: 64
-                                entity_id: light.saloon
-                                kelvin: 2400
-                    popup:
-                      type: custom:light-popup-card
-                      icon: "mdi:lightbulb-group"
-                      actionsInARow: 2
-                      scenesInARow: 2
-                      brightnessWidth: 130px
-                      brightnessHeight: 360px
-                      borderRadius: 1.75em
-                      switchWidth: 130px
-                      switchHeight: 360px
-                      sliderColor: "#eee"
-                      sliderThumbColor: "rgba(100, 100, 100, 0.9)"
-                      sliderTrackColor: "rgba(100, 100, 100, 0.9)"
-                      fullscreen: true
-                      settings: true
-                    title: Lights
-      - type: "custom:homekit-card"
-        horizontalScroll: true
-        statePositionTop: true
-        useBrightness: false
-        useTemperature: false
-        enableColumns: true
-        tileHoldAnimation: false
-        panel: true
-        home: false
-        style: |
-          :host {
-            --tile-background: rgba(230, 230, 228, 0.5);
-            --tile-border-radius: 12px;
-            --tile-width: 100px;
-            --tile-height: 100px;
-            --tile-on-background: rgba(255, 255, 255, 1);
-            --tile-name-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-name-text-color: rgba(0, 0, 0, 1);
-            --tile-state-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-state-text-color: rgba(0, 0, 0, 1);
-            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-            --tile-value-text-color: rgba(0, 0, 0, 1);
-            --tile-value-text-font-size: 12px;
-            --tile-icon-color: rgba(0, 0, 0, 0.25);
-            --tile-on-icon-color: #f7d959;
-            --tile-width-mobile: 90px;
-            --tile-height-mobile: 90px;
-            --min-header-height: 150px;
-            --tile-icon-size: 36px;
-            --tile-image-radius: 0%
-          }
-        rows:
-          - row: 2
-            columns:
-              - column: 2
-                entities:
-                  - entities:
-                      - entity: binary_sensor.cat_needs_feeding
-                        name: Feed Cat
-                        hide: >
-                          [[[
-                            return entity.state == 'off'
-                          ]]]
-                    title: Media
-      - type: "custom:homekit-card"
-        horizontalScroll: true
-        statePositionTop: true
-        useBrightness: false
-        useTemperature: false
-        enableColumns: true
-        tileHoldAnimation: false
-        panel: true
-        home: false
-        style: |
-          :host {
-            --tile-background: rgba(230, 230, 228, 0.5);
-            --tile-border-radius: 12px;
-            --tile-width: 100px;
-            --tile-height: 100px;
-            --tile-on-background: rgba(255, 255, 255, 1);
-            --tile-name-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-name-text-color: rgba(0, 0, 0, 1);
-            --tile-state-text-color: rgba(0, 0, 0, 0.3);
-            --tile-on-state-text-color: rgba(0, 0, 0, 1);
-            --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-            --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-            --tile-value-text-color: rgba(0, 0, 0, 1);
-            --tile-value-text-font-size: 12px;
-            --tile-icon-color: rgba(0, 0, 0, 0.25);
-            --tile-on-icon-color: #f7d959;
-            --tile-width-mobile: 90px;
-            --tile-height-mobile: 90px;
-            --min-header-height: 150px;
-            --tile-icon-size: 36px;
-            --tile-image-radius: 0%
-          }
-        rows:
-          - row: 3
-            columns:
-              - column: 2
-                entities:
-                  - entities:
-                      - entity: sensor.unit_1_frontroom_temperature
-                        icon: "mdi:thermometer"
-                        name: Living Room
-                      - entity: sensor.basement_temperature
-                      - entity: sensor.unit_1_mudroom_temperature
-                        icon: "mdi:thermometer"
-                        name: Mudroom
-                      - entity: sensor.unit1_hallway_temperature_air
-                        icon: "mdi:thermometer"
-                        name: Kitchen
-                      - entity: sensor.unit_1_bedroom_temperature
-                        icon: "mdi:thermometer"
-                        name: Bedroom
-                      - entity: sensor.unit_2_kitchen_temperature
-                        icon: "mdi:thermometer"
-                        name: Upstairs
-                      - entity: sensor.unit_2_bedroom_temperature
-                        icon: "mdi:thermometer"
-                        name: Upstairs Bedroom
-                    title: Environment
+                              - entity: person.stefanie
+                                offImage: /local/img/face-2-off.png
+                                offStates:
+                                  - not_home
+                                  - unavailable
+                              - entity: person.jenn
+                                offImage: /local/img/cats2-off.png
+                                offStates:
+                                  - not_home
+                                  - unavailable
+                            title: Family
+              - type: "custom:homekit-card"
+                horizontalScroll: true
+                statePositionTop: true
+                useBrightness: false
+                useTemperature: false
+                enableColumns: true
+                tileHoldAnimation: false
+                panel: true
+                home: false
+                style: |
+                  :host {
+                    --tile-background: rgba(230, 230, 228, 0.5);
+                    --tile-border-radius: 12px;
+                    --tile-width: 100px;
+                    --tile-height: 100px;
+                    --tile-on-background: rgba(255, 255, 255, 1);
+                    --tile-name-text-color: rgba(0, 0, 0, 0.3);
+                    --tile-on-name-text-color: rgba(0, 0, 0, 1);
+                    --tile-state-text-color: rgba(0, 0, 0, 0.3);
+                    --tile-on-state-text-color: rgba(0, 0, 0, 1);
+                    --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+                    --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+                    --tile-value-text-color: rgba(0, 0, 0, 1);
+                    --tile-value-text-font-size: 12px;
+                    --tile-icon-color: rgba(0, 0, 0, 0.25);
+                    --tile-on-icon-color: #f7d959;
+                    --tile-width-mobile: 90px;
+                    --tile-height-mobile: 90px;
+                    --min-header-height: 150px;
+                    --tile-icon-size: 36px;
+                    --tile-image-radius: 0%
+                  }
+                rows:
+                  - row: 2
+                    columns:
+                      - column: 1
+                        entities:
+                          - entities:
+                              - entity: binary_sensor.main_floor_occupancy
+                                name: Main Motion
+                                icon: "mdi:run"
+                                offIcon: "mdi:walk"
+                              - entity: binary_sensor.unit_1_frontroom_motion
+                                name: Living Motion
+                                icon: "mdi:run"
+                                offIcon: "mdi:walk"
+                              - entity: binary_sensor.unit1_frontroom_occupancy_bayesian
+                                name: Book Motion
+                                icon: "mdi:run"
+                                offIcon: "mdi:walk"
+                              - entity: binary_sensor.lower_bedroom_occupied
+                                name: Main Door
+                                icon: "mdi:door-open"
+                                offIcon: "mdi:door-closed"
+                              - entity: binary_sensor.kitchen_occupancy
+                                name: Front Balcony Door
+                                icon: "mdi:door-open"
+                                offIcon: "mdi:door-closed"
+                              - entity: binary_sensor.first_floor_occupancy
+                                name: First Floor Occupied
+                                icon: "mdi:door-open"
+                                offIcon: "mdi:door-closed"
+                            title: Security
+              - type: "custom:homekit-card"
+                horizontalScroll: true
+                statePositionTop: true
+                useBrightness: false
+                useTemperature: false
+                enableColumns: true
+                tileHoldAnimation: false
+                panel: true
+                home: false
+                style: |
+                  :host {
+                    --tile-background: rgba(230, 230, 228, 0.5);
+                    --tile-border-radius: 12px;
+                    --tile-width: 100px;
+                    --tile-height: 100px;
+                    --tile-on-background: rgba(255, 255, 255, 1);
+                    --tile-name-text-color: rgba(0, 0, 0, 0.3);
+                    --tile-on-name-text-color: rgba(0, 0, 0, 1);
+                    --tile-state-text-color: rgba(0, 0, 0, 0.3);
+                    --tile-on-state-text-color: rgba(0, 0, 0, 1);
+                    --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+                    --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+                    --tile-value-text-color: rgba(0, 0, 0, 1);
+                    --tile-value-text-font-size: 12px;
+                    --tile-icon-color: rgba(0, 0, 0, 0.25);
+                    --tile-on-icon-color: #f7d959;
+                    --tile-width-mobile: 90px;
+                    --tile-height-mobile: 90px;
+                    --min-header-height: 150px;
+                    --tile-icon-size: 36px;
+                    --tile-image-radius: 0%
+                  }
+                rows:
+                  - row: 3
+                    columns:
+                      - column: 1
+                        entities:
+                          - entities:
+                              - card: weather-forecast
+                                cardOptions:
+                                  entity: weather.home
+                                cardStyle: |
+                                  ha-card {
+                                      padding: 5px!important;
+                                      display: flex!important;
+                                      flex-direction: column!important;
+                                      background: transparent!important;
+                                      box-shadow: none!important;
+                                      border-radius:0!important;
+                                  }
+                                  .content {
+                                      display: flex!important;
+                                      flex-direction: row!important;
+                                  }
+                                  .icon-image {
+                                      min-width: auto!important;
+                                  }
+                                  .icon-image > * {
+                                      height: 33px!important;
+                                      flex: 0 0 33px!important;
+                                  }
+                                  .info .name-state {
+                                      font-weight: 600;
+                                      padding:0!important;
+                                  }
+                                  .info .name-state .state {
+                                      font-size:14px!important;
+                                      text-align:left;
+                                      padding: 5px!important;
+                                  }
+                                  .info .name-state .name {
+                                      font-size:0px!important;
+                                  }
+                                  .info .temp-attribute {
+                                      width:100%;
+                                      font-weight: 600;
+                                  }
+                                  .info .temp-attribute .temp {
+                                      font-size: 14px!important;
+                                  }
+                                  .info .temp-attribute .temp span {
+                                      font-size: 12px!important;
+                                  }
+                                  .forecast {
+                                      font-size: 12px!important;
+                                      padding-top: 2px!important;
+                                  }
+                                  .forecast-image-icon {
+                                      padding:0!important;
+                                  }
+                                  .forecast-image-icon > * {
+                                      width:20px!important;
+                                      height:20px!important;
+                                      margin: 0 auto!important;
+                                  }
+                                  .forecast .temp {
+                                      margin-top:0!important;
+                                      font-size:12px!important;
+                                  }
+                                  .forecast .templow {
+                                      display:none;
+                                  }
+                                nopaddign: true
+                                higher: true
+                                higherSize: 1
+                                wider: true
+                                widerSize: 3
+                            title: Weather
+          - type: col
+            class: "col-8"
+            cards:
+              - type: "custom:homekit-card"
+                title: Home
+                titleColor: "#000"
+                horizontalScroll: true
+                statePositionTop: true
+                useBrightness: false
+                useTemperature: false
+                enableColumns: true
+                tileHoldAnimation: false
+                panel: true
+                home: false
+                # style: |
+                #   :host {
+                #     --tile-background: rgba(230, 230, 228, 0.5);
+                #     --tile-border-radius: 12px;
+                #     --tile-width: 100px;
+                #     --tile-height: 100px;
+                #     --tile-on-background: rgba(255, 255, 255, 1);
+                #     --tile-name-text-color: rgba(0, 0, 0, 0.3);
+                #     --tile-on-name-text-color: rgba(0, 0, 0, 1);
+                #     --tile-state-text-color: rgba(0, 0, 0, 0.3);
+                #     --tile-on-state-text-color: rgba(0, 0, 0, 1);
+                #     --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+                #     --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+                #     --tile-value-text-color: rgba(0, 0, 0, 1);
+                #     --tile-value-text-font-size: 12px;
+                #     --tile-icon-color: rgba(0, 0, 0, 0.25);
+                #     --tile-on-icon-color: #f7d959;
+                #     --tile-width-mobile: 90px;
+                #     --tile-height-mobile: 90px;
+                #     --min-header-height: 150px;
+                #     --tile-icon-size: 36px;
+                #     --tile-image-radius: 0%
+                #   }
+                rows:
+                  - row: 1
+                    columns:
+                      - column: 2
+                        entities:
+                          - entities:
+                              - entity: light.all_lights
+                                icon: "mdi:lightbulb-group"
+                                name: Home
+                              - entity: light.frontroom_ceiling
+                                icon: "mdi:lightbulb-group"
+                                name: Living Room
+                                popupExtend:
+                                  settingsCard:
+                                    type: "custom:light-popup-card"
+                                    cardOptions:
+                                      entity: this
+                                      persist_features: true
+                                      smooth_color_wheel: true
+                                      child_card: true
+                                      consolidate_entities: true
+                                  actions:
+                                    - color: "#FFDABB"
+                                      name: Bright
+                                      service: scene.turn_on
+                                      service_data:
+                                        entity_id: scene.living_bright_lights
+                                    - color: "#FFC18D"
+                                      name: Classic
+                                      service: scene.turn_on
+                                      service_data:
+                                        entity_id: scene.living_classic_lights
+                                    - color: "#FFAA5F"
+                                      name: Soft
+                                      service: scene.turn_on
+                                      service_data:
+                                        entity_id: scene.living_soft_lights
+                                    - color: "#FF9B3D"
+                                      name: Relax
+                                      service: scene.turn_on
+                                      service_data:
+                                        entity_id: scene.living_relax_lights
+                              - entity: light.outside
+                                icon: "mdi:lightbulb-group"
+                                name: Outside Lights
+                                popupExtend:
+                                  settingsCard:
+                                    type: "custom:light-entity-card"
+                                    cardOptions:
+                                      entity: this
+                                      persist_features: true
+                                      smooth_color_wheel: true
+                                      child_card: true
+                                      consolidate_entities: true
+                                  actions:
+                                    - color: "#FFDABB"
+                                      name: Bright
+                                      service: scene.turn_on
+                                      service_data:
+                                        entity_id: scene.pc_bright_lights
+                                    - color: "#FFC18D"
+                                      name: Classic
+                                      service: scene.turn_on
+                                      service_data:
+                                        entity_id: scene.pc_classic_lights
+                                    - color: "#FFAA5F"
+                                      name: Soft
+                                      service: scene.turn_on
+                                      service_data:
+                                        entity_id: scene.pc_soft_lights
+                                    - color: "#FF9B3D"
+                                      name: Relax
+                                      service: scene.turn_on
+                                      service_data:
+                                        entity_id: scene.pc_relax_lights
+                            popup:
+                              type: custom:light-popup-card
+                              icon: "mdi:lightbulb-group"
+                              actionsInARow: 2
+                              scenesInARow: 2
+                              brightnessWidth: 130px
+                              brightnessHeight: 360px
+                              borderRadius: 1.75em
+                              switchWidth: 130px
+                              switchHeight: 360px
+                              sliderColor: "#eee"
+                              sliderThumbColor: "rgba(100, 100, 100, 0.9)"
+                              sliderTrackColor: "rgba(100, 100, 100, 0.9)"
+                              fullscreen: true
+                              settings: true
+                            title: Lights
+              - type: "custom:homekit-card"
+                horizontalScroll: true
+                statePositionTop: true
+                useBrightness: false
+                useTemperature: false
+                enableColumns: true
+                tileHoldAnimation: false
+                panel: true
+                home: false
+                # style: |
+                #   :host {
+                #     --tile-background: rgba(230, 230, 228, 0.5);
+                #     --tile-border-radius: 12px;
+                #     --tile-width: 100px;
+                #     --tile-height: 100px;
+                #     --tile-on-background: rgba(255, 255, 255, 1);
+                #     --tile-name-text-color: rgba(0, 0, 0, 0.3);
+                #     --tile-on-name-text-color: rgba(0, 0, 0, 1);
+                #     --tile-state-text-color: rgba(0, 0, 0, 0.3);
+                #     --tile-on-state-text-color: rgba(0, 0, 0, 1);
+                #     --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+                #     --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+                #     --tile-value-text-color: rgba(0, 0, 0, 1);
+                #     --tile-value-text-font-size: 12px;
+                #     --tile-icon-color: rgba(0, 0, 0, 0.25);
+                #     --tile-on-icon-color: #f7d959;
+                #     --tile-width-mobile: 90px;
+                #     --tile-height-mobile: 90px;
+                #     --min-header-height: 150px;
+                #     --tile-icon-size: 36px;
+                #     --tile-image-radius: 0%
+                #   }
+                rows:
+                  - row: 2
+                    columns:
+                      - column: 3
+                        entities:
+                          - entities:
+                              - entity: binary_sensor.cat_needs_feeding
+                                name: Feed Cat
+                            title: Alerts
+              - type: "custom:homekit-card"
+                horizontalScroll: true
+                statePositionTop: true
+                useBrightness: false
+                useTemperature: false
+                enableColumns: true
+                tileHoldAnimation: false
+                panel: true
+                home: false
+                # style: |
+                #   :host {
+                #     --tile-background: rgba(230, 230, 228, 0.5);
+                #     --tile-border-radius: 12px;
+                #     --tile-width: 100px;
+                #     --tile-height: 100px;
+                #     --tile-on-background: rgba(255, 255, 255, 1);
+                #     --tile-name-text-color: rgba(0, 0, 0, 0.3);
+                #     --tile-on-name-text-color: rgba(0, 0, 0, 1);
+                #     --tile-state-text-color: rgba(0, 0, 0, 0.3);
+                #     --tile-on-state-text-color: rgba(0, 0, 0, 1);
+                #     --tile-state-changed-text-color: rgb(50, 50, 50, 1);
+                #     --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
+                #     --tile-value-text-color: rgba(0, 0, 0, 1);
+                #     --tile-value-text-font-size: 12px;
+                #     --tile-icon-color: rgba(0, 0, 0, 0.25);
+                #     --tile-on-icon-color: #f7d959;
+                #     --tile-width-mobile: 90px;
+                #     --tile-height-mobile: 90px;
+                #     --min-header-height: 150px;
+                #     --tile-icon-size: 36px;
+                #     --tile-image-radius: 0%
+                #   }
+                rows:
+                  - row: 3
+                    columns:
+                      - column: 2
+                        entities:
+                          - entities:
+                              - custom: environment
+                                name: Climate
+                                icon: mdi:air-filter
+                                tap_action:
+                                  action: fire-dom-event
+                                  browser_mod:
+                                    command: popup
+                                    title: Household Climate
+                                    large: true
+                                    hide_header: false
+                                    card:
+                                      type: custom:decluttering-card
+                                      template: popup_environment
+                              - custom: lights
+                                name: Lights
+                                icon: mdi:lightbulb-group
+                                tap_action:
+                                  action: fire-dom-event
+                                  browser_mod:
+                                    command: popup
+                                    title: Lights
+                                    large: true
+                                    hide_header: false
+                                    card:
+                                      type: custom:decluttering-card
+                                      template: popup_lights_downstairs
+                              - custom: admin
+                                tap_action:
+                                  action: call-service
+                                  service: browser_mod.popup
+                                  service_data:
+                                    title: Admin
+                                    card:
+                                      type: custom:decluttering-card
+                                      template: popup_admin
+                                  target: {}
+                                name: Admin
+                                icon: mdi:account-supervisor-circle-outline
+                                entity: light.unit1_livingroom_lamp
+                              - custom: stats
+                                tap_action:
+                                  action: call-service
+                                  service: browser_mod.popup
+                                  service_data:
+                                    title: Basement
+                                    card:
+                                      type: vertical-stack
+                                      cards:
+                                        - type: entities
+                                          entities:
+                                            - entity: >-
+                                                binary_sensor.basement_door_access_control_window_door_is_open
+                                              icon: mdi:bed
+                                              type: custom:multiple-entity-row
+                                              name: Basement
+                                              state_header: Occupancy
+                                              state_color: true
+                                              show_state: false
+                                              entities:
+                                                - entity: sensor.basement_temperature
+                                                  name: Temperature
+                                                - entity: sensor.multisensor_bedroom1_illuminance
+                                                  name: Illuminance
+                                        - type: horizontal-stack
+                                          cards:
+                                            - align_icon: left
+                                              align_state: center
+                                              entities:
+                                                - sensor.main_pump_running
+                                              font_size: 75
+                                              name: Today
+                                              show:
+                                                fill: false
+                                              type: custom:mini-graph-card
+                                            - align_icon: left
+                                              align_state: center
+                                              entities:
+                                                - sensor.main_pump_3day_cycles
+                                              font_size: 75
+                                              name: 3 days
+                                              show:
+                                                fill: false
+                                              type: custom:mini-graph-card
+                                            - align_icon: left
+                                              align_state: center
+                                              entities:
+                                                - sensor.main_pump_30day_cycles
+                                              font_size: 75
+                                              name: 30 days
+                                              show:
+                                                fill: false
+                                              type: custom:mini-graph-card
+                                        - type: entities
+                                          entities:
+                                            - entity: sensor.area_basement_mold
+                                            - entity: light.basement_ceiling
+                                            - entity: switch.dehumidifier
+                                  target: {}
+                                name: Basement
+                                icon: mdi:home-floor-b
+
+                              - custom: stats2
+                                tap_action:
+                                  action: call-service
+                                  service: browser_mod.popup
+                                  service_data:
+                                    title: Stats
+                                    card:
+                                      type: entities
+                                      show_header_toggle: true
+                                      entities:
+                                        - type: section
+                                          label: Downstairs
+                                        - entity: binary_sensor.area_bedroom_occupied
+                                          icon: mdi:bed
+                                          type: custom:multiple-entity-row
+                                          name: Bedroom
+                                          state_header: Occupancy
+                                          state_color: true
+                                          show_state: false
+                                          entities:
+                                            - entity: sensor.multisensor_bedroom1_air_temperature
+                                              name: Temperature
+                                            - entity: sensor.multisensor_bedroom1_illuminance
+                                              name: Illuminance
+                                        - entity: binary_sensor.unit1_backroom_occupancy
+                                          icon: mdi:sofa
+                                          type: custom:multiple-entity-row
+                                          name: Backroom
+                                          state_header: Occupancy
+                                          state_color: true
+                                          show_state: false
+                                          entities:
+                                            - entity: sensor.multisensor_kitchen1_air_temperature
+                                              name: Temperature
+                                            - entity: sensor.multisensor_kitchen1_illuminance
+                                              name: Illuminance
+                                        - entity: binary_sensor.living_room_occupancy
+                                          icon: mdi:desk
+                                          type: custom:multiple-entity-row
+                                          name: Frontroom
+                                          state_color: true
+                                          show_state: false
+                                          entities:
+                                            - entity: sensor.motion_frontroom_air_temperature
+                                              name: Temperature
+                                            - entity: sensor.motion_frontroom_illuminance
+                                              name: Illuminance
+                                        - entity: binary_sensor.area_bathroom_occupied
+                                          icon: mdi:bathtub
+                                          type: custom:multiple-entity-row
+                                          name: Bathroom
+                                          state_header: Occupancy
+                                          state_color: true
+                                          show_state: false
+                                          entities:
+                                            - entity: sensor.motion_bathroom_air_temperature
+                                              name: Temperature
+                                            - entity: sensor.motion_bathroom_illuminance
+                                              name: Illuminance
+                                        - entity: sensor.unit_1_mudroom_temperature
+                                          name: Mudroom
+                                        - entity: binary_sensor.area_bathroom_occupied
+                                          icon: mdi:bathtub
+                                          type: custom:mini-graph-card
+                                          name: Bathroom
+                                          state_header: Occupancy
+                                          state_color: true
+                                          show_state: false
+                                          entities:
+                                            - entity: sensor.motion_bathroom_air_temperature
+                                              name: Temperature
+                                            - entity: sensor.motion_bathroom_illuminance
+                                              name: Illuminance
+                                  title: Upstairs
+                                  deviceID:
+                                    - this
+                                  target: {}
+                                name: Stats
+                                icon: mdi:chart-bell-curve-cumulative
+                        title: Environment

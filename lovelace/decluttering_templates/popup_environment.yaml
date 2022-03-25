@@ -1,0 +1,59 @@
+popup_environment:
+  default:
+    - icon: mdi:run
+
+  card:
+    type: "custom:bootstrap-grid-card"
+    global_col_class: col-6
+    cards:
+      - type: row
+        cards:
+          - type: col
+            cards:
+              - type: custom:decluttering-card
+                template: graph_environment
+                variables:
+                  - temperature_entity: sensor.multisensor_air_temperature_2
+                  - humidity_entity: sensor.multisensor_humidity_2
+
+          - type: col
+            cards:
+              - type: custom:decluttering-card
+                template: graph_environment
+                variables:
+                  - temperature_entity: sensor.multisensor_air_temperature_2
+                  - humidity_entity: sensor.multisensor_humidity_2
+
+          - type: col
+            cards:
+              - type: custom:decluttering-card
+                template: graph_environment
+                variables:
+                  - temperature_entity: sensor.multisensor_air_temperature_2
+                  - humidity_entity: sensor.multisensor_humidity_2
+
+      - type: row
+        cards:
+          - type: col
+            cards:
+              - type: custom:decluttering-card
+                template: graph_environment
+                variables:
+                  - temperature_entity: sensor.multisensor_air_temperature_2
+                  - humidity_entity: sensor.multisensor_humidity_2
+
+          - type: col
+            cards:
+              - type: custom:decluttering-card
+                template: graph_environment
+                variables:
+                  - temperature_entity: sensor.multisensor_air_temperature_2
+                  - humidity_entity: sensor.multisensor_humidity_2
+
+          - type: col
+            cards:
+              - type: custom:decluttering-card
+                template: graph_environment
+                variables:
+                  - temperature_entity: sensor.multisensor_air_temperature_2
+                  - humidity_entity: sensor.multisensor_humidity_2

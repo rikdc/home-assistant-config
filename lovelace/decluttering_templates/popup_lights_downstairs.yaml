@@ -1,0 +1,28 @@
+popup_lights_downstairs:
+  default:
+    - icon: mdi:run
+
+  card:
+    type: "custom:bootstrap-grid-card"
+    global_col_class: col-xl-2 col-lg-2 col-md-3 col-sm-4 col-4
+    cards:
+      - type: row
+        cards:
+          - entity: light.unit1_livingroom_lamp
+            name: Kitchen
+            type: entity-button
+            icon: mdi:food-variant
+          - entity: light.livingroom_lamp
+            type: entity-button
+          - entity: light.frontroom_ceiling
+            type: entity-button
+          - entity: light.livingroom_lamp
+            type: entity-button
+          - entity: light.unit1_livingroom_lamp
+            type: entity-button
+          - entity: light.frontroom_worklight
+            type: entity-button
+          - entity: light.bathroom1_vanity
+            type: entity-button
+          - entity: light.bathroom1_ceiling
+            type: entity-button
