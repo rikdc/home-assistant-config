@@ -5,69 +5,86 @@ icon: "mdi:home"
 badges: []
 cards:
   - type: custom:bootstrap-grid-card
-    # - type: "custom:layout-card"
-    #   column_width:
-    #     - 450
-    #     - 975
-    #   layout: grid
-    #   grid-template-columns: auto 30px 25%
     cards:
       - type: row
         cards:
           - type: col
             class: "col-4"
             cards:
-              - type: "custom:homekit-card"
-                horizontalScroll: true
-                statePositionTop: true
-                useBrightness: false
-                useTemperature: false
-                enableColumns: true
-                tileHoldAnimation: false
-                panel: true
-                home: false
-                # style: |
-                #   :host {
-                #     --tile-background: rgba(230, 230, 228, 0.5);
-                #     --tile-border-radius: 12px;
-                #     --tile-width: 100px;
-                #     --tile-height: 100px;
-                #     --tile-on-background: rgba(255, 255, 255, 1);
-                #     --tile-name-text-color: rgba(0, 0, 0, 0.3);
-                #     --tile-on-name-text-color: rgba(0, 0, 0, 1);
-                #     --tile-state-text-color: rgba(0, 0, 0, 0.3);
-                #     --tile-on-state-text-color: rgba(0, 0, 0, 1);
-                #     --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-                #     --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-                #     --tile-value-text-color: rgba(0, 0, 0, 1);
-                #     --tile-value-text-font-size: 12px;
-                #     --tile-icon-color: rgba(0, 0, 0, 0.25);
-                #     --tile-on-icon-color: #f7d959;
-                #     --tile-width-mobile: 90px;
-                #     --tile-height-mobile: 90px;
-                #     --min-header-height: 150px;
-                #     --tile-icon-size: 36px;
-                #     --tile-image-radius: 0%
-                #   }
-                rows:
-                  - row: 1
-                    columns:
-                      - column: 1
-                        entities:
-                          - entities:
-                              ######## HERE!
+              - type: custom:bootstrap-grid-card
+                cards:
+                  - type: row
+                    cards:
+                      - type: markdown
+                        style: |
+                          ha-card {
+                            box-shadow: none;
+                            height: 40px;
+                            margin-top: 1px;
+                            margin-left: 2px;
+                            letter-spacing: -1px;
+                            overflow: visible;
+                            background: none;
+                            #font-size: 20px
+                          }
+                          ha-markdown {
+                            padding: 16px 16px 8px 16px;
+                          }
+                        content: |-
+                          Family
+                  - type: row
+                    cards:
+                      - type: custom:decluttering-card
+                        template: button
+                        class: "col-4"
+                        variables:
+                          - entity: person.stefanie
+                          - name: Stefanie
+                      - type: custom:decluttering-card
+                        template: button
+                        class: "col-4"
+                        variables:
+                          - entity: person.richard
+                          - name: Richard
+                      - type: custom:decluttering-card
+                        template: button
+                        class: "col-4"
+                        variables:
+                          - entity: person.jenn
+                          - name: Jenn
+              # - type: "custom:homekit-card"
+              #   horizontalScroll: true
+              #   statePositionTop: true
+              #   useBrightness: false
+              #   useTemperature: false
+              #   enableColumns: true
+              #   tileHoldAnimation: false
+              #   panel: true
+              #   home: false
+              #   rows:
+              #     - row: 1
+              #       columns:
+              #         - column: 1
+              #           entities:
+              #             - entities:
+              #                 ######## HERE!
 
-                              - entity: person.stefanie
-                                offImage: /local/img/face-2-off.png
-                                offStates:
-                                  - not_home
-                                  - unavailable
-                              - entity: person.jenn
-                                offImage: /local/img/cats2-off.png
-                                offStates:
-                                  - not_home
-                                  - unavailable
-                            title: Family
+              #                 - entity: person.stefanie
+              #                   offImage: /local/img/face-2-off.png
+              #                   offStates:
+              #                     - not_home
+              #                     - unavailable
+              #                 - entity: person.richard
+              #                   offImage: /local/img/cats2-off.png
+              #                   offStates:
+              #                     - not_home
+              #                     - unavailable
+              #                 - entity: person.jenn
+              #                   offImage: /local/img/cats2-off.png
+              #                   offStates:
+              #                     - not_home
+              #                     - unavailable
+              #               title: Family
               - type: "custom:homekit-card"
                 horizontalScroll: true
                 statePositionTop: true
@@ -282,12 +299,22 @@ cards:
                       - column: 2
                         entities:
                           - entities:
-                              - entity: light.all_lights
-                                icon: "mdi:lightbulb-group"
-                                name: Home
+                              - custom: lights
+                                name: Lights
+                                icon: mdi:lightbulb-group
+                                tap_action:
+                                  action: fire-dom-event
+                                  browser_mod:
+                                    command: popup
+                                    title: Lights
+                                    large: true
+                                    hide_header: false
+                                    card:
+                                      type: custom:decluttering-card
+                                      template: popup_lights
                               - entity: light.frontroom_ceiling
                                 icon: "mdi:lightbulb-group"
-                                name: Living Room
+                                name: Downstairs Lights
                                 popupExtend:
                                   settingsCard:
                                     type: "custom:light-popup-card"
@@ -318,39 +345,19 @@ cards:
                                       service: scene.turn_on
                                       service_data:
                                         entity_id: scene.living_relax_lights
-                              - entity: light.outside
+                              - custom: lights
+                                name: Upstairs Lights
                                 icon: "mdi:lightbulb-group"
-                                name: Outside Lights
-                                popupExtend:
-                                  settingsCard:
-                                    type: "custom:light-entity-card"
-                                    cardOptions:
-                                      entity: this
-                                      persist_features: true
-                                      smooth_color_wheel: true
-                                      child_card: true
-                                      consolidate_entities: true
-                                  actions:
-                                    - color: "#FFDABB"
-                                      name: Bright
-                                      service: scene.turn_on
-                                      service_data:
-                                        entity_id: scene.pc_bright_lights
-                                    - color: "#FFC18D"
-                                      name: Classic
-                                      service: scene.turn_on
-                                      service_data:
-                                        entity_id: scene.pc_classic_lights
-                                    - color: "#FFAA5F"
-                                      name: Soft
-                                      service: scene.turn_on
-                                      service_data:
-                                        entity_id: scene.pc_soft_lights
-                                    - color: "#FF9B3D"
-                                      name: Relax
-                                      service: scene.turn_on
-                                      service_data:
-                                        entity_id: scene.pc_relax_lights
+                                tap_action:
+                                  action: fire-dom-event
+                                  browser_mod:
+                                    command: popup
+                                    title: Lights
+                                    large: true
+                                    hide_header: false
+                                    card:
+                                      type: custom:decluttering-card
+                                      template: popup_lights_upstairs
                             popup:
                               type: custom:light-popup-card
                               icon: "mdi:lightbulb-group"

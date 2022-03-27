@@ -1,5 +1,4 @@
 button:
-
   default:
     - cust_1_field: ""
     - cust_2_field: ""
@@ -33,8 +32,8 @@ button:
                 - color: var(--button-card-disabled-text-color)
 
     # Styles
-    - border_radius: var(--button-card-border-radius)
-    - background_color: var(--button-card-background-color)
+    - border_radius: var(--tile-border-radius, 12px)
+    - background_color: var(--tile-background, rgba(255, 255, 255, 0.8)) #var(--button-card-background-color)
     - icon_color: var(--button-card-icon-color)
     - text_color: var(--button-card-text-color)
     - corner_text_color: var(--button-card-corner-text-color)
@@ -43,26 +42,25 @@ button:
     - cust_2_text_color: var(--button-card-cust-2-text-color)
     - lock_color: var(--button-card-lock-color)
 
-
   card:
     type: custom:button-card
-    entity: '[[entity]]'
-    icon: '[[icon]]'
+    entity: "[[entity]]"
+    icon: "[[icon]]"
     aspect_ratio: 1/1
-    name: '[[name]]'
-    color: '[[color]]'
-    color_type: '[[color_type]]'
+    name: "[[name]]"
+    color: "[[color]]"
+    color_type: "[[color_type]]"
     show_last_changed: false
-    lock: '[[lock]]'
+    lock: "[[lock]]"
     styles:
       card:
         - padding: 8%
         - font-size: 12px
         #- font-weight: bold
         - text-transform: capitalize
-        - border-radius: '[[border_radius]]'
-        - background-color: '[[background_color]]'
-        - color: '[[text_color]]'
+        - border-radius: "[[border_radius]]"
+        - background-color: "[[background_color]]"
+        - color: "[[text_color]]"
       grid:
         - grid-template-areas: '"i corner" "i corner_2" "n n" "cust_1 cust_1" "cust_2 cust_2"'
         - grid-template-columns: 2fr 3fr
@@ -74,22 +72,22 @@ button:
         - align-self: end
         - padding-top: 8px
         - padding-bottom: 4px
-        #- text-transform: lowercase        
+        #- text-transform: lowercase
       img_cell:
         - justify-content: start
         - align-items: start
         - margin: none
         - height: 100%
         - padding-bottom: 0px
-        - color: '[[icon_color]]'
+        - color: "[[icon_color]]"
       icon:
         - width: 85%
         - height: 85%
-        #- margin: none 
+        #- margin: none
         - margin-top: 3% # Change to 5% for awesome
         - margin-left: 0% # Change to 5% for awesome
       lock:
-        - color: '[[lock_color]]'
+        - color: "[[lock_color]]"
       custom_fields:
         corner:
           - align-self: start
@@ -120,6 +118,6 @@ button:
       corner_2: "[[corner_2_field]]"
       cust_1: "[[cust_1_field]]"
       cust_2: "[[cust_2_field]]"
-    tap_action: '[[tap_action]]'
-    hold_action: '[[hold_action]]'
+    tap_action: "[[tap_action]]"
+    hold_action: "[[hold_action]]"
     state: "[[state]]"

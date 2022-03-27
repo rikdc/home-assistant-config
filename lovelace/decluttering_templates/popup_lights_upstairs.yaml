@@ -1,0 +1,26 @@
+popup_lights_upstairs:
+  default:
+    - icon: mdi:run
+
+  card:
+    type: "custom:bootstrap-grid-card"
+    global_col_class: col-xl-2 col-lg-2 col-md-3 col-sm-4 col-4
+    cards:
+      - type: row
+        cards:
+          - name: Cooking & TV
+            type: button
+            icon: mdi:food-variant
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.unit_2_living_room_kitchen_lights_on
+          - name: Pre-Bed
+            type: button
+            icon: mdi:bell-sleep
+            tap_action:
+              action: call-service
+              service: scene.turn_on
+              service_data:
+                entity_id: scene.bedroom2_pre_bed
