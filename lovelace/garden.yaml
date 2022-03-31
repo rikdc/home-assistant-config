@@ -56,3 +56,26 @@ views:
             align_state: center
             show:
               fill: false
+      - type: vertical-stack
+        cards:
+          - type: entities
+            entities:
+              - entity: group.growlights2
+              - entity: input_select.growtent2_growschedule
+              - entity: input_datetime.growtent2_lights_on
+              - entity: input_datetime.growtent2_lights_off
+          - type: custom:mini-graph-card
+            entities:
+              - sensor.illuminance
+            align_icon: left
+            align_state: center
+            show:
+              fill: false
+          - type: custom:mini-graph-card
+            entities:
+              - sensor.temperature
+              - sensor.humidity_2
+            align_icon: left
+            align_state: center
+            show:
+              fill: false

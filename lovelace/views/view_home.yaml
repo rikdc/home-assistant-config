@@ -55,69 +55,49 @@ cards:
                           - entity: person.jenn
                           - name: Jenn
                           - picture: /local/jenn.jpg
-              - type: "custom:homekit-card"
-                horizontalScroll: true
-                statePositionTop: true
-                useBrightness: false
-                useTemperature: false
-                enableColumns: true
-                tileHoldAnimation: false
-                panel: true
-                home: false
-                style: |
-                  :host {
-                    --tile-background: rgba(230, 230, 228, 0.5);
-                    --tile-border-radius: 12px;
-                    --tile-width: 100px;
-                    --tile-height: 100px;
-                    --tile-on-background: rgba(255, 255, 255, 1);
-                    --tile-name-text-color: rgba(0, 0, 0, 0.3);
-                    --tile-on-name-text-color: rgba(0, 0, 0, 1);
-                    --tile-state-text-color: rgba(0, 0, 0, 0.3);
-                    --tile-on-state-text-color: rgba(0, 0, 0, 1);
-                    --tile-state-changed-text-color: rgb(50, 50, 50, 1);
-                    --tile-unavailable-state-text-color: rgba(255, 0, 0, 0.25);
-                    --tile-value-text-color: rgba(0, 0, 0, 1);
-                    --tile-value-text-font-size: 12px;
-                    --tile-icon-color: rgba(0, 0, 0, 0.25);
-                    --tile-on-icon-color: #f7d959;
-                    --tile-width-mobile: 90px;
-                    --tile-height-mobile: 90px;
-                    --min-header-height: 150px;
-                    --tile-icon-size: 36px;
-                    --tile-image-radius: 0%
-                  }
-                rows:
-                  - row: 2
-                    columns:
-                      - column: 1
-                        entities:
-                          - entities:
-                              - entity: binary_sensor.main_floor_occupancy
-                                name: Main Motion
-                                icon: "mdi:run"
-                                offIcon: "mdi:walk"
-                              - entity: binary_sensor.unit_1_frontroom_motion
-                                name: Living Motion
-                                icon: "mdi:run"
-                                offIcon: "mdi:walk"
-                              - entity: binary_sensor.unit1_frontroom_occupancy_bayesian
-                                name: Book Motion
-                                icon: "mdi:run"
-                                offIcon: "mdi:walk"
-                              - entity: binary_sensor.lower_bedroom_occupied
-                                name: Main Door
-                                icon: "mdi:door-open"
-                                offIcon: "mdi:door-closed"
-                              - entity: binary_sensor.kitchen_occupancy
-                                name: Front Balcony Door
-                                icon: "mdi:door-open"
-                                offIcon: "mdi:door-closed"
-                              - entity: binary_sensor.first_floor_occupancy
-                                name: First Floor Occupied
-                                icon: "mdi:door-open"
-                                offIcon: "mdi:door-closed"
-                            title: Security
+                  - type: row
+                    cards:
+                      - type: markdown
+                        style: |
+                          ha-card {
+                            box-shadow: none;
+                            height: 40px;
+                            margin-top: 1px;
+                            margin-left: 2px;
+                            letter-spacing: -1px;
+                            overflow: visible;
+                            background: none;
+                            #font-size: 20px
+                          }
+                          ha-markdown {
+                            padding: 16px 16px 8px 16px;
+                          }
+                        content: |-
+                          Occupancy
+                  - type: row
+                    cards:
+                      - type: custom:decluttering-card
+                        template: button
+                        variables:
+                          - name: Ground Floor
+                          - icon: "mdi:run"
+                          - offIcon: "mdi:walk"
+                          - entity: binary_sensor.main_floor_occupancy
+                      - type: custom:decluttering-card
+                        template: button
+                        variables:
+                          - name: First Floor
+                          - icon: "mdi:run"
+                          - offIcon: "mdi:walk"
+                          - entity: binary_sensor.kitchen_occupancy
+                      - type: custom:decluttering-card
+                        template: button
+                        variables:
+                          - name: Kitchen
+                          - icon: "mdi:run"
+                          - offIcon: "mdi:walk"
+                          - entity: binary_sensor.main_floor_occupancy
+
               - type: "custom:homekit-card"
                 horizontalScroll: true
                 statePositionTop: true

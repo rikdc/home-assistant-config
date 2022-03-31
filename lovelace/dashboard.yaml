@@ -54,5 +54,4 @@ views:
   - !include views/view_camera.yaml
   - !include views/view_server.yaml
   - !include views/view_remotes.yaml
-  - !include views/view_sensors.yaml
   - !include views/view_media.yaml
