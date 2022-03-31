@@ -35,56 +35,26 @@ cards:
                   - type: row
                     cards:
                       - type: custom:decluttering-card
-                        template: button
+                        template: person
                         class: "col-4"
                         variables:
                           - entity: person.stefanie
                           - name: Stefanie
+                          - picture: /local/stefanie.jpg
                       - type: custom:decluttering-card
-                        template: button
+                        template: person
                         class: "col-4"
                         variables:
                           - entity: person.richard
                           - name: Richard
+                          - picture: /local/richard.jpg
                       - type: custom:decluttering-card
-                        template: button
+                        template: person
                         class: "col-4"
                         variables:
                           - entity: person.jenn
                           - name: Jenn
-              # - type: "custom:homekit-card"
-              #   horizontalScroll: true
-              #   statePositionTop: true
-              #   useBrightness: false
-              #   useTemperature: false
-              #   enableColumns: true
-              #   tileHoldAnimation: false
-              #   panel: true
-              #   home: false
-              #   rows:
-              #     - row: 1
-              #       columns:
-              #         - column: 1
-              #           entities:
-              #             - entities:
-              #                 ######## HERE!
-
-              #                 - entity: person.stefanie
-              #                   offImage: /local/img/face-2-off.png
-              #                   offStates:
-              #                     - not_home
-              #                     - unavailable
-              #                 - entity: person.richard
-              #                   offImage: /local/img/cats2-off.png
-              #                   offStates:
-              #                     - not_home
-              #                     - unavailable
-              #                 - entity: person.jenn
-              #                   offImage: /local/img/cats2-off.png
-              #                   offStates:
-              #                     - not_home
-              #                     - unavailable
-              #               title: Family
+                          - picture: /local/jenn.jpg
               - type: "custom:homekit-card"
                 horizontalScroll: true
                 statePositionTop: true
