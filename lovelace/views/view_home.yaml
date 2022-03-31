@@ -9,7 +9,7 @@ cards:
       - type: row
         cards:
           - type: col
-            class: "col-4"
+            class: "col-12 col-md-4"
             cards:
               - type: custom:bootstrap-grid-card
                 cards:
@@ -257,7 +257,7 @@ cards:
                                 widerSize: 3
                             title: Weather
           - type: col
-            class: "col-8"
+            class: "col-6 col-md-8"
             cards:
               - type: "custom:homekit-card"
                 title: Home
@@ -392,6 +392,12 @@ cards:
                           - entities:
                               - entity: binary_sensor.cat_needs_feeding
                                 name: Feed Cat
+                                icon: hass:cat
+                                tap_action:
+                                  action: call-service
+                                  service: automation.trigger
+                                  service_data:
+                                    entity_id: automation.cat_has_been_fed
                               - entity: alert.basement_sumppump_not_running
                                 name: Sump Problem
                                 hide: >
@@ -399,9 +405,25 @@ cards:
                                     return states['alert.basement_sumppump_not_running'].state == 'idle'
                                   ]]]
                               - entity: alert.bedroom1_humidity
+                                hide: >
+                                  [[[
+                                    return states['alert.bedroom1_humidity'].state == 'idle'
+                                  ]]]
                               - entity: alert.bedroom2_humidity
+                                hide: >
+                                  [[[
+                                    return states['alert.bedroom2_humidity'].state == 'idle'
+                                  ]]]
                               - entity: alert.livingroom1_humidity
+                                hide: >
+                                  [[[
+                                    return states['alert.livingroom1_humidity'].state == 'idle'
+                                  ]]]
                               - entity: alert.basement_mold_warning
+                                hide: >
+                                  [[[
+                                    return states['alert.basement_mold_warning'].state == 'idle'
+                                  ]]]
                             title: Alerts
               - type: "custom:homekit-card"
                 horizontalScroll: true
