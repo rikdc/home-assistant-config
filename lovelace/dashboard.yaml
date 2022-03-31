@@ -52,6 +52,5 @@ animated_background:
 views:
   - !include views/view_home.yaml
   - !include views/view_camera.yaml
-  - !include views/view_server.yaml
   - !include views/view_remotes.yaml
   - !include views/view_media.yaml
