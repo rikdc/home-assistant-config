@@ -61,7 +61,7 @@
     days: 7
 - platform: history_stats
   name: Stats - Bathroom Temperature Trend
-  entity_id: sensor.motion_bathroom_air_temperature
+  entity_id: sensor.multisensor_bathroom_air_temperature
   state: "on"
   type: ratio
   end: "{{ now() }}"

@@ -69,3 +69,10 @@ alert:
       - 60
     notifiers:
       - admins
+
+  # TODO:
+  # battery_sensors_critical:
+  #   name: Critical battery powered sensors are low.
+  #   entity_id: binary_sensor.battery_sensors_critical
+  #   notifiers:
+  #     - admins

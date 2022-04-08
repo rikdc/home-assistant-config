@@ -12,4 +12,4 @@
     # When the Sump is running the power will spike above 3.3.:
     - name: "Main Pump Status"
       state: >
-        {{ states('sensor.sumppump_power')|float > 3.3 }}
+        {{ states('sensor.shelly1pm_example')|float > 100 }}

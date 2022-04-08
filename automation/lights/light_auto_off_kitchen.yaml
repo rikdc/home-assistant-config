@@ -5,5 +5,5 @@
     path: rikdc/lights_off.yaml
     input:
       occupancy_entity: binary_sensor.unit1_backroom_occupancy
-      light_target: light.unit1_kitchen_lights
+      light_target: light.kitchen1_lights
       no_motion_wait: 900

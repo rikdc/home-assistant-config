@@ -9,7 +9,7 @@
       device_class: moisture
     area_bathroom_temperature_trend:
       friendly_name: Area - Bathroom Temperature Trend
-      entity_id: ssensor.motion_bathroom_air_temperature
+      entity_id: sensor.multisensor_bathroom_air_temperature
       sample_duration: 1200
       max_samples: 6
       min_gradient: 0.0017

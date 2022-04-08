@@ -119,17 +119,56 @@
   entities:
     switch.unit2livingroomsocket:
       friendly_name: Unit2LivingroomSocket
-      state: 'off'
-    switch.unit2_socket_livingroom_couch_2:
-      friendly_name: Unit2 Socket Livingroom Couch
-      icon: ''
+      state: unavailable
+    switch.light_kitchen_sink:
+      friendly_name: Light Kitchen Sink
       state: 'on'
-    light.unit2_kitchen_pendants:
+    light.pendants:
       supported_color_modes:
       - brightness
-      friendly_name: Kitchen Pendants
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Pendants
       supported_features: 32
-      state: 'off'
+      state: 'on'
+    light.kitchen_spotlights:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: Kitchen_Spotlights
+      supported_features: 32
+      state: 'on'
+    light.upper_livingroom_lamp:
+      min_mireds: 153
+      max_mireds: 370
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: color_temp
+      brightness: 255
+      color_temp: 353
+      hs_color:
+      - 28.125
+      - 61.661
+      rgb_color:
+      - 255
+      - 171
+      - 97
+      xy_color:
+      - 0.513
+      - 0.386
+      friendly_name: Upper Livingroom Lamp
+      supported_features: 32
+      state: 'on'
+    light.upstairs_sofa_lamp:
+      supported_color_modes:
+      - onoff
+      color_mode: onoff
+      friendly_name: Upstairs Sofa Lamp
+      supported_features: 0
+      state: 'on'
+  icon: mdi:cookie-clock
 - id: '1625008686802'
   name: Unit 2 - Scene 2
   entities:
@@ -155,3 +194,40 @@
       supported_features: 32
       state: 'on'
   icon: mdi:car-light-dimmed
+- id: '1648342189661'
+  name: Bedroom2 Pre-Bed
+  entities:
+    light.upstairs_kitchen:
+      supported_color_modes:
+      - brightness
+      - onoff
+      entity_id:
+      - light.pendants
+      - light.kitchen_spotlights
+      - light.kitchen2_sink_light
+      icon: mdi:lightbulb-group
+      friendly_name: Upstairs Kitchen
+      supported_features: 32
+      state: 'off'
+    light.upstairs_livingroom:
+      min_mireds: 153
+      max_mireds: 370
+      supported_color_modes:
+      - color_temp
+      - hs
+      - onoff
+      entity_id:
+      - light.upper_livingroom_lamp
+      - light.upstairs_fireside_lamp
+      - light.upstairs_sofa_lamp
+      icon: mdi:lightbulb-group
+      friendly_name: Upstairs Livingroom
+      supported_features: 32
+      state: 'off'
+    light.bathroom2_vanity:
+      supported_color_modes:
+      - onoff
+      friendly_name: Bathroom2 Vanity
+      supported_features: 0
+      state: 'off'
+  icon: mdi:bell-sleep

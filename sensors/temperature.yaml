@@ -16,5 +16,5 @@
   entity_ids:
     - sensor.multisensor_bedroom1_air_temperature
     - sensor.multisensor_kitchen1_air_temperature
-    - sensor.motion_bathroom_air_temperature
-    - sensor.motion_frontroom_air_temperature
+    - sensor.multisensor_bathroom_air_temperature
+    - sensor.multisensor_frontroom_air_temperature

@@ -123,3 +123,25 @@ automation:
     action:
       - service: counter.increment
         entity_id: counter.syslog_warnings
+
+sensor:
+  - platform: mqtt
+    name: MQTT Messages
+    state_topic: "$SYS/broker/load/messages/received"
+
+  - platform: mqtt
+    name: MQTT Clients
+    state_topic: "$SYS/broker/clients/total"
+
+  - platform: mqtt
+    name: MQTT Subscriber Count
+    state_topic: "$SYS/broker/subscriptions/count"
+
+  - platform: mqtt
+    name: MQTT Retained Message Count
+    state_topic: "$SYS/broker/retained messages/count"
+
+  - platform: mqtt
+    name: "Shelly1PM-example"
+    unique_id: "shelly_1pm_example"
+    state_topic: "shellies/shelly1pm-765D8E/relay/0/power"

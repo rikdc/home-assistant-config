@@ -69,6 +69,10 @@ light:
     name: Bathroom2 Vanity
     entity_id: switch.light_bathroom2
 
+  - platform: switch
+    name: Kitchen2 Sink Light
+    entity_id: switch.light_kitchen_sink
+
   #
   # Light Groupings
   #
@@ -203,8 +207,9 @@ light:
   - name: Upstairs Kitchen
     platform: group
     entities:
-      - light.upstairs_kitchen_pendants
-      - light.upstairs_kitchen_spotlights
+      - light.pendants
+      - light.kitchen_spotlights
+      - light.kitchen2_sink_light
 
   - name: Upstairs Office
     platform: group

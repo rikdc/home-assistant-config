@@ -19,14 +19,31 @@ homeassistant:
       args: ["/config/shell/ldap-auth.cfg"]
       meta: true
 
-http:
-  ssl_certificate: ssl/home-assistant.local.pem
-  ssl_key: ssl/home-assistant.local-key.pem
+# http:
+#   ssl_certificate: ssl/home-assistant.local.pem
+#   ssl_key: ssl/home-assistant.local-key.pem
 
 frontend:
   themes: !include_dir_merge_named themes
 
 readme:
+
+lovelace:
+  mode: storage
+  dashboards:
+    lovelace-yaml:
+      mode: yaml
+      title: Home
+      icon: mdi:home
+      show_in_sidebar: true
+      filename: lovelace/dashboard.yaml
+
+    garden-yaml:
+      mode: yaml
+      title: Garden
+      icon: mdi:flower
+      show_in_sidebar: true
+      filename: lovelace/garden.yaml
 
 scene: !include scenes.yaml
 automation ui: !include automations.yaml
@@ -72,24 +89,6 @@ recorder:
       - device_tracker*
       - sensor.internet_mb_uploaded
       - sensor.internet_mb_downloaded
-
-influxdb:
-  host: !secret influxdb_url
-  port: 8086
-  database: home_assistant
-  exclude:
-    domains:
-      - persistent_notification
-      - person
-    entity_globs:
-      - media_player.*
-      - sensor.emby*
-      - automation.occupancy_*
-      - sensor.*rx*
-      - sensor.*tx*
-      - binary_sensor.edgeos_interface_*
-      - sensor.daily_internet_usage*
-      - input_select.*_location
 
 media_player:
   # - platform: snapcast
