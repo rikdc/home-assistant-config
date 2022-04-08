@@ -1,70 +1,56 @@
 title: Home
 
-custom_header: !include custom_header.yaml
-
 decluttering_templates: !include_dir_merge_named decluttering_templates/
 
 button_card_templates: !include_dir_merge_named button_card_templates/
 
+animated_background:
+  default_url: "https://cdn.flixel.com/flixel/ypy8bw9fgw1zv2b4htp2.hd.mp4"
+  included_users: null
+  entity: "weather.home"
+  state_url:
+    sunny:
+      - "https://cdn.flixel.com/flixel/hlhff0h8md4ev0kju5be.hd.mp4"
+      - "https://cdn.flixel.com/flixel/zjqsoc6ecqhntpl5vacs.hd.mp4"
+      - "https://cdn.flixel.com/flixel/jvw1avupguhfbo11betq.hd.mp4"
+      - "https://cdn.flixel.com/flixel/8cmeusxf3pkanai43djs.hd.mp4"
+      - "https://cdn.flixel.com/flixel/guwb10mfddctfvwioaex.hd.mp4"
+
+    partlycloudy:
+      - "https://cdn.flixel.com/flixel/13e0s6coh6ayapvdyqnv.hd.mp4"
+      - "https://cdn.flixel.com/flixel/aorl3skmssy7udwopk22.hd.mp4"
+      - "https://cdn.flixel.com/flixel/qed6wvf2igukiioykg3r.hd.mp4"
+      - "https://cdn.flixel.com/flixel/3rd72eezaj6d23ahlo7y.hd.mp4"
+      - "https://cdn.flixel.com/flixel/9m11gd43m6qn3y93ntzp.hd.mp4"
+      - "https://cdn.flixel.com/flixel/hrkw2m8eofib9sk7t1v2.hd.mp4"
+
+    cloudy:
+      - "https://cdn.flixel.com/flixel/13e0s6coh6ayapvdyqnv.hd.mp4"
+      - "https://cdn.flixel.com/flixel/aorl3skmssy7udwopk22.hd.mp4"
+      - "https://cdn.flixel.com/flixel/qed6wvf2igukiioykg3r.hd.mp4"
+      - "https://cdn.flixel.com/flixel/3rd72eezaj6d23ahlo7y.hd.mp4"
+      - "https://cdn.flixel.com/flixel/9m11gd43m6qn3y93ntzp.hd.mp4"
+      - "https://cdn.flixel.com/flixel/hrkw2m8eofib9sk7t1v2.hd.mp4"
+
+    mostlycloudy:
+      - "https://cdn.flixel.com/flixel/e95h5cqyvhnrk4ytqt4q.hd.mp4"
+      - "https://cdn.flixel.com/flixel/l2bjw34wnusyf5q2qq3p.hd.mp4"
+      - "https://cdn.flixel.com/flixel/rrgta099ulami3zb9fd2.hd.mp4"
+
+    clear-night:
+      - "https://cdn.flixel.com/flixel/x9dr8caygivq5secll7i.hd.mp4"
+      - "https://cdn.flixel.com/flixel/v26zyfd6yf0r33s46vpe.hd.mp4"
+      - "https://cdn.flixel.com/flixel/ypy8bw9fgw1zv2b4htp2.hd.mp4"
+      - "https://cdn.flixel.com/flixel/rosz2gi676xhkiw1ut6i.hd.mp4"
+
+    fog:
+      - "https://cdn.flixel.com/flixel/vwqzlk4turo2449be9uf.hd.mp4"
+      - "https://cdn.flixel.com/flixel/5363uhabodwwrzgnq6vx.hd.mp4"
+
+    rainy: "https://cdn.flixel.com/flixel/f0w23bd0enxur5ff0bxz.hd.mp4"
+
 views:
   - !include views/view_home.yaml
-  - !include views/view_homeassistant.yaml
-  - !include views/view_lights.yaml
-  - !include views/view_environment.yaml
-  - !include views/view_sensors.yaml
-  - !include views/view_media.yaml
-  - title: Devices
-    path: devices
-    icon: "mdi:robot-vacuum"
-    panel: true
-    badges: []
-    cards:
-      - type: "custom:layout-card"
-        column_width:
-          - 375
-          - 500
-        layout: vertical
-        cards:
-          - type: "custom:button-card"
-            color: auto
-            color_type: blank-card
-            styles:
-              card:
-                - height: 25px
-          - type: "custom:vacuum-card"
-            entity: vacuum.xiaomi_vacuum_cleaner
-            stats:
-              default:
-                - attribute: filter_left
-                  unit: hours
-                  subtitle: Filter
-                - attribute: side_brush_left
-                  unit: hours
-                  subtitle: Side brush
-                - attribute: main_brush_left
-                  unit: hours
-                  subtitle: Main brush
-                - attribute: sensor_dirty_left
-                  unit: hours
-                  subtitle: Sensors
-              cleaning:
-                - attribute: cleaned_area
-                  unit: m2
-                  subtitle: Cleaning area
-                - attribute: cleaning_time
-                  unit: minutes
-                  subtitle: Cleaning time
-            actions:
-              - name: Clean living room
-                service: script.clean_living_room
-                icon: "mdi:sofa"
-              - name: Clean bedroom
-                service: script.clean_bedroom
-                icon: "mdi:bed-empty"
-              - name: Clean kitchen
-                service: script.clean_kitchen
-                icon: "mdi:silverware-fork-knife"
-          - type: "custom:layout-break"
   - !include views/view_camera.yaml
-  - !include views/view_server.yaml
-  - !include views/view_battery.yaml
+  - !include views/view_remotes.yaml
+  - !include views/view_media.yaml

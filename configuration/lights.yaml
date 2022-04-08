@@ -6,118 +6,6 @@
 ###################################################
 
 light:
-  - platform: group
-    name: Outside
-    entities:
-      - light.light_outside_front
-      - light.outside_light
-      - light.unit2_deck_lights_dimmer
-      - light.deck_lights
-
-  - platform: group
-    name: Downstairs
-    entities:
-      - light.bedroom1
-      - light.person1_nightlight
-      - light.person2_nightlight
-      - light.unit1_hallway_lights
-      - light.unit1_kitchen_ceiling_light
-      - light.unit1_kitchen_cabinets
-      - light.downstairs_backroom
-      - light.backroom # backroom ceiling.
-      - light.switches_bathroom1
-      - light.unit1_bathroom_vanity_light
-      - light.switches_mudroom
-      - light.lower_back_deck_light
-      # Frontroom
-      - light.unit1_livingroom_lamp
-      - light.livingroom_worklight_4
-      - light.frontroom_ceiling
-      - light.livingroom_lamp
-
-  - platform: group
-    name: Upstairs
-    entities:
-      - light.loft_light
-      - light.unit2_loft_fairy_lights
-      - light.upstairs_kitchen_pendants
-      - light.upstairs_kitchen_spotlights
-      - light.upstairs_fireside_lamp
-      - light.upper_livingroom_lamp
-      - light.staircase_lights
-      - light.upstairs_sofa_lamp
-      - light.unit2_office
-      - light.upper_livingroom_lamp
-      - light.office2_lamp2
-      - light.office2_lamp3
-      - light.office_light
-      - light.bathroom2_lights
-      - light.switches_bathroom1
-
-  - platform: group
-    name: Upstairs Livingroom
-    entities:
-      - light.upper_livingroom_lamp
-      - light.upstairs_fireside_lamp
-      - light.upstairs_sofa_lamp
-
-  - platform: group
-    name: Loft Lights
-    entities:
-      - light.unit2_loft_fairy_lights
-      - light.loft_lamp_1_2 # eeps..
-      - light.loft_lamp_2_3
-      - light.loft_light # Salt Lamp
-
-  - platform: group
-    name: Bathroom1 Lights
-    entities:
-      - light.bathroom1_vanity
-      - light.bathroom1_ceiling
-
-  - platform: group
-    name: Unit1 Kitchen Lights
-    entities:
-      - light.unit1_hallway_lights
-      - light.unit1_kitchen_ceiling_light
-      - light.unit1_kitchen_cabinets
-      - light.unit1_kitchen_pendants
-
-  - platform: group
-    name: Kitchen1 Lights
-    entities:
-      - light.unit1_hallway_lights
-      - light.unit1_kitchen_ceiling_light
-      - light.unit1_kitchen_cabinets
-
-  - platform: group
-    name: Downstairs Kitchen Area
-    entities:
-      - light.unit1_hallway_lights
-      - light.unit1_kitchen_ceiling_light
-      - light.unit1_kitchen_cabinets
-      - light.backroom
-      - light.switches_mudroom
-
-  - platform: group
-    name: Unit1 Bedroom Lights
-    entities:
-      - light.person1_nightlight
-      - light.person2_nightlight
-      - light.unit1_light_bedroom_dimmer
-
-  - platform: group
-    name: Unit1 Livingroom Lights
-    entities:
-      - light.unit1_light_livingroom_dimmer
-      - light.unit1_livingroom_lamp
-
-  - platform: group
-    name: Bedroom1 Nightlight
-    entities:
-      - light.person1_nightlight
-      - light.person2_nightlight
-
   #
   # Pseudo-lights that are actually switches
   #
@@ -130,15 +18,15 @@ light:
     entity_id: switch.light_end_table
 
   - platform: switch
-    name: Unit1 Kitchen Ceiling Light
+    name: Kitchen1 Ceiling
     entity_id: switch.kitchen_ceiling_lights
 
   - platform: switch
-    name: Unit1 Kitchen Pendants
+    name: Kitchen1 Pendants
     entity_id: switch.kitchen_pendants
 
   - platform: switch
-    name: Unit1 Kitchen Cabinets
+    name: Kitchen1 Cabinets
     entity_id: switch.cabinet_lights
 
   - platform: switch
@@ -152,41 +40,6 @@ light:
   - platform: switch
     name: Lower back deck light
     entity_id: switch.switches_mudroom
-
-    #
-    # Upstairs Lights
-    #
-  - platform: group
-    name: Loft Evening Lights
-    entities:
-      - light.unit2_loft_light_dimmer
-      - light.unit2_loft_fairy_lights
-
-  - platform: group
-    name: Office2 Lights
-    entities:
-      - light.office2_lamp2
-      - light.office_lamp2
-      - light.multi_color_bulb_2
-
-  - platform: group
-    name: Upstairs Livingroom
-    entities:
-      - light.upstairs_sofa_lamp
-      - light.upper_livingroom_lamp
-
-  - platform: group
-    name: Upstairs Kitchen
-    entities:
-      - light.upstairs_kitchen_pendants
-      - light.upstairs_kitchen_spotlights
-
-  - platform: group
-    name: Upstairs Office
-    entities:
-      - light.office2_lamp
-      - light.office2_lamp2
-      - light.office2_lamp3
 
   - platform: switch
     name: "Unit2 Loft Fairy Lights"
@@ -215,3 +68,147 @@ light:
   - platform: switch
     name: Bathroom2 Vanity
     entity_id: switch.light_bathroom2
+
+  #
+  # Light Groupings
+  #
+  - name: Outside
+    platform: group
+    entities:
+      - light.light_outside_front
+      - light.outside_light
+      - light.unit2_deck_lights_dimmer
+      - light.deck_lights
+
+  - name: Downstairs
+    platform: group
+    entities:
+      - light.switches_mudroom
+      - light.backroom_ceiling
+      - light.kitchen1_lights
+      - light.bedroom1_lights
+      - light.bathroom1_lights
+      - light.frontroom_lights
+
+      - light.unit1_hallway_lights
+      - light.unit1_kitchen_cabinetss
+
+      - light.lower_back_deck_light
+
+  - name: Upstairs
+    platform: group
+    entities:
+      # Bedroom
+      # Bathroom
+      # Livingroom
+      # Kitchen
+      - light.kitchen2_pendants
+      - light.loft_light
+      - light.unit2_loft_fairy_lights
+      - light.upstairs_kitchen_pendants
+      - light.upstairs_kitchen_spotlights
+      - light.upstairs_fireside_lamp
+      - light.upper_livingroom_lamp
+      - light.staircase_lights
+      - light.upstairs_sofa_lamp
+      - light.unit2_office
+      - light.upper_livingroom_lamp
+      - light.office2_lamp2
+      - light.office2_lamp3
+      - light.office_light
+      - light.bathroom2_lights
+      - light.switches_bathroom1
+
+  - name: Upstairs Livingroom
+    platform: group
+    entities:
+      - light.upper_livingroom_lamp
+      - light.upstairs_fireside_lamp
+      - light.upstairs_sofa_lamp
+
+  - name: Loft Lights
+    platform: group
+    entities:
+      - light.unit2_loft_fairy_lights
+      - light.loft_lamp_1_2 # eeps..
+      - light.loft_lamp_2_3
+      - light.loft_light # Salt Lamp
+
+  - name: Bathroom1 Lights
+    platform: group
+    entities:
+      - light.bathroom1_vanity
+      - light.bathroom1_ceiling
+
+  - name: Kitchen1 Lights
+    platform: group
+    entities:
+      - light.unit1_hallway_lights
+      - light.kitchen1_ceiling
+      - light.kitchen1_cabinets
+      - light.kitchen1_pendants
+
+  - name: Downstairs Kitchen Area
+    platform: group
+    entities:
+      - light.unit1_hallway_lights
+      - light.unit1_kitchen_ceiling_light
+      - light.unit1_kitchen_cabinets
+      - light.backroom
+      - light.switches_mudroom
+
+  - name: Bedroom1 Lights
+    platform: group
+    entities:
+      - light.person1_nightlight
+      - light.person2_nightlight
+      - light.unit1_light_bedroom_dimmer
+
+  - name: Frontroom Lights
+    platform: group
+    entities:
+      - light.frontroom_ceiling
+      - light.unit1_livingroom_lamp
+      - light.frontroom_worklight
+      - light.livingroom_lamp
+
+  - name: Bedroom1 Nightlight
+    platform: group
+    entities:
+      - light.person1_nightlight
+      - light.person2_nightlight
+
+    #
+    # Upstairs Lights
+    #
+  - name: Loft Evening Lights
+    platform: group
+    entities:
+      - light.unit2_loft_light_dimmer
+      - light.unit2_loft_fairy_lights
+
+  - name: Office2 Lights
+    platform: group
+    entities:
+      - light.office2_lamp2
+      - light.office_lamp2
+      - light.multi_color_bulb_2
+
+  - name: Upstairs Livingroom
+    platform: group
+    entities:
+      - light.upstairs_sofa_lamp
+      - light.upper_livingroom_lamp
+
+  - name: Upstairs Kitchen
+    platform: group
+    entities:
+      - light.upstairs_kitchen_pendants
+      - light.upstairs_kitchen_spotlights
+
+  - name: Upstairs Office
+    platform: group
+    entities:
+      - light.office2_lamp
+      - light.office2_lamp2
+      - light.office2_lamp3

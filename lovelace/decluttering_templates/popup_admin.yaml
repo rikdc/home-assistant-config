@@ -1,0 +1,172 @@
+popup_admin:
+  card:
+    type: vertical-stack
+    cards:
+      - type: glance
+        columns: 3
+        entities:
+          - entity: device_tracker.unit_1_ap
+            name: AP1
+            image: local/unifi_ap.png
+          - entity: device_tracker.unit_2_ap
+            name: AP2
+            image: local/unifi_ap.png
+          - entity: device_tracker.us8p60
+            name: Switch
+            image: local/unifi_switch.png
+        show_icon: true
+        show_name: true
+        show_state: true
+        title: false
+      - type: markdown
+        content: "### System Monitoring"
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(0,0,0,0);
+              box-shadow: none;
+              padding: 0px;
+              margin-bottom: -35px;
+              top: -20px;
+              left: 5px;
+            }
+      - type: entities
+        entities:
+          - entity: input_boolean.walkthrough_mode
+          - entity: sensor.uptime
+            name: "HA: Last Restart"
+          - entity: sensor.last_boot
+            name: "Server: Last Reboot"
+          - entity: sensor.cpu_temp
+            icon: mdi:thermometer
+            name: "Server: CPU Temp"
+          - entity: sensor.disk_free_home
+            name: "Server: Disk Free Space"
+          - entity: sensor.memory_free
+            name: "Server: Memory Free"
+          - entity: switch.pi_hole
+          - entity: sensor.hass_docker_containers_running
+            name: Running
+          - entity: sensor.hass_docker_containers_stopped
+            name: Stopped
+          - entity: sensor.hass_docker_esphome_status
+            name: esp-home
+        state_color: true
+        card_mod:
+          style: |
+            ha-card {
+              width: 92%;
+              margin: auto;
+              border-radius: 12px;
+              background: rgba(255,255,255,0.1);
+              color: white;
+              --paper-item-icon-color: white;
+              margin-bottom: 15px;
+            }
+        show_header_toggle: false
+      - type: glance
+        card_mod:
+          style: |
+            ha-card {
+              width: 92%;
+              margin: auto;
+              border-radius: 12px;
+              background: rgba(255,255,255,0.1);
+              color: white;
+              --paper-item-icon-color: white;
+              margin-bottom: 15px;
+            }
+        entities:
+          - entity: sensor.uptime
+          - entity: binary_sensor.updater
+            type: custom:button-card
+            state:
+              - value: "on"
+                color: red
+                styles:
+                  icon:
+                    - animation: blink 2s ease infinite
+              - operator: default
+          - entity: sensor.last_successful_authentication
+          - entity: sensor.hass_db_size
+      - type: horizontal-stack
+        cards:
+          - align_icon: left
+            align_state: center
+            entities:
+              - sensor.processor_use
+            font_size: 75
+            icon: mdi:chip
+            name: CPU
+            show:
+              fill: false
+            type: custom:mini-graph-card
+          - align_icon: left
+            align_state: center
+            entities:
+              - sensor.memory_use_percent
+            font_size: 75
+            name: Memory
+            show:
+              fill: false
+            type: custom:mini-graph-card
+          - align_icon: left
+            align_state: center
+            entities:
+              - sensor.disk_use_percent
+            font_size: 75
+            name: Disk
+            show:
+              fill: false
+            type: custom:mini-graph-card
+      - type: glance
+        entities:
+          - entity: sensor.cyberpower_status
+          - entity: sensor.cyberpower_battery_runtime
+          - entity: sensor.cyberpower_battery_voltage
+          - entity: sensor.cyberpower_battery_charge
+          - entity: sensor.cyberpower_load
+        title: UPS
+        columns: 4
+        show_state: true
+        show_icon: true
+        show_name: true
+        state_color: false
+      - type: markdown
+        content: "### Presence Tracking"
+        card_mod:
+          style: |
+            ha-card {
+              background: rgba(0,0,0,0);
+              box-shadow: none;
+              padding: 0px;
+              margin-bottom: -35px;
+              top: -20px;
+              left: 5px;
+            }
+      - type: custom:logbook-card
+        entity: group.alarm_sensors
+        collapse: 5
+        card_mod:
+          style: |
+            ha-card {
+              width: 88%;
+              margin: auto;
+              border-radius: 12px;
+              background: rgba(0,0,0,0.2);
+              color: white;
+              margin-bottom: 15px;
+              padding: 5px;
+            }
+            #title {
+              visibility: hidden;
+            }
+            #title:after {
+              visibility: visible;
+              position: absolute;
+              top: 0;
+              left: 0;
+              font-size: 16px;
+              font-weight: bold;
+              content: "Event Log";
+            }

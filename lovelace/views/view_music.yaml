@@ -1,48 +1,26 @@
-background: center / cover no-repeat fixed  url('/local/lovelace/bg_long.png?v=1')
-kiosk_mode:
-  mobile_settings:
-    hide_header: true
-views:
-  - icon: "mdi:music"
-    panel: false
+- icon: mdi:music
     badges: []
     cards:
       - type: vertical-stack
         cards:
           - type: horizontal-stack
             cards:
-              - type: "custom:button-card"
-                size: 25px
-                icon: "mdi:close"
-                tap_action:
-                  action: navigate
-                  navigation_path: /lovelace/0
-                styles:
-                  card:
-                    - width: 40px
-                    - height: 40px
-                    - background-color: "rgba(255,255,255,0)"
-                    - box-shadow: none
-                  icon:
-                    - margin-left: px
-              - type: "custom:gap-card"
-                height: <height>
-                size: <size>
-              - type: "custom:button-card"
+              - type: custom:gap-card
+              - type: custom:button-card
                 size: 25px
                 icon: |
                   [[[ 
-                    if (states['media_player.entry'].state == "playing")
+                    if (states['media_player.multi_room_controller'].state == "playing")
                         return "mdi:cast-connected";
-                    else if (states['media_player.front_living_room'].state == "playing")
+                    else if (states['media_player.multi_room_controller'].state == "playing")
                       return "mdi:cast-connected";
-                    else if (states['media_player.kitchen_speaker'].state == "playing")
+                    else if (states['media_player.multi_room_controller'].state == "playing")
                       return "mdi:cast-connected";
-                    else if (states['media_player.living_rooms'].state == "playing")
+                    else if (states['media_player.multi_room_controller'].state == "playing")
                         return "mdi:cast-connected";
-                    else if (states['media_player.office_speaker'].state == "playing")
+                    else if (states['media_player.multi_room_controller'].state == "playing")
                         return "mdi:cast-connected";
-                    else if (states['media_player.family_room_speaker_cast'].state == "playing")
+                    else if (states['media_player.multi_room_controller'].state == "playing")
                         return "mdi:cast-connected";
                     else
                         return "mdi:cast";
@@ -51,7 +29,7 @@ views:
                   card:
                     - width: 40px
                     - height: 40px
-                    - background-color: "rgba(255,255,255,0)"
+                    - background-color: rgba(255,255,255,0)
                     - box-shadow: none
                   icon:
                     - margin-left: px
@@ -63,7 +41,7 @@ views:
                     card:
                       type: vertical-stack
                       cards:
-                        - type: "custom:mini-media-player"
+                        - type: custom:mini-media-player
                           group: true
                           min_volume: 5
                           max_volume: 75
@@ -82,7 +60,7 @@ views:
                             progress: true
                             state_label: false
                             volume_level: false
-                        - type: "custom:mini-media-player"
+                        - type: custom:mini-media-player
                           name: Kitchen
                           group: true
                           min_volume: 5
@@ -101,7 +79,7 @@ views:
                             state_label: false
                             volume_level: false
                           entity: media_player.kitchen_speaker
-                        - type: "custom:mini-media-player"
+                        - type: custom:mini-media-player
                           group: true
                           min_volume: 5
                           max_volume: 75
@@ -120,7 +98,7 @@ views:
                             state_label: false
                             volume_level: false
                           entity: media_player.family_room_speaker_cast
-                        - type: "custom:mini-media-player"
+                        - type: custom:mini-media-player
                           entity: media_player.front_living_room
                           group: true
                           min_volume: 5
@@ -139,7 +117,7 @@ views:
                             progress: true
                             state_label: false
                             volume_level: false
-                        - type: "custom:mini-media-player"
+                        - type: custom:mini-media-player
                           name: Living Rooms
                           group: true
                           min_volume: 5
@@ -158,7 +136,7 @@ views:
                             state_label: false
                             volume_level: false
                           entity: media_player.living_rooms
-                        - type: "custom:mini-media-player"
+                        - type: custom:mini-media-player
                           entity: media_player.entry
                           group: true
                           min_volume: 5
@@ -214,7 +192,7 @@ views:
                 .box {
                   background: rgba(255,255,255,0) !important;
                 }
-          - type: "custom:mod-card"
+          - type: custom:mod-card
             card_mod:
               style: |
                 ha-card {
@@ -225,7 +203,7 @@ views:
                   top: -10px;
                  }
             card:
-              type: "custom:html-template-card"
+              type: custom:html-template-card
               ignore_line_breaks: true
               content: |
                 <style>
@@ -244,11 +222,11 @@ views:
                   }
                 </style>
                 <div style="">
-                {% if state_attr("media_player.music", "media_playlist") -%}
-                  <h3>{{ state_attr('media_player.music', 'media_playlist') }}</h3>
-                  <span class="title">{{ state_attr('media_player.music', 'media_title') }}</br></span>
-                  {% if state_attr("media_player.music", "media_artist") -%}
-                    <span class="artist">{{ state_attr('media_player.music', 'media_artist') }}</span>
+                {% if state_attr("media_player.multi_room_controller", "media_playlist") -%}
+                  <h3>{{ state_attr('media_player.multi_room_controller', 'media_playlist') }}</h3>
+                  <span class="title">{{ state_attr('multi_room_controller', 'media_title') }}</br></span>
+                  {% if state_attr("media_player.multi_room_controller", "media_artist") -%}
+                    <span class="artist">{{ state_attr('media_player.multi_room_controller', 'media_artist') }}</span>
                   {%- else -%}
                     <center>&nbsp;</center>
                   {%- endif %}
@@ -258,8 +236,8 @@ views:
                   <span class="artist">&nbsp;</span>    
                 {%- endif %}
                 </div>
-          - type: "custom:mini-media-player"
-            entity: media_player.music
+          - type: custom:mini-media-player
+            entity: media_player.multi_room_controller
             toggle_power: true
             artwork: none
             source: full
@@ -282,8 +260,8 @@ views:
                 position: relative;
                 top: -140px;
               }
-          - type: "custom:mini-media-player"
-            entity: media_player.music
+          - type: custom:mini-media-player
+            entity: media_player.multi_room_controller
             toggle_power: true
             artwork: none
             source: full
@@ -308,8 +286,8 @@ views:
                   position: relative;
                   top: -100px;
                 }
-          - type: "custom:mini-media-player"
-            entity: media_player.music
+          - type: custom:mini-media-player
+            entity: media_player.multi_room_controller
             toggle_power: true
             artwork: none
             source: full
@@ -334,4 +312,3 @@ views:
                   position: relative;
                   top: -100px;
                 }
-title: Music
