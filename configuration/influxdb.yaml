@@ -1,0 +1,19 @@
+influxdb:
+  api_version: 2
+  host: !secret influxdb_url
+  organization: cc08eddb51efa7e5
+  token: !secret influxdb_token
+  ssl: false
+  exclude:
+    domains:
+      - persistent_notification
+      - person
+    entity_globs:
+      - media_player.*
+      - sensor.emby*
+      - automation.occupancy_*
+      - sensor.*rx*
+      - sensor.*tx*
+      - binary_sensor.edgeos_interface_*
+      - sensor.daily_internet_usage*
+      - input_select.*_location

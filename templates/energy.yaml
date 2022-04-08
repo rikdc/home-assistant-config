@@ -1,0 +1,35 @@
+- sensor:
+    - name: airconditioner_energy
+      unique_id: 8a79b5de-3445-415b-92e0-ec03c2ce1251
+      unit_of_measurement: kWh
+      device_class: energy
+      state_class: total
+      state: "{{ states('sensor.airconditioner_wh_accumulated') |float * 0.001 }}"
+
+    - name: basement_outlets_energy
+      unique_id: b2285a69-e2d1-44ea-9985-2fcdd8e5f6c9
+      unit_of_measurement: kWh
+      device_class: energy
+      state_class: total
+      state: "{{ states('sensor.basement_wh_accumulated') |float * 0.001 }}"
+
+    - name: laundry_dryer_energy
+      unique_id: b7276da8-35a8-40d8-8566-40ee04cc8eeb
+      unit_of_measurement: kWh
+      device_class: energy
+      state_class: total
+      state: "{{ states('sensor.dryer_wh_accumulated') |float * 0.001 }}"
+
+    - name: hotwater_energy
+      unique_id: 2b694daf-377d-4287-99d6-328836601ee9
+      unit_of_measurement: kWh
+      device_class: energy
+      state_class: total
+      state: "{{ states('sensor.input_7_wh_accumulated') |float * 0.001 }}"
+
+    - name: oven_energy
+      unique_id: cdfe85b0-3d9b-4661-b5bf-dab704889488
+      unit_of_measurement: kWh
+      device_class: energy
+      state_class: total
+      state: "{{ states('sensor.input_6_wh_accumulated') |float * 0.001 }}"
