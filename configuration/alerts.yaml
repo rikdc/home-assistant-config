@@ -17,8 +17,6 @@ alert:
       Humditiy in Bedroom1 is {{ state_attr('binary_sensor.bedroom1_humidity_status', 'reason') }}
     entity_id: binary_sensor.bedroom1_humidity_status
     repeat:
-      - 15
-      - 30
       - 60
     notifiers:
       - admins
@@ -30,8 +28,6 @@ alert:
     done_message: Bedroom2 humidity is back to normal
     entity_id: binary_sensor.bedroom2_humidity_status
     repeat:
-      - 15
-      - 30
       - 60
     notifiers:
       - admins
@@ -43,8 +39,6 @@ alert:
     message: >
       Humditiy in Bedroom2 is {{ state_attr('binary_sensor.livingroom1_humidity_status', 'reason') }}
     repeat:
-      - 15
-      - 30
       - 60
     notifiers:
       - admins
