@@ -86,19 +86,19 @@ popup_environment:
                     type: line
                     name: Office2
 
-                  - entity: sensor.multisensor_air_temperature
+                  - entity: sensor.multisensor_bathroom_air_temperature
                     type: line
                     name: Bathroom1
 
-                  - entity: sensor.multisensor_air_temperature_3
+                  - entity: sensor.multisensor_kitchen1_air_temperature
                     type: line
                     name: Kitchen1
 
-                  - entity: sensor.multisensor_air_temperature_4
+                  - entity: sensor.multisensor_bedroom1_air_temperature
                     type: line
                     name: Bedroom1
 
-                  - entity: sensor.multisensor_air_temperature_2
+                  - entity: sensor.multisensor_frontroom_air_temperature
                     type: line
                     name: Frontroom
 
@@ -223,7 +223,7 @@ popup_environment:
                               - card: "custom:mini-graph-card"
                                 cardOptions:
                                   entities:
-                                    - entity: sensor.air_temperature
+                                    - entity: sensor.area_household_air_temperature
                                   show: ""
                                   labels: false
                                   color_thresholds:

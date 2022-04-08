@@ -534,7 +534,7 @@ cards:
                                           state_color: true
                                           show_state: false
                                           entities:
-                                            - entity: sensor.motion_frontroom_air_temperature
+                                            - entity: sensor.multisensor_frontroom_air_temperature
                                               name: Temperature
                                             - entity: sensor.motion_frontroom_illuminance
                                               name: Illuminance
@@ -546,7 +546,7 @@ cards:
                                           state_color: true
                                           show_state: false
                                           entities:
-                                            - entity: sensor.motion_bathroom_air_temperature
+                                            - entity: sensor.multisensor_bathroom_air_temperature
                                               name: Temperature
                                             - entity: sensor.motion_bathroom_illuminance
                                               name: Illuminance
@@ -560,7 +560,7 @@ cards:
                                           state_color: true
                                           show_state: false
                                           entities:
-                                            - entity: sensor.motion_bathroom_air_temperature
+                                            - entity: sensor.multisensor_bathroom_air_temperature
                                               name: Temperature
                                             - entity: sensor.motion_bathroom_illuminance
                                               name: Illuminance
