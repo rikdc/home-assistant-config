@@ -4,10 +4,6 @@
 #                                                               #
 #################################################################
 group:
-  external_door_sensors:
-    - binary_sensor.main_entrance_access_control_window_door_is_open
-    - binary_sensor.backdoor_access_control_window_door_is_open
-
   all_house_locks:
     - lock.backdoor_lock
     - lock.frontdoor
