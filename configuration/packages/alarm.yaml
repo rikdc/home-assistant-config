@@ -3,11 +3,6 @@
 #                            Alarm                              #
 #                                                               #
 #################################################################
-group:
-  all_house_locks:
-    - lock.backdoor_lock
-    - lock.frontdoor
-
 input_boolean:
   walkthrough_mode:
     name: Walkthrough Mode
@@ -61,7 +56,7 @@ automation:
       - service: alarm_control_panel.alarm_arm_night
         entity_id: alarm_control_panel.alarmo
       - service: lock.lock
-        entity_id: group.all_house_locks
+        entity_id: lock.all_external_doors
 
   - id: alarm_disarm_home
     alias: "Alarm: Disarm alarm in the morning if someone is home"

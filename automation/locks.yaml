@@ -21,7 +21,7 @@
       to: "away"
   action:
     - service: lock.lock
-      entity_id: group.all_house_locks
+      entity_id: lock.all_external_doors
 
 - id: b034485d-7c4f-42c1-b9f3-e94fcd3eb111
   alias: "Locks: No One Home And House Is Not Locked"
@@ -43,7 +43,7 @@
       state: "on"
   action:
     - service: lock.lock
-      entity_id: group.all_house_locks
+      entity_id: lock.all_external_doors
     - service: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.home_alarm
     - service: script.post_to_home_log
