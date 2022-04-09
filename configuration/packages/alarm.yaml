@@ -9,23 +9,6 @@ input_boolean:
     initial: Off
     icon: mdi:walk
 
-template:
-  - sensor:
-      - name: "Alarm Sensors Unavailable"
-        state: >-
-          {{ expand('binary_sensor.alarm_sensors')
-              | selectattr('state', 'in', ['unavailable', 'unknown', 'none'])
-              | list 
-              | count 
-          }}
-        attributes:
-          entities: >-
-            {{ expand('binary_sensor.alarm_sensors')
-              | selectattr('state', 'in', ['on'])
-              | map(attribute='entity_id')
-              | list
-            }}
-
 automation:
   - id: alarm_arm_home_at_night
     alias: "Alarm: Arm Home at night"
