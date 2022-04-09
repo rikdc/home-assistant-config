@@ -26,20 +26,6 @@ template:
               | list
             }}
 
-switch:
-  - platform: template
-    switches:
-      panic_mode:
-        value_template: "{{ is_state('input_boolean.panic_mode', 'on') }}"
-        turn_on:
-          service: homeassistant.turn_on
-          data:
-            entity_id: input_boolean.panic_mode
-        turn_off:
-          service: homeassistant.turn_off
-          data:
-            entity_id: input_boolean.panic_mode
-
 automation:
   - id: alarm_arm_home_at_night
     alias: "Alarm: Arm Home at night"
