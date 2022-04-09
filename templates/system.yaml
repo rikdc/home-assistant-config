@@ -89,7 +89,7 @@
       attributes:
         entities: >-
           {{ expand('binary_sensor.alarm_sensors')
-            | selectattr('state', 'in', ['on'])
+            | selectattr('state', 'in', ['unavailable', 'unknown'])
             | map(attribute='entity_id')
             | list
           }}
