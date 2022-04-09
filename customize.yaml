@@ -1,10 +1,6 @@
 sensor.morning_commute:
   friendly_name: Morning Commute
 
-switch.panic_mode:
-  icon: mdi:alarm-light
-  friendly_name: Panic Mode
-
 light.unit2_loft_light_dimmer:
   icon: hass:lava-lamp
 
