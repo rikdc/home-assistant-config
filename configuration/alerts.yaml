@@ -65,14 +65,15 @@ alert:
       - admins
 
   alarm_sensors_unavailable:
-    name: Alarm Sensors are offline!
-    entity_id: sensor.alarm_sensors_unavailable
+    name: Offline Alarm Sensors
+    entity_id: binary_sensor.unavailable_alarm_sensors
     repeat:
       - 15
       - 30
       - 60
+    title: Alarm Sensors are offline!
     message: >
-      - {{ expand(state_attr('sensor.alarm_sensors_unavailable','entities'))|map(attribute='entity_id')|join('\n- ') }}"
+      - {{ expand(state_attr('binary_sensor.unavailable_alarm_sensors','entities'))|map(attribute='entity_id')|join('\n- ') }}"
     notifiers:
       - admins
 
