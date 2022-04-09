@@ -64,6 +64,18 @@ alert:
     notifiers:
       - admins
 
+  alarm_sensors_unavailable:
+    name: Offline Alarm Sensors
+    entity_id: binary_sensor.unavailable_alarm_sensors
+    repeat:
+      - 30
+      - 60
+    title: Alarm Sensors are offline!
+    message: >
+      - {{ expand(state_attr('binary_sensor.unavailable_alarm_sensors','entities'))|map(attribute='entity_id')|join('\n- ') }}"
+    notifiers:
+      - admins
+
   # TODO:
   # battery_sensors_critical:
   #   name: Critical battery powered sensors are low.

@@ -76,3 +76,20 @@
         {{ is_state('binary_sensor.pi_hole_core_update_available','on')
             or is_state('binary_sensor.pi_hole_ftl_update_available','on')
             or is_state('binary_sensor.pi_hole_web_update_available','on') }}
+
+    - name: "Unavailable Alarm Sensors"
+      device_class: "problem"
+      state: >
+        {{ expand('binary_sensor.alarm_sensors')
+            | selectattr('state', 'in', ['unavailable', 'unknown', 'none'])
+            | list 
+            | count > 0
+          or states('binary_sensor.alarm_sensors') == 'unavailable'
+        }}
+      attributes:
+        entities: >-
+          {{ expand('binary_sensor.alarm_sensors')
+            | selectattr('state', 'in', ['unavailable', 'unknown'])
+            | map(attribute='entity_id')
+            | list
+          }}
