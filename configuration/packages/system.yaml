@@ -140,8 +140,3 @@ sensor:
   - platform: mqtt
     name: MQTT Retained Message Count
     state_topic: "$SYS/broker/retained messages/count"
-
-  - platform: mqtt
-    name: "Shelly1PM-example"
-    unique_id: "shelly_1pm_example"
-    state_topic: "shellies/shelly1pm-765D8E/relay/0/power"

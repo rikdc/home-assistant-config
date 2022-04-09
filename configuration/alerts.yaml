@@ -17,8 +17,6 @@ alert:
       Humditiy in Bedroom1 is {{ state_attr('binary_sensor.bedroom1_humidity_status', 'reason') }}
     entity_id: binary_sensor.bedroom1_humidity_status
     repeat:
-      - 15
-      - 30
       - 60
     notifiers:
       - admins
@@ -30,8 +28,6 @@ alert:
     done_message: Bedroom2 humidity is back to normal
     entity_id: binary_sensor.bedroom2_humidity_status
     repeat:
-      - 15
-      - 30
       - 60
     notifiers:
       - admins
@@ -43,8 +39,6 @@ alert:
     message: >
       Humditiy in Bedroom2 is {{ state_attr('binary_sensor.livingroom1_humidity_status', 'reason') }}
     repeat:
-      - 15
-      - 30
       - 60
     notifiers:
       - admins
@@ -67,6 +61,18 @@ alert:
       - 15
       - 30
       - 60
+    notifiers:
+      - admins
+
+  alarm_sensors_unavailable:
+    name: Offline Alarm Sensors
+    entity_id: binary_sensor.unavailable_alarm_sensors
+    repeat:
+      - 30
+      - 60
+    title: Alarm Sensors are offline!
+    message: >
+      - {{ expand(state_attr('binary_sensor.unavailable_alarm_sensors','entities'))|map(attribute='entity_id')|join('\n- ') }}"
     notifiers:
       - admins
 

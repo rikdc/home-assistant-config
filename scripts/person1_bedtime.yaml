@@ -1,7 +1,7 @@
 alias: Downstairs Bedtime
 sequence:
   - service: lock.lock
-    entity_id: group.all_house_locks
+    entity_id: lock.all_external_doors
   - service: light.turn_off
     entity_id:
       - light.downstairs

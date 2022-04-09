@@ -3,7 +3,7 @@
   description: "Broadcasts a chime to all opted-in speakers when the frontdoor is opened"
   trigger:
     - platform: state
-      entity_id: group.external_door_sensors
+      entity_id: binary_sensor.external_door_sensors
       to: "on"
   condition: []
   action:
