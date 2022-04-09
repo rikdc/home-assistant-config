@@ -68,7 +68,6 @@ alert:
     name: Offline Alarm Sensors
     entity_id: binary_sensor.unavailable_alarm_sensors
     repeat:
-      - 15
       - 30
       - 60
     title: Alarm Sensors are offline!
