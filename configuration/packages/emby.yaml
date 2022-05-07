@@ -23,10 +23,6 @@
 #   emby_base_url:
 #     initial: !secret emby_base_url
 
-media_player:
-  - platform: emby
-    host: !secret emby_host
-    api_key: !secret emby_key
 # sensor:
 #   # Fetch all the episodes from the query, and then find a random episode.
 #   - platform: rest
