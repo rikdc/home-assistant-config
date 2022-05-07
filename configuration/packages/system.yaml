@@ -4,8 +4,6 @@
 #                                                               #
 #################################################################
 
-updater:
-
 counter:
   syslog_errors:
     name: "Errors in SysLog since start"
