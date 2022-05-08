@@ -1,5 +1,5 @@
 - id: "a7294d7b-ffe0-4a59-8e72-a15be47463ec"
-  alias: "Away Status: Leaving"
+  alias: "Occupancy: Leaving"
   trigger:
     platform: state
     entity_id:

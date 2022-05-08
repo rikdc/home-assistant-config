@@ -1,5 +1,5 @@
 - id: "04bd834f-d3ac-4e45-a440-807fc26d5d39"
-  alias: "Set home to unoccupied"
+  alias: "Occupancy: Set home to unoccupied"
   trigger:
     platform: state
     entity_id:

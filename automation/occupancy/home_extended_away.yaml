@@ -1,5 +1,5 @@
 - id: "0d759a38-f0c8-4897-9255-10122b40f16c"
-  alias: "Away Status: Extended Away"
+  alias: "Occupancy: Extended Away"
   trigger:
     platform: state
     entity_id:

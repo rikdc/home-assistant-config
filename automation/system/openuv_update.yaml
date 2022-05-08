@@ -6,7 +6,6 @@
     platform: time_pattern
     hours: /1
   condition:
-    # Check only when sun is above horizon and not more than once per 59 minutes
     - condition: state
       entity_id: sun.sun
       state: "above_horizon"
