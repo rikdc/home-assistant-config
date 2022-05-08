@@ -6,32 +6,29 @@
 ###################################################
 
 light:
-  #
-  # Pseudo-lights that are actually switches
-  #
-  - platform: switch
-    name: "Basement Ceiling"
-    entity_id: switch.z_wave_plus_on_off_toggle_switch
-
-  - platform: switch
-    name: Unit1 Livingroom Lamp
-    entity_id: switch.light_end_table
-
   - platform: switch
     name: Kitchen1 Ceiling
-    entity_id: switch.kitchen_ceiling_lights
+    entity_id: switch.kitchen1_ceiling
 
   - platform: switch
     name: Kitchen1 Pendants
-    entity_id: switch.kitchen_pendants
+    entity_id: switch.kitchen1_pendants
 
   - platform: switch
     name: Kitchen1 Cabinets
-    entity_id: switch.cabinet_lights
+    entity_id: switch.kitchen1_cabinets
 
   - platform: switch
     name: Unit1 Hallway Lights
     entity_id: switch.hallway_lights
+
+  - platform: switch
+    name: "Basement Ceiling"
+    entity_id: switch.basement_ceiling_lights
+
+  - platform: switch
+    name: Unit1 Livingroom Lamp
+    entity_id: switch.light_end_table
 
   - platform: switch
     name: Bathroom1 Ceiling
@@ -72,41 +69,3 @@ light:
   - platform: switch
     name: Kitchen2 Sink Light
     entity_id: switch.light_kitchen_sink
-
-  - name: Kitchen1 Lights
-    platform: group
-    entities:
-      - light.unit1_hallway_lights
-      - light.kitchen1_ceiling
-      - light.kitchen1_cabinets
-      - light.kitchen1_pendants
-
-  - name: Downstairs Kitchen Area
-    platform: group
-    entities:
-      - light.unit1_hallway_lights
-      - light.unit1_kitchen_ceiling_light
-      - light.unit1_kitchen_cabinets
-      - light.backroom
-      - light.switches_mudroom
-
-  - name: Bedroom1 Lights
-    platform: group
-    entities:
-      - light.person1_nightlight
-      - light.person2_nightlight
-      - light.bedroom1_ceiling
-
-  - name: Frontroom Lights
-    platform: group
-    entities:
-      - light.frontroom_ceiling
-      - light.unit1_livingroom_lamp
-      - light.frontroom_worklight
-      - light.livingroom_lamp
-
-  - name: Bedroom1 Nightlight
-    platform: group
-    entities:
-      - light.person1_nightlight
-      - light.person2_nightlight
