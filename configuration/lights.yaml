@@ -99,30 +99,6 @@ light:
 
       - light.lower_back_deck_light
 
-  - name: Upstairs
-    platform: group
-    entities:
-      # Bedroom
-      # Bathroom
-      # Livingroom
-      # Kitchen
-      - light.kitchen2_pendants
-      - light.loft_light
-      - light.unit2_loft_fairy_lights
-      - light.upstairs_kitchen_pendants
-      - light.upstairs_kitchen_spotlights
-      - light.upstairs_fireside_lamp
-      - light.upper_livingroom_lamp
-      - light.staircase_lights
-      - light.upstairs_sofa_lamp
-      - light.unit2_office
-      - light.upper_livingroom_lamp
-      - light.office2_lamp2
-      - light.office2_lamp3
-      - light.office_light
-      - light.bathroom2_lights
-      - light.switches_bathroom1
-
   - name: Upstairs Livingroom
     platform: group
     entities:
@@ -166,7 +142,7 @@ light:
     entities:
       - light.person1_nightlight
       - light.person2_nightlight
-      - light.unit1_light_bedroom_dimmer
+      - light.bedroom1_ceiling
 
   - name: Frontroom Lights
     platform: group
