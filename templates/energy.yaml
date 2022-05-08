@@ -25,11 +25,11 @@
       unit_of_measurement: kWh
       device_class: energy
       state_class: total
-      state: "{{ states('sensor.input_7_wh_accumulated') |float * 0.001 }}"
+      state: "{{ states('sensor.hotwater_wh_accumulated') |float * 0.001 }}"
 
     - name: oven_energy
       unique_id: cdfe85b0-3d9b-4661-b5bf-dab704889488
       unit_of_measurement: kWh
       device_class: energy
       state_class: total
-      state: "{{ states('sensor.input_6_wh_accumulated') |float * 0.001 }}"
+      state: "{{ states('sensor.oven_wh_accumulated') |float * 0.001 }}"
