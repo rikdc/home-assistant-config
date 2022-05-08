@@ -10,12 +10,12 @@
         {% endif %}
     - name: door_locks
       state: >
-        {% if states("lock.front_door_lock") == "unlocked" and 
-        states("lock.rear_door_lock") == "unlocked" %}
+        {% if states("lock.frontdoor") == "unlocked" and 
+        states("lock.backdoor_lock") == "unlocked" %}
           Unlocked
-        {% elif states("lock.front_door_lock") == "unlocked" %}
+        {% elif states("lock.backdoor_lock") == "unlocked" %}
           Front door unlocked
-        {% elif states("lock.rear_door_lock") == "unlocked" %}
+        {% elif states("lock.backdoor_lock") == "unlocked" %}
           Rear door unlocked
         {% else %}
           Locked
