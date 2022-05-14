@@ -16,7 +16,7 @@
               or is_state('input_select.jenn_location', 'Downstairs Livingroom')
         }}
 
-    - name: Main Floor Occupancy"
+    - name: Main Floor Occupancy
       device_class: "occupancy"
       delay_off:
         minutes: 5
@@ -77,7 +77,8 @@
       delay_on:
         seconds: 3
       state: >-
-        {{ is_state('binary_sensor.motion_living_room_home_security_motion_detection', 'on')
+        {{ is_state('binary_sensor.backroom_motion', 'on')
+              or is_state('binary_sensor.multisensor_home_security_motion_detection_3', 'on')
               or is_state('input_select.stefanie_location', 'pi0-lower-back')
               or is_state('input_select.richard_location', 'pi0-lower-back')
               or is_state('input_select.jenn_location', 'pi0-lower-back')
