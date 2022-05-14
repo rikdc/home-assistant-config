@@ -1,6 +1,17 @@
 - platform: filter
+  name: "Basement Realistic Humidity"
+  entity_id: sensor.basement_humidity
+  filters:
+    - filter: outlier
+      window_size: 4
+      radius: 4.0
+    - filter: lowpass
+      time_constant: 10
+      precision: 2
+
+- platform: filter
   name: "Bedroom1 Realistic Humidity"
-  entity_id: sensor.motion_bedroom1_humidity
+  entity_id: sensor.motion_bedroom1_humidity #sensor.multisensor_humidity_4
   filters:
     - filter: outlier
       window_size: 4
@@ -25,7 +36,7 @@
   type: mean
   round_digits: 1
   entity_ids:
-    - sensor.multisensor_bedroom1_humidity
+    - sensor.bedroom1_realistic_humidity
     - sensor.multisensor_kitchen1_humidity
-    - sensor.motion_bathroom_humidity
-    - sensor.motion_frontroom_humidity
+    - sensor.multisensor_bathroom1_humidity
+    - sensor.multisensor_frontroom_humidity

@@ -6,6 +6,10 @@
     mold_indoor_humidity:
       unit_of_measurement: "%"
       value_template: "{{ states('sensor.area_household_humidity') | int(50) }}"
+    outdoor_temperature:
+      unique_id: debb3b24-86e1-42ed-ad48-69bc231982de
+      unit_of_measurement: °F
+      value_template: "{{ state_attr('weather.home', 'temperature') }}"
 
 # You should try to determine the right calibration factor for your house,
 # not assume the default is reasonable. Basically, a factor of 2.0 means that
@@ -19,12 +23,12 @@
   name: "Area - Basement Mold"
   indoor_temp_sensor: sensor.basement_temperature
   indoor_humidity_sensor: sensor.basement_humidity
-  outdoor_temp_sensor: sensor.multisensor_garage_air_temperature
+  outdoor_temp_sensor: sensor.outdoor_temperature
   calibration_factor: 1.25
 
 - platform: mold_indicator
   name: "Area - Household Mold"
   indoor_temp_sensor: sensor.area_household_air_temperature
   indoor_humidity_sensor: sensor.area_household_humidity
-  outdoor_temp_sensor: sensor.multisensor_garage_air_temperature
+  outdoor_temp_sensor: sensor.outdoor_temperature
   calibration_factor: 1.25
