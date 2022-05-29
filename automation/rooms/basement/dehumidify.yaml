@@ -3,7 +3,7 @@
   trigger:
     - platform: template
       value_template: >
-        {% if float(states('sensor.area_basement_mold')) > float(65) or float(states('sensor.area_basement_mold')) < float(64) %} true
+        {% if float(states('sensor.area_basement_mold'), 0) > float(65) or float(states('sensor.area_basement_mold'), 0) < float(64) %} true
         {% else %} false
         {% endif %}
   action:
