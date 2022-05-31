@@ -69,7 +69,7 @@
     days: 7
 - platform: history_stats
   name: Stats - Bathroom Motion
-  entity_id: binary_sensor.motion_bathroom_home_security_motion_detection
+  entity_id: binary_sensor.multisensor_bathroom_motion_detection
   state: "on"
   type: ratio
   end: "{{ now() }}"
