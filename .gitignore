@@ -49,6 +49,7 @@ ssl/*
 themes/*
 image/*
 certs/*
+backups/*
 # Compressed Lovelace components
 *.js.gz
 
