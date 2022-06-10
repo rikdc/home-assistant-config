@@ -55,7 +55,7 @@ automation:
           sequence:
             - condition: template
               value_template: "{{ is_state('binary_sensor.cat_needs_feeding', 'on')}}"
-            - service: notify.android
+            - service: notify.all
               data:
                 title: "Animal Welfare"
                 message: "Have you fed Dipshit?"
@@ -63,13 +63,6 @@ automation:
                   actions:
                     - action: has_been_fed
                       title: "Yes"
-                    - action: not_been_fed
-                      title: "No"
-            - service: notify.iphone
-              data:
-                title: "Animal Welfare"
-                message: "Have you fed Dipshit?"
-                data:
                   push:
                     badge: 5
                     category: "cat_feeding" # Needs to match the top level identifier you used in the ios configuration
