@@ -16,11 +16,17 @@ blueprint:
     Optional features:
 
     - You can set a cutoff entity of which the value determines whether the illuminance level is low and the automation needs to trigger.
+
     - You can define a blocking entity, which blocks the automation from running when this entity's state is on.
+
     - You van define a turn-off blocking entity, which blocks the entity from turning off after the set delay.
+
     - Time limits can also be defined to limit the time before and after the automation should trigger.
+
     - If you want the entity to turn off after a certain amount of minutes, you can use the Wait Time input.
+
     - If you want another entity than the target_entity to turn off after the delay, you can define a separate Turn-off entity.
+
     - If you do not enable the optional entities the automation will skip these conditions.
 
 
@@ -37,9 +43,9 @@ blueprint:
 
     - Time limit after (input_datetime)
 
-    - Turn off wait time [in minutes!] (input_number) - will not work with script or scene target entities.
+    - Turn off wait time (input_number defining amount in minutes)
 
-    - Turn off entity (any entity_id)
+    - Turn off entity (any entity_id that needs to be turned off after wait)
 
   domain: automation
   input:
@@ -131,9 +137,20 @@ trigger:
 condition:
   # First condition: When entity was already on because the automation ran recently, do not check illuminance because it could have increased above threshold because of a light that was just turned on.
   - condition: template
-    value_template: "{{ (states[target_entity].state == 'on') or (illuminance_currently == none) or (illuminance_cutoff == none) or (states[illuminance_currently].state | int < states[illuminance_cutoff].state | int) }}"
+    value_template: >
+      {% set illuminance_defined = illuminance_currently != none and illuminance_cutoff != none  %}
+      {% set illuminance_defined_and_low = (illuminance_defined and (states(illuminance_currently) | int(0) < states(illuminance_cutoff) | int(0)))  %}
+
+      {% set target_entity_domain_supports_on_state_check = entity_domain != 'scene' and entity_domain != 'script' %}
+      {{ 
+      ( target_entity_domain_supports_on_state_check and states(target_entity) == 'on') or
+      ( target_entity_domain_supports_on_state_check and states(target_entity) == 'off' and not illuminance_defined) or
+      ( target_entity_domain_supports_on_state_check and states(target_entity) == 'off' and illuminance_defined_and_low) or
+      ( not target_entity_domain_supports_on_state_check and illuminance_defined_and_low) or
+      ( not target_entity_domain_supports_on_state_check and not illuminance_defined)
+      }}
   - condition: template
-    value_template: "{{ (blocker_entity == none) or (states[blocker_entity].state == 'off') }}"
+    value_template: "{{ (blocker_entity == none) or (states(blocker_entity) == 'off') }}"
   - condition: template
     value_template: >
       {% set current_time = now().strftime("%H:%M")  %}
@@ -143,18 +160,18 @@ condition:
       {% endif %}
 
       {% if time_limit_before != none and time_limit_after == none %}
-      {% set current_time_is_before_limit = current_time < states[time_limit_before].state  %}
+      {% set current_time_is_before_limit = current_time < states(time_limit_before)  %}
       {{ current_time_is_before_limit }}
       {% elif time_limit_before == none and time_limit_after != none %}
-      {% set current_time_is_after_limit = current_time > states[time_limit_after].state  %}
+      {% set current_time_is_after_limit = current_time > states(time_limit_after)  %}
       {{ current_time_is_after_limit }}
       {% endif %}
 
       {% if time_limit_before != none and time_limit_after != none %}
-      {% set before_limit_is_tomorrow = states[time_limit_before].state < states[time_limit_after].state  %}
-      {% set current_time_is_before_limit = current_time < states[time_limit_before].state  %}
-      {% set current_time_is_after_limit = current_time > states[time_limit_after].state  %}
-      {% set time_window_spans_midnight = states[time_limit_after].state > states[time_limit_before].state  %}
+      {% set before_limit_is_tomorrow = states(time_limit_before) < states(time_limit_after)  %}
+      {% set current_time_is_before_limit = current_time < states(time_limit_before)  %}
+      {% set current_time_is_after_limit = current_time > states(time_limit_after)  %}
+      {% set time_window_spans_midnight = states(time_limit_after) > states(time_limit_before)  %}
         {% if time_window_spans_midnight != none and time_window_spans_midnight and before_limit_is_tomorrow %}
         {{ current_time_is_after_limit or current_time_is_before_limit }}
         {% elif time_window_spans_midnight != none and not time_window_spans_midnight %}
@@ -173,9 +190,9 @@ action:
       from: "on"
       to: "off"
   - delay:
-      minutes: "{{ states[no_motion_wait].state | int }}"
+      minutes: "{{ states(no_motion_wait) | int(0) }}"
   - condition: template
-    value_template: "{{ (turn_off_blocker_entity == none) or (states[turn_off_blocker_entity].state == 'off') }}"
+    value_template: "{{ (turn_off_blocker_entity == none) or (states(turn_off_blocker_entity) == 'off') }}"
   - choose:
       - conditions:
           - condition: template
