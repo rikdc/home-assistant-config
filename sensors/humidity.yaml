@@ -11,7 +11,7 @@
 
 - platform: filter
   name: "Bedroom1 Realistic Humidity"
-  entity_id: sensor.motion_bedroom1_humidity #sensor.multisensor_humidity_4
+  entity_id: sensor.multisensor_bedroom1_humidity #sensor.multisensor_humidity_4
   filters:
     - filter: outlier
       window_size: 4
