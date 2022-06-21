@@ -1,14 +1,21 @@
 - alias: "AirQ - Automatic basement dehumidifier"
   initial_state: "on"
+  description: "Switch the dehumidifier on if there is a mold risk in the basement."
   trigger:
-    - platform: template
-      value_template: >
-        {% if float(states('sensor.area_basement_mold'), 0) > float(65) or float(states('sensor.area_basement_mold'), 0) < float(64) %} true
-        {% else %} false
-        {% endif %}
+    - platform: state
+      entity_id:
+        - binary_sensor.basement_mold_status
   action:
-    - service_template: >
-        {% if states('sensor.area_basement_mold') | float(0) > 65 %} switch.turn_on
-        {% else %} switch.turn_off
-        {% endif %}
-      entity_id: switch.dehumidifier
+    - if:
+        - condition: state
+          entity_id: binary_sensor.basement_mold_status
+          state: "on"
+      then:
+        - service: switch.turn_on
+          target:
+            entity_id: switch.dehumidifier
+      else:
+        - service: switch.turn_off
+          target:
+            entity_id: switch.dehumidifier
+  mode: single
