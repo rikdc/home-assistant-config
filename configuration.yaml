@@ -38,13 +38,6 @@ lovelace:
       show_in_sidebar: true
       filename: lovelace/dashboard.yaml
 
-    garden-yaml:
-      mode: yaml
-      title: Garden
-      icon: mdi:flower
-      show_in_sidebar: true
-      filename: lovelace/garden.yaml
-
 scene: !include scenes.yaml
 automation ui: !include automations.yaml
 automation manual: !include_dir_merge_list automation/
@@ -61,10 +54,6 @@ logger:
     homeassistant.components.automation.light_autooff_backroom: error
     homeassistant.components.automation.light_autooff_frontroom: error
     homeassistant.components.automation.lights_autooff_frontroom: error
-
-# Text to speech
-tts:
-  - platform: google_translate
 
 # Use MariaDb
 recorder:
