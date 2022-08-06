@@ -15,8 +15,8 @@
           sequence:
             - service: switch.turn_on
               target:
-                entity_id: switch.switches_bathroom1
+                entity_id: switch.bathroom_extractor_fan
       default:
         - service: switch.turn_off
           target:
-            entity_id: switch.switches_bathroom1
+            entity_id: switch.bathroom_extractor_fan
