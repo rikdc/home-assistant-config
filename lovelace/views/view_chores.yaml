@@ -1,7 +1,7 @@
 title: Chores
 path: chores
 icon: "mdi:battery-outline"
-panel: true
+theme: minimalist-desktop
 badges: []
 cards:
   - type: vertical-stack

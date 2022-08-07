@@ -1,7 +1,7 @@
 title: Camera
 path: camera
 icon: "mdi:webcam"
-panel: true
+theme: minimalist-desktop
 badges: []
 cards:
   - type: "custom:layout-card"
@@ -41,3 +41,13 @@ cards:
         title: null
         tap_action:
           action: more-info
+  # - icon: mdi:cctv
+  #   badges: []
+  #   cards:
+  #     - camera_view: auto
+  #       type: picture-glance
+  #       title: Kitchen
+  #       entities:
+  #         - binary_sensor.area_bathroom_occupied
+  #         - binary_sensor.area_bedroom_occupied
+  #       camera_image: camera.192_168_30_13
