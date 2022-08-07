@@ -106,7 +106,6 @@ popup_environment:
                     type: area
                     attribute: temperature
                     fill_raw: last
-                    extend_to_end: false
                     name: "Outside Temp."
                     group_by:
                       func: avg

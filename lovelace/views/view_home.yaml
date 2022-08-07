@@ -39,6 +39,7 @@ cards:
                         class: "col-4"
                         variables:
                           - entity: person.stefanie
+                          - occupancy: input_select.stefanie_location
                           - name: Stefanie
                           - picture: /local/stefanie.jpg
                       - type: custom:decluttering-card
@@ -46,6 +47,7 @@ cards:
                         class: "col-4"
                         variables:
                           - entity: person.richard
+                          - occupancy: input_select.richard_location
                           - name: Richard
                           - picture: /local/richard.jpg
                       - type: custom:decluttering-card
@@ -53,6 +55,7 @@ cards:
                         class: "col-4"
                         variables:
                           - entity: person.jenn
+                          - occupancy: input_select.jenn_location
                           - name: Jenn
                           - picture: /local/jenn.jpg
                   - type: row
@@ -77,27 +80,98 @@ cards:
                   - type: row
                     cards:
                       - type: custom:decluttering-card
-                        template: button
+                        template: motion_sensor
                         variables:
                           - name: Ground Floor
                           - icon: "mdi:run"
                           - offIcon: "mdi:walk"
                           - entity: binary_sensor.main_floor_occupancy
+                      # - type: custom:decluttering-card
+                      #   template: motion_sensor
+                      #   variables:
+                      #     - name: First Floor
+                      #     - icon: "mdi:run"
+                      #     - offIcon: "mdi:walk"
+                      #     - entity: binary_sensor.kitchen_occupancy
                       - type: custom:decluttering-card
-                        template: button
+                        template: motion_sensor
                         variables:
-                          - name: First Floor
+                          - name: Bedroom1
                           - icon: "mdi:run"
                           - offIcon: "mdi:walk"
-                          - entity: binary_sensor.kitchen_occupancy
+                          - entity: binary_sensor.area_bedroom_occupied
                       - type: custom:decluttering-card
-                        template: button
+                        template: motion_sensor
                         variables:
-                          - name: Kitchen
-                          - icon: "mdi:run"
-                          - offIcon: "mdi:walk"
-                          - entity: binary_sensor.main_floor_occupancy
+                          - name: Backroom
+                          - entity: binary_sensor.unit1_backroom_occupancy
+                  ####
+                  - type: row
+                    cards:
+                      - type: custom:auto-entities
+                        filter:
+                          include:
+                            - group: binary_sensor.alarm_sensors
+                              state: 'on'
+                            - group: binary_sensor.motion_sensors
+                              state: 'on'
+                        sort_by_level: asc
+                        title: Battery Warnings
+                        show_empty: true
+                        card_param: entities
+                        card:
+                          type: entities
 
+                        # type: 'custom:auto-entities'
+                        # card:
+                        #   type: grid
+                        #   columns: 2
+                        # card_param: cards
+                        # filter:
+                        #   exclude:
+                        #     - name: Weatherbit*
+                        #   include:
+                        #     - domain: sensor
+                        #       attributes:
+                        #         icon: 'mdi:thermometer'
+                        #       options:
+                        #         type: 'custom:mini-graph-card'
+                        #         hours_to_show: 48
+                        #         update_interval: 60
+                        #         height: 200
+                        #         entity:
+                        #         entities:
+                        #           - "this.entity_id"
+                        sort_by_level: asc
+                        title: Battery Warnings
+                      # - type: custom:decluttering-card
+                      #   template: motion_sensor
+                      #   variables:
+                      #     - name: Ground Floor
+                      #     - icon: "mdi:run"
+                      #     - offIcon: "mdi:walk"
+                      #     - entity: binary_sensor.main_floor_occupancy
+                      # # - type: custom:decluttering-card
+                      # #   template: motion_sensor
+                      # #   variables:
+                      # #     - name: First Floor
+                      # #     - icon: "mdi:run"
+                      # #     - offIcon: "mdi:walk"
+                      # #     - entity: binary_sensor.kitchen_occupancy
+                      # - type: custom:decluttering-card
+                      #   template: motion_sensor
+                      #   variables:
+                      #     - name: Kitchen
+                      #     - icon: "mdi:run"
+                      #     - offIcon: "mdi:walk"
+                      #     - entity: binary_sensor.main_floor_occupancy
+                      # - type: custom:decluttering-card
+                      #   template: motion_sensor
+                      #   variables:
+                      #     - name: Backroom
+                      #     - entity: binary_sensor.unit1_backroom_occupancy
+
+              ####
               - type: "custom:homekit-card"
                 horizontalScroll: true
                 statePositionTop: true
@@ -261,7 +335,7 @@ cards:
                                     hide_header: false
                                     card:
                                       type: custom:decluttering-card
-                                      template: popup_lights
+                                      template: popup_lights_downstairs
                               - entity: light.frontroom_ceiling
                                 icon: "mdi:lightbulb-group"
                                 name: Downstairs Lights
@@ -374,6 +448,19 @@ cards:
                                   [[[
                                     return states['alert.basement_mold_warning'].state == 'idle'
                                   ]]]
+                              - custom: batteries
+                                name: Batteries
+                                icon: mdi:battery-outline
+                                tap_action:
+                                  action: fire-dom-event
+                                  browser_mod:
+                                    command: popup
+                                    title: Batteries
+                                    large: true
+                                    hide_header: false
+                                    card:
+                                      type: custom:decluttering-card
+                                      template: popup_batteries
                             title: Alerts
               - type: "custom:homekit-card"
                 horizontalScroll: true
@@ -385,6 +472,20 @@ cards:
                 panel: true
                 home: false
                 rows:
+                  - row: 2
+                    columns:
+                      - column: 1
+                        entities:
+                          - title: Testing
+                            entities:
+                              - card: custom:decluttering-card
+                                cardOptions:
+                                  template: popup_environment
+                                  # variables:
+                                  #   - temperature_entity: sensor.multisensor_air_temperature
+                                  #   - humidity_entity: sensor.multisensor_air_temperature
+                                wider: true
+                                widerSize: 4
                   - row: 3
                     columns:
                       - column: 2
@@ -415,7 +516,7 @@ cards:
                                     hide_header: false
                                     card:
                                       type: custom:decluttering-card
-                                      template: popup_lights_downstairs
+                                      template: popup_lights
                               - custom: admin
                                 tap_action:
                                   action: call-service

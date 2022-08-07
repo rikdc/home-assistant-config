@@ -12,7 +12,7 @@ popup_lights:
       - type: custom:auto-entities
         filter:
           include:
-            - group: light.frontroom_lights
+            - group: light.frontroom
         card:
           type: custom:fold-entity-row
           head:
@@ -20,7 +20,7 @@ popup_lights:
             name: Frontroom
             state_color: true
             toggle: true
-            entity: light.frontroom_lights
+            entity: light.frontroom
             secondary_info:
               entity: >-
                 sensor.multisensor_bedroom1_air_temperature

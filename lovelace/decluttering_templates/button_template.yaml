@@ -11,7 +11,11 @@ button:
         duration: 5
         unlock: tap
     - state:
-        - value: "on"
+        - value: "off"
+          styles:
+            card:
+              - background-color: var(--button-card-on-background)
+        - value: "clear"
           styles:
             card:
               - background-color: var(--button-card-on-background)

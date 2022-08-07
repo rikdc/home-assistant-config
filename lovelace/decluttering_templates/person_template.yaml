@@ -6,10 +6,10 @@ person:
   card:
     type: picture-elements
     image: "[[picture]]"
-    entity: "[[entity]]"
+    entity: "[[occupancy]]"
     state_filter:
       home: brightness(110%) saturate(1.2)
-      not_home: brightness(75%) grayscale(90%)
+      Away: brightness(75%) grayscale(90%)
     show_name: false
     elements:
       - type: conditional
@@ -36,8 +36,8 @@ person:
               font-size: 10px
       - type: conditional
         conditions:
-          - entity: "[[entity]]"
-            state: not_home
+          - entity: "[[occupancy]]"
+            state: Away
         elements:
           - type: state-icon
             entity: "[[entity]]"
@@ -78,7 +78,7 @@ person:
           top: 10%
           right: "-5%"
       - type: state-label
-        entity: input_select.stefanie_location
+        entity: [[occupancy]]
         style:
           top: 130px
           right: "-50px"
