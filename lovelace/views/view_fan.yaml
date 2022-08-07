@@ -2,6 +2,7 @@ theme: Backend-selected
 title: Temperatures
 path: temperatures
 icon: mdi:home-thermometer
+theme: minimalist-desktop
 badges: []
 cards:
   - type: custom:button-card

@@ -235,8 +235,8 @@ title: Home
 #             option_text_on_color: '[[[ return variables.option_text_on_color ]]]'
 #             option_text_off_color: '[[[ return variables.option_text_off_color ]]]'
 views:
-  - theme: M3-04-Magenta
-    title: Home
+  - title: Home
+    theme: minimalist-desktop
     path: home
     icon: mdi:home
     layout:
@@ -690,148 +690,192 @@ views:
                 states:
                   - armed_home
                   - armed_away
-          - type: horizontal-stack
+          - type: grid
             cards:
-              - type: button
+              - type: "custom:button-card"
+                template:
+                  - card_room
+                  - red_no_state
+                name: Bathroom
+                entity: sensor.multisensor_bathroom_air_temperature
+                icon: mdi:shower-head
                 tap_action:
-                  action: call-service
-                  service: browser_mod.popup
-                  service_data:
-                    title: Basement
-                    card:
-                      type: vertical-stack
-                      cards:
-                        - type: entities
-                          entities:
-                            - entity: >-
-                                binary_sensor.basement_door_access_control_window_door_is_open
-                              icon: mdi:bed
-                              type: custom:multiple-entity-row
-                              name: Basement
-                              state_header: Occupancy
-                              state_color: true
-                              show_state: false
-                              entities:
-                                - entity: sensor.basement_temperature
-                                  name: Temperature
-                                - entity: sensor.multisensor_bedroom1_illuminance
-                                  name: Illuminance
-                        - type: horizontal-stack
-                          cards:
-                            - align_icon: left
-                              align_state: center
-                              entities:
-                                - sensor.main_pump_running
-                              font_size: 75
-                              name: Today
-                              show:
-                                fill: false
-                              type: custom:mini-graph-card
-                            - align_icon: left
-                              align_state: center
-                              entities:
-                                - sensor.main_pump_3day_cycles
-                              font_size: 75
-                              name: 3 days
-                              show:
-                                fill: false
-                              type: custom:mini-graph-card
-                            - align_icon: left
-                              align_state: center
-                              entities:
-                                - sensor.main_pump_30day_cycles
-                              font_size: 75
-                              name: 30 days
-                              show:
-                                fill: false
-                              type: custom:mini-graph-card
-                        - type: entities
-                          entities:
-                            - entity: sensor.area_basement_mold
-                            - entity: light.basement_ceiling
-                            - entity: switch.dehumidifier
-                  target: {}
+                  action: navigate
+                  navigation_path: "/lovelace-yaml/basement"
+                variables:
+                  label_use_temperature: true
+                  label_use_brightness: true
+                  entity_1:
+                    entity_id: light.bathroom1_lights
+                    templates:
+                      - yellow_on
+                    tap_action:
+                      action: toggle
+                  entity_2:
+                    entity_id: binary_sensor.multisensor_bathroom_motion_detection
+                    templates:
+                      - blue_on
+                    tap_action:
+                      action: none
+                  entity_3:
+                    entity_id: input_boolean.bathroom1_motionsensor_enabled
+                    templates:
+                      - green_on
+                      - red_off
+                    tap_action:
+                      action: toggle
+                  entity_4:
+                    entity_id: input_boolean.automation_enabled
+                    templates:
+                      - pink_on
+                    tap_action:
+                      action: toggle
+              - type: "custom:button-card"
+                template:
+                  - card_room
+                  - red_no_state
+                name: Front
+                entity: sensor.multisensor_frontroom_air_temperature
+                icon: mdi:sofa
+                tap_action:
+                  action: navigate
+                  navigation_path: "/lovelace-yaml/basement"
+                variables:
+                  label_use_temperature: true
+                  label_use_brightness: true
+                  entity_1:
+                    entity_id: light.frontroom_ceiling
+                    templates:
+                      - yellow_on
+                    tap_action:
+                      action: toggle
+                  entity_2:
+                    entity_id: binary_sensor.multisensor_bathroom_motion_detection
+                    templates:
+                      - blue_on
+                    tap_action:
+                      action: none
+                  entity_3:
+                    entity_id: input_boolean.bathroom1_motionsensor_enabled
+                    templates:
+                      - green_on
+                      - red_off
+                    tap_action:
+                      action: toggle
+                  entity_4:
+                    entity_id: input_boolean.automation_enabled
+                    templates:
+                      - pink_on
+                    tap_action:
+                      action: toggle
+              - type: "custom:button-card"
+                template:
+                  - card_room
+                  - red_no_state
+                name: Bedroom1
+                entity: sensor.multisensor_bedroom1_air_temperature
+                icon: mdi:bed
+                tap_action:
+                  action: navigate
+                  navigation_path: "/ui-lovelace-minimalist/bathroom"
+                variables:
+                  label_use_temperature: true
+                  label_use_brightness: true
+                  entity_1:
+                    entity_id: light.bathroom1_lights
+                    templates:
+                      - yellow_on
+                    tap_action:
+                      action: toggle
+                  entity_2:
+                    entity_id: binary_sensor.multisensor_bedroom1_home_security_motion_detection
+                    templates:
+                      - blue_on
+                    tap_action:
+                      action: none
+                  entity_3:
+                    entity_id: input_boolean.bathroom1_motionsensor_enabled
+                    templates:
+                      - green_on
+                      - red_off
+                    tap_action:
+                      action: toggle
+                  entity_4:
+                    entity_id: input_boolean.automation_enabled
+                    templates:
+                      - pink_on
+                    tap_action:
+                      action: toggle
+              - type: "custom:button-card"
+                template:
+                  - card_room
+                  - red_no_state
+                name: Kitchen1
+                entity: sensor.multisensor_kitchen1_air_temperature
+                icon: mdi:kitchen
+                tap_action:
+                  action: navigate
+                  navigation_path: "/ui-lovelace-minimalist/kitchen1"
+                variables:
+                  label_use_temperature: true
+                  label_use_brightness: true
+                  entity_1:
+                    entity_id: light.bathroom1_lights
+                    templates:
+                      - yellow_on
+                    tap_action:
+                      action: toggle
+                  entity_2:
+                    entity_id: binary_sensor.multisensor_home_security_motion_detection_3
+                    templates:
+                      - blue_on
+                    tap_action:
+                      action: none
+                  entity_3:
+                    entity_id: input_boolean.kitchen1_motionsensor_enabled
+                    templates:
+                      - green_on
+                      - red_off
+                    tap_action:
+                      action: toggle
+              - type: "custom:button-card"
+                template:
+                  - card_room
+                  - red_no_state
                 name: Basement
+                entity: sensor.multisensor_bathroom_air_temperature
                 icon: mdi:home-floor-b
-              - type: button
                 tap_action:
-                  action: call-service
-                  service: browser_mod.popup
-                  service_data:
-                    title: Stats
-                    card:
-                      type: entities
-                      show_header_toggle: true
-                      entities:
-                        - type: section
-                          label: Downstairs
-                        - entity: binary_sensor.area_bedroom_occupied
-                          icon: mdi:bed
-                          type: custom:multiple-entity-row
-                          name: Bedroom
-                          state_header: Occupancy
-                          state_color: true
-                          show_state: false
-                          entities:
-                            - entity: sensor.multisensor_bedroom1_air_temperature
-                              name: Temperature
-                            - entity: sensor.multisensor_bedroom1_illuminance
-                              name: Illuminance
-                        - entity: binary_sensor.unit1_backroom_occupancy
-                          icon: mdi:sofa
-                          type: custom:multiple-entity-row
-                          name: Backroom
-                          state_header: Occupancy
-                          state_color: true
-                          show_state: false
-                          entities:
-                            - entity: sensor.multisensor_kitchen1_air_temperature
-                              name: Temperature
-                            - entity: sensor.multisensor_kitchen1_illuminance
-                              name: Illuminance
-                        - entity: binary_sensor.living_room_occupancy
-                          icon: mdi:desk
-                          type: custom:multiple-entity-row
-                          name: Frontroom
-                          state_color: true
-                          show_state: false
-                          entities:
-                            - entity: sensor.motion_frontroom_air_temperature
-                              name: Temperature
-                            - entity: sensor.motion_frontroom_illuminance
-                              name: Illuminance
-                        - entity: binary_sensor.area_bathroom_occupied
-                          icon: mdi:bathtub
-                          type: custom:multiple-entity-row
-                          name: Bathroom
-                          state_header: Occupancy
-                          state_color: true
-                          show_state: false
-                          entities:
-                            - entity: sensor.motion_bathroom_air_temperature
-                              name: Temperature
-                            - entity: sensor.motion_bathroom_illuminance
-                              name: Illuminance
-                        - entity: sensor.unit_1_mudroom_temperature
-                          name: Mudroom
-                        - entity: binary_sensor.area_bathroom_occupied
-                          icon: mdi:bathtub
-                          type: custom:mini-graph-card
-                          name: Bathroom
-                          state_header: Occupancy
-                          state_color: true
-                          show_state: false
-                          entities:
-                            - entity: sensor.motion_bathroom_air_temperature
-                              name: Temperature
-                            - entity: sensor.motion_bathroom_illuminance
-                              name: Illuminance
-                  title: Upstairs
-                  deviceID:
-                    - this
-                  target: {}
-                name: Stats
-                icon: mdi:chart-bell-curve-cumulative
+                  action: navigate
+                  navigation_path: "/lovelace-yaml/basement"
+                variables:
+                  label_use_temperature: true
+                  label_use_brightness: true
+                  entity_1:
+                    entity_id: light.bathroom1_lights
+                    templates:
+                      - yellow_on
+                    tap_action:
+                      action: toggle
+                  entity_2:
+                    entity_id: binary_sensor.multisensor_bathroom_motion_detection
+                    templates:
+                      - blue_on
+                    tap_action:
+                      action: none
+                  entity_3:
+                    entity_id: input_boolean.bathroom1_motionsensor_enabled
+                    templates:
+                      - green_on
+                      - red_off
+                    tap_action:
+                      action: toggle
+                  entity_4:
+                    entity_id: input_boolean.automation_enabled
+                    templates:
+                      - pink_on
+                    tap_action:
+                      action: toggle
       - type: vertical-stack
         cards:
           - type: custom:mushroom-chips-card
@@ -850,24 +894,154 @@ views:
                 title: Upstairs
               - type: horizontal-stack
                 cards:
-                  - type: custom:mushroom-light-card
-                    entity: light.kitchen1_ceiling
-                  - type: custom:mushroom-light-card
-                    entity: light.bedroom1_lights
-              - type: horizontal-stack
-                cards:
-                  - type: custom:mushroom-light-card
-                    entity: light.downstairs
-                  - type: custom:mushroom-light-card
-                    entity: light.bathroom1_ceiling_2
-              - type: horizontal-stack
-                cards:
-                  - type: custom:mushroom-light-card
-                    entity: light.frontroom
-                  - type: custom:mushroom-light-card
-                    entity: light.basement_ceiling
-                  - type: custom:mushroom-light-card
-                    entity: light.ceiling
+                  - type: grid
+                    cards:
+                      - type: "custom:button-card"
+                        template:
+                          - card_room
+                          - red_no_state
+                        name: Bathroom
+                        entity: sensor.multisensor_bathroom_air_temperature
+                        icon: mdi:shower-head
+                        tap_action:
+                          action: navigate
+                          navigation_path: "/lovelace-yaml/bathroom2"
+                        variables:
+                          label_use_temperature: true
+                          label_use_brightness: true
+                          entity_1:
+                            entity_id: switch.light_bathroom2
+                            templates:
+                              - yellow_on
+                            tap_action:
+                              action: toggle
+                          entity_2:
+                            entity_id: binary_sensor.multisensor_bathroom_motion_detection
+                            templates:
+                              - blue_on
+                            tap_action:
+                              action: none
+                          entity_3:
+                            entity_id: input_boolean.bathroom1_motionsensor_enabled
+                            templates:
+                              - green_on
+                              - red_off
+                            tap_action:
+                              action: toggle
+                          entity_4:
+                            entity_id: input_boolean.automation_enabled
+                            templates:
+                              - pink_on
+                            tap_action:
+                              action: toggle
+                      - type: "custom:button-card"
+                        template:
+                          - card_room
+                          - red_no_state
+                        name: Office
+                        entity: sensor.multisensor_frontroom_air_temperature
+                        icon: mdi:sofa
+                        tap_action:
+                          action: navigate
+                          navigation_path: "/lovelace-yaml/office2"
+                        variables:
+                          label_use_temperature: true
+                          label_use_brightness: true
+                          entity_1:
+                            entity_id: switch.office
+                            templates:
+                              - yellow_on
+                            tap_action:
+                              action: toggle
+                          entity_2:
+                            entity_id: binary_sensor.multisensor_bathroom_motion_detection
+                            templates:
+                              - blue_on
+                            tap_action:
+                              action: none
+                          entity_3:
+                            entity_id: input_boolean.bathroom1_motionsensor_enabled
+                            templates:
+                              - green_on
+                              - red_off
+                            tap_action:
+                              action: toggle
+                          entity_4:
+                            entity_id: input_boolean.automation_enabled
+                            templates:
+                              - pink_on
+                            tap_action:
+                              action: toggle
+                      - type: "custom:button-card"
+                        template:
+                          - card_room
+                          - red_no_state
+                        name: Bedroom
+                        entity: sensor.upper_office_multisensor_temperature
+                        icon: mdi:bed
+                        tap_action:
+                          action: navigate
+                          navigation_path: "/ui-lovelace-minimalist/bedroom2"
+                        variables:
+                          label_use_temperature: true
+                          label_use_brightness: true
+                          entity_1:
+                            entity_id: light.loft_light
+                            templates:
+                              - yellow_on
+                            tap_action:
+                              action: toggle
+                          entity_2:
+                            entity_id: binary_sensor.multisensor_bedroom1_home_security_motion_detection
+                            templates:
+                              - blue_on
+                            tap_action:
+                              action: none
+                          entity_3:
+                            entity_id: input_boolean.bathroom1_motionsensor_enabled
+                            templates:
+                              - green_on
+                              - red_off
+                            tap_action:
+                              action: toggle
+                          entity_4:
+                            entity_id: input_boolean.automation_enabled
+                            templates:
+                              - pink_on
+                            tap_action:
+                              action: toggle
+                      - type: "custom:button-card"
+                        template:
+                          - card_room
+                          - red_no_state
+                        name: Kitchen
+                        entity: sensor.multisensor_kitchen2_air_temperature
+                        icon: mdi:countertop
+                        tap_action:
+                          action: navigate
+                          navigation_path: "/ui-lovelace-minimalist/kitchen1"
+                        variables:
+                          label_use_temperature: true
+                          label_use_brightness: true
+                          entity_1:
+                            entity_id: light.bathroom1_lights
+                            templates:
+                              - yellow_on
+                            tap_action:
+                              action: toggle
+                          entity_2:
+                            entity_id: binary_sensor.multisensor_kitchen2_motion_detection
+                            templates:
+                              - blue_on
+                            tap_action:
+                              action: none
+                          entity_3:
+                            entity_id: input_boolean.kitchen2_motionsensor_enabled
+                            templates:
+                              - green_on
+                              - red_off
+                            tap_action:
+                              action: toggle
           - type: vertical-stack
             cards:
               - type: custom:mushroom-title-card
@@ -904,3 +1078,5 @@ views:
         camera_image: camera.192_168_30_13
   - !include views/view_fan.yaml
   - !include views/view_locks.yaml
+  - !include views/view_basement.yaml
+  - !include views/view_battery.yaml
