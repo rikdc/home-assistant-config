@@ -4,28 +4,26 @@ icon: mdi:home-floor-b
 theme: minimalist-desktop
 badges: []
 cards:
-  - type: custom:button-card
-    template: card_navigate
-    variables:
-      ulm_card_navigate_path: lovelace-yaml/home
-      ulm_card_navigate_icon: mdi:arrow-left-bold-circle-outline
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-yaml/home
+      - type: "custom:button-card"
+        template: chip_icon_double_state
+        variables:
+          ulm_chip_icon_double_state_icon: "💻"
+          ulm_chip_icon_double_state_entity_1: sensor.basement_temperature
+          ulm_chip_icon_double_state_entity_2: sensor.basement_humidity
+          ulm_chip_navigate_path: /lovelace-minimalist-ui/0
+      - type: "custom:button-card"
+        template: chip_icon_state
+        variables:
+          ulm_chip_icon_state_icon: "💡"
+          ulm_chip_icon_state_entity: sensor.basement_illuminance
   - type: vertical-stack
     cards:
-      - type: entities
-        entities:
-          - entity: >-
-              binary_sensor.basement_door_access_control_window_door_is_open
-            icon: mdi:bed
-            type: custom:multiple-entity-row
-            name: Basement
-            state_header: Occupancy
-            state_color: true
-            show_state: false
-            entities:
-              - entity: sensor.basement_temperature
-                name: Temperature
-              - entity: sensor.multisensor_bedroom1_illuminance
-                name: Illuminance
       - type: horizontal-stack
         cards:
           - align_icon: left
@@ -57,6 +55,7 @@ cards:
             type: custom:mini-graph-card
       - type: entities
         entities:
+          - entity: binary_sensor.basement_door_access_control_window_door_is_open
           - entity: sensor.area_basement_mold
           - entity: light.basement_ceiling
           - entity: switch.dehumidifier

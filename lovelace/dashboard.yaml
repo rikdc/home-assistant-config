@@ -739,7 +739,7 @@ views:
                 icon: mdi:sofa
                 tap_action:
                   action: navigate
-                  navigation_path: "/lovelace-yaml/basement"
+                  navigation_path: "/lovelace-yaml/frontroom"
                 variables:
                   label_use_temperature: true
                   label_use_brightness: true
@@ -1079,4 +1079,5 @@ views:
   - !include views/view_fan.yaml
   - !include views/view_locks.yaml
   - !include views/view_basement.yaml
+  - !include views/view_frontroom.yaml
   - !include views/view_battery.yaml

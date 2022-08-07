@@ -1,0 +1,42 @@
+title: Frontroom
+path: frontroom
+icon: mdi:sofa
+theme: minimalist-desktop
+badges: []
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-yaml/home
+      - type: "custom:button-card"
+        template: chip_icon_double_state
+        variables:
+          ulm_chip_icon_double_state_icon: "💻"
+          ulm_chip_icon_double_state_entity_1: sensor.multisensor_frontroom_air_temperature
+          ulm_chip_icon_double_state_entity_2: sensor.multisensor_frontroom_humidity
+          ulm_chip_navigate_path: /lovelace-minimalist-ui/0
+      - type: "custom:button-card"
+        template: chip_icon_state
+        variables:
+          ulm_chip_icon_state_icon: "💡"
+          ulm_chip_icon_state_entity: sensor.multisensor_frontroom_illuminance
+  - type: vertical-stack
+    cards:
+      - type: "custom:button-card"
+        template: card_title
+        name: Frontroom
+      - type: grid
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.frontroom_ceiling
+          - type: custom:mushroom-light-card
+            entity: switch.light_end_table
+          - type: custom:mushroom-light-card
+            entity: light.livingroom_lamp
+          - type: custom:mushroom-light-card
+            entity: light.frontroom_worklight
+      - type: "custom:button-card"
+        template: card_title
+        name: Frontroom
