@@ -123,6 +123,18 @@ input_boolean:
   dummy:
     initial: on
 
+  bathroom1_motionsensor_enabled:
+    name: "Motion Light in Bathroom1"
+    initial: on
+
+  kitchen1_motionsensor_enabled:
+    name: "Motion Light in Kitchen1"
+    initial: on
+
+  kitchen2_motionsensor_enabled:
+    name: "Motion Light in Kitchen2"
+    initial: on
+
   #
   # People states
   #
