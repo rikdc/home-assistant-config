@@ -1,0 +1,43 @@
+title: Camera
+path: camera
+icon: "mdi:webcam"
+theme: minimalist-desktop
+badges: []
+cards:
+  - type: "custom:layout-card"
+    column_width:
+      - 575
+    layout: vertical
+    cards:
+      - type: "custom:button-card"
+        color: auto
+        color_type: blank-card
+        styles:
+          card:
+            - height: 25px
+      - type: picture-glance
+        aspect_ratio: 0%
+        camera_image: camera.garden
+        camera_view: live
+        entities: []
+        title: null
+        tap_action:
+          action: more-info
+
+      - type: picture-glance
+        aspect_ratio: 0%
+        camera_image: camera.upstairs
+        camera_view: live
+        entities: []
+        title: null
+        tap_action:
+          action: more-info
+
+      - type: picture-glance
+        aspect_ratio: 0%
+        camera_image: camera.downstairs
+        camera_view: live
+        entities: []
+        title: null
+        tap_action:
+          action: more-info

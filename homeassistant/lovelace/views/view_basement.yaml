@@ -1,0 +1,62 @@
+title: Basement
+path: basement
+icon: mdi:home-floor-b
+theme: minimalist-desktop
+badges: []
+cards:
+  - type: custom:button-card
+    template: card_navigate
+    variables:
+      ulm_card_navigate_path: lovelace-yaml/home
+      ulm_card_navigate_icon: mdi:arrow-left-bold-circle-outline
+  - type: vertical-stack
+    cards:
+      - type: entities
+        entities:
+          - entity: >-
+              binary_sensor.basement_door_access_control_window_door_is_open
+            icon: mdi:bed
+            type: custom:multiple-entity-row
+            name: Basement
+            state_header: Occupancy
+            state_color: true
+            show_state: false
+            entities:
+              - entity: sensor.basement_temperature
+                name: Temperature
+              - entity: sensor.multisensor_bedroom1_illuminance
+                name: Illuminance
+      - type: horizontal-stack
+        cards:
+          - align_icon: left
+            align_state: center
+            entities:
+              - sensor.main_pump_running
+            font_size: 75
+            name: Today
+            show:
+              fill: false
+            type: custom:mini-graph-card
+          - align_icon: left
+            align_state: center
+            entities:
+              - sensor.main_pump_3day_cycles
+            font_size: 75
+            name: 3 days
+            show:
+              fill: false
+            type: custom:mini-graph-card
+          - align_icon: left
+            align_state: center
+            entities:
+              - sensor.main_pump_30day_cycles
+            font_size: 75
+            name: 30 days
+            show:
+              fill: false
+            type: custom:mini-graph-card
+      - type: entities
+        entities:
+          - entity: sensor.area_basement_mold
+          - entity: light.basement_ceiling
+          - entity: switch.dehumidifier
