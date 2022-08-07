@@ -58,182 +58,6 @@
 button_card_templates: !include_dir_merge_named "../custom_components/ui_lovelace_minimalist/__ui_minimalist__/ulm_templates/"
 
 title: Home
-# button_card_templates:
-#   shoulder_blank_card:
-#     card:
-#       type: custom:button-card
-#       style: |
-#         ha-card {
-#           overflow: hidden;
-#           width: 0px;
-#         }
-#       color_type: blank-card
-#       styles:
-#         card:
-#           - width: 0px
-#   standard:
-#     color_type: card
-#     size: 80%
-#     hold_action:
-#       action: more-info
-#     styles:
-#       card:
-#         - padding: 0.2em
-#         - '--mdc-ripple-color': yellow
-#         - '--mdc-ripple-press-opacity': 0.5
-#       icon:
-#         - opacity: 0.5
-#       name:
-#         - font-size: 0.65em
-#         - white-space: normal
-#       state:
-#         - font-size: 0.65em
-#         - white-space: normal
-#       label:
-#         - font-size: 0.4em
-#         - white-space: normal
-#   wide:
-#     template: standard
-#     styles:
-#       grid:
-#         - position: relative
-#         - grid-template-areas: '"i n"'
-#         - grid-template-columns: 1fr 1fr
-#         - grid-template-rows: 1fr
-#   option-button:
-#     template: standard
-#     show_icon: false
-#     aspect_ratio: 1/1
-#     styles:
-#       card:
-#         - border-radius: 20%
-#   dimmer-option:
-#     template: option-button
-#     tap_action:
-#       action: call-service
-#       service: light.turn_on
-#       service_data:
-#         entity_id: entity
-#         brightness: '[[[ return variables.set_value ]]]'
-#     state:
-#       - operator: default
-#         styles:
-#           card:
-#             - background-color: '[[[ return variables.option_button_off_color ]]]'
-#             - color: '[[[ return variables.option_text_off_color ]]]'
-#       - operator: template
-#         value: >-
-#           [[[ return (entity.attributes.brightness||0) >= variables.range_start
-#           && (entity.attributes.brightness||0) <= variables.range_stop ]]]
-#         styles:
-#           card:
-#             - background-color: '[[[ return variables.option_button_on_color ]]]'
-#             - color: '[[[ return variables.option_text_on_color ]]]'
-#   presets:
-#     template: standard
-#     color_type: icon
-#     tap_action:
-#       action: none
-#     styles:
-#       card:
-#         - background-color: rgba(0,0,0,0.3)
-#       icon:
-#         - color: white
-#       grid:
-#         - grid-template-areas: '"i opt1 opt2 opt3 opt4" "n opt1 opt2 opt3 opt4"'
-#         - grid-template-columns: 1fr 1fr 1fr 1fr 1fr
-#       custom_fields:
-#         opt1:
-#           - margin: 0.1em
-#           - overflow: visible
-#         opt2:
-#           - margin: 0.1em
-#           - overflow: visible
-#         opt3:
-#           - margin: 0.1em
-#           - overflow: visible
-#         opt4:
-#           - margin: 0.1em
-#           - overflow: visible
-#     variables:
-#       option_template: dimmer-option
-#       option_button_on_color: var(--paper-item-icon-active-color)
-#       option_text_on_color: white
-#       option_button_off_color: var(--paper-card-background-color)
-#       option_text_off_color: white
-#       option1_name: Low
-#       option1_set_value: 51
-#       option1_range_start: 1
-#       option1_range_stop: 77
-#       option2_name: Med
-#       option2_set_value: 102
-#       option2_range_start: 78
-#       option2_range_stop: 170
-#       option3_name: High
-#       option3_set_value: 255
-#       option3_range_start: 171
-#       option3_range_stop: 255
-#       option4_name: 'Off'
-#       option4_set_value: 0
-#       option4_range_start: 0
-#       option4_range_stop: 0
-#     custom_fields:
-#       opt1:
-#         card:
-#           type: custom:button-card
-#           entity: '[[[ return variables.entity ]]]'
-#           template: '[[[ return variables.option_template ]]]'
-#           name: '[[[ return variables.option1_name ]]]'
-#           variables:
-#             set_value: '[[[ return variables.option1_set_value ]]]'
-#             range_start: '[[[ return variables.option1_range_start ]]]'
-#             range_stop: '[[[ return variables.option1_range_stop ]]]'
-#             option_button_on_color: '[[[ return variables.option_button_on_color ]]]'
-#             option_button_off_color: '[[[ return variables.option_button_off_color ]]]'
-#             option_text_on_color: '[[[ return variables.option_text_on_color ]]]'
-#             option_text_off_color: '[[[ return variables.option_text_off_color ]]]'
-#       opt2:
-#         card:
-#           type: custom:button-card
-#           entity: '[[[ return variables.entity ]]]'
-#           template: '[[[ return variables.option_template ]]]'
-#           name: '[[[ return variables.option2_name ]]]'
-#           variables:
-#             set_value: '[[[ return variables.option2_set_value ]]]'
-#             range_start: '[[[ return variables.option2_range_start ]]]'
-#             range_stop: '[[[ return variables.option2_range_stop ]]]'
-#             option_button_on_color: '[[[ return variables.option_button_on_color ]]]'
-#             option_button_off_color: '[[[ return variables.option_button_off_color ]]]'
-#             option_text_on_color: '[[[ return variables.option_text_on_color ]]]'
-#             option_text_off_color: '[[[ return variables.option_text_off_color ]]]'
-#       opt3:
-#         card:
-#           type: custom:button-card
-#           entity: '[[[ return variables.entity ]]]'
-#           template: '[[[ return variables.option_template ]]]'
-#           name: '[[[ return variables.option3_name ]]]'
-#           variables:
-#             set_value: '[[[ return variables.option3_set_value ]]]'
-#             range_start: '[[[ return variables.option3_range_start ]]]'
-#             range_stop: '[[[ return variables.option3_range_stop ]]]'
-#             option_button_on_color: '[[[ return variables.option_button_on_color ]]]'
-#             option_button_off_color: '[[[ return variables.option_button_off_color ]]]'
-#             option_text_on_color: '[[[ return variables.option_text_on_color ]]]'
-#             option_text_off_color: '[[[ return variables.option_text_off_color ]]]'
-#       opt4:
-#         card:
-#           type: custom:button-card
-#           entity: '[[[ return variables.entity ]]]'
-#           template: '[[[ return variables.option_template ]]]'
-#           name: '[[[ return variables.option4_name ]]]'
-#           variables:
-#             set_value: '[[[ return variables.option4_set_value ]]]'
-#             range_start: '[[[ return variables.option4_range_start ]]]'
-#             range_stop: '[[[ return variables.option4_range_stop ]]]'
-#             option_button_on_color: '[[[ return variables.option_button_on_color ]]]'
-#             option_button_off_color: '[[[ return variables.option_button_off_color ]]]'
-#             option_text_on_color: '[[[ return variables.option_text_on_color ]]]'
-#             option_text_off_color: '[[[ return variables.option_text_off_color ]]]'
 views:
   - title: Home
     theme: minimalist-desktop
@@ -255,9 +79,12 @@ views:
               - type: entity
                 entity: person.richard
                 use_entity_picture: true
+              - type: "custom:button-card"
+                color_type: blank-card
               - type: entity
                 entity: person.jenn
                 use_entity_picture: true
+
             alignment: center
           - type: custom:swipe-card
             start_card: 2
@@ -777,7 +604,7 @@ views:
                 icon: mdi:bed
                 tap_action:
                   action: navigate
-                  navigation_path: "/ui-lovelace-minimalist/bathroom"
+                  navigation_path: "/lovelace-yaml/bedroom1"
                 variables:
                   label_use_temperature: true
                   label_use_brightness: true
@@ -1080,4 +907,5 @@ views:
   - !include views/view_locks.yaml
   - !include views/view_basement.yaml
   - !include views/view_frontroom.yaml
+  - !include views/view_bedroom1.yaml
   - !include views/view_battery.yaml
