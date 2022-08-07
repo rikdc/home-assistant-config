@@ -183,3 +183,13 @@ input_boolean:
   livingroom_occupied:
     name: "livingroom_occupied"
     initial: off
+
+  # Dashboard Settings
+  dashboard_expand_outdoor_basement:
+    initial: off
+
+  dashboard_expand_downstairs:
+    initial: on
+
+  dashboard_expand_upstairs:
+    initial: on
