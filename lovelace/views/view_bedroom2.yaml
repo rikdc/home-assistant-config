@@ -1,0 +1,74 @@
+title: Bedroom2
+path: bedroom2
+icon: mdi:bed
+theme: minimalist-desktop
+badges: []
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-yaml/home
+      - type: "custom:button-card"
+        template: chip_icon_double_state
+        variables:
+          ulm_chip_icon_double_state_icon: "💻"
+          ulm_chip_icon_double_state_entity_1: sensor.upper_office_multisensor_temperature
+          ulm_chip_icon_double_state_entity_2: sensor.upper_office_multisensor_humidity
+          ulm_chip_navigate_path: /lovelace-minimalist-ui/0
+      - type: "custom:button-card"
+        template: chip_icon_state
+        variables:
+          ulm_chip_icon_state_icon: "💡"
+          ulm_chip_icon_state_entity: sensor.upper_office_multisensor_illuminance
+      - type: "custom:button-card"
+        template: chip_mdi_icon_state
+        variables:
+          ulm_chip_mdi_icon_state_entity: binary_sensor.multisensor_bedroom1_home_security_motion_detection
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: Bedroom2
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-light-card
+            entity: binary_sensor.multisensor_unit2_office_motion
+          - type: custom:mushroom-light-card
+            entity: light.loft_light
+      - type: "grid"
+        columns: 2
+        square: false
+        cards:
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.bedroom1_realistic_temperature
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Bedroom1
+              ulm_card_graph_entity: sensor.bedroom1_realistic_temperature
+              ulm_card_graph_color2: "var(--google-green)"
+              ulm_card_graph_entity2: sensor.multisensor_bedroom1_humidity
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 24
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.basement_temperature
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Basement
+              ulm_card_graph_entity: sensor.basement_temperature
+              ulm_card_graph_color2: "var(--google-green)"
+              ulm_card_graph_entity2: sensor.basement_temperature
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 24
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.bedroom2_lamp1
+          - type: custom:mushroom-light-card
+            entity: light.lamp2
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-light-card
+            entity: switch.unit2_socket_bedroom

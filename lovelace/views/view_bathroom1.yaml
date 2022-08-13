@@ -1,0 +1,68 @@
+title: Bathroom1
+path: bathroom1
+icon: mdi:shower
+theme: minimalist-desktop
+badges: []
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: "custom:button-card"
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-yaml/home
+      - type: "custom:button-card"
+        template: chip_icon_double_state
+        variables:
+          ulm_chip_icon_double_state_icon: "💻"
+          ulm_chip_icon_double_state_entity_1: sensor.multisensor_bathroom_air_temperature
+          ulm_chip_icon_double_state_entity_2: sensor.multisensor_bathroom1_humidity
+          ulm_chip_navigate_path: /lovelace-minimalist-ui/0
+      - type: "custom:button-card"
+        template: chip_icon_state
+        variables:
+          ulm_chip_icon_state_icon: "💡"
+          ulm_chip_icon_state_entity: sensor.multisensor_bathroom_illuminance
+      - type: "custom:button-card"
+        template: chip_mdi_icon_state
+        variables:
+          ulm_chip_mdi_icon_state_entity: binary_sensor.multisensor_home_security_intrusion_location_provided
+  - type: vertical-stack
+    cards:
+      - type: custom:mushroom-title-card
+        title: Bathroom1
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-light-card
+            entity: binary_sensor.multisensor_home_security_intrusion_location_provided
+          - type: custom:mushroom-light-card
+            entity: light.bedroom1_lights
+      - type: "grid"
+        columns: 2
+        square: false
+        cards:
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.multisensor_bathroom_air_temperature
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Temperature
+              ulm_card_graph_entity: sensor.multisensor_bathroom_air_temperature
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 24
+          - type: "custom:button-card"
+            template: card_graph
+            entity: sensor.multisensor_bathroom1_humidity
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Humidity
+              ulm_card_graph_entity: sensor.multisensor_bathroom1_humidity
+              ulm_card_graph_type: fill
+              ulm_card_graph_hours: 24
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.bathroom1_ceiling_2
+          - type: custom:mushroom-fan-card
+            entity: switch.bathroom_extractor_fan
+            icon: mdi:fan
+            icon_animation: true

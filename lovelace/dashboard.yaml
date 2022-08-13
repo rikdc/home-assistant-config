@@ -55,4 +55,7 @@ views:
   - !include views/view_basement.yaml
   - !include views/view_frontroom.yaml
   - !include views/view_bedroom1.yaml
+  - !include views/view_bathroom1.yaml
+  - !include views/view_kitchen1.yaml
+  - !include views/view_bedroom2.yaml
   - !include views/view_battery.yaml

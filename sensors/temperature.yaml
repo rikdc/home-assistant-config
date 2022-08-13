@@ -9,6 +9,17 @@
       time_constant: 10
       precision: 2
 
+- platform: filter
+  name: "Kitchen1 Realistic Temperature"
+  entity_id: sensor.multisensor_kitchen1_air_temperature
+  filters:
+    - filter: outlier
+      window_size: 4
+      radius: 4.0
+    - filter: lowpass
+      time_constant: 10
+      precision: 2
+
 - platform: min_max
   name: Area - Household Air Temperature
   type: mean
