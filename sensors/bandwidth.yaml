@@ -3,7 +3,16 @@
     internet_mb_downloaded:
       friendly_name: "Internet Download"
       unit_of_measurement: "MB"
-      value_template: "{{ state_attr('binary_sensor.edgeos_interface_eth4', 'MBytes (Received)') }}"
+      value_template: "{{ states('sensor.mikrotik_ether1_rx_total')|float / 1048576 | round(3) }}"
     internet_mb_uploaded:
-      value_template: "{{ state_attr('binary_sensor.edgeos_interface_eth4', 'MBytes (Sent)') }}"
+      value_template: "{{ states('sensor.mikrotik_ether1_tx_total')|float / 1048576 | round(3) }}"
       unit_of_measurement: "MB"
+
+    internet_gb_downloaded:
+      friendly_name: "GB Received"
+      value_template: "{{ states('sensor.mikrotik_ether1_rx_total')|float / 1073741824 | round(3) }}"
+      unit_of_measurement: "GB"
+    internet_gb_uploaded:
+      friendly_name: "GB Sent"
+      value_template: "{{ states('sensor.mikrotik_ether1_tx_total')|float / 1073741824 | round(3) }}"
+      unit_of_measurement: "GB"
