@@ -293,23 +293,30 @@
       entity_id: light.unit2_loft_fairy_lights_2
   mode: single
 - id: '1652546048785'
-  alias: 'Light: Motion Kitchen1'
+  alias: 'Light: Motion Kitchen1 (Lights On)'
   description: ''
   trigger:
   - type: motion
     platform: device
     device_id: aedd405fc241d17af5e5ba329b23f3c0
-    entity_id: binary_sensor.multisensor_home_security_motion_detection_3
+    entity_id: binary_sensor.multisensor_kitchen1_motion
     domain: binary_sensor
   condition:
   - condition: time
-    before: '22:00:00'
-    after: 06:00:00
+    before: input_datetime.time_typically_sleeping_start
+    after: input_datetime.time_typically_waking_up
+  - type: is_illuminance
+    condition: device
+    device_id: ab8387bf959fa2a8f44d87d55e184cf2
+    entity_id: sensor.multisensor_bathroom_illuminance
+    domain: sensor
+    below: 60
   action:
   - service: light.turn_on
     data: {}
     target:
       entity_id: light.kitchen1_lights
+  - delay: ''
   mode: single
 - id: '1653677869258'
   alias: Ding Dong on Door Open
@@ -326,4 +333,280 @@
     device_id: b35def9d0bb5b95c4d037c1247a949d7
     entity_id: switch.wink_siren
     domain: switch
+  mode: single
+- id: '1655076467096'
+  alias: 'DEV: Beep Boop'
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: ab8387bf959fa2a8f44d87d55e184cf2
+    entity_id: binary_sensor.multisensor_bathroom_motion_detection
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: switch.toggle
+    data: {}
+    target:
+      entity_id: switch.wink_siren
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: switch.toggle
+    data: {}
+    target:
+      entity_id: switch.wink_siren
+  mode: single
+- id: '1655326054670'
+  alias: AirQ - Automatic basement dehumidifier 2
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.basement_mold_status
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: binary_sensor.basement_mold_status
+      state: 'on'
+    then:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id: switch.dehumidifier
+    else:
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id: switch.dehumidifier
+  mode: single
+- id: '1655409084817'
+  alias: 'Lights: Kitchen2 Motion'
+  description: ''
+  use_blueprint:
+    path: freakshock88/motion_illuminance_activated_entity.yaml
+    input:
+      motion_sensor: binary_sensor.multisensor_kitchen2_motion_detection
+      target_entity: light.kitchen2_sink_light
+      illuminance_cutoff: input_number.default_cutoff_illuminance
+      time_limit_after: input_datetime.time_typically_sleeping_start
+      time_limit_before: input_datetime.time_typically_waking_up
+      no_motion_wait: input_number.unit1_entryway_lights_off_duration
+      illuminance_sensor: sensor.multisensor_kitchen2_illuminance
+- id: '1655470070471'
+  alias: Backdoor Siren Test
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 138d63cb953a5193ace713aa0cb00429
+    domain: zwave_js
+    type: event.notification.notification
+    command_class: 113
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.wink_siren
+  mode: single
+- id: '1656377864642'
+  alias: 'Garden: Growtent2 Temperature Range'
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: 3d4a091470baa64ed460abe76a7dc79f
+    entity_id: sensor.growtent2_temperature
+    domain: sensor
+    above: 76
+  - type: temperature
+    platform: device
+    device_id: 3d4a091470baa64ed460abe76a7dc79f
+    entity_id: sensor.growtent2_temperature
+    domain: sensor
+    below: 65
+  condition: []
+  action:
+  - service: notify.admins
+    data:
+      message: Growtent Humidity Out of Range
+      title: Growtent 1
+  mode: single
+- id: '1657932367971'
+  alias: 'Garden: Clone room Lights Cycle'
+  description: ''
+  trigger:
+  - platform: time
+    at: 05:00:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 21ee6fdecd22d6ab31476c2b4b7d93df
+    entity_id: switch.basement_clone_lights
+    domain: switch
+  - service: notify.admins
+    data:
+      message: Clone lights are on!
+      title: Garden m8
+  - delay:
+      hours: 18
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 21ee6fdecd22d6ab31476c2b4b7d93df
+    entity_id: switch.basement_clone_lights
+    domain: switch
+  - service: notify.admins
+    data:
+      message: Clone lights are off!
+      title: Garden m8
+  mode: single
+- id: '1657932871328'
+  alias: 'Garden: Growtent 2 Lights'
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:00:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 33fd44487eeb99eba7db7e98a764c9bf
+    entity_id: switch.growtent2_switches_socket_1
+    domain: switch
+  - service: notify.admins
+    data:
+      message: Lights are on
+      title: Growtent 2
+  - delay:
+      hours: 18
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 33fd44487eeb99eba7db7e98a764c9bf
+    entity_id: switch.growtent2_switches_socket_1
+    domain: switch
+  - service: notify.admins
+    data:
+      message: Lights off
+      title: Growtent2
+  mode: single
+- id: '1658018169554'
+  alias: 'Garden: Growtent 1 Lights'
+  description: ''
+  trigger:
+  - platform: time
+    at: 06:00:00
+  condition: []
+  action:
+  - type: turn_on
+    device_id: a333d10e3346a8aa896d256385e9a9e6
+    entity_id: switch.switch2
+    domain: switch
+  - service: notify.admins
+    data:
+      message: Lights are on
+      title: Growtent 1
+  - delay:
+      hours: 18
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: a333d10e3346a8aa896d256385e9a9e6
+    entity_id: switch.switch2
+    domain: switch
+  - service: notify.admins
+    data:
+      message: Lights off
+      title: Growtent 1
+  mode: single
+- id: '1659138044121'
+  alias: 'Lights: Kitchen1 Hallway'
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 5715bea0589cb2d2767e572109550aca
+    entity_id: switch.hallway_lights
+    domain: switch
+  condition: []
+  action:
+  - type: turn_on
+    device_id: f3f03b1d3e93f604908f54326e486748
+    entity_id: light.ceiling
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1659808397478'
+  alias: 'Garden: Ebb and Flow'
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: /25
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.upper_flood_drain_socket_3
+  - delay:
+      hours: 0
+      minutes: 10
+      seconds: 0
+      milliseconds: 0
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.upper_flood_drain_socket_3
+  mode: single
+- id: '1659826079719'
+  alias: 'Garden: Growtent3 Temperature Range'
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: 3aa623656f5ed544678f28ab9450989f
+    entity_id: sensor.growtent3_temperature
+    domain: sensor
+    above: 80
+  - type: value
+    platform: device
+    device_id: 3aa623656f5ed544678f28ab9450989f
+    entity_id: sensor.growtent3_monitor_rx
+    domain: sensor
+    below: 65
+  condition: []
+  action:
+  - service: notify.admins
+    data:
+      message: Growtent Humidity Out of Range
+      title: Growtent 1
+  mode: single
+- id: '1661719822511'
+  alias: 'Light: Motion Kitchen1 (Lights Off)'
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: aedd405fc241d17af5e5ba329b23f3c0
+    entity_id: binary_sensor.multisensor_kitchen1_motion
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  condition:
+  - condition: time
+    before: input_datetime.time_typically_sleeping_start
+    after: input_datetime.time_typically_waking_up
+  action:
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.kitchen1_lights
   mode: single
