@@ -54,3 +54,5 @@ backups/*
 *.js.gz
 
 .ip_authenticated.yaml
+
+etc/*

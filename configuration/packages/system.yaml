@@ -138,3 +138,20 @@ sensor:
   - platform: mqtt
     name: MQTT Retained Message Count
     state_topic: "$SYS/broker/retained messages/count"
+
+utility_meter:
+  wan_in_monthly:
+    source: sensor.internet_gb_downloaded
+    cycle: monthly
+
+  wan_in_daily:
+    source: sensor.internet_gb_uploaded
+    cycle: daily
+
+  wan_out_monthly:
+    source: sensor.internet_gb_downloaded
+    cycle: monthly
+
+  wan_out_daily:
+    source: sensor.internet_gb_uploaded
+    cycle: daily

@@ -1,17 +1,11 @@
 - binary_sensor:
-    - name: "WIFI AP Upstairs Connected"
-      unique_id: wifi_ap_upstairs_connected
-      icon: mdi:wifi
-      device_class: connectivity
-      state: "{{ is_state('device_tracker.wifi_ap_upstairs','home') }}"
-
     - name: "WIFI AP Downstairs Connected Alert"
       unique_id: wifi_ap_downstairs_connected_alert
       icon: mdi:wifi
       delay_on:
         minutes: 1 # allow for temporary disconnections before alerting
       state: >
-        {{ is_state('binary_sensor.network_ap1','off')
+        {{ is_state('binary_sensor.network_ap1','on')
             and is_state('input_boolean.network_alerts','on')
             and is_state('input_boolean.startup_pending','off') }}
 
@@ -21,9 +15,9 @@
       delay_on:
         minutes: 1 # allow for temporary disconnections before alerting
       state: >
-        {{ is_state('binary_sensor.network_ap2','off')
-            and is_state('input_boolean.network_alerts','on')
-            and is_state('input_boolean.startup_pending','off') }}
+        {{ is_state('binary_sensor.network_ap2','on')
+           and is_state('input_boolean.network_alerts','on')
+           and is_state('input_boolean.startup_pending','off') }}
 
     - name: "WAN Connected Alert"
       unique_id: wan_connected_alert
@@ -56,11 +50,16 @@
         {% else %} normal
         {% endif %}
 
-    - name: "Edge Router Uptime Verbose"
-      unique_id: edgeos_system_uptime_verbose
+    - name: "Router Uptime"
+      unique_id: router_uptime
+      state: >
+        {{ (as_timestamp(utcnow())) - as_timestamp(states('sensor.mikrotik_uptime'))|int(-1) }}
+
+    - name: "Router Uptime Verbose"
+      unique_id: router_uptime_verbose
       icon: mdi:wifi
-      state: > # sensor.jnet_router_uptime is seconds
-        {%- set uptime = states('sensor.edgeos_system_uptime')|int(-1) -%}
+      state: >
+        {%- set uptime = states('sensor.router_uptime') -%}
         {% if uptime > -1 %}
           {%- set TIME_MAP = {
               'w': (uptime / 604800) % 604800,
@@ -73,22 +72,4 @@
           {%- if TIME_MAP.h|int > 0 %}{{ TIME_MAP.h|int ~ ' hours'}}, {% endif %}
           {%- if TIME_MAP.m|int > 0 %}{{ TIME_MAP.m|int ~ ' minutes'}}{% endif %}
         {% endif %}
-      availability: "{{ is_number(states('sensor.edgeos_system_uptime')) }}"
-
-    - name: "Edge Router Last Boot"
-      unique_id: edge_router_last_boot
-      icon: mdi:wifi
-      state: > # sensor.edgeos_system_uptime is seconds
-        {% set uptime = states('sensor.edgeos_system_uptime')|int(-1) %}
-          {% if uptime > -1 %}
-          {% set last_boot = (now().timestamp() - uptime)|timestamp_local|as_datetime %}
-          {% set date = last_boot.strftime('%d') %}
-          {% set date = '{:01}'.format(date|int(0)) %}
-          {% if date in ('1','21','31') %}{% set date = date ~ 'st' %}
-          {% elif now().day in ('2','22') %}{% set date = date ~ 'nd' %}
-          {% elif now().day in ('3','23') %}{% set date = date ~ 'rd' %}
-          {% else %}{% set date = date ~ 'th' %}
-          {% endif %}
-          {{ last_boot.strftime('%a') }} {{ date }} {{ last_boot.strftime('%b %Y') }} {{ last_boot.strftime('at %-I:%M %p') }}
-        {% endif %}
-      availability: "{{ is_number(states('sensor.edgeos_system_uptime')) }}"
+      availability: "{{ is_number(states('sensor.router_uptime')) }}"
