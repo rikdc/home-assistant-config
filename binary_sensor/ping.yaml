@@ -9,11 +9,11 @@
   scan_interval: 60
 
 - platform: ping
-  host: !secrets network_wifi_ap1
+  host: !secret network_wifi_ap1
   name: Network AP1
   scan_interval: 60
 
 - platform: ping
-  host: !secrets network_wifi_ap2
+  host: !secret network_wifi_ap2
   name: Network AP2
   scan_interval: 60
