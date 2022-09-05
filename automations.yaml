@@ -293,37 +293,51 @@
       entity_id: light.unit2_loft_fairy_lights_2
   mode: single
 - id: '1652546048785'
-  alias: 'Light: Motion Kitchen1'
+  alias: 'Light: Motion Kitchen1 (Lights On)'
   description: ''
   trigger:
   - type: motion
     platform: device
     device_id: aedd405fc241d17af5e5ba329b23f3c0
-    entity_id: binary_sensor.multisensor_home_security_motion_detection_3
+    entity_id: binary_sensor.multisensor_kitchen1_motion
     domain: binary_sensor
   condition:
   - condition: time
-    before: '22:00:00'
-    after: 06:00:00
+    before: input_datetime.time_typically_sleeping_start
+    after: input_datetime.time_typically_waking_up
+  - type: is_illuminance
+    condition: device
+    device_id: ab8387bf959fa2a8f44d87d55e184cf2
+    entity_id: sensor.multisensor_bathroom_illuminance
+    domain: sensor
+    below: 60
   action:
   - service: light.turn_on
     data: {}
     target:
       entity_id: light.kitchen1_lights
+  - delay: ''
   mode: single
-- id: '1653677869258'
-  alias: Ding Dong on Door Open
+- id: '1661719822511'
+  alias: 'Light: Motion Kitchen1 (Lights Off)'
   description: ''
   trigger:
-  - type: motion
+  - type: no_motion
     platform: device
-    device_id: 5dee3d4f9f2baca45dde13721d9a0dc0
-    entity_id: binary_sensor.motion_bedroom1_home_security_motion_detection
+    device_id: aedd405fc241d17af5e5ba329b23f3c0
+    entity_id: binary_sensor.multisensor_kitchen1_motion
     domain: binary_sensor
-  condition: []
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  condition:
+  - condition: time
+    before: input_datetime.time_typically_sleeping_start
+    after: input_datetime.time_typically_waking_up
   action:
-  - type: turn_on
-    device_id: b35def9d0bb5b95c4d037c1247a949d7
-    entity_id: switch.wink_siren
-    domain: switch
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.kitchen1_lights
   mode: single
