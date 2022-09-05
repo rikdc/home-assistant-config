@@ -1,4 +1,8 @@
 - binary_sensor:
+    - name: "office1_occupied"
+      state: >
+        {{ states('sensor.office_switches_electric_consumption_w')|float > 5  }}
+
     - unique_id: unit1_frontroom_occupied
       name: "Living Room Occupancy"
       device_class: "occupancy"
@@ -79,9 +83,6 @@
       state: >-
         {{ is_state('binary_sensor.backroom_motion', 'on')
               or is_state('binary_sensor.multisensor_home_security_motion_detection_3', 'on')
-              or is_state('input_select.stefanie_location', 'pi0-lower-back')
-              or is_state('input_select.richard_location', 'pi0-lower-back')
-              or is_state('input_select.jenn_location', 'pi0-lower-back')
         }}
 
     - unique_id: area_bedroom1_bright
