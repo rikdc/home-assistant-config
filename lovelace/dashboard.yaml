@@ -47,6 +47,7 @@ button_card_templates: !include_dir_merge_named "../custom_components/ui_lovelac
 #     rainy: "https://cdn.flixel.com/flixel/f0w23bd0enxur5ff0bxz.hd.mp4"
 
 title: Home
+background: "var(--background-image)"
 views:
   - !include views/view_home.yaml
   - !include views/view_camera.yaml
@@ -54,6 +55,7 @@ views:
   - !include views/view_locks.yaml
   - !include views/view_basement.yaml
   - !include views/view_frontroom.yaml
+  - !include views/view_office1.yaml
   - !include views/view_bedroom1.yaml
   - !include views/view_bathroom1.yaml
   - !include views/view_kitchen1.yaml

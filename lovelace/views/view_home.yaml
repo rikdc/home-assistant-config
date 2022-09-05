@@ -80,6 +80,7 @@ cards:
               - type: markdown
                 content: >-
                   <h3>{{states('sensor.dashboard_greeting') }}, {{user}}</h3>
+                  <p>Currently {{ states.light | selectattr('state','eq','on') | list | count }} lights are on!</p>
               - type: vertical-stack
                 cards:
                   - type: horizontal-stack
@@ -443,7 +444,7 @@ cards:
                         tap_action:
                           action: toggle
                       entity_2:
-                        entity_id: binary_sensor.multisensor_bathroom_motion_detection
+                        entity_id: binary_sensor.multisensor_home_security_motion_detection_2
                         templates:
                           - blue_on
                         tap_action:
@@ -465,22 +466,22 @@ cards:
                     template:
                       - card_room
                     name: Office
-                    entity: sensor.multisensor_kitchen1_air_temperature
+                    entity: sensor.multisensor_frontroom_air_temperature
                     icon: mdi:desk
                     tap_action:
                       action: navigate
-                      navigation_path: "/ui-lovelace-minimalist/kitchen1"
+                      navigation_path: "/lovelace-yaml/office1"
                     variables:
                       label_use_temperature: true
                       label_use_brightness: true
                       entity_1:
-                        entity_id: light.bathroom1_lights
+                        entity_id: light.frontroom_worklight
                         templates:
                           - yellow_on
                         tap_action:
                           action: toggle
                       entity_2:
-                        entity_id: binary_sensor.multisensor_home_security_motion_detection_3
+                        entity_id: binary_sensor.multisensor_home_security_motion_detection_2
                         templates:
                           - blue_on
                         tap_action:
@@ -492,6 +493,11 @@ cards:
                           - red_off
                         tap_action:
                           action: toggle
+                      entity_4:
+                        entity_id: binary_sensor.office1_occupied
+                        templates:
+                          - green_on
+                          - red_off                        
 
                   - type: "custom:button-card"
                     template:
@@ -623,6 +629,45 @@ cards:
                           action: none
                       entity_3:
                         entity_id: input_boolean.bathroom1_motionsensor_enabled
+                        templates:
+                          - green_on
+                          - red_off
+                        tap_action:
+                          action: toggle
+                      entity_4:
+                        entity_id: input_boolean.automation_enabled
+                        templates:
+                          - pink_on
+                        tap_action:
+                          action: toggle
+
+                  - type: "custom:button-card"
+                    template:
+                      - card_room
+                      - red_no_state
+                    name: Garage
+                    entity: sensor.motion_garage_air_temperature
+                    icon: mdi:garage
+                    tap_action:
+                      action: navigate
+                      navigation_path: "/lovelace-yaml/garage"
+                    variables:
+                      label_use_temperature: true
+                      label_use_brightness: true
+                      entity_1:
+                        entity_id: light.bathroom1_lights
+                        templates:
+                          - yellow_on
+                        tap_action:
+                          action: toggle
+                      entity_2:
+                        entity_id: binary_sensor.motion_garage_home_security_motion_detection
+                        templates:
+                          - red_on
+                        tap_action:
+                          action: none
+                      entity_3:
+                        entity_id: input_boolean.garage_motionsensor_enabled
                         templates:
                           - green_on
                           - red_off
