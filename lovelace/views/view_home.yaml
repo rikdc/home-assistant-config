@@ -80,40 +80,7 @@ cards:
               - type: markdown
                 content: >-
                   <h3>{{states('sensor.dashboard_greeting') }}, {{user}}</h3>
-              - type: vertical-stack
-                cards:
-                  - type: horizontal-stack
-                    cards:
-                      - type: custom:button-card
-                        tap_action:
-                          action: call-service
-                          service: automation.trigger
-                          service_data:
-                            entity_id: automation.cat_has_been_fed
-                        entity: binary_sensor.cat_needs_feeding
-                        show_icon: true
-                        icon: hass:cat
-                        show_state: false
-                        show_name: false
-                        show_label: true
-                        label: |
-                          [[[
-                            var bri = states['inary_sensor.cat_needs_feeding']
-                            return (bri ? 'Hungry' : 'Satisfied');
-                          ]]]
-                        icon_height: 45px
-                        hold_action:
-                          action: none
-                        custom_fields:
-                          temp: |
-                            [[[
-                              return `<div style="padding-top: 36px;"><div style="position: absolute; bottom: 12px; right: 12px;">
-                                <span style="width: 12px; height: 12px; color: grey; font-size: 10px">${states['sensor.cat_last_fed'].state} hour(s) ago</span></div></div>`
-                            ]]]
-                      - type: button
-                        tap_action:
-                          action: toggle
-                        entity: lock.frontdoor
+                  <p>Currently {{ states.light | selectattr('state','eq','on') | list | count }} lights are on!</p>
           - type: picture-glance
             aspect_ratio: "16:9"
             camera_image: camera.garden
@@ -133,7 +100,15 @@ cards:
             states:
               - armed_home
               - armed_away
-
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: entity
+                entity: lock.all_external_doors
+              - type: entity
+                entity: lock.frontdoor
+              - type: entity
+                entity: lock.backdoor_lock
+            alignment: center
   - type: vertical-stack
     cards:
       - type: custom:mushroom-chips-card
@@ -443,7 +418,7 @@ cards:
                         tap_action:
                           action: toggle
                       entity_2:
-                        entity_id: binary_sensor.multisensor_bathroom_motion_detection
+                        entity_id: binary_sensor.multisensor_home_security_motion_detection_2
                         templates:
                           - blue_on
                         tap_action:
@@ -465,22 +440,22 @@ cards:
                     template:
                       - card_room
                     name: Office
-                    entity: sensor.multisensor_kitchen1_air_temperature
+                    entity: sensor.multisensor_frontroom_air_temperature
                     icon: mdi:desk
                     tap_action:
                       action: navigate
-                      navigation_path: "/ui-lovelace-minimalist/kitchen1"
+                      navigation_path: "/lovelace-yaml/office1"
                     variables:
                       label_use_temperature: true
                       label_use_brightness: true
                       entity_1:
-                        entity_id: light.bathroom1_lights
+                        entity_id: light.frontroom_worklight
                         templates:
                           - yellow_on
                         tap_action:
                           action: toggle
                       entity_2:
-                        entity_id: binary_sensor.multisensor_home_security_motion_detection_3
+                        entity_id: binary_sensor.multisensor_home_security_motion_detection_2
                         templates:
                           - blue_on
                         tap_action:
@@ -492,6 +467,11 @@ cards:
                           - red_off
                         tap_action:
                           action: toggle
+                      entity_4:
+                        entity_id: binary_sensor.office1_occupied
+                        templates:
+                          - green_on
+                          - red_off                        
 
                   - type: "custom:button-card"
                     template:
@@ -623,6 +603,45 @@ cards:
                           action: none
                       entity_3:
                         entity_id: input_boolean.bathroom1_motionsensor_enabled
+                        templates:
+                          - green_on
+                          - red_off
+                        tap_action:
+                          action: toggle
+                      entity_4:
+                        entity_id: input_boolean.automation_enabled
+                        templates:
+                          - pink_on
+                        tap_action:
+                          action: toggle
+
+                  - type: "custom:button-card"
+                    template:
+                      - card_room
+                      - red_no_state
+                    name: Garage
+                    entity: sensor.motion_garage_air_temperature
+                    icon: mdi:garage
+                    tap_action:
+                      action: navigate
+                      navigation_path: "/lovelace-yaml/garage"
+                    variables:
+                      label_use_temperature: true
+                      label_use_brightness: true
+                      entity_1:
+                        entity_id: light.bathroom1_lights
+                        templates:
+                          - yellow_on
+                        tap_action:
+                          action: toggle
+                      entity_2:
+                        entity_id: binary_sensor.motion_garage_home_security_motion_detection
+                        templates:
+                          - red_on
+                        tap_action:
+                          action: none
+                      entity_3:
+                        entity_id: input_boolean.garage_motionsensor_enabled
                         templates:
                           - green_on
                           - red_off
