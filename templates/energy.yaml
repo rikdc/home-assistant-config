@@ -33,3 +33,10 @@
       device_class: energy
       state_class: total
       state: "{{ float(states('sensor.oven_wh_accumulated'), 0) * 0.001 }}"
+
+    - name: fridge_energy
+      unique_id: 9969de97-75bc-4677-b079-343d9fcb402c
+      unit_of_measurement: kWh
+      device_class: energy
+      state_class: total
+      state: "{{ float(states('sensor.fridge_wh_accumulated'), 0) * 0.001 }}"
