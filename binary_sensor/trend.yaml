@@ -22,3 +22,18 @@
       max_samples: 6
       min_gradient: 0.011
       device_class: moisture
+    # Kitchen1
+    area_kitchen1_humidity_trend:
+      friendly_name: Area - Kitchen1 Humidity Trend
+      entity_id: sensor.multisensor_kitchen1_humidity
+      sample_duration: 1200
+      max_samples: 6
+      min_gradient: 0.011
+      device_class: moisture
+    area_kitchen1_temperature_trend:
+      friendly_name: Area - Kitchen1 Temperature Trend
+      entity_id: sensor.multisensor_kitchen1_air_temperature
+      sample_duration: 1200
+      max_samples: 6
+      min_gradient: 0.0017
+      device_class: heat

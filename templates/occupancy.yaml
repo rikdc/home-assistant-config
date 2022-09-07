@@ -82,7 +82,7 @@
         seconds: 3
       state: >-
         {{ is_state('binary_sensor.backroom_motion', 'on')
-              or is_state('binary_sensor.multisensor_home_security_motion_detection_3', 'on')
+              or is_state('binary_sensor.multisensor_kitchen1_motion', 'on')
         }}
 
     - unique_id: area_bedroom1_bright
