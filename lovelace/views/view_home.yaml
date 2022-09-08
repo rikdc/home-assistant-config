@@ -385,7 +385,7 @@ cards:
                         tap_action:
                           action: toggle
                       entity_2:
-                        entity_id: binary_sensor.multisensor_home_security_motion_detection_3
+                        entity_id: binary_sensor.area_kitchen1_occupied
                         templates:
                           - blue_on
                         tap_action:
