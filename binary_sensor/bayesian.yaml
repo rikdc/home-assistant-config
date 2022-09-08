@@ -1,8 +1,8 @@
 - platform: bayesian
   name: Area - Kitchen1 Occupied
-  prior: 0.2083
+  prior: 0.13
   device_class: occupancy
-  probability_threshold: 0.70
+  probability_threshold: 0.80
   observations:
     - platform: "state"
       entity_id: binary_sensor.area_kitchen1_humidity_trend
@@ -11,13 +11,13 @@
       to_state: "on"
     - platform: "state"
       entity_id: binary_sensor.multisensor_kitchen1_motion
-      prob_given_true: 0.6720
-      prob_given_false: 0.0531
+      prob_given_true: 0.96
+      prob_given_false: 0.014
       to_state: "on"
     - platform: "state"
-      entity_id: sensor.multisensor_kitchen1_illuminance
-      prob_given_true: 1.2048
-      prob_given_false: 0.2853
+      entity_id: "schedule.kitchen_schedule"
+      prob_given_true: 0.16
+      prob_given_false: 0.048
       to_state: "on"
 
 - platform: bayesian

@@ -28,7 +28,7 @@
       entity_id: sensor.multisensor_kitchen1_humidity
       sample_duration: 1200
       max_samples: 6
-      min_gradient: 0.011
+      min_gradient: 0.08333
       device_class: moisture
     area_kitchen1_temperature_trend:
       friendly_name: Area - Kitchen1 Temperature Trend

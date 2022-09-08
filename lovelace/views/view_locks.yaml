@@ -34,3 +34,12 @@ cards:
         card_param: entities
         card:
           type: entities
+      - type: custom:auto-entities
+        card:
+          type: entities
+        filter:
+          include:
+            - domain: binary_sensor
+              attributes:
+                device_class: occupancy
+          exclude: []
