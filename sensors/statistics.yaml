@@ -118,3 +118,46 @@
   end: "{{ now() }}"
   duration:
     days: 7
+- platform: history_stats
+  name: Stats - Bedroom1 Bright
+  entity_id: binary_sensor.area_bedroom_bright
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+#------------------------------------------------
+# Frontroom
+#------------------------------------------------
+- platform: history_stats
+  name: Stats - Frontroom Humidity Trend
+  entity_id: binary_sensor.area_frontroom_humidity_trend
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Frontroom Occupied
+  entity_id: binary_sensor.area_frontroom_occupied
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Frontroom Temperature Trend
+  entity_id: sensor.multisensor_frontroom_air_temperature
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Frontroom Motion
+  entity_id: binary_sensor.multisensor_home_security_motion_detection_2
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
