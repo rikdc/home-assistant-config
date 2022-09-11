@@ -1,0 +1,95 @@
+- id: alarm_arm_home_at_night
+  alias: "Alarm: Arm Home at night"
+  description: "Arms the alarm, and locks the doors"
+  initial_state: "on"
+  condition:
+    - condition: state
+      entity_id: group.household
+      state: "home"
+  trigger:
+    platform: time
+    at: "22:00:00"
+  action:
+    - service: alarm_control_panel.alarm_arm_night
+      entity_id: alarm_control_panel.alarmo
+    - service: lock.lock
+      entity_id: lock.all_external_doors
+
+- id: alarm_disarm_home
+  alias: "Alarm: Disarm alarm in the morning if someone is home"
+  trigger:
+    platform: time
+    at: "06:30:00"
+  condition:
+    - condition: state
+      entity_id: group.household
+      state: home
+  action:
+    - service: alarm_control_panel.alarm_arm_home
+      entity_id: alarm_control_panel.alarmo
+
+- id: "1630716542865"
+  alias: "Alarm: Sensors unavailable"
+  trigger:
+    - platform: state
+      entity_id: sensor.alarm_sensors_unavailable
+  action:
+    - choose:
+        conditions:
+          - condition: numeric_state
+            entity_id: sensor.alarm_sensors_unavailable
+            below: 1
+        sequence:
+          - service: persistent_notification.dismiss
+            data:
+              notification_id: unavailable_entities
+      default:
+        - service: persistent_notification.create
+          data:
+            title: Unavailable Entities
+            message: "- {{ expand(state_attr('sensor.alarm_sensors_unavailable','entities'))|map(attribute='entity_id')|join('\n- ') }}"
+            notification_id: unavailable_entities
+
+- id: "1630716542863"
+  alias: "Alarm: Sensor Walkthrough Test State"
+  trigger:
+    platform: state
+    entity_id: input_boolean.walkthrough_mode
+  action:
+    - service: tts.cloud_say
+      data:
+        entity_id: media_player.multi_room_controller
+        message: >
+          {% if trigger.to_state.state == 'on' %}
+            Walkthrough Mode Activated
+          {% else %}
+            Walkthrough Mode Disabled
+          {% endif %}
+  mode: single
+
+- id: "1630716542864"
+  alias: "Alarm: Sensor Walkthrough Test"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.unit_1_bedroom_motion
+      id: unit1_bedroom
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.unit_1_mudroom_motion
+      id: unit1_mudroom
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.motion_bathroom_home_security_motion_detection
+      id: unit1_bathroom
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.walkthrough_mode
+      state: "on"
+  action:
+    - service: tts.cloud_say
+      data:
+        entity_id: media_player.multi_room_controller
+        message: >
+          Motion in {{ trigger.id|replace('_', ' ') }} Detected
+  mode: single
