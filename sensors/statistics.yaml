@@ -1,3 +1,7 @@
+---
+#------------------------------------------------
+# Basement
+#------------------------------------------------
 - platform: history_stats
   name: Main Pump 3day Cycles
   entity_id: binary_sensor.main_pump_status
@@ -33,8 +37,9 @@
   start: "{{ now().replace(hour=0, minute=0, second=0) }}"
   end: "{{ now() }}"
 
-# Area Entities
-# Bathroom
+#------------------------------------------------
+# Bathroom1
+#------------------------------------------------
 - platform: history_stats
   name: Stats - Bathroom Bright
   entity_id: binary_sensor.area_bathroom_bright
@@ -113,6 +118,92 @@
 - platform: history_stats
   name: Stats - Bedroom1 Motion
   entity_id: binary_sensor.multisensor_bedroom1_home_security_motion_detection
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+#------------------------------------------------
+# Frontroom
+#------------------------------------------------
+- platform: history_stats
+  name: Stats - Frontroom Bright
+  entity_id: binary_sensor.area_frontroom_bright
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Frontroom Humidity Trend
+  entity_id: binary_sensor.area_frontroom_humidity_trend
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Frontroom Occupied
+  entity_id: binary_sensor.area_frontroom_occupied
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Frontroom Temperature Trend
+  entity_id: sensor.multisensor_frontroom_air_temperature
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Frontroom Motion
+  entity_id: binary_sensor.multisensor_home_security_motion_detection_2
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+#------------------------------------------------
+# Backroom/Kitchen
+#------------------------------------------------
+- platform: history_stats
+  name: Stats - Backroom Bright
+  entity_id: binary_sensor.area_backroom_bright
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Backroom Humidity Trend
+  entity_id: sensor.multisensor_kitchen1_humidity
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Backroom Occupied
+  entity_id: binary_sensor.area_backroom_occupied
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Backroom Temperature Trend
+  entity_id: sensor.multisensor_kitchen1_air_temperature # Kitchen straddles the area.
+  state: "on"
+  type: ratio
+  end: "{{ now() }}"
+  duration:
+    days: 7
+- platform: history_stats
+  name: Stats - Backroom Motion
+  entity_id: binary_sensor.backroom_motion
   state: "on"
   type: ratio
   end: "{{ now() }}"

@@ -10,7 +10,7 @@
       prob_given_false: 0.0020
       to_state: "on"
     - platform: "state"
-      entity_id: binary_sensor.multisensor_kitchen1_motion
+      entity_id: binary_sensor.area_kitchen_motion
       prob_given_true: 0.96
       prob_given_false: 0.014
       to_state: "on"
@@ -78,6 +78,23 @@
       prob_given_true: 0.98
       prob_given_false: 0.6860
       to_state: "below_horizon"
+
+- platform: bayesian
+  name: Area - Livingroom Occupied
+  prior: 0.29
+  device_class: occupancy
+  probability_threshold: 0.8
+  observations:
+    - platform: "state"
+      entity_id: "binary_sensor.area_livingroom_motion"
+      prob_given_true: 0.25
+      prob_given_false: 0.0176
+      to_state: "on"
+    - platform: "state"
+      entity_id: "media_player.livingroom_tv"
+      prob_given_true: 0.3989
+      prob_given_false: 0.0394
+      to_state: "playing"
 
 - platform: bayesian
   prior: 0.5

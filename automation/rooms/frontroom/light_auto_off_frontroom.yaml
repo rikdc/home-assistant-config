@@ -4,6 +4,6 @@
   use_blueprint:
     path: rikdc/lights_off.yaml
     input:
-      occupancy_entity: binary_sensor.living_room_occupancy
+      occupancy_entity: binary_sensor.area_livingroom_occupied
       light_target: light.frontroom_ceiling
       no_motion_wait: 900

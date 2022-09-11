@@ -2,7 +2,7 @@
   sensors:
     area_bathroom_humidity_trend:
       friendly_name: Area - Bathroom Humidity Trend
-      entity_id: sensor.motion_bathroom_humidity
+      entity_id: sensor.multisensor_bathroom1_humidity
       sample_duration: 1200
       max_samples: 6
       min_gradient: 0.011
@@ -22,6 +22,21 @@
       max_samples: 6
       min_gradient: 0.011
       device_class: moisture
+    # Frontroom
+    area_frontroom_humidity_trend:
+      friendly_name: Area - Frontroom Humidity Trend
+      entity_id: sensor.multisensor_frontroom_humidity
+      sample_duration: 1200
+      max_samples: 6
+      min_gradient: 0.08333
+      device_class: moisture
+    area_frontroom_temperature_trend:
+      friendly_name: Area - Frontroom Temperature Trend
+      entity_id: sensor.multisensor_frontroom_air_temperature
+      sample_duration: 1200
+      max_samples: 6
+      min_gradient: 0.0017
+      device_class: heat
     # Kitchen1
     area_kitchen1_humidity_trend:
       friendly_name: Area - Kitchen1 Humidity Trend
