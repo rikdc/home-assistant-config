@@ -10,7 +10,7 @@
       prob_given_false: 0.0020
       to_state: "on"
     - platform: "state"
-      entity_id: binary_sensor.multisensor_kitchen1_motion
+      entity_id: binary_sensor.area_kitchen_motion
       prob_given_true: 0.96
       prob_given_false: 0.014
       to_state: "on"
