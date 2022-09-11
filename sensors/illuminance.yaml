@@ -1,0 +1,6 @@
+- platform: min_max
+  name: Area - Bedroom1 Illuminance
+  type: mean
+  round_digits: 1
+  entity_ids:
+    - sensor.multisensor_bedroom1_illuminance
