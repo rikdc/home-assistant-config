@@ -418,7 +418,7 @@ cards:
                         tap_action:
                           action: toggle
                       entity_2:
-                        entity_id: binary_sensor.multisensor_home_security_motion_detection_2
+                        entity_id: binary_sensor.area_livingroom_occupied
                         templates:
                           - blue_on
                         tap_action:
@@ -455,7 +455,7 @@ cards:
                         tap_action:
                           action: toggle
                       entity_2:
-                        entity_id: binary_sensor.multisensor_home_security_motion_detection_2
+                        entity_id: binary_sensor.area_livingroom_occupied
                         templates:
                           - blue_on
                         tap_action:
@@ -493,7 +493,7 @@ cards:
                         tap_action:
                           action: toggle
                       entity_2:
-                        entity_id: binary_sensor.multisensor_bedroom1_home_security_motion_detection
+                        entity_id: binary_sensor.area_bedroom_occupied
                         templates:
                           - blue_on
                         tap_action:
