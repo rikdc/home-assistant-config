@@ -117,14 +117,14 @@
     - name: "Bathroom1 Humidity Status"
       device_class: "problem"
       state: >
-        {% set state = states('sensor.multisensor_bathroom1_humidity') %}
+        {% set state = states('sensor.bathroom1_realistic_humidity') %}
         {{ is_number(state) and ( state | float(0) < 40  or state | float(0) > 50 )  }}
-      delay_on: 00:00:30
-      delay_off: 00:00:30
+      delay_on: 00:01:00
+      delay_off: 00:01:00
       attributes:
-        room: "Bathroom1 1"
+        room: "Bathroom1"
         reason: >-
-          {% set current_state = states('sensor.multisensor_bathroom1_humidity')|int(0) %}
+          {% set current_state = states('sensor.bathroom1_realistic_humidity')|int(0) %}
           {% if current_state < 15 %}
             Way too dry
           {% elif current_state < 20 %}
