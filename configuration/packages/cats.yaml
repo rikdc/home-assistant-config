@@ -27,6 +27,19 @@ binary_sensor:
         value_template: >
           {{ states('sensor.cat_last_fed')|int(0) >= 9 and ((now().hour <= 9 and now().hour >= 7) or (now().hour >= 18 and now().hour <= 20)) }}
 
+ios:
+  push:
+    categories:
+      - name: Cat
+        identifier: "cat_feeding"
+        actions:
+          - identifier: "HAS_BEEN_FED"
+            title: "Yes"
+            behavior: "default"
+          - identifier: "NOT_BEEN_FED"
+            title: "No"
+            behavior: "default"
+
 automation:
   - id: "9da4630f-a4fe-46ca-a9bc-1adf1f0b669b"
     alias: Has the cat been fed yet?
