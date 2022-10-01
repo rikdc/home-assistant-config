@@ -5,8 +5,6 @@ alert:
     entity_id: input_boolean.allow_automation_execution
     state: "off"
     repeat: 30
-    can_acknowledge: True
-    #skip_first: True
     notifiers:
       - home_automation
 
@@ -14,18 +12,14 @@ alert:
     name: "Basement mould risk is high"
     done_message: Basement mold risk is normal
     entity_id: binary_sensor.basement_mold_status
-    repeat:
-      - 60
+    repeat: 30
     notifiers:
       - admins
 
   basement_sumppump_not_running:
     name: Basement sump has not been running for a few days!
     entity_id: binary_sensor.sump_pump_problem
-    repeat:
-      - 15
-      - 30
-      - 60
+    repeat: 86000
     notifiers:
       - admins
 
@@ -40,10 +34,3 @@ alert:
       - {{ expand(state_attr('binary_sensor.unavailable_alarm_sensors','entities'))|map(attribute='entity_id')|join('\n- ') }}"
     notifiers:
       - admins
-
-  # TODO:
-  # battery_sensors_critical:
-  #   name: Critical battery powered sensors are low.
-  #   entity_id: binary_sensor.battery_sensors_critical
-  #   notifiers:
-  #     - admins

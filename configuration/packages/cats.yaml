@@ -60,15 +60,12 @@ automation:
                 title: "Animal Welfare"
                 message: "Have you fed Dipshit?"
                 data:
+                  tag: "cat-feeding"
                   actions:
                     - action: has_been_fed
                       title: "Yes"
                   push:
                     badge: 5
-                    category: "cat_feeding" # Needs to match the top level identifier you used in the ios configuration
-                    apns_headers: {
-                        "apns-collapse-id": "cat_feeding", # This stops multiple of the same notification from being stacked.
-                      }
             - wait_for_trigger:
                 - platform: template
                   value_template: "{{ not is_state('binary_sensor.cat_needs_feeding', 'on')}}"
@@ -95,11 +92,9 @@ automation:
           datetime: "{{ now().isoformat() }}"
         entity_id: input_datetime.cat_last_fed
       - service: notify.all
-        data_template:
-          message: >
-            {% if trigger is defined and trigger.event.context is defined %}
-              Dipshit has been fed by {{ state_attr((states.person|selectattr('attributes.user_id','eq',trigger.event.context.user_id)|first or "system").entity_id, "friendly_name") }}
-            {% else %}
-              Dipshit has been fed.
-            {% endif %}
+        data:
+          title: "Dhipshit"
+          message: "Dipshit has been fed"
+          data:
+            tag: "cat-feeding"
     mode: single

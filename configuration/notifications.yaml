@@ -22,28 +22,8 @@ script:
       data:
         title: "{{ title|default('', true) }}"
         message: "{{ message }}"
-      # - condition: state
-      #   entity_id: input_boolean.enable_slack_notifications
-      #   state: "on"
-      # - data:
-      #     message: "{{ message }}"
-      #     title: "{{ title|default('', true) }}"
-      #     target: "#home_log"
-      #     data:
-      #       blocks: []
-      #   service: notify.slack_notify
 
 notify:
-  - name: STANDARD_EMAIL
-    username: !secret email_username
-    password: !secret email_password
-    platform: smtp
-    sender: !secret sender_email
-    recipient: !secret my_email
-    server: !secret email_host
-    port: 465
-    encryption: tls
-
   - name: ALL
     platform: group
     services:
