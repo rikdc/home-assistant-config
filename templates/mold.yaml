@@ -1,5 +1,6 @@
 - binary_sensor:
     - name: "Basement Mold Status"
       state: >
-        {{ states('sensor.area_basement_mold')|int(0) > 69 }}
-      delay_on: 00:00:30
+        {{ states('sensor.area_basement_mold')|int(0) > 75 }}
+      delay_on: 00:01:00
+      delay_off: 00:01:00
