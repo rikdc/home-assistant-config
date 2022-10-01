@@ -1,0 +1,271 @@
+version: '3.5'
+
+services:
+  watchtower:
+    image: containrrr/watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_LABEL_ENABLE=true
+      - WATCHTOWER_INCLUDE_RESTARTING=true
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  nginx:
+    image: nginx:mainline-alpine
+    restart: always
+    volumes:
+      - ./etc/nginx/default.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80/tcp"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  nut-exporter:
+    image: hon95/prometheus-nut-exporter:1
+    restart: unless-stopped
+    networks:
+      - prometheus
+    environment:
+      - TZ=America/New_York
+      - HTTP_PATH=/metrics
+      - RUST_LOG=debug
+      - LOG_REQUESTS_CONSOLE=false
+      - PRINT_METRICS_AND_EXIT=false
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  mk_snmp_exporter:
+    image: mashinkopochinko/snmp_exporter_mikrotik
+    networks:
+      - prometheus
+    restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    command:
+      - '--path.rootfs=/host'
+    networks:
+      - prometheus
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: monitoring_cadvisor
+    restart: unless-stopped
+    networks:
+      - prometheus
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  influxdb:
+    container_name: influxdb
+    image: influxdb:latest
+    volumes:
+      - /docker/influxdb:/var/lib/influxdb2:rw
+    ports:
+      - "8086:8086/tcp"
+    restart: always
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  mariadb:
+    container_name: mariadb
+    image: bianjp/mariadb-alpine:latest
+    restart: always
+    ports:
+      - "3306:3306/tcp"
+    volumes:
+      - ./docker/mariadb/config:/etc/mysql/conf.d
+      - ./docker/mariadb/data:/var/lib/mysql
+    environment:
+      TZ: ${TZ}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "8040:3000"
+    environment:
+      #GF_INSTALL_PLUGINS: "ntop-ntopng-datasource,grafana-piechart-panel"
+      GF_PANELS_DISABLE_SANITIZE_HTML: "true"
+    user: "0"
+    links:
+      - influxdb
+    volumes:
+      - /docker/grafana-data:/var/lib/grafana
+      - ./etc/grafana.ini:/etc/grafana/grafana.ini
+      - ./etc/ldap.toml:/etc/grafana/ldap.toml
+    depends_on:
+      - prometheus
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  blocky:
+    image: spx01/blocky
+    container_name: blocky
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ./etc/blocky.yaml:/app/config.yml
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # prometheus:
+  #   image: prom/prometheus
+  #   ports:
+  #       - '9090:9090'
+  #   networks:
+  #     - prometheus
+  #     - default
+  #   volumes:
+  #       - './etc/prometheus.yaml:/etc/prometheus/prometheus.yml'
+  #   environment:
+  #     - MIKROTIK_IP=${MIKROTIK_IP}
+  #   labels:
+  #     - "com.centurylinklabs.watchtower.enable=true"
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - cadvisor
+  #     - nut-exporter
+  #     - node-exporter
+
+  homeassistant:
+    container_name: hass
+    image: homeassistant/home-assistant:latest
+    volumes:
+      - ./:/config
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /volume1/video:/media:ro
+    environment:
+      - TZ=${TZ}
+    ports:
+      - "8123:8123"
+    restart: always
+    # depends_on:
+    #   - mariadb
+    #   - influxdb
+    #   - zwave
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # frigate:
+  #   container_name: frigate
+  #   privileged: true # this may not be necessary for all setups
+  #   restart: unless-stopped
+  #   image: blakeblackshear/frigate:stable-amd64
+  #   shm_size: "64mb" # update for your cameras based on calculation above
+  #   volumes:
+  #     - ./frigate/config.yml:/config/config.yml
+  #     - /mnt/video/nvr:/media/frigate
+  #     - ./frigate:/db
+  #     # - type: tmpfs # Optional: 1GB of memory, reduces SSD/SD Card wear
+  #     #   target: /tmp/cache
+  #     #   tmpfs:
+  #     #     size: 1000000000
+  #   ports:
+  #     - "5000:5000"
+  #     - "1935:1935" # RTMP feeds
+  #   environment:
+  #     FRIGATE_RTSP_PASSWORD: "password"
+  #   labels:
+  #     - "com.centurylinklabs.watchtower.enable=true"
+  zwave:
+    image: zwavejs/zwavejs2mqtt
+    container_name: zwave
+    restart: always
+    tty: true
+    stop_signal: SIGINT
+    devices:
+      - /dev/serial/by-id/usb-0658_0200-if00:/dev/zwave
+    volumes:
+      - /docker/zwavejs:/usr/src/app/store
+    ports:
+      - "8091:8091" # port for web interface
+      - "3000:3000" # port for Z-Wave JS websocket server
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /docker/portainer:/data
+    ports:
+      - 9000:9000
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # Applications
+
+  # fireflyiii:
+  #   image: jc5x/firefly-iii:latest
+  #   volumes:
+  #     - /docker/fireflyiii:/var/www/html/storage/upload
+  #   environment:
+  #     - APP_ENV=local
+  #     - APP_DEBUG=false
+  #     - SITE_OWNER=39c@icdw.co.uk
+  #     - DEFAULT_LANGUAGE=en_US
+  #     - DEFAULT_LOCALE=equal
+  #     - DB_CONNECTION=mysql
+  #     - DB_HOST=mariadb
+  #     - DB_PORT=3306
+  #     - DB_DATABASE=firefly
+  #     - DB_USERNAME=firefly
+  #     - DB_PASSWORD=tt.F88vNX2AMIPQ[
+  #     - APP_KEY=.8KZW)Mma.NN?&AQtZ.pP&&c}_y=ZwS/
+  #   ports:
+  #     - 8085:8080
+  #   depends_on:
+  #     - mariadb
+
+networks:
+  default:
+  prometheus:
+    driver: bridge
+
+#   macvlan:
+#     driver: macvlan
+#     driver_opts:
+#       parent: eno1
+#     ipam:
+#       config:
+#         - subnet: 192.168.10.0/24 # <-- Update
+#           gateway: 192.168.10.1 # <-- Update
+#           ip_range: 192.168.10.210/28 # <-- Update
+
+# docker network create -d macvlan \
+#   --subnet=192.168.88.0/24 \
+#   --gateway=192.168.88.1 \
+#   -o parent=eno1.10 \
+#   my-8021q-macvlan-net
+
