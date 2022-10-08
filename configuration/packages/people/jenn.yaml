@@ -1,3 +1,8 @@
+input_boolean:
+  person3_bedtime:
+    name: Jenns Bedtime
+    initial: off
+
 automation:
   - alias: "Person3 Bedtime"
     initial_state: true

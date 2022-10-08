@@ -1,4 +1,11 @@
 
+input_boolean:
+  # If true, Stefanie has indicated she's off to bed.
+  bedtime:
+    name: Bedtime
+    initial: off
+    icon: mdi:bed
+
 binary_sensor:
   - platform: bayesian
     prior: 0.5
