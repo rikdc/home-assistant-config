@@ -8,20 +8,17 @@ binary_sensor:
       disable_bedroom1_motion_lights:
         friendly_name: "Disable Bedroom1 Motion Lights"
         value_template: >
-          {{ is_state('input_boolean.guests', 'on')
-            or is_state('input_boolean.bedtime', 'on') }}
+          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}
 
       disable_backroom_motion_lights:
         friendly_name: "Disable Backroom Motion Lights"
         value_template: >
-          {{ is_state('input_boolean.guests', 'on')
-            or is_state('input_boolean.bedtime', 'on') }}
+          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}
 
       disable_frontroom_motion_lights:
         friendly_name: "Disable Front Motion Lights"
         value_template: >
-          {{ is_state('input_boolean.guests', 'on')
-            or is_state('input_boolean.bedtime', 'on') }}
+          {{ is_state('input_boolean.guests', 'on') or is_state('input_boolean.bedtime', 'on') }}
 
 ## Floor 1
 input_number:

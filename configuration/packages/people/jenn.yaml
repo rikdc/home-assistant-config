@@ -1,0 +1,12 @@
+automation:
+  - alias: "Person3 Bedtime"
+    initial_state: true
+    trigger:
+      - platform: event
+        event_type: ios.action_fired
+        event_data:
+          actionName: "Bedtime"
+      - platform: tag
+        tag_id: 488f0218-00c6-42a1-8e0e-c40cb540a160
+    action:
+      - service: script.turn_off_upstairs_lights
