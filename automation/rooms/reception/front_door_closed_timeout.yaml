@@ -15,6 +15,6 @@
           message: "Front door has been closed for more than 20 seconds."
           title: Front Door
       - service: counter.reset
-      target:
-        entity_id: counter.front_door
+        target:
+          entity_id: counter.front_door
   mode: single
