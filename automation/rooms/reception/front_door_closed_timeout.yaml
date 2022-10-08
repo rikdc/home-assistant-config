@@ -1,0 +1,20 @@
+- id: "968e3be3-eb40-4e21-a808-aece6e7f613d"
+  alias: "Doors: Front Door Closed For More than 20 seconds"
+  description: ""
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.main_entrance_access_control_window_door_is_open
+      to: "off"
+      from: "on"
+      for: 00:00:20
+  condition: []
+  action:
+    - parallel:
+      - service: script.post_to_home_log
+        data:
+          message: "Front door has been closed for more than 20 seconds."
+          title: Front Door
+      - service: counter.reset
+      target:
+        entity_id: counter.front_door
+  mode: single
