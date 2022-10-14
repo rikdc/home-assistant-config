@@ -35,11 +35,8 @@
       state: >-
         {{ (is_state('input_boolean.home_occupied', 'on')
               and (
-                  is_state('binary_sensor.area_bathroom_occupancy', 'on')
+                  is_state('binary_sensor.area_office2_occupancy', 'on')
                 or is_state('binary_sensor.area_livingroom_occupancy', 'on')
-                or is_state('input_select.richard_location', 'Upstairs')
-                or is_state('input_select.stefanie_location', 'Upstairs')
-                or is_state('input_select.jenn_location', 'Upstairs')
               ))
         }}
 
@@ -62,38 +59,6 @@
         light_state: "{{ states('light.bedroom_lights') }}"
         sun: "{{ states('sun.sun') }}"
       state: "{{ (states('sensor.multisensor_bedroom1_illuminance') | int(0) > states('input_number.area_bedroom_lux_level') | int(0)) and (is_state('sun.sun', 'above_horizon') or is_state('light.bedroom1', 'off')) }}"
-
-    - unique_id: "sleep_schedule"
-      name: Sleep Schedule
-      icon: mdi:clock
-      state: >
-        {% set current_time = now().strftime("%H:%M")  %}
-        {% set time_limit_before= states('input_datetime.time_typically_sleeping_start') %}
-        {% set time_limit_after = states('input_datetime.time_typically_sleeping_start') %}
-
-        {% if time_limit_before == none and time_limit_after == none %}
-        true
-        {% endif %}
-
-        {% if time_limit_before != none and time_limit_after == none %}
-        {% set current_time_is_before_limit = current_time < time_limit_before  %}
-        {{ current_time_is_before_limit }}
-        {% elif time_limit_before == none and time_limit_after != none %}
-        {% set current_time_is_after_limit = current_time > time_limit_after  %}
-        {{ current_time_is_after_limit }}
-        {% endif %}
-
-        {% if time_limit_before != none and time_limit_after != none %}
-        {% set before_limit_is_tomorrow = time_limit_before < time_limit_after  %}
-        {% set current_time_is_before_limit = current_time < time_limit_before  %}
-        {% set current_time_is_after_limit = current_time > time_limit_after  %}
-        {% set time_window_spans_midnight = time_limit_after > time_limit_before  %}
-          {% if time_window_spans_midnight != none and time_window_spans_midnight and before_limit_is_tomorrow %}
-          {{ current_time_is_after_limit or current_time_is_before_limit }}
-          {% elif time_window_spans_midnight != none and not time_window_spans_midnight %}
-          {{ current_time_is_before_limit and current_time_is_after_limit }}
-          {% endif %}
-        {% endif %}
 
 - sensor:
     - unique_id: area_bathroom_probability
