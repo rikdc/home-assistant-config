@@ -150,6 +150,10 @@ input_boolean:
     name: "Motion Light in Garage"
     initial: on
 
+  office2_motionsensor_enabled:
+    name: "Motion Light in Office2"
+    initial: on
+
   #
   # People states
   #
