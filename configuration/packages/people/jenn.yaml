@@ -3,6 +3,33 @@ input_boolean:
     name: Jenns Bedtime
     initial: off
 
+binary_sensor:
+  - platform: bayesian
+    prior: 0.5
+    name: "Person3 - Sleeping"
+    probability_threshold: 0.85
+    observations:
+      - entity_id: !secret person3_entity
+        prob_given_true: 0.99
+        prob_given_false: 0.5
+        platform: "state"
+        to_state: "home"
+      - entity_id: "sensor.sun"
+        prob_given_true: 0.9
+        prob_given_false: 0.2
+        platform: "state"
+        to_state: "below_horizon"
+      - platform: "state"
+        entity_id: "binary_sensor.sleep_schedule"
+        prob_given_true: 0.8
+        prob_given_false: 0.16
+        to_state: "on"
+      - entity_id: "light.upstairs"
+        prob_given_true: 0.9
+        prob_given_false: 0.4
+        platform: "state"
+        to_state: "off"
+
 automation:
   - alias: "Person3 Bedtime"
     initial_state: true
