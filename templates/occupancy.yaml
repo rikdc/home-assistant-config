@@ -43,7 +43,7 @@
       state: >-
         {{ (is_state('input_boolean.home_occupied', 'on')
               and (
-                  is_state('binary_sensor.area_office2_occupancy', 'on')
+                  is_state('binary_sensor.area_office2_occupied', 'on')
                 or is_state('binary_sensor.area_livingroom_occupancy', 'on')
               ))
         }}
