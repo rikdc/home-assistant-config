@@ -95,34 +95,3 @@
       prob_given_true: 0.3989
       prob_given_false: 0.0394
       to_state: "playing"
-
-- platform: bayesian
-  prior: 0.5
-  name: "Person1 - Sleeping"
-  probability_threshold: 0.85
-  observations:
-    - entity_id: !secret person1_entity
-      prob_given_true: 0.99
-      prob_given_false: 0.5
-      platform: "state"
-      to_state: "home"
-    - entity_id: "sensor.sun"
-      prob_given_true: 0.9
-      prob_given_false: 0.2
-      platform: "state"
-      to_state: "below_horizon"
-    - platform: "state"
-      entity_id: "binary_sensor.sleep_schedule"
-      prob_given_true: 0.8
-      prob_given_false: 0.16
-      to_state: "on"
-    - entity_id: "light.downstairs"
-      prob_given_true: 0.9
-      prob_given_false: 0.4
-      platform: "state"
-      to_state: "off"
-    - entity_id: binary_sensor.stefanies_phone_is_charging
-      prob_given_true: 0.95
-      prob_given_false: 0.5
-      platform: "state"
-      to_state: "on"

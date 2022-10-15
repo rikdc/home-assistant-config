@@ -1,0 +1,80 @@
+
+input_boolean:
+  # If true, Stefanie has indicated she's off to bed.
+  bedtime:
+    name: Bedtime
+    initial: off
+    icon: mdi:bed
+
+binary_sensor:
+  - platform: bayesian
+    prior: 0.5
+    name: "Person1 - Sleeping"
+    probability_threshold: 0.85
+    observations:
+      - entity_id: !secret person1_entity
+        prob_given_true: 0.99
+        prob_given_false: 0.5
+        platform: "state"
+        to_state: "home"
+      - entity_id: "sensor.sun"
+        prob_given_true: 0.9
+        prob_given_false: 0.2
+        platform: "state"
+        to_state: "below_horizon"
+      - platform: "state"
+        entity_id: "binary_sensor.sleep_schedule"
+        prob_given_true: 0.8
+        prob_given_false: 0.16
+        to_state: "on"
+      - entity_id: "light.downstairs"
+        prob_given_true: 0.9
+        prob_given_false: 0.4
+        platform: "state"
+        to_state: "off"
+      - entity_id: binary_sensor.stefanies_phone_is_charging
+        prob_given_true: 0.95
+        prob_given_false: 0.5
+        platform: "state"
+        to_state: "on"
+
+automation:
+  - id: 76636def-caa2-4148-9bff-4a0bf3faca07
+    alias: "Work: Stefanie left work notification"
+    trigger:
+      platform: state
+      entity_id: person.stefanie
+      from: !secret person1_work_location
+    condition:
+      condition: time
+      after: "15:00:00"
+      before: "22:00:00"
+    action:
+      service: notify.all
+      data:
+        title: "Work"
+        message: "Stefanie has left work! ♥️🎉"
+
+  - id: 6cd73e62-3bfd-4e08-938b-cc2889648cf1
+    alias: "Work: Stefanie is probably asleep"
+    trigger:
+      platform: state
+      entity_id: binary_sensor.person1_sleeping
+      to: "on"
+    action:
+      service: notify.admins
+      data:
+        title: "Zzz"
+        message: "Stefanie may have gone to sleep..."
+
+  - id: 6cd73e62-3bfd-4e08-938b-cc2889648cf2
+    alias: "Work: Person1 is probably asleep"
+    trigger:
+      platform: state
+      entity_id: binary_sensor.person1_sleeping
+      to: "off"
+    action:
+      service: notify.admins
+      data:
+        title: "Zzz"
+        message: "Stefanie is probably awake..."

@@ -150,6 +150,10 @@ input_boolean:
     name: "Motion Light in Garage"
     initial: on
 
+  office2_motionsensor_enabled:
+    name: "Motion Light in Office2"
+    initial: on
+
   #
   # People states
   #
@@ -165,18 +169,6 @@ input_boolean:
   automations_presence_bed:
     initial: off
 
-  person1_in_bed:
-    name: person1 in bed
-    icon: mdi:bed
-
-  person1_is_awake:
-    name: person1_awake
-    icon: mdi:bed
-
-  person1_asleep:
-    name: person1 asleep
-    icon: mdi:bed
-
   person1_home:
     name: person1 home
     icon: mdi:bed
@@ -184,15 +176,6 @@ input_boolean:
   home_occupied:
     name: "home_occupied"
     icon: mdi:account-group
-
-  bedtime:
-    name: Bedtime
-    initial: off
-    icon: mdi:bed
-
-  person3_bedtime:
-    name: Jenns Bedtime
-    initial: off
 
   ## Occupancy
   livingroom_occupied:
