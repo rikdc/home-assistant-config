@@ -51,7 +51,6 @@ background: "var(--background-image)"
 views:
   - !include views/view_upstairs.yaml
   - !include views/view_downstairs.yaml
-  - !include views/view_camera.yaml
   - !include views/view_fan.yaml
   - !include views/view_frontroom.yaml
   - !include views/view_office1.yaml
