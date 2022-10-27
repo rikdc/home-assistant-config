@@ -9,7 +9,7 @@ cards:
       - type: "custom:button-card"
         template: chip_back
         variables:
-          ulm_chip_back_path: /lovelace-yaml/home
+          ulm_chip_back_path: /lovelace-yaml/upstairs
       - type: "custom:button-card"
         template: chip_icon_double_state
         variables:
