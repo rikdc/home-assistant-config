@@ -1,0 +1,6 @@
+mqtt:
+  sensor:
+    - state_topic: "shellies/shelly1pm-765D8E/relay/0/power"
+      name: "Shelly1PM-example"
+      unique_id: "shelly_1pm_example"
+      unit_of_measurement: W
