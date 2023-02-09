@@ -1,15 +1,8 @@
-- trigger:
-    - platform: numeric_state
-      entity_id:
-        - sensor.main_pump_3day_cycles
-      below: 3
-  binary_sensor:
-    - name: "Sump Pump Problem"
-      state: "{{ states('sensor.main_pump_3day_cycles')| int < 5 }}"
-      device_class: problem
-
 - binary_sensor:
-    # When the Sump is running the power will spike above 3.3.:
     - name: "Main Pump Status"
       state: >
         {{ states('sensor.shelly1pm_example')|float > 100 }}
+
+    - name: "Sump Pump Problem"
+      state: "{{ states('sensor.main_pump_3day_cycles')| int < 5 }}"
+      device_class: problem

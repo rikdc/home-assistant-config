@@ -1,26 +1,5 @@
 #################################################################
 #                                                               #
-#                           Sensors                             #
-#                                                               #
-#################################################################
-
-counter:
-  syslog_errors:
-    name: "Errors in SysLog since start"
-    initial: 0
-    step: 1
-    restore: false
-    icon: mdi:alert
-
-  syslog_warnings:
-    name: "Warnings in SysLog since start"
-    initial: 0
-    step: 1
-    restore: false
-    icon: mdi:alert-outline
-
-#################################################################
-#                                                               #
 #                          Automations                          #
 #                                                               #
 #################################################################
@@ -42,20 +21,6 @@ automation:
       - service: homeassistant.update_entity
         entity_id: binary_sensor.updater
 
-  - id: "c2f9d980-82df-4fc7-af59-fc5594a1d039"
-    alias: "System: Host updates not installed"
-    description: "Home Assistant will check the parent host to determine if updates have been applied"
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.system_updates
-        above: 0
-        for: "24:00:00"
-    action:
-      - service: script.post_to_home_log
-        data:
-          title: "Server Updates"
-          message: "Warning - Mufasa can be updated, but unattended upgrades has not run"
-
   ## Notify if we're running out of disk space on the main home-assistant server.
   - alias: "System: Disk Use Alarm"
     initial_state: "on"
@@ -69,70 +34,17 @@ automation:
           title: "HA HASSIO Server"
           message: "Warning - HA Server Disk Use is {{states.sensor.disk_use.state}}Gb"
 
-  ## Notify of High CPU Usage
-  - alias: "System: CPU Use Alarm"
-    initial_state: "on"
-    trigger:
-      platform: numeric_state
-      entity_id: sensor.processor_use
-      above: 85
-      for: "00:01:00"
-    action:
-      - service: notify.admins
-        data:
-          title: "HA HASSIO Server"
-          message: "Warning - HA Server Processor {{states.sensor.processor_use.state}}%"
-
-  ## Notify if CPU Temperature is High
-  - alias: "System: CPU Temp Alarm"
-    initial_state: "on"
-    trigger:
-      platform: numeric_state
-      entity_id: sensor.cpu_temperature
-      above: 85
-    action:
-      - service: notify.admins
-        data:
-          title: "HA HASSIO Server"
-          message: "Warning - HA Server CPU Temp is {{states.sensor.cpu_temperature.state}}c"
-
-  - alias: "System: ERRORs in System Log - Counter"
-    id: 3b8230a5-49d5-437b-8bd9-d3f72f95425f
-    trigger:
-      platform: event
-      event_type: system_log_event
-      event_data:
-        level: ERROR
-    mode: parallel
-    max: 50
-    action:
-      - service: counter.increment
-        entity_id: counter.syslog_errors
-
-  - alias: "System: WARNINGs in System Log - Counter"
-    id: acdf3489-b611-445c-bd24-2efc9c431124
-    trigger:
-      platform: event
-      event_type: system_log_event
-      event_data:
-        level: WARNING
-    mode: parallel
-    max: 50
-    action:
-      - service: counter.increment
-        entity_id: counter.syslog_warnings
-
 utility_meter:
   wan_in_monthly:
     source: sensor.internet_gb_downloaded
     cycle: monthly
 
   wan_in_daily:
-    source: sensor.internet_gb_uploaded
+    source: sensor.internet_gb_downloaded
     cycle: daily
 
   wan_out_monthly:
-    source: sensor.internet_gb_downloaded
+    source: sensor.internet_gb_uploaded
     cycle: monthly
 
   wan_out_daily:

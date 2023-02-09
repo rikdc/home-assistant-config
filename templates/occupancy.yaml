@@ -68,12 +68,36 @@
         sun: "{{ states('sun.sun') }}"
       state: "{{ (states('sensor.multisensor_bedroom1_illuminance') | int(0) > states('input_number.area_bedroom_lux_level') | int(0)) and (is_state('sun.sun', 'above_horizon') or is_state('light.bedroom1', 'off')) }}"
 
+    - unique_id: area_kitchen1_bright
+      name: "Area - Kitchen1 Bright"
+      device_class: light
+      attributes:
+        current_illuminance: "{{ (states('sensor.motion_illuminance') | float(0)) }}"
+        light_state: "{{ states('light.kitchen1_lights') }}"
+        sun: "{{ states('sun.sun') }}"
+      state: "{{ (states('sensor.motion_illuminance') | int(0) > states('input_number.area_backroom_lux_level') | int(0)) and (is_state('sun.sun', 'above_horizon') or is_state('light.kitchen1_lights', 'off')) }}"
+
+    - unique_id: area_backroom_bright
+      name: "Area - Backroom Bright"
+      device_class: light
+      attributes:
+        current_illuminance: "{{ (states('sensor.motion_illuminance') | float(0)) }}"
+        light_state: "{{ states('light.backroom_lights') }}"
+        sun: "{{ states('sun.sun') }}"
+      state: "{{ (states('sensor.motion_illuminance') | int(0) > states('input_number.area_backroom_lux_level') | int(0)) and (is_state('sun.sun', 'above_horizon') or is_state('light.backroom_lights', 'off')) }}"
+
 - sensor:
     - unique_id: area_bathroom_probability
       name: Area - Bathroom Probability
       state_class: measurement
       unit_of_measurement: "%"
       state: "{{ (state_attr('binary_sensor.area_bathroom_occupied','probability')*100 | int) | round(0) }}"
+
+    - unique_id: area_frontroom_probability
+      name: Area - Frontroom Probability
+      state_class: measurement
+      unit_of_measurement: "%"
+      state: "{{ (state_attr('binary_sensor.area_livingroom_occupied','probability')*100 | int) | round(0) }}"
 
     - unique_id: area_kitchen1_probability
       name: Area - Kitchen1 Probability

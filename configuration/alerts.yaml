@@ -6,10 +6,10 @@ alert:
     state: "off"
     repeat: 30
     notifiers:
-      - home_automation
+      - admins
 
   basement_mold_warning:
-    name: "Basement mould risk is high"
+    name: "Basement mold risk is high"
     done_message: Basement mold risk is normal
     entity_id: binary_sensor.basement_mold_status
     repeat: 30

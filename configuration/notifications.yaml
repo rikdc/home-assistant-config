@@ -31,27 +31,12 @@ notify:
       - service: !secret person2_mobile
       - service: !secret person3_mobile
 
-  - name: android
-    platform: group
-    services:
-      - service: !secret person1_mobile
-
   - name: iphone
     platform: group
     services:
+      - service: !secret person1_mobile
       - service: !secret person2_mobile
       - service: !secret person3_mobile
-
-  - name: home_automation
-    platform: group
-    services:
-      - service: !secret person2_mobile
-        data:
-          title: "Enable Home automation?"
-          data:
-            push:
-              badge: 0
-              category: "home_automation"
 
   - name: admins
     platform: group
