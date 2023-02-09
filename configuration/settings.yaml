@@ -49,7 +49,25 @@ input_number:
     min: 1
     max: 1440
 
-  area_bedroom_lux_level1:
+  area_bedroom_lux_level:
+    initial: 30
+    step: 1
+    min: 0
+    max: 100
+
+  area_backroom_lux_level:
+    initial: 30
+    step: 1
+    min: 0
+    max: 100
+
+  area_kitchen_lux_level:
+    initial: 30
+    step: 1
+    min: 0
+    max: 100
+
+  area_bathroom_lux_level:
     initial: 30
     step: 1
     min: 0
