@@ -12,20 +12,10 @@
       data:
         entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
         option: "Just Left"
-    - service: tts.cloud_say
-      data:
-        entity_id: media_player.multi_room_controller
-        message: >
-          {{ trigger.entity_id[7:] }} has just left.
     - delay:
         minutes: 1
     - service: input_select.select_option
       data:
         entity_id: "{{ 'input_select.' + trigger.entity_id[7:] + '_location' }}"
         option: "Away"
-    - service: tts.cloud_say
-      data:
-        entity_id: media_player.multi_room_controller
-        message: >
-          {{ trigger.entity_id[7:] }} is now away.
   mode: parallel
