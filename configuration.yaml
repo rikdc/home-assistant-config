@@ -28,16 +28,6 @@ frontend:
 
 readme:
 
-lovelace:
-  mode: storage
-  dashboards:
-    lovelace-yaml:
-      mode: yaml
-      title: Home
-      icon: mdi:home
-      show_in_sidebar: true
-      filename: lovelace/dashboard.yaml
-
 scene: !include scenes.yaml
 automation ui: !include automations.yaml
 automation manual: !include_dir_merge_list automation/
