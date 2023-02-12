@@ -5,3 +5,9 @@ household:
     - person.richard
     - person.stefanie
     - person.jenn
+
+area_kitchen_motion:
+  name: Area - Kitchen Motion
+  icon: mdi:motion-sensor
+  entities:
+    - binary_sensor.multisensor_kitchen1_motion

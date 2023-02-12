@@ -4,7 +4,7 @@
   use_blueprint:
     path: freakshock88/motion_illuminance_activated_entity.yaml
     input:
-      motion_sensor: binary_sensor.motion_living_room_home_security_motion_detection
+      motion_sensor: binary_sensor.backroom_motion
       target_entity: light.backroom
       no_motion_wait: input_number.unit1_frontroom_lights_off_duration
       blocker_entity: binary_sensor.disable_backroom_motion_lights

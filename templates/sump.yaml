@@ -1,7 +1,7 @@
 - binary_sensor:
     - name: "Main Pump Status"
       state: >
-        {{ states('sensor.shelly1pm_example')|float > 100 }}
+        {{ states('sensor.shelly1pm_example')|float(0) > 100 }}
 
     - name: "Sump Pump Problem"
       state: "{{ states('sensor.main_pump_3day_cycles')| int < 5 }}"

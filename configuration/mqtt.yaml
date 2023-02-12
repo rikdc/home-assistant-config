@@ -1,0 +1,18 @@
+mqtt:
+  sensor:
+    - name: MQTT Messages
+      state_topic: "$SYS/broker/messages/received"
+
+    - name: MQTT Clients
+      state_topic: "$SYS/broker/clients/total"
+
+    - name: MQTT Subscriber Count
+      state_topic: "$SYS/broker/subscriptions/count"
+
+    - name: MQTT Retained Message Count
+      state_topic: "$SYS/broker/retained messages/count"
+
+    - state_topic: "shellies/shelly1pm-765D8E/relay/0/power"
+      name: "Shelly1PM-example"
+      unique_id: "shelly_1pm_example"
+      unit_of_measurement: W
