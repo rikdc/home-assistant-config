@@ -4,8 +4,8 @@
   trigger:
     - platform: state
       entity_id: binary_sensor.main_entrance_access_control_window_door_is_open
-      to: "on"
       from: "off"
+      to: "on"
       for: 00:00:20
   condition:
     - condition: numeric_state
