@@ -1,14 +1,3 @@
-- platform: workday
-  name: Workday Today
-  country: !secret country
-  province: !secret province
-
-- platform: workday
-  name: Workday Tomorrow
-  country: !secret country
-  province: !secret province
-  days_offset: 1
-
 - platform: tod
   name: evening
   after: sunset
