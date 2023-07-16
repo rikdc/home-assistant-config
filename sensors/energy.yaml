@@ -7,3 +7,8 @@
   entity_id: light.ceiling
   fixed:
     power: 36
+
+- platform: powercalc
+  entity_id: light.diningroom_ceiling
+  fixed:
+    power: 18

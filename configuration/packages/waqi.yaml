@@ -1,8 +1,8 @@
-############################################################
-##                                                        ##
-##                  Environmental Health                  ##
-##                                                        ##
-############################################################
+# ############################################################
+# ##                                                        ##
+# ##                  Environmental Health                  ##
+# ##                                                        ##
+# ############################################################
 
 sensor:
   - platform: waqi
@@ -17,179 +17,179 @@ group:
       - !secret waqi_primary_sensor
       - !secret waqi_secondary_sensor
 
-template:
-  - trigger:
-      - platform: homeassistant
-        event: start
-      - platform: time_pattern
-        hours: 0
-        minutes: 15
-    sensor:
-      - name: "AQI Stations"
-        icon: mdi:radar
-        state: >-
-          {% set attribute = 'name' %}
-          {% set max_hours_behind = 4 %}
-          {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
-          {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
-                                  | rejectattr('attributes.time', 'lt', cutoff)
-                                  | selectattr(attribute)
-                                  | map(attribute=attribute)
-                                  | join('|') %}
-          {% if stations %}
-            {{ stations }}
-          {% endif %}
+# template:
+#   - trigger:
+#       - platform: homeassistant
+#         event: start
+#       - platform: time_pattern
+#         hours: 0
+#         minutes: 15
+#     sensor:
+#       - name: "AQI Stations"
+#         icon: mdi:radar
+#         state: >-
+#           {% set attribute = 'name' %}
+#           {% set max_hours_behind = 4 %}
+#           {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
+#           {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
+#                                   | rejectattr('attributes.time', 'lt', cutoff)
+#                                   | selectattr(attribute)
+#                                   | map(attribute=attribute)
+#                                   | join('|') %}
+#           {% if stations %}
+#             {{ stations }}
+#           {% endif %}
 
-  - sensor:
-      - name: "AQI Stations Count"
-        icon: mdi:radar
-        state: >-
-          {% set stations = states('sensor.aqi_stations') %}
-          {% if stations != '' %}
-            {{ stations.split('|') | length }}
-          {% else %}
-            0
-          {% endif %}
+#   - sensor:
+#       - name: "AQI Stations Count"
+#         icon: mdi:radar
+#         state: >-
+#           {% set stations = states('sensor.aqi_stations') %}
+#           {% if stations != '' %}
+#             {{ stations.split('|') | length }}
+#           {% else %}
+#             0
+#           {% endif %}
 
-  - trigger:
-      - platform: homeassistant
-        event: start
-      - platform: time_pattern
-        hours: 0
-        minutes: 15
-    sensor:
-      - name: "Weather Outside Humidity"
-        state: >-
-          {% set attribute = 'attributes.humidity' %}
-          {% set max_hours_behind = 4 %}
-          {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
-          {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
-                                  | rejectattr('attributes.time', 'lt', cutoff)
-                                  | selectattr(attribute)
-                                  | map(attribute=attribute)
-                                  | map('float')
-                                  | list %}
-          {% if stations %}
-            {{ (stations|sum / stations|length) | round }}
-          {% else %}
-            unknown
-          {% endif %}
+#   - trigger:
+#       - platform: homeassistant
+#         event: start
+#       - platform: time_pattern
+#         hours: 0
+#         minutes: 15
+#     sensor:
+#       - name: "Weather Outside Humidity"
+#         state: >-
+#           {% set attribute = 'attributes.humidity' %}
+#           {% set max_hours_behind = 4 %}
+#           {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
+#           {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
+#                                   | rejectattr('attributes.time', 'lt', cutoff)
+#                                   | selectattr(attribute)
+#                                   | map(attribute=attribute)
+#                                   | map('float')
+#                                   | list %}
+#           {% if stations %}
+#             {{ (stations|sum / stations|length) | round }}
+#           {% else %}
+#             unknown
+#           {% endif %}
 
-      - name: "AQI"
-        icon: mdi:chemical-weapon
-        state: >-
-          {% set attribute = 'state' %}
-          {% set max_hours_behind = 4 %}
-          {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
-          {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
-                                  | rejectattr('attributes.time', 'lt', cutoff)
-                                  | selectattr(attribute)
-                                  | map(attribute=attribute)
-                                  | map('float')
-                                  | list %}
-          {% if stations %}
-            {{ (stations|sum / stations|length) | round }}
-          {% else %}
-            unknown
-          {% endif %}
+#       - name: "AQI"
+#         icon: mdi:chemical-weapon
+#         state: >-
+#           {% set attribute = 'state' %}
+#           {% set max_hours_behind = 4 %}
+#           {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
+#           {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
+#                                   | rejectattr('attributes.time', 'lt', cutoff)
+#                                   | selectattr(attribute)
+#                                   | map(attribute=attribute)
+#                                   | map('float')
+#                                   | list %}
+#           {% if stations %}
+#             {{ (stations|sum / stations|length) | round }}
+#           {% else %}
+#             unknown
+#           {% endif %}
 
-        attributes:
-          state_label: >-
-            {% set index = states('sensor.aqi') | float(-1) %}
-            {% if index > 300 %}
-              Hazardous
-            {% elif index > 200 %}
-              Very Bad
-            {% elif index > 150 %}
-              Bed
-            {% elif index > 100 %}
-              Mauvais pour les personnes sensibles
-            {% elif index > 50 %}
-              Moderate
-            {% elif index >= 0 %}
-              Good
-            {% else %}
-              unknown
-            {% endif %}
-          humidity: >-
-            {% set attribute = 'attributes.humidity' %}
-            {% set max_hours_behind = 4 %}
-            {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
-            {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
-                                    | rejectattr('attributes.time', 'lt', cutoff)
-                                    | selectattr(attribute)
-                                    | map(attribute=attribute)
-                                    | map('float')
-                                    | list %}
-            {% if stations %}
-              {{ (stations|sum / stations|length) | round }}
-            {% else %}
-              unknown
-            {% endif %}
+#         attributes:
+#           state_label: >-
+#             {% set index = states('sensor.aqi') | float(-1) %}
+#             {% if index > 300 %}
+#               Hazardous
+#             {% elif index > 200 %}
+#               Very Bad
+#             {% elif index > 150 %}
+#               Bed
+#             {% elif index > 100 %}
+#               Mauvais pour les personnes sensibles
+#             {% elif index > 50 %}
+#               Moderate
+#             {% elif index >= 0 %}
+#               Good
+#             {% else %}
+#               unknown
+#             {% endif %}
+#           humidity: >-
+#             {% set attribute = 'attributes.humidity' %}
+#             {% set max_hours_behind = 4 %}
+#             {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
+#             {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
+#                                     | rejectattr('attributes.time', 'lt', cutoff)
+#                                     | selectattr(attribute)
+#                                     | map(attribute=attribute)
+#                                     | map('float')
+#                                     | list %}
+#             {% if stations %}
+#               {{ (stations|sum / stations|length) | round }}
+#             {% else %}
+#               unknown
+#             {% endif %}
 
-          particles: >-
-            {% set attribute = 'attributes.pm_2_5' %}
-            {% set max_hours_behind = 4 %}
-            {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
-            {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
-                                    | rejectattr('attributes.time', 'lt', cutoff)
-                                    | selectattr(attribute)
-                                    | map(attribute=attribute)
-                                    | map('float')
-                                    | list %}
-            {% if stations %}
-              {{ (stations|sum / stations|length) | round }}
-            {% else %}
-              unknown
-            {% endif %}
+#           particles: >-
+#             {% set attribute = 'attributes.pm_2_5' %}
+#             {% set max_hours_behind = 4 %}
+#             {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
+#             {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
+#                                     | rejectattr('attributes.time', 'lt', cutoff)
+#                                     | selectattr(attribute)
+#                                     | map(attribute=attribute)
+#                                     | map('float')
+#                                     | list %}
+#             {% if stations %}
+#               {{ (stations|sum / stations|length) | round }}
+#             {% else %}
+#               unknown
+#             {% endif %}
 
-          particles_friendly: >-
-            {% set pm25 = state_attr('sensor.aqi', 'particles') | int(-1) %}
-            {% if pm25 > 300 %}
-              Hazardous
-            {% elif pm25 > 200 %}
-              Very Bad
-            {% elif pm25 > 150 %}
-              Bad
-            {% elif pm25 > 100 %}
-              Bad for sensitive people
-            {% elif pm25 > 50 %}
-              Bad for sensitive people
-            {% elif pm25 >= 0 %}
-              Good
-            {% else %}
-              unknown
-            {% endif %}
+#           particles_friendly: >-
+#             {% set pm25 = state_attr('sensor.aqi', 'particles') | int(-1) %}
+#             {% if pm25 > 300 %}
+#               Hazardous
+#             {% elif pm25 > 200 %}
+#               Very Bad
+#             {% elif pm25 > 150 %}
+#               Bad
+#             {% elif pm25 > 100 %}
+#               Bad for sensitive people
+#             {% elif pm25 > 50 %}
+#               Bad for sensitive people
+#             {% elif pm25 >= 0 %}
+#               Good
+#             {% else %}
+#               unknown
+#             {% endif %}
 
-          nitrogen_dioxide: >-
-            {% set attribute = 'attributes.nitrogen_dioxide' %}
-            {% set max_hours_behind = 4 %}
-            {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
-            {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
-                                    | rejectattr('attributes.time', 'lt', cutoff)
-                                    | selectattr(attribute)
-                                    | map(attribute=attribute)
-                                    | map('float')
-                                    | list %}
-            {% if stations %}
-              {{ (stations|sum / stations|length) | round }}
-            {% else %}
-              unknown
-            {% endif %}
-          nitrogen_dioxide_friendly: >-
-            {% set nox = state_attr('sensor.aqi', 'nitrogen_dioxide') | int(-1) %}
-            {% if nox > 300 %}
-              unknown
-            {% elif nox > 200 %}
-              Very Bad
-            {% elif nox > 150 %}
-              Moderate
-            {% elif nox > 100 %}
-              Bad for sensitive people
-            {% elif nox > 50 %}
-              Modéré
-            {% elif nox >= 0 %}
-              Good
-            {% else %}
-              unknown
-            {% endif %}
+#           nitrogen_dioxide: >-
+#             {% set attribute = 'attributes.nitrogen_dioxide' %}
+#             {% set max_hours_behind = 4 %}
+#             {% set cutoff = (as_timestamp(now())|int - max_hours_behind * 60 * 60) | timestamp_local %}
+#             {% set stations = states | selectattr('entity_id', 'in', state_attr('group.waqi', 'entity_id'))
+#                                     | rejectattr('attributes.time', 'lt', cutoff)
+#                                     | selectattr(attribute)
+#                                     | map(attribute=attribute)
+#                                     | map('float')
+#                                     | list %}
+#             {% if stations %}
+#               {{ (stations|sum / stations|length) | round }}
+#             {% else %}
+#               unknown
+#             {% endif %}
+#           nitrogen_dioxide_friendly: >-
+#             {% set nox = state_attr('sensor.aqi', 'nitrogen_dioxide') | int(-1) %}
+#             {% if nox > 300 %}
+#               unknown
+#             {% elif nox > 200 %}
+#               Very Bad
+#             {% elif nox > 150 %}
+#               Moderate
+#             {% elif nox > 100 %}
+#               Bad for sensitive people
+#             {% elif nox > 50 %}
+#               Modéré
+#             {% elif nox >= 0 %}
+#               Good
+#             {% else %}
+#               unknown
+#             {% endif %}
