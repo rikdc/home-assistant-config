@@ -1,0 +1,60 @@
+counter:
+  back_door_open_close:
+    initial: 0
+    step: 1
+
+automation:
+  - id: " efd76bd1-3e30-46ff-bd19-0c868123cbe8 "
+    alias: "Doors: Back Door Opened Once For More than 20 seconds"
+    description: ""
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.main_entrance_access_control_window_door_is_open
+        to: "on"
+        from: "off"
+        for: 00:00:20
+    condition:
+      - condition: numeric_state
+        entity_id: counter.back_door_open_close
+        below: "2"
+    action:
+      - parallel:
+        - service: script.post_to_home_log
+          data:
+            message:
+              ':door: :abacus: Back door has been opened for more than 20 secs.'
+        - service: counter.increment
+          data: {}
+          entity_id: counter.back_door_open_close
+
+  - id: " 98789ac4-8823-467d-8596-da9a38b19bf3"
+    alias: "Doors: Back Door Closed For More than 20 seconds"
+    description: ""
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.main_entrance_access_control_window_door_is_open
+        to: "off"
+        from: "on"
+        for: 00:00:20
+    condition: []
+    action:
+      - parallel:
+        - service: script.post_to_home_log
+          data:
+            message: "Back door has been closed for more than 20 seconds."
+            title: Back Door
+        - service: counter.reset
+          target:
+            entity_id: counter.back_door_open_close
+    mode: single
+
+  - id: "75dce218-5e1f-40bd-b185-f3e0a82f7422"
+    alias: "Lights: Motion Mudroom"
+    description: ""
+    use_blueprint:
+      path: freakshock88/motion_illuminance_activated_entity.yaml
+      input:
+        motion_sensor: binary_sensor.unit_1_mudroom_motion
+        target_entity: light.switches_mudroom
+        illuminance_sensor: sensor.unit_1_mudroom_illuminance
+        no_motion_wait: input_number.unit1_entryway_lights_off_duration

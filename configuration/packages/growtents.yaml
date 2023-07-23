@@ -1,13 +1,3 @@
-plant:
-  snakeplant_albus:
-    sensors:
-      moisture: sensor.soil_moisture_level
-      # battery: sensor.my_sensor_battery
-      temperature: sensor.my_sensor_temperature
-      # conductivity: sensor.my_sensor_conductivity
-      brightness: sensor.q_sensor_illuminance
-    min_moisture: 20
-
 # Growtent Light Groups
 group:
   growlights1:
@@ -21,8 +11,7 @@ group:
   growlights2:
     name: Growlights Tent 2
     entities:
-      - switch.switch1
-      - switch.switch3
+      - switch.growtent2_lights
 
 input_select:
   growtent1_growschedule:
@@ -63,10 +52,71 @@ input_datetime:
     has_date: false
     has_time: true
 
-automation:
-  # - alias: "Growschedule Changed"
-  #   description: "Set datetimes when the grow schedule updates"
+  growtent3_start_date:
+    has_date: true
+    has_time: false
 
+###############
+### Sensors
+###############
+
+# sensor:
+# https://community.home-assistant.io/t/calculating-vapor-pressure-deficit-or-vpd-in-kpa/162582/17
+#Here is my code that uses a slider for Leaf Temperature Offset, calculates vpsat (leaf VP) and vpair (air VP) and finds the difference b/w the two.
+#   - platform: template
+#       sensors:
+#         vpsat:
+#           friendly_name: "Leaf Vapor Pressure"
+#           value_template: >-
+#             {% set FT = states('sensor.tempavg')|float %}
+#             {% set FLTO = states('input_number.flower_leaf_temp_offset')|float %}
+#             {% set FLT = FT - FLTO %}
+#             {% set VPDF = (610.7 * 10 ** ((7.5*FLT)/(237.3+FLT)) / 1000) %}
+#             {{-VPDF | round(2) -}}
+#           unit_of_measurement: "kPa"
+
+#         vpair:
+#           friendly_name: "Air Vapor Pressure"
+#           value_template: >-
+#             {% set FAT = states('sensor.tempavg')|float %}
+#             {% set FARH = states('sensor.humidityavg')|float %}
+#             {% set ASVPF = (610.7 * 10 ** ((7.5*FAT)/(237.3+FAT)) / 1000) %}
+#             {% set AVPDF = ((FARH) / 100) * ASVPF) %}
+#             {{-AVPDF | round(2) -}}
+#           unit_of_measurement: "kPa"
+
+#         vpdcalc:
+#           friendly_name: "VPD"
+#             unit_of_measurement: 'kPa'
+#             value_template: "{{ float(states('sensor.vpsat')) - float(states('sensor.vpair')) }}"
+
+# sensor:
+#  - platform: template
+#    sensors:
+#     vapor_deficit:
+#      friendly_name: "vpd em kPa"
+#      value_template: >-
+#        {% set T = state_attr('switch.sonoff_1000xxxx', 'temperature')|float %}
+#        {% set RH = state_attr('switch.sonoff_1000xxxx', 'humidity')|float %}
+#        {% set SVP = 0.61078 * e ** (17.2694 * T / (T + 238.3)) %}
+#        {% set VPD = ((100-RH) / 100) * SVP %}
+#        {{-VPD | round(2) -}}
+#      unit_of_measurement: 'kPa'
+
+#  - platform: template
+#   sensors:
+#     scd30_abs_luftfeuchtigkeit: # Absolute Humidity
+#       value_template: >-
+#         {% set r = states('sensor.scd30_rel_luftfeuchtigkeit') | float(default=0) %}
+#         {% set t = states('sensor.scd30_temperatur') | float(default=0) %}
+#         {% set p = states('sensor.openweathermap_pressure') | float(default=0) %}
+#         {% set sdd =  6.1078 * 10**((7.5 * t)/(237.3 + t)) | float(default=0) %}
+#         {% set dd =  r/100 * sdd | float(default=0) %}
+#         {% set af = 10**5 * 18.016/8314.3 * dd/ (t + 273.15) | float(default=0) %}
+#         {{round(af , 2)}}
+#       unit_of_measurement: "%"
+
+automation:
   - alias: "Growtent: Tent2 Lights On"
     description: "Control lights depending on the selected schedule"
     trigger:
@@ -93,8 +143,8 @@ automation:
           message: "Growtent2 - Lighs are off!"
     mode: single
 
-  - alias: Growlight Cycle On
-    description: "Turn on Growlights"
+  - alias: "Growtent: Tent1 Lights On"
+    description: "Control lights depending on the selected schedule"
     trigger:
       - platform: time
         at: input_datetime.growtent1_lights_on
@@ -111,8 +161,8 @@ automation:
           message: "Growtent1 - Lighs are on!"
     mode: single
 
-  - alias: Growlight Cycle Off
-    description: "Turn of Growlights"
+  - alias: "Growtent: Tent1 Lights Off"
+    description: "Control lights depending on the selected schedule"
     trigger:
       - platform: time
         at: "19:00:00"
@@ -122,9 +172,7 @@ automation:
         entity_id: switch.growlight3
       - service: switch.turn_off
         entity_id: switch.growlight2
-      - service: swtich.turn_off
-        entity_id: switch.extractorfan
       - service: script.post_to_home_log
         data:
-          message: "Growtent2 - Lighs are off!"
+          message: "Growtent1 - Lighs are off!"
     mode: single

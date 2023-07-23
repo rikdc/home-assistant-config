@@ -31,13 +31,6 @@ notify:
       - service: !secret person2_mobile
       - service: !secret person3_mobile
 
-  - name: iphone
-    platform: group
-    services:
-      - service: !secret person1_mobile
-      - service: !secret person2_mobile
-      - service: !secret person3_mobile
-
   - name: admins
     platform: group
     services:
